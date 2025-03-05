@@ -24,6 +24,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 <img src="images/nano-233.png" width="200px">
 
 [[github](https://github.com/Nano-233)]
+[[portfolio](team/harbour.md)]
 
 * Role: Team Lead
 * Responsibilities: UI
