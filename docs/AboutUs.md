@@ -38,22 +38,22 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities: Data
 
-### Jean Doe
+### Eliza Cajetas
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/elizazaa.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/elizazaa)]
+[[portfolio](team/eliza.md)]
 
 * Role: Developer
 * Responsibilities: Dev Ops + Threading
 
-### James Doe
+### Sulaksha Muthukrishnan
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/crmlatte.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/crmlatte)]
+[[portfolio](team/crmlatte.md)]
 
 * Role: Developer
 * Responsibilities: UI
