@@ -320,6 +320,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
 2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+4.  Should retrieve and display a student's details within 2 seconds.
+5.  Should store student data in a secure, local database.
+6.  System should have a simple UI that requires no more than 5 minutes of onboarding for a new TA.
+7.  Should allow future expansion to handle more student attributes (e.g. assignment scores, additional contact details).
+8.  Must not crash when handling unexpected input.
+9.  Needs at least 80% test coverage to ensure usability.
+10. Must be able to run offline without internet connection.
 
 *{More to be added}*
 
