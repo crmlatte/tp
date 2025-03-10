@@ -296,12 +296,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | forgetful CS TA   | set a reminder for a student tasks                 | remember to follow up                         |
 | `* *`    | forgetful CS TA   | schedule notification for assignment deadline      | remember to check submissions                 |
 | `* *`    | forgetful CS TA   | add notes to a student                             | take down important information               |
+| `* *`    | experienced CS TA | perform actions using keyboard commands            | work faster without a mouse                   |
+| `* *`    | CS TA             | add milestone achievements for students            | recognise their progress                      |
 | `*`      | CS TA             | switch between different semester views            | reference past students easily                |
 | `*`      | CS TA             | see all pending reminders in one view              | ensure I dont miss any reminders              |
 | `*`      | CS TA             | pin a student's contact details                    | find frequently contacted students easily     |
 | `*`      | CS TA             | store multiple Github repositories per student     | access all of a student's work at once        |
-| `*`      | experienced CS TA | perform actions using keyboard commands            | work faster without a mouse                   |
-| `*`      | CS TA             | add milestone achievements for students            | recognise their progress                      |
 
 *{More to be added}*
 
