@@ -327,6 +327,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 8.  Must not crash when handling unexpected input.
 9.  Needs at least 80% test coverage to ensure usability.
 10. Must be able to run offline without internet connection.
+11. Must have a portable .jar file that can be run without installation.
+12. Should use a well-documented API for future improvements.
+13. Should support easy integration with other university tools (e.g. Canvas)
+14. Should not store any passwords such as Github passwords of student accounts
+15. Search function should return results in 1 second for queries on student names, Github, or tags
 
 *{More to be added}*
 
