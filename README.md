@@ -9,7 +9,7 @@ A Teaching Assistant Management Tool
 
 ## **Overview** 💡
 TAssist is a desktop application designed for university tutors and teaching assistants (TAs) to efficiently 
-manage students, track progress, and organize tutorial groups.
+manage students, track progress, and assign students to project teams or classes.
 
 The application is built for users who prefer keyboard-driven interactions, ensuring fast and efficient student 
 management.
@@ -22,7 +22,7 @@ while maintaining usability.
 ### **🤓 Student Management**   
 - **View a list of students** – Quickly browse all students.
 - **Add, edit, or delete student details** – Manage contact details easily.
-- **Store multiple GitHub repositories per student** – Quickly access project repositories.
+- **Store multiple GitHub repositories per student** – Store github accounts and repositories for each student.
 
 ### **🖊️ Progress Tracking**
 - **Assign progress levels to students** – Track learning outcomes.
@@ -41,13 +41,13 @@ while maintaining usability.
 - **Take notes for individual students** – Keep track of personal progress.
 
 ### **⚡ Keyboard-Optimized Workflow**
-- **Switch between semester views** – Easily reference past students.
+- **Switch between semester views** – View previous students without cluttering the current list.
 - **Perform actions via keyboard shortcuts** – Work faster without a mouse.
 
 ## **Installation & Setup**
 
 ### **System Requirements**
-- **Java 11 or later**
+- **Java 17 or later**
 - Windows, macOS, or Linux
 
 ### **Installation Steps**
