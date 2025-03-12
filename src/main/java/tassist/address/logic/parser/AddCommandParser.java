@@ -14,6 +14,7 @@ import tassist.address.logic.commands.AddCommand;
 import tassist.address.logic.parser.exceptions.ParseException;
 import tassist.address.model.person.Address;
 import tassist.address.model.person.Email;
+import tassist.address.model.person.Github;
 import tassist.address.model.person.Name;
 import tassist.address.model.person.Person;
 import tassist.address.model.person.Phone;
@@ -43,9 +44,10 @@ public class AddCommandParser implements Parser<AddCommand> {
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+        Github github = new Github("https://github.com/default");
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Person person = new Person(name, phone, email, address, tagList);
+        Person person = new Person(name, phone, email, address, github, tagList);
 
         return new AddCommand(person);
     }

@@ -15,8 +15,8 @@ import tassist.address.logic.commands.DeleteCommand;
 import tassist.address.logic.commands.EditCommand;
 import tassist.address.logic.commands.ExitCommand;
 import tassist.address.logic.commands.FindCommand;
-import tassist.address.logic.commands.HelpCommand;
 import tassist.address.logic.commands.GithubCommand;
+import tassist.address.logic.commands.HelpCommand;
 import tassist.address.logic.commands.ListCommand;
 import tassist.address.logic.parser.exceptions.ParseException;
 
@@ -79,7 +79,7 @@ public class AddressBookParser {
             return new HelpCommand();
 
         case GithubCommand.COMMAND_WORD:
-            return new GithubCommand();
+            return new GithubCommandParser().parse(arguments);
 
 
         default:

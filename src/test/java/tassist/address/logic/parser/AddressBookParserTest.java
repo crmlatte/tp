@@ -20,7 +20,6 @@ import tassist.address.logic.commands.EditCommand;
 import tassist.address.logic.commands.EditCommand.EditPersonDescriptor;
 import tassist.address.logic.commands.ExitCommand;
 import tassist.address.logic.commands.FindCommand;
-import tassist.address.logic.commands.GithubCommand;
 import tassist.address.logic.commands.HelpCommand;
 import tassist.address.logic.commands.ListCommand;
 import tassist.address.logic.parser.exceptions.ParseException;
@@ -98,10 +97,5 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_unknownCommand_throwsParseException() {
         assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
-    }
-
-    @Test
-    public void parseCommand_github() throws Exception {
-        assertTrue(parser.parseCommand(GithubCommand.COMMAND_WORD) instanceof GithubCommand);
     }
 }

@@ -1,9 +1,15 @@
 package tassist.address.logic.commands;
 
+import static tassist.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+
+import java.util.List;
+
+import tassist.address.commons.core.index.Index;
+import tassist.address.logic.Messages;
 import tassist.address.logic.commands.exceptions.CommandException;
 import tassist.address.model.Model;
 import tassist.address.model.person.Github;
-import tassist.address.model.person.StudentId;
+import tassist.address.model.person.Person;
 
 /**
  * Changes the github of an existing person in the address book.
@@ -20,19 +26,48 @@ public class GithubCommand extends Command {
             + "Example: " + COMMAND_WORD + " A1234567X "
             + "g/https://github.com/tammzz";
 
-    public static final String MESSAGE_ARGUMENTS = "Student id: %1$d, Github: %2$s";
-    private final StudentId studentId;
+    public static final String MESSAGE_ARGUMENTS = "Index: %1$d, Github: %2$s";
+    public static final String MESSAGE_ADD_GITHUB_SUCCESS = "Added github to Person: %1$s";
+    public static final String MESSAGE_DELETE_GITHUB_SUCCESS = "Removed github from Person: %1$s";
+    private final Index index;
     private final Github github;
 
-    public GithubCommand(StudentId studentId, Github github) {
-        this.studentId = studentId;
+    /**
+     * @param index of person
+     * @param github of the person to be updated to
+     */
+    public GithubCommand(Index index, Github github) {
+        this.index = index;
         this.github = github;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        throw new CommandException(
-                String.format(MESSAGE_ARGUMENTS, studentId, github));
+        List<Person> lastShownList = model.getFilteredPersonList();
+
+        if (index.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
+
+        Person personToEdit = lastShownList.get(index.getZeroBased());
+        Person editedPerson = new Person(
+                personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
+                personToEdit.getAddress(), github, personToEdit.getTags());
+
+        model.setPerson(personToEdit, editedPerson);
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
+        return new CommandResult(generateSuccessMessage(editedPerson));
+    }
+
+    /**
+     * Generates a command execution success message based on whether
+     * the github is added to or removed from
+     * {@code personToEdit}.
+     */
+    private String generateSuccessMessage(Person personToEdit) {
+        String message = !github.value.isEmpty() ? MESSAGE_ADD_GITHUB_SUCCESS : MESSAGE_DELETE_GITHUB_SUCCESS;
+        return String.format(message, Messages.format(personToEdit));
     }
 
     @Override
@@ -47,7 +82,7 @@ public class GithubCommand extends Command {
         }
 
         GithubCommand e = (GithubCommand) other;
-        return studentId.equals(e.studentId)
+        return index.equals(e.index)
                 && github.equals(e.github);
     }
 
