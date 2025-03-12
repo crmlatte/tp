@@ -21,7 +21,7 @@ public class GithubCommandParserTest {
         // have remark
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = targetIndex.getOneBased() + " " + PREFIX_GITHUB + nonEmptyGithub;
-        GithubCommand expectedCommand = new GithubCommand(INDEX_FIRST_PERSON,  new Github(nonEmptyGithub));
+        GithubCommand expectedCommand = new GithubCommand(INDEX_FIRST_PERSON, new Github(nonEmptyGithub));
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // no remark

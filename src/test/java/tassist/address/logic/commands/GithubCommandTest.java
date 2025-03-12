@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_GITHUB_AMY;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_GITHUB_BOB;
-import static tassist.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static tassist.address.logic.commands.GithubCommand.MESSAGE_ARGUMENTS;
 import static tassist.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static tassist.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static tassist.address.testutil.TypicalPersons.getTypicalAddressBook;
@@ -23,14 +21,6 @@ import tassist.address.model.person.Github;
 public class GithubCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-
-    @Test
-    public void execute() {
-        final Github github = new Github("Some github");
-
-        assertCommandFailure(new GithubCommand(INDEX_FIRST_PERSON, github), model,
-                String.format(MESSAGE_ARGUMENTS, INDEX_FIRST_PERSON.getOneBased(), github));
-    }
 
     @Test
     public void equals() {
