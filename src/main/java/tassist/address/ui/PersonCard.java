@@ -8,7 +8,6 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import tassist.address.model.person.Person;
-import tassist.address.model.person.StudentId;
 
 /**
  * An UI component that displays information of a {@code Person}.

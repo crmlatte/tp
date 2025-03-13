@@ -5,7 +5,6 @@ import static tassist.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static tassist.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
