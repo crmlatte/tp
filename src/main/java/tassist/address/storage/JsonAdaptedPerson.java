@@ -61,7 +61,7 @@ class JsonAdaptedPerson {
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
-        progress = String.valueOf(source.getProgress().getValue());
+        progress = String.valueOf(source.getProgress().value);
     }
 
     /**

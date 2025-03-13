@@ -7,6 +7,8 @@ import static tassist.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static tassist.address.logic.commands.CommandTestUtil.VALID_PROGRESS_AMY;
+import static tassist.address.logic.commands.CommandTestUtil.VALID_PROGRESS_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static tassist.address.testutil.Assert.assertThrows;
 import static tassist.address.testutil.TypicalPersons.ALICE;
@@ -34,7 +36,7 @@ public class PersonTest {
 
         // same name, all other attributes different -> returns true
         Person editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
-                .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
+                .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).withProgress(VALID_PROGRESS_BOB).build();
         assertTrue(ALICE.isSamePerson(editedAlice));
 
         // different name, all other attributes same -> returns false
@@ -88,12 +90,17 @@ public class PersonTest {
         // different tags -> returns false
         editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
         assertFalse(ALICE.equals(editedAlice));
+
+        // different progress -> returns false
+        editedAlice = new PersonBuilder(ALICE).withProgress(VALID_PROGRESS_BOB).build();
+        assertFalse(ALICE.equals(editedAlice));
     }
 
     @Test
     public void toStringMethod() {
         String expected = Person.class.getCanonicalName() + "{name=" + ALICE.getName() + ", phone=" + ALICE.getPhone()
-                + ", email=" + ALICE.getEmail() + ", address=" + ALICE.getAddress() + ", tags=" + ALICE.getTags() + "}";
+                + ", email=" + ALICE.getEmail() + ", address=" + ALICE.getAddress() + ", tags=" + ALICE.getTags()
+                + ", progress=" + ALICE.getProgress() + "}";
         assertEquals(expected, ALICE.toString());
     }
 }
