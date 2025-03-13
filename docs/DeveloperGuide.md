@@ -268,9 +268,9 @@ This product is for university CS Teaching Assistants who need to track and mana
 * Needs quick access to student GitHub accounts and repositories.
 * Often forgets which students require follow-ups.
 * Tutors multiple classes across different courses.
-* prefer desktop apps over other types
-* can type fast
-* is reasonably comfortable using CLI apps
+* Prefer desktop apps over other types
+* Can type fast
+* Is reasonably comfortable using CLI apps
 
 **Value proposition**:\
 Provides an easy way for CS Teaching Assistants to track and manage student details, including contact information, GitHub accounts, course progress, and project teams. Enables efficient organization and reduces administrative workload.
@@ -362,6 +362,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
 * **Private contact detail**: A contact detail that is not meant to be shared with others
+* **TA (Teaching Assistant/Tutor)**: A university staff member who assists in teaching, grading, 
+    and managing students in a course.
+* **CLI (Command Line Interface)**: A text-based interface that allows users to interact with the system 
+    using typed commands.
 
 --------------------------------------------------------------------------------------------------------------------
 
