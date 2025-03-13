@@ -10,11 +10,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import tassist.address.commons.exceptions.IllegalValueException;
+import tassist.address.logic.parser.exceptions.ParseException;
 import tassist.address.model.person.Address;
 import tassist.address.model.person.Email;
 import tassist.address.model.person.Name;
 import tassist.address.model.person.Person;
 import tassist.address.model.person.Phone;
+import tassist.address.model.person.Progress;
 import tassist.address.model.tag.Tag;
 
 /**
@@ -29,6 +31,7 @@ class JsonAdaptedPerson {
     private final String email;
     private final String address;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
+    private final String progress;
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
@@ -36,7 +39,7 @@ class JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("tags") List<JsonAdaptedTag> tags) {
+            @JsonProperty("tags") List<JsonAdaptedTag> tags, @JsonProperty("progress") String progress) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -44,6 +47,7 @@ class JsonAdaptedPerson {
         if (tags != null) {
             this.tags.addAll(tags);
         }
+        this.progress = progress;
     }
 
     /**
@@ -57,6 +61,7 @@ class JsonAdaptedPerson {
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+        progress = String.valueOf(source.getProgress().getValue());
     }
 
     /**
@@ -103,7 +108,18 @@ class JsonAdaptedPerson {
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags);
-    }
 
+        if (progress == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Progress.class.getSimpleName()));
+        }
+
+        int progress_value = Integer.parseInt(progress.trim());
+        if (!Progress.isValidProgress(progress_value)) {
+            throw new ParseException(Progress.MESSAGE_CONSTRAINTS);
+        }
+        final Progress modelProgress = new Progress(progress_value);
+
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelProgress);
+    }
 }
