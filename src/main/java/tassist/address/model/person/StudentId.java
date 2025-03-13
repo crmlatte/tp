@@ -9,12 +9,20 @@ public class StudentId {
 
     public final String value;
 
-    public StudentId(String email) {
-        requireNonNull(email);
-        checkArgument(isValidStudentId(email), MESSAGE_CONSTRAINTS);
-        value = email;
+    /**
+     * Constructs an {@code Address}.
+     *
+     * @param studentId A valid address.
+     */
+    public StudentId(String studentId) {
+        requireNonNull(studentId);
+        checkArgument(isValidStudentId(studentId), MESSAGE_CONSTRAINTS);
+        value = studentId;
     }
 
+    /**
+     * Returns if a given string is a valid studentId.
+     */
     public static boolean isValidStudentId(String test) {
         return true; //implementation to be done later
     }
