@@ -8,6 +8,7 @@ import tassist.address.model.person.Email;
 import tassist.address.model.person.Name;
 import tassist.address.model.person.Person;
 import tassist.address.model.person.Phone;
+import tassist.address.model.person.StudentId;
 import tassist.address.model.tag.Tag;
 import tassist.address.model.util.SampleDataUtil;
 
@@ -25,6 +26,8 @@ public class PersonBuilder {
     private Phone phone;
     private Email email;
     private Address address;
+
+    private StudentId studentId;
     private Set<Tag> tags;
 
     /**
@@ -35,6 +38,7 @@ public class PersonBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
+        studentId = new StudentId("A0000000B");
         tags = new HashSet<>();
     }
 
@@ -46,6 +50,7 @@ public class PersonBuilder {
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
+        studentId = personToCopy.getStudentId();
         tags = new HashSet<>(personToCopy.getTags());
     }
 
@@ -90,7 +95,7 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(name, phone, email, address, tags);
+        return new Person(name, phone, email, address, studentId, tags);
     }
 
 }
