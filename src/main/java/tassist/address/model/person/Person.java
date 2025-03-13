@@ -21,7 +21,7 @@ public class Person {
     private final Phone phone;
     private final Email email;
 
-    private StudentId studentId;
+    private final StudentId studentId;
 
     // Data fields
     private final Address address;
@@ -37,18 +37,6 @@ public class Person {
         this.email = email;
         this.address = address;
         this.studentId = studentId;
-        this.tags.addAll(tags);
-    }
-
-    /**
-     * Every field must be present and not null.
-     */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
         this.tags.addAll(tags);
     }
 
