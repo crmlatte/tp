@@ -17,7 +17,6 @@ import static tassist.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static tassist.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static tassist.address.logic.commands.CommandTestUtil.STUDENTID_DESC_AMY;
-import static tassist.address.logic.commands.CommandTestUtil.STUDENTID_DESC_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static tassist.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
