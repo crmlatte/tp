@@ -8,28 +8,29 @@ import static tassist.address.commons.util.AppUtil.checkArgument;
  * Value must be between 0% to 100%.
  */
 public class Progress {
-    public final int value;
+
     public static final String MESSAGE_CONSTRAINTS = "Progress must be a percentage between 0 and 100.";
+    public final int value;
 
     /**
      * Constructs a {@code Progress}.
      *
-     * @param progress_value A valid progress percentage (0-100).
+     * @param progressValue A valid progress percentage (0-100).
      */
-    public Progress(int progress_value) {
-        requireNonNull(progress_value);
-        checkArgument(isValidProgress(progress_value), MESSAGE_CONSTRAINTS);
-        this.value = progress_value;
+    public Progress(int progressValue) {
+        requireNonNull(progressValue);
+        checkArgument(isValidProgress(progressValue), MESSAGE_CONSTRAINTS);
+        this.value = progressValue;
     }
 
     /**
      * Returns a boolean, showing whether the progress value is between 0 and 100.
      *
-     * @param progress_value The percentage value of the progress.
+     * @param progressValue The percentage value of the progress.
      * @return boolean True if the value is between 0 and 100, false otherwise.
      */
-    public static boolean isValidProgress(int progress_value) {
-        if (0 <= progress_value && progress_value <= 100) {
+    public static boolean isValidProgress(int progressValue) {
+        if (0 <= progressValue && progressValue <= 100) {
             return true;
         }
         return false;
