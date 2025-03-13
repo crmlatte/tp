@@ -1,5 +1,7 @@
 package tassist.address.testutil;
 
+import static tassist.address.logic.commands.CommandTestUtil.STUDENTID_DESC_AMY;
+import static tassist.address.logic.commands.CommandTestUtil.STUDENTID_DESC_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
@@ -10,8 +12,6 @@ import static tassist.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static tassist.address.logic.commands.CommandTestUtil.STUDENTID_DESC_AMY;
-import static tassist.address.logic.commands.CommandTestUtil.STUDENTID_DESC_BOB;
 
 import java.util.ArrayList;
 import java.util.Arrays;
