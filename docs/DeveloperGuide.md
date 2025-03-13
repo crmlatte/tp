@@ -296,7 +296,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | CS TA             | edit a student's contact details                   | update their details to be accurate           |
 | `* *`    | CS TA             | search for a student by name                       | find a student easily                         |
 | `* *`    | CS TA             | assign multiple students to a project team at once | organise teams quickly                        |
-| `* *`    | CS TA             | add progress level to each student                 | easily moniter a student's progress and skill |
+| `* *`    | CS TA             | add progress level to each student                 | easily monitor a student's progress and skill |
 | `* *`    | CS TA             | filter students by progress level                  | tailor my guidance to each student            |
 | `* *`    | forgetful CS TA   | set a reminder for a student tasks                 | remember to follow up                         |
 | `* *`    | forgetful CS TA   | schedule notification for assignment deadline      | remember to check submissions                 |
@@ -304,7 +304,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | experienced CS TA | perform actions using keyboard commands            | work faster without a mouse                   |
 | `* *`    | CS TA             | add milestone achievements for students            | recognise their progress                      |
 | `*`      | CS TA             | switch between different semester views            | reference past students easily                |
-| `*`      | CS TA             | see all pending reminders in one view              | ensure I dont miss any reminders              |
+| `*`      | CS TA             | see all pending reminders in one view              | ensure I do not miss any reminders            |
 | `*`      | CS TA             | pin a student's contact details                    | find frequently contacted students easily     |
 | `*`      | CS TA             | store multiple Github repositories per student     | access all of a student's work at once        |
 
@@ -312,16 +312,18 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is `TAssist` and the **Actor** is the `user (tutor)`, unless specified otherwise)
 
-**Use case: Delete a person**
+**Use case: UC1 - Delete a student's contact details**
 
 **MSS**
 
 1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+2.  System shows a list of persons
+3.  User requests to delete a specific student in the list
+4.  System shows confirmation message.
+5.  User confirms.
+6.  System deletes the student from the list.
 
     Use case ends.
 
@@ -331,11 +333,73 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-* 3a. The given index is invalid.
+* 5a. User declines.
+  
+  Use case ends.
 
-    * 3a1. AddressBook shows an error message.
+**Use case: UC2 - Edit a student's contact details**
 
-      Use case resumes at step 2.
+**MSS**
+
+1.  User requests to edit some details of an entry.
+2.  System shows a list of persons.
+3.  User specifies what to edit (e.g. GitHub username, email).
+4.  User enters new value.
+5.  System updates the information.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The prefix does not exist.
+
+    * 3a1. System shows an error message.
+
+      Use case resumes at step 3.
+
+* 3a. User requests to cancel.
+
+  Use case ends.
+
+**Use case: UC3 - Add an assignment deadline**
+
+**Preconditions: 1. An assignment is created for the students.**
+
+**MSS**
+
+1.  User requests to add an assignment deadline to all students.
+2.  System shows a list of available assignments.
+3.  User selects the assignment of interest and specifies a deadline.
+4.  System set a deadline for this assignment for all students.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+**Use case: UC4 - Record student's GitHub account**
+
+**MSS**
+
+1.  User requests to record a student's GitHub account.
+2.  System shows a list of students without GitHub account.
+3.  User specifies which one to add.
+4.  System records the GitHub account down.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
 
 *{More to be added}*
 
