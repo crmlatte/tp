@@ -3,6 +3,10 @@ package tassist.address.model.person;
 import static java.util.Objects.requireNonNull;
 import static tassist.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * Represents a Person's StudentId in the address book.
+ * Guarantees: immutable; is valid as declared in {@link #isValidStudentId(String)}
+ */
 public class StudentId {
 
     public static final String MESSAGE_CONSTRAINTS = "Message has not been instantiated";
