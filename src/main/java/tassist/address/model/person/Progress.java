@@ -8,7 +8,7 @@ import static tassist.address.commons.util.AppUtil.checkArgument;
  * Value must be between 0% to 100%.
  */
 public class Progress {
-    private final int value;
+    public final int value;
     public static final String MESSAGE_CONSTRAINTS = "Progress must be a percentage between 0 and 100.";
 
     /**
@@ -35,10 +35,6 @@ public class Progress {
         return false;
     }
 
-    public int getValue() {
-        return this.value;
-    }
-
     @Override
     public String toString() {
         return this.value + "%";
@@ -56,7 +52,7 @@ public class Progress {
         }
 
         Progress otherProgress = (Progress) other;
-        return this.value == otherProgress.getValue();
+        return this.value == otherProgress.value;
     }
 
     @Override
