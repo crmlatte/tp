@@ -13,6 +13,7 @@ import tassist.address.model.person.Address;
 import tassist.address.model.person.Email;
 import tassist.address.model.person.Name;
 import tassist.address.model.person.Phone;
+import tassist.address.model.person.StudentId;
 import tassist.address.model.tag.Tag;
 
 /**
@@ -120,5 +121,14 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    public static StudentId parseStudentId(String email) throws ParseException {
+        requireNonNull(email);
+        String trimmedId = email.trim();
+        if (!StudentId.isValidStudentId(trimmedId)) {
+            throw new ParseException(StudentId.MESSAGE_CONSTRAINTS);
+        }
+        return new StudentId(trimmedId);
     }
 }
