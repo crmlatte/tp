@@ -117,7 +117,7 @@ public class Person {
                 .add("phone", phone)
                 .add("email", email)
                 .add("address", address)
-                .add("address", studentId)
+                .add("studentId", studentId)
                 .add("tags", tags)
                 .toString();
     }
