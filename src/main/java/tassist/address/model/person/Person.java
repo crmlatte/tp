@@ -21,6 +21,8 @@ public class Person {
     private final Phone phone;
     private final Email email;
 
+    private final StudentId studentId;
+
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
@@ -51,6 +53,10 @@ public class Person {
 
     public Address getAddress() {
         return address;
+    }
+
+    public StudentId getStudentId() {
+        return studentId;
     }
 
     /**
@@ -110,6 +116,7 @@ public class Person {
                 .add("phone", phone)
                 .add("email", email)
                 .add("address", address)
+                .add("address", studentId)
                 .add("tags", tags)
                 .toString();
     }
