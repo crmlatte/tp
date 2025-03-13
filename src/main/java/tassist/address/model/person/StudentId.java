@@ -9,7 +9,9 @@ import static tassist.address.commons.util.AppUtil.checkArgument;
  */
 public class StudentId {
 
-    public static final String MESSAGE_CONSTRAINTS = "Message has not been instantiated";
+    public static final String MESSAGE_CONSTRAINTS = "Must be in the format of AXXXXXXXB, where X is an integer";
+
+    public static final String VALIDATION_REGEX = "^[Aa]\d{7}[A-Z]$";
 
     public final String value;
 
@@ -28,7 +30,7 @@ public class StudentId {
      * Returns if a given string is a valid studentId.
      */
     public static boolean isValidStudentId(String test) {
-        return true; //implementation to be done later
+        return test.matches(VALIDATION_REGEX);
     }
 
     @Override
