@@ -123,9 +123,15 @@ public class ParserUtil {
         return tagSet;
     }
 
-    public static StudentId parseStudentId(String email) throws ParseException {
-        requireNonNull(email);
-        String trimmedId = email.trim();
+    /**
+     * Parses a {@code String studentId} into a {@code StudentId}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code StudentId} is invalid.
+     */
+    public static StudentId parseStudentId(String studentId) throws ParseException {
+        requireNonNull(studentId);
+        String trimmedId = studentId.trim();
         if (!StudentId.isValidStudentId(trimmedId)) {
             throw new ParseException(StudentId.MESSAGE_CONSTRAINTS);
         }
