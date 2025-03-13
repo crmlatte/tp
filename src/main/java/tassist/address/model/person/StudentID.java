@@ -1,6 +1,4 @@
 package tassist.address.model.person;
 
-public class StudentID {
-
-
+public class StudentId {
 }
