@@ -21,12 +21,12 @@ public class PersonBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_STUDENTID = "A0000000B";
 
     private Name name;
     private Phone phone;
     private Email email;
     private Address address;
-
     private StudentId studentId;
     private Set<Tag> tags;
 
@@ -38,7 +38,7 @@ public class PersonBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
-        studentId = new StudentId("A0000000B");
+        studentId = new StudentId(DEFAULT_STUDENTID);
         tags = new HashSet<>();
     }
 

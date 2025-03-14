@@ -1,7 +1,5 @@
 package tassist.address.testutil;
 
-import static tassist.address.logic.commands.CommandTestUtil.STUDENTID_DESC_AMY;
-import static tassist.address.logic.commands.CommandTestUtil.STUDENTID_DESC_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
@@ -10,6 +8,8 @@ import static tassist.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static tassist.address.logic.commands.CommandTestUtil.VALID_STUDENTID_AMY;
+import static tassist.address.logic.commands.CommandTestUtil.VALID_STUDENTID_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
@@ -53,10 +53,10 @@ public class TypicalPersons {
 
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Person AMY = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
-            .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withStudentId(STUDENTID_DESC_AMY)
+            .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withStudentId(VALID_STUDENTID_AMY)
             .withTags(VALID_TAG_FRIEND).build();
     public static final Person BOB = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-            .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withStudentId(STUDENTID_DESC_BOB)
+            .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withStudentId(VALID_STUDENTID_BOB)
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
