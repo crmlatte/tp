@@ -10,9 +10,8 @@ import static tassist.address.commons.util.AppUtil.checkArgument;
 public class StudentId {
 
     public static final String MESSAGE_CONSTRAINTS = "Must be in the format of AXXXXXXXN, where X is an integer and"
-            + "\nN is any letter from the Alphbet (eg. A to Z)." +
-            "\nEnsure that both letters A and N are capitalised.";
-
+            + "\nN is any letter from the Alphbet (eg. A to Z)."
+            + "\nEnsure that both letters A and N are capitalised.";
     public static final String VALIDATION_REGEX =  "^A\\d{7}[A-Z]$";
 
     public final String value;
