@@ -8,6 +8,7 @@ import tassist.address.commons.core.index.Index;
 import tassist.address.commons.exceptions.IllegalValueException;
 import tassist.address.logic.commands.ClassCommand;
 import tassist.address.logic.parser.exceptions.ParseException;
+import tassist.address.model.person.ClassNumber;
 
 public class ClassCommandParser implements Parser<ClassCommand> {
     public ClassCommand parse(String args) throws ParseException {
@@ -23,8 +24,8 @@ public class ClassCommandParser implements Parser<ClassCommand> {
                     ClassCommand.MESSAGE_USAGE), ive);
         }
 
-        String remark = argMultimap.getValue(PREFIX_CLASS).orElse("");
+        String classNumber = argMultimap.getValue(PREFIX_CLASS).orElse("");
 
-        return new ClassCommand(index, remark);
+        return new ClassCommand(index, new ClassNumber(classNumber));
     }
 }
