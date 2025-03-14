@@ -1,5 +1,6 @@
 package tassist.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
 import static tassist.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
@@ -26,7 +27,6 @@ public class GithubCommand extends Command {
             + "Example: " + COMMAND_WORD + " A1234567X "
             + "g/https://github.com/tammzz";
 
-    public static final String MESSAGE_ARGUMENTS = "Index: %1$d, Github: %2$s";
     public static final String MESSAGE_ADD_GITHUB_SUCCESS = "Added github to Person: %1$s";
     public static final String MESSAGE_DELETE_GITHUB_SUCCESS = "Removed github from Person: %1$s";
     private final Index index;
@@ -37,12 +37,16 @@ public class GithubCommand extends Command {
      * @param github of the person to be updated to
      */
     public GithubCommand(Index index, Github github) {
+        requireNonNull(index);
+        requireNonNull(github);
+
         this.index = index;
         this.github = github;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
