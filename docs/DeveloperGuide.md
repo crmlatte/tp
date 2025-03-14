@@ -340,7 +340,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1.  User requests to edit some details of an entry.
 2.  System shows a list of students.
-3.  User specifies who and what to edit (e.g. John Doe, GitHub username).
+3.  User specifies who and what to edit.
 4.  User enters new value.
 5.  System updates the information.
 6.  Use case ends.
