@@ -29,6 +29,7 @@ public class GithubCommand extends Command {
 
     public static final String MESSAGE_ADD_GITHUB_SUCCESS = "Added github to Person: %1$s";
     public static final String MESSAGE_DELETE_GITHUB_SUCCESS = "Removed github from Person: %1$s";
+    public static final String MESSAGE_EMPTY = "Github is empty.";
     private final Index index;
     private final Github github;
 
