@@ -9,7 +9,7 @@ import static tassist.address.commons.util.AppUtil.checkArgument;
  */
 public class Progress {
 
-    public static final String MESSAGE_CONSTRAINTS = "Progress must be a percentage between 0 and 100.";
+    public static final String MESSAGE_CONSTRAINTS = "Progress must be an integer between 0 and 100.";
     public final int value;
 
     /**
@@ -17,23 +17,23 @@ public class Progress {
      *
      * @param progressValue A valid progress percentage (0-100).
      */
-    public Progress(int progressValue) {
+    public Progress(String progressValue) {
         requireNonNull(progressValue);
         checkArgument(isValidProgress(progressValue), MESSAGE_CONSTRAINTS);
-        this.value = progressValue;
+        if (progressValue.endsWith("%")) {
+            progressValue = progressValue.substring(0, progressValue.length() - 1);
+        }
+        this.value = Integer.parseInt(progressValue);
     }
 
     /**
      * Returns a boolean, showing whether the progress value is between 0 and 100.
      *
      * @param progressValue The percentage value of the progress.
-     * @return boolean True if the value is between 0 and 100, false otherwise.
+     * @return boolean True if the value is between 0 and 100 (with optional '%'), false otherwise.
      */
-    public static boolean isValidProgress(int progressValue) {
-        if (0 <= progressValue && progressValue <= 100) {
-            return true;
-        }
-        return false;
+    public static boolean isValidProgress(String progressValue) {
+        return progressValue.matches("^(100|[1-9]?\\d|0)(%)?$");
     }
 
     @Override

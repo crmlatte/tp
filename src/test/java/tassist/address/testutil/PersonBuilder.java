@@ -39,7 +39,7 @@ public class PersonBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
-        progress = new Progress(Integer.parseInt(DEFAULT_PROGRESS));
+        progress = new Progress(DEFAULT_PROGRESS);
     }
 
     /**
@@ -98,7 +98,7 @@ public class PersonBuilder {
      * Sets the {@code Progress} of the {@code Person} that we are building.
      */
     public PersonBuilder withProgress(String progress) {
-        this.progress = new Progress(Integer.parseInt(progress));
+        this.progress = new Progress(progress);
         return this;
     }
 

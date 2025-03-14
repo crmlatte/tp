@@ -114,7 +114,7 @@ class JsonAdaptedPerson {
                     Progress.class.getSimpleName()));
         }
 
-        int progressValue = Integer.parseInt(progress.trim());
+        String progressValue = progress.trim();
         if (!Progress.isValidProgress(progressValue)) {
             throw new ParseException(Progress.MESSAGE_CONSTRAINTS);
         }

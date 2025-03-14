@@ -87,7 +87,7 @@ public class EditPersonDescriptorBuilder {
      * that we are building.
      */
     public EditPersonDescriptorBuilder withProgress(String progress) {
-        descriptor.setProgress(new Progress(Integer.parseInt(progress)));
+        descriptor.setProgress(new Progress(progress));
         return this;
     }
 

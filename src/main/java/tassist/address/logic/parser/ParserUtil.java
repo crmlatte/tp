@@ -132,11 +132,10 @@ public class ParserUtil {
     public static Progress parseProgress(String progress) throws ParseException {
         requireNonNull(progress);
         String trimmedProgress = progress.trim();
-        int progressValue = Integer.parseInt(trimmedProgress);
 
-        if (!Progress.isValidProgress(progressValue)) {
+        if (!Progress.isValidProgress(trimmedProgress)) {
             throw new ParseException(Progress.MESSAGE_CONSTRAINTS);
         }
-        return new Progress(progressValue);
+        return new Progress(trimmedProgress);
     }
 }
