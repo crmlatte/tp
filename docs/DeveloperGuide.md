@@ -318,52 +318,44 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  User requests to list persons
-2.  System shows a list of persons
+1.  User requests to list students
+2.  System shows a list of students
 3.  User requests to delete a specific student in the list
 4.  System shows confirmation message.
 5.  User confirms.
 6.  System deletes the student from the list.
-
-    Use case ends.
+7.  Use case ends.
 
 **Extensions**
 
 * 2a. The list is empty.
-
-  Use case ends.
+  * Use case ends.
 
 * 5a. User declines.
-  
-  Use case ends.
+  * Use case ends.
 
 **Use case: UC2 - Edit a student's contact details**
 
 **MSS**
 
 1.  User requests to edit some details of an entry.
-2.  System shows a list of persons.
-3.  User specifies what to edit (e.g. GitHub username, email).
+2.  System shows a list of students.
+3.  User specifies who and what to edit (e.g. John Doe, GitHub username).
 4.  User enters new value.
 5.  System updates the information.
-
-    Use case ends.
+6.  Use case ends.
 
 **Extensions**
 
 * 2a. The list is empty.
-
-  Use case ends.
+  * Use case ends.
 
 * 3a. The prefix does not exist.
-
-    * 3a1. System shows an error message.
-
-      Use case resumes at step 3.
+  * 3a1. System shows an error message.
+  * Use case resumes at step 3.
 
 * 3a. User requests to cancel.
-
-  Use case ends.
+  * Use case ends.
 
 **Use case: UC3 - Add an assignment deadline**
 
@@ -375,14 +367,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 2.  System shows a list of available assignments.
 3.  User selects the assignment of interest and specifies a deadline.
 4.  System set a deadline for this assignment for all students.
-
-    Use case ends.
+5.  Use case ends.
 
 **Extensions**
 
 * 2a. The list is empty.
-
-  Use case ends.
+  * Use case ends.
 
 **Use case: UC4 - Record student's GitHub account**
 
@@ -392,14 +382,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 2.  System shows a list of students without GitHub account.
 3.  User specifies which one to add.
 4.  System records the GitHub account down.
-
-    Use case ends.
+5.  Use case ends.
 
 **Extensions**
 
 * 2a. The list is empty.
-
-  Use case ends.
+  * Use case ends.
 
 *{More to be added}*
 
