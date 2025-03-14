@@ -38,7 +38,11 @@ public class GithubCommandParser implements Parser<GithubCommand> {
         }
 
         String github = argMultimap.getValue(PREFIX_GITHUB).orElse("");
-        return new GithubCommand(index, new Github(github));
+        try {
+            return new GithubCommand(index, new Github(github));
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(GithubCommand.MESSAGE_INVALID_GITHUB, e);
+        }
     }
 
 }
