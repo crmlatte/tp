@@ -14,19 +14,13 @@ import tassist.address.model.person.Github;
 
 public class GithubCommandParserTest {
     private GithubCommandParser parser = new GithubCommandParser();
-    private final String nonEmptyGithub = "Some Github.";
+    private final String nonEmptyGithub = "https://github.com/default";
 
     @Test
     public void parse_indexSpecified_success() {
-        // have remark
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = targetIndex.getOneBased() + " " + PREFIX_GITHUB + nonEmptyGithub;
         GithubCommand expectedCommand = new GithubCommand(INDEX_FIRST_PERSON, new Github(nonEmptyGithub));
-        assertParseSuccess(parser, userInput, expectedCommand);
-
-        // no remark
-        userInput = targetIndex.getOneBased() + " " + PREFIX_GITHUB;
-        expectedCommand = new GithubCommand(INDEX_FIRST_PERSON, new Github(""));
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 

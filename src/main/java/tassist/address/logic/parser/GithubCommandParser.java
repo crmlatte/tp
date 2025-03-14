@@ -34,7 +34,7 @@ public class GithubCommandParser implements Parser<GithubCommand> {
         }
 
         if (argMultimap.getValue(PREFIX_GITHUB).isEmpty()) {
-            throw new ParseException(GithubCommand.MESSAGE_EMPTY);
+            throw new ParseException(String.format(GithubCommand.MESSAGE_EMPTY));
         }
 
         String github = argMultimap.getValue(PREFIX_GITHUB).orElse("");

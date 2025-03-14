@@ -80,8 +80,8 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_remark() throws Exception {
-        final String github = "Some github.";
+    public void parseCommand_github() throws Exception {
+        final String github = "https://github.com/default";
         GithubCommand command = (GithubCommand) parser.parseCommand(GithubCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_GITHUB + github);
         assertEquals(new GithubCommand(INDEX_FIRST_PERSON, new Github(github)), command);

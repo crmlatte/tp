@@ -51,26 +51,6 @@ public class GithubCommandTest {
     }
 
     @Test
-    public void execute_removeGithub_success() throws Exception {
-        Model model = new ModelManager();
-        Person originalPerson = new PersonBuilder().withName("Charlie")
-                .withGithub("https://github.com/charlie").build();
-        model.addPerson(originalPerson);
-
-        Index validIndex = Index.fromZeroBased(0);
-        Github emptyGithub = new Github(""); // Removing GitHub
-
-        GithubCommand githubCommand = new GithubCommand(validIndex, emptyGithub);
-
-        CommandResult result = githubCommand.execute(model);
-
-        Person editedPerson = model.getFilteredPersonList().get(0);
-        assertEquals("", editedPerson.getGithub().value); // Assert GitHub was removed
-        assertEquals(String.format(GithubCommand.MESSAGE_DELETE_GITHUB_SUCCESS, Messages.format(editedPerson)),
-                result.getFeedbackToUser()); // Assert success message
-    }
-
-    @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         GithubCommand githubCommand = new GithubCommand(outOfBoundIndex, new Github(VALID_GITHUB_BOB));

@@ -1,6 +1,7 @@
 package tassist.address.model.person;
 
 import static java.util.Objects.requireNonNull;
+import static tassist.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a student's Github link in the address book.
@@ -26,9 +27,9 @@ public class Github {
             + "    - consist of alphanumeric characters, separated only by dashes, if any.";
 
     // alphanumeric and special characters
-    private static final String GITHUB_URL_REGEX = "^https://github.com/";
+    private static final String GITHUB_URL_REGEX = "^https://github\\.com/";
     private static final String USERNAME_REGEX = "[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*$";
-    public static final String VALIDATION_REGEX = GITHUB_URL_REGEX + USERNAME_REGEX;
+    public static final String VALIDATION_REGEX = GITHUB_URL_REGEX + USERNAME_REGEX + "$";
 
     public final String value;
 
@@ -37,7 +38,7 @@ public class Github {
      */
     public Github(String github) {
         requireNonNull(github);
-        //checkArgument(isValidGithub(github), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidGithub(github), MESSAGE_CONSTRAINTS);
         value = github;
     }
 
@@ -45,11 +46,9 @@ public class Github {
     /**
      * Returns if a given string is a valid github link.
      */
-    /*
     public static boolean isValidGithub(String test) {
         return test.matches(VALIDATION_REGEX);
     }
-     */
 
     @Override
     public String toString() {
