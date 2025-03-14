@@ -378,11 +378,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  User requests to record a student's GitHub account.
-2.  System shows a list of students without GitHub account.
-3.  User specifies which one to add.
-4.  System records the GitHub account down.
-5.  Use case ends.
+1.  User requests to record a student's GitHub account. 
+2.  User specifies which student to add to. 
+3.  System records the GitHub account down. 
+4.  Use case ends.
 
 **Extensions**
 
