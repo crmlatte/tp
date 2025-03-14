@@ -9,51 +9,51 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### John Doe
+### Kenji Leong
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/kkenjji.png" width="200px">
 
-[[homepage](http://www.comp.nus.edu.sg/~damithch)]
-[[github](https://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](https://github.com/kkenjji)]
+[[portfolio](team/kkenjji.md)]
 
-* Role: Project Advisor
+* Role: Developer
 
-### Jane Doe
+### Harbour Wang
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/nano-233.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](https://github.com/Nano-233)]
+[[portfolio](team/harbour.md)]
 
 * Role: Team Lead
 * Responsibilities: UI
 
-### Johnny Doe
+### Casie Lim
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/casielim.png" width="200px">
 
-[[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
+[[github](http://github.com/Casielim)] 
+[[portfolio](team/casielim.md)]
 
 * Role: Developer
 * Responsibilities: Data
 
-### Jean Doe
+### Eliza Cajetas
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/elizazaa.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/elizazaa)]
+[[portfolio](team/eliza.md)]
 
 * Role: Developer
 * Responsibilities: Dev Ops + Threading
 
-### James Doe
+### Sulaksha Muthukrishnan
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/crmlatte.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/crmlatte)]
+[[portfolio](team/crmlatte.md)]
 
 * Role: Developer
 * Responsibilities: UI

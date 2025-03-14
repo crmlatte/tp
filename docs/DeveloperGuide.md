@@ -36,7 +36,7 @@ Given below is a quick overview of main components and how they interact with ea
 
 **Main components of the architecture**
 
-**`Main`** (consisting of classes [`Main`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/Main.java) and [`MainApp`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/MainApp.java)) is in charge of the app launch and shut down.
+**`Main`** (consisting of classes [`Main`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/tassist/address/Main.java) and [`MainApp`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/tassist/address/MainApp.java)) is in charge of the app launch and shut down.
 * At app launch, it initializes the other components in the correct sequence, and connects them up with each other.
 * At shut down, it shuts down the other components and invokes cleanup methods where necessary.
 
@@ -68,13 +68,13 @@ The sections below give more details of each component.
 
 ### UI component
 
-The **API** of this component is specified in [`Ui.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/Ui.java)
+The **API** of this component is specified in [`Ui.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/tassist/address/ui/Ui.java)
 
 ![Structure of the UI Component](images/UiClassDiagram.png)
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
-The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
+The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/tassist/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
 
@@ -85,7 +85,7 @@ The `UI` component,
 
 ### Logic component
 
-**API** : [`Logic.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/tassist/address/logic/Logic.java)
 
 Here's a (partial) class diagram of the `Logic` component:
 
@@ -115,7 +115,7 @@ How the parsing works:
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
-**API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
+**API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/tassist/address/model/Model.java)
 
 <img src="images/ModelClassDiagram.png" width="450" />
 
@@ -136,7 +136,7 @@ The `Model` component,
 
 ### Storage component
 
-**API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/tassist/address/storage/Storage.java)
 
 <img src="images/StorageClassDiagram.png" width="550" />
 
@@ -147,7 +147,7 @@ The `Storage` component,
 
 ### Common classes
 
-Classes used by multiple components are in the `seedu.address.commons` package.
+Classes used by multiple components are in the `tassist.address.commons` package.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -262,27 +262,51 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+This product is for university CS Teaching Assistants who need to track and manage student details efficiently, the TA also:
+* Prefers fast keyboard-driven interactions over mouse usage.
+* Manages small groups of students.
+* Needs quick access to student GitHub accounts and repositories.
+* Often forgets which students require follow-ups.
+* Tutors multiple classes across different courses.
+* Prefer desktop apps over other types
+* Can type fast
+* Is reasonably comfortable using CLI apps
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**:\
+Provides an easy way for CS Teaching Assistants to track and manage student details, including contact information, GitHub accounts, course progress, and project teams. Enables efficient organization and reduces administrative workload.
 
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
-| -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person               |                                                                        |
-| `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
+| Priority | As a …​           | I want to …​                                       | So that I can…​                               |
+|----------|-------------------|----------------------------------------------------|-----------------------------------------------|
+| `* * *`  | CS TA             | view a list of all my students                     | browse through all my students                |
+| `* * *`  | CS TA             | add a student's contact details                    | store and retrieve their details              |
+| `* * *`  | CS TA             | delete a student's contact entry                   | remove students I no longer teach             |
+| `* * *`  | CS TA             | record my student's Github accounts                | access their project repositories             |
+| `* *`    | CS TA             | bulk edit project team assignments                 | reorganise teams quickly                      |
+| `* *`    | CS TA             | add assignment deadline                            | keep track of their submission dates          |
+| `* *`    | CS TA             | import a list of students from a CSV file          | add multiple students at once                 |
+| `* *`    | CS TA             | export student data as a CSV file                  | share a list of students with other TAs       |
+| `* *`    | CS TA             | filter the student list                            | view students within a project/class/course   |
+| `* *`    | CS TA             | assign a student to a class                        | filter students by class                      |
+| `* *`    | CS TA             | assign a student to a project team                 | access students in each project team          |
+| `* *`    | CS TA             | edit a student's contact details                   | update their details to be accurate           |
+| `* *`    | CS TA             | search for a student by name                       | find a student easily                         |
+| `* *`    | CS TA             | assign multiple students to a project team at once | organise teams quickly                        |
+| `* *`    | CS TA             | add progress level to each student                 | easily moniter a student's progress and skill |
+| `* *`    | CS TA             | filter students by progress level                  | tailor my guidance to each student            |
+| `* *`    | forgetful CS TA   | set a reminder for a student tasks                 | remember to follow up                         |
+| `* *`    | forgetful CS TA   | schedule notification for assignment deadline      | remember to check submissions                 |
+| `* *`    | forgetful CS TA   | add notes to a student                             | take down important information               |
+| `* *`    | experienced CS TA | perform actions using keyboard commands            | work faster without a mouse                   |
+| `* *`    | CS TA             | add milestone achievements for students            | recognise their progress                      |
+| `*`      | CS TA             | switch between different semester views            | reference past students easily                |
+| `*`      | CS TA             | see all pending reminders in one view              | ensure I dont miss any reminders              |
+| `*`      | CS TA             | pin a student's contact details                    | find frequently contacted students easily     |
+| `*`      | CS TA             | store multiple Github repositories per student     | access all of a student's work at once        |
 
 *{More to be added}*
 
@@ -318,8 +342,19 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 ### Non-Functional Requirements
 
 1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+2.  Should be able to hold up to 300 persons without a noticeable sluggishness in performance for typical usage.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+4.  Should retrieve and display a student's details within 2 seconds. 
+5.  Should store student data locally. 
+6.  System should have a simple UI that requires no more than 5 minutes of onboarding for a new TA.  
+7.  Should allow future expansion to handle more student attributes (e.g. assignment scores, additional contact details). 
+8.  Must not crash when handling unexpected input. 
+9.  Needs at least 80% test coverage to ensure usability. 
+10. Must be able to run offline without internet connection. 
+11. Must have a portable .jar file that can be run without installation. 
+12. Should use a well-documented API for future improvements. 
+13. Should not store any passwords such as Github passwords of student accounts 
+14. Search function should return results in 1 second for queries on student names, Github, or tags
 
 *{More to be added}*
 
@@ -327,6 +362,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
 * **Private contact detail**: A contact detail that is not meant to be shared with others
+* **TA (Teaching Assistant/Tutor)**: A university staff member who assists in teaching, grading, 
+    and managing students in a course.
+* **CLI (Command Line Interface)**: A text-based interface that allows users to interact with the system 
+    using typed commands.
 
 --------------------------------------------------------------------------------------------------------------------
 
