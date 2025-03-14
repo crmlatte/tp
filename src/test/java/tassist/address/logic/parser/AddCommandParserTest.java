@@ -137,9 +137,8 @@ public class AddCommandParserTest {
     public void parse_optionalFieldsMissing_success() {
         // zero tags
         Person expectedPerson = new PersonBuilder(AMY).withTags().build();
-        assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY +
-                        STUDENTID_DESC_AMY,
-                new AddCommand(expectedPerson));
+        assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
+                        + STUDENTID_DESC_AMY, new AddCommand(expectedPerson));
     }
 
     @Test
@@ -163,7 +162,7 @@ public class AddCommandParserTest {
                         + STUDENTID_DESC_BOB, expectedMessage);
 
         // missing studentId prefix
-        assertParseFailure(parser,  NAME_DESC_BOB+ PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                         + VALID_STUDENTID_BOB, expectedMessage);
 
         // all prefixes missing
