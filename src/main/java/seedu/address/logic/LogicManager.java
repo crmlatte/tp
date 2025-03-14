@@ -10,6 +10,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.ConfirmableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -32,6 +33,7 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final AddressBookParser addressBookParser;
+    private ConfirmableCommand pendingConfirmation = null;
 
     /**
      * Constructs a {@code LogicManager} with the given {@code Model} and {@code Storage}.
@@ -46,9 +48,26 @@ public class LogicManager implements Logic {
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
+        if (pendingConfirmation != null) {
+            if (commandText.equalsIgnoreCase("Y")) {
+                ConfirmableCommand confirmedCommand = pendingConfirmation;
+                pendingConfirmation = null;
+                return confirmedCommand.executeConfirmed(model);
+            } else if (commandText.equalsIgnoreCase("N")) {
+                pendingConfirmation = null;
+                return new CommandResult("Action cancelled.");
+            } else {
+                return new CommandResult("Invalid response. Please enter Y/N.");
+            }
+        }
+
         CommandResult commandResult;
         Command command = addressBookParser.parseCommand(commandText);
         commandResult = command.execute(model);
+
+        if (commandResult.requiresConfirmation()) {
+            pendingConfirmation = commandResult.getPendingConfirmation();
+        }
 
         try {
             storage.saveAddressBook(model.getAddressBook());
