@@ -5,6 +5,7 @@ import static tassist.address.commons.util.CollectionUtil.requireAllNonNull;
 import tassist.address.commons.core.index.Index;
 import tassist.address.logic.commands.exceptions.CommandException;
 import tassist.address.model.Model;
+import tassist.address.model.person.ClassNumber;
 
 public class ClassCommand extends Command {
 
@@ -19,19 +20,16 @@ public class ClassCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + "c/ T01";
 
-    public static final String MESSAGE_NOT_IMPLEMENTED_YET =
-            "TutorialClass command not implemented yet";
-
-    public static final String MESSAGE_ARGUMENTS = "Index: %1$d, Remark: %2$s";
+    public static final String MESSAGE_ARGUMENTS = "Index: %1$d, Class Number: %2$s";
 
     private final Index index;
-    private final String classNumber;
+    private final ClassNumber classNumber;
 
     /**
      * @param index of the student in the filtered student list to edit the tutorial class number
      * @param classNumber of the student to be updated to
      */
-    public ClassCommand(Index index, String classNumber) {
+    public ClassCommand(Index index, ClassNumber classNumber) {
         requireAllNonNull(index, classNumber);
 
         this.index = index;
