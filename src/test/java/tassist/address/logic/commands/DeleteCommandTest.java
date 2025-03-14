@@ -102,12 +102,43 @@ public class DeleteCommandTest {
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
 
         // Step 1: First execution should return confirmation message
-        deleteCommand.execute(model);
+        CommandResult confirmationResult = deleteCommand.execute(model);
+        assertEquals(String.format(DeleteCommand.MESSAGE_CONFIRM_DELETE,
+                Messages.format(model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()))),
+                confirmationResult.getFeedbackToUser());
 
-        // Step 2: Cancel deletion
-        CommandResult commandResult = new CommandResult(DeleteCommand.MESSAGE_DELETE_CANCELLED);
-        assertEquals(commandResult.getFeedbackToUser(), DeleteCommand.MESSAGE_DELETE_CANCELLED);
+        // Step 2: Simulate cancel deletion
+        // Simulate cancelling deletion by returning the cancellation message directly
+        CommandResult cancellationResult = new CommandResult(DeleteCommand.MESSAGE_DELETE_CANCELLED);
+        assertEquals(DeleteCommand.MESSAGE_DELETE_CANCELLED,
+               cancellationResult.getFeedbackToUser());
     }
+
+    @Test
+    public void executeConfirmed_invalidIndex_returnsInvalidPersonDisplayedIndexMessage() throws CommandException {
+        // Set up a DeleteCommand with an invalid index (greater than the size of the list)
+        Index invalidIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
+        DeleteCommand deleteCommand = new DeleteCommand(invalidIndex);
+
+        // Execute the command to get the result
+        CommandResult result = deleteCommand.executeConfirmed(model);
+
+        // Assert that the result contains the expected error message
+        assertEquals(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, result.getFeedbackToUser());
+    }
+
+
+    @Test
+    public void getConfirmationMessage_showsCorrectMessage() {
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
+
+        // Simulate getting the confirmation message
+        String confirmationMessage = deleteCommand.getConfirmationMessage();
+
+        // Assert that the correct confirmation message is returned
+        assertEquals(DeleteCommand.MESSAGE_CONFIRM_DELETE, confirmationMessage);
+    }
+
 
     @Test
     public void execute_invalidConfirmationInput_returnsErrorMessage() throws CommandException {
