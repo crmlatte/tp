@@ -5,8 +5,12 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import tassist.address.logic.commands.EditCommand.EditPersonDescriptor;
-import tassist.address.logic.commands.EditPersonDescriptorTest;
-import tassist.address.model.person.*;
+import tassist.address.model.person.Address;
+import tassist.address.model.person.Email;
+import tassist.address.model.person.Github;
+import tassist.address.model.person.Name;
+import tassist.address.model.person.Person;
+import tassist.address.model.person.Phone;
 import tassist.address.model.tag.Tag;
 
 /**

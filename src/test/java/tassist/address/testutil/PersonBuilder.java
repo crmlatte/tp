@@ -79,7 +79,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Remark} of the {@code Person} that we are building.
+     * Sets the {@code Github} of the {@code Person} that we are building.
      */
     public PersonBuilder withGithub(String github) {
         this.github = new Github(github);
