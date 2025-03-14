@@ -70,8 +70,8 @@ public class EditPersonDescriptorTest {
                 + editPersonDescriptor.getPhone().orElse(null) + ", email="
                 + editPersonDescriptor.getEmail().orElse(null) + ", address="
                 + editPersonDescriptor.getAddress().orElse(null) + ", tags="
-                + editPersonDescriptor.getTags().orElse(null) + "}"
-                + editPersonDescriptor.getProgress().orElse(null) + ", progress=";
+                + editPersonDescriptor.getTags().orElse(null) + ", progress="
+                + editPersonDescriptor.getProgress().orElse(null) + "}";
         assertEquals(expected, editPersonDescriptor.toString());
     }
 }

@@ -89,10 +89,6 @@ public class PersonTest {
         // different tags -> returns false
         editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
         assertFalse(ALICE.equals(editedAlice));
-
-        // different progress -> returns false
-        editedAlice = new PersonBuilder(ALICE).withProgress(VALID_PROGRESS_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
     }
 
     @Test

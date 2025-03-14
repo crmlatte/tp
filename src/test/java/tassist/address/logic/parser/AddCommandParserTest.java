@@ -47,6 +47,7 @@ import tassist.address.model.person.Email;
 import tassist.address.model.person.Name;
 import tassist.address.model.person.Person;
 import tassist.address.model.person.Phone;
+import tassist.address.model.person.Progress;
 import tassist.address.model.tag.Tag;
 import tassist.address.testutil.PersonBuilder;
 
@@ -181,7 +182,7 @@ public class AddCommandParserTest {
 
         // all prefixes missing
         assertParseFailure(parser, VALID_NAME_BOB + VALID_PHONE_BOB + VALID_EMAIL_BOB + VALID_ADDRESS_BOB
-                + PROGRESS_DESC_BOB, expectedMessage);
+                + VALID_PROGRESS_BOB, expectedMessage);
     }
 
     @Test
@@ -208,7 +209,7 @@ public class AddCommandParserTest {
 
         // invalid progress
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + TAG_DESC_HUSBAND + VALID_TAG_FRIEND + INVALID_PROGRESS_DESC, Tag.MESSAGE_CONSTRAINTS);
+                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + INVALID_PROGRESS_DESC, Progress.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_ADDRESS_DESC
