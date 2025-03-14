@@ -5,6 +5,7 @@ import static tassist.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static tassist.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static tassist.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
@@ -44,6 +45,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_STUDENTID + "STUDENTID] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
@@ -100,10 +102,10 @@ public class EditCommand extends Command {
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
-        StudentId updatedstudentId = editPersonDescriptor.getStudentId().orElse(personToEdit.getStudentId());
+        StudentId updatedStudentId = editPersonDescriptor.getStudentId().orElse(personToEdit.getStudentId());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedstudentId, updatedTags);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedStudentId, updatedTags);
     }
 
     @Override
