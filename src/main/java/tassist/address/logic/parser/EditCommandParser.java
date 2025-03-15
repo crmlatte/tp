@@ -7,6 +7,7 @@ import static tassist.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_GITHUB;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static tassist.address.logic.parser.CliSyntax.PREFIX_PROGRESS;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collection;
@@ -33,8 +34,8 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
-                        PREFIX_ADDRESS, PREFIX_GITHUB, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_GITHUB,
+                        PREFIX_TAG, PREFIX_PROGRESS);
 
         Index index;
 
@@ -44,7 +45,8 @@ public class EditCommandParser implements Parser<EditCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
+                PREFIX_PROGRESS);
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
 
@@ -64,6 +66,9 @@ public class EditCommandParser implements Parser<EditCommand> {
             editPersonDescriptor.setGithub(ParserUtil.parseGithub(argMultimap.getValue(PREFIX_GITHUB).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
+        if (argMultimap.getValue(PREFIX_PROGRESS).isPresent()) {
+            editPersonDescriptor.setProgress(ParserUtil.parseProgress(argMultimap.getValue(PREFIX_PROGRESS).get()));
+        }
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);

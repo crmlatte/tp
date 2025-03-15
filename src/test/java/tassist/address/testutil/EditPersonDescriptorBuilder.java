@@ -11,6 +11,7 @@ import tassist.address.model.person.Github;
 import tassist.address.model.person.Name;
 import tassist.address.model.person.Person;
 import tassist.address.model.person.Phone;
+import tassist.address.model.person.Progress;
 import tassist.address.model.tag.Tag;
 
 /**
@@ -88,6 +89,15 @@ public class EditPersonDescriptorBuilder {
     public EditPersonDescriptorBuilder withTags(String... tags) {
         Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
         descriptor.setTags(tagSet);
+        return this;
+    }
+
+    /**
+     * Parses the {@code progress} into a {@code Progress} and set it to the {@code EditPersonDescriptor}
+     * that we are building.
+     */
+    public EditPersonDescriptorBuilder withProgress(String progress) {
+        descriptor.setProgress(new Progress(progress));
         return this;
     }
 

@@ -18,6 +18,7 @@ import tassist.address.model.person.Address;
 import tassist.address.model.person.Email;
 import tassist.address.model.person.Name;
 import tassist.address.model.person.Phone;
+import tassist.address.model.person.Progress;
 import tassist.address.model.tag.Tag;
 
 public class ParserUtilTest {
@@ -26,6 +27,7 @@ public class ParserUtilTest {
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_PROGRESS = "180";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
@@ -33,6 +35,8 @@ public class ParserUtilTest {
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_PROGRESS_1 = "80";
+    private static final String VALID_PROGRESS_2 = "20%";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -192,5 +196,34 @@ public class ParserUtilTest {
         Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
+    }
+
+    @Test
+    public void parseProgress_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseProgress(null));
+    }
+
+    @Test
+    public void parseProgress_invalidValue_throwsParserException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseProgress(INVALID_PROGRESS));
+    }
+
+    @Test
+    public void parseProgress_validValueWithPercentage_returnsProgress() throws Exception {
+        assertEquals(new Progress("20"), ParserUtil.parseProgress(VALID_PROGRESS_2));
+    }
+
+    @Test
+    public void parseProgress_validValueWithWhiteSpace_returnsProgress() throws Exception {
+        String progressWithWhiteSpace = WHITESPACE + VALID_PROGRESS_1 + WHITESPACE;
+        Progress expectedProgress = new Progress(VALID_PROGRESS_1);
+        assertEquals(expectedProgress, ParserUtil.parseProgress(progressWithWhiteSpace));
+    }
+
+    @Test
+    public void parseProgress_validValueWithoutWhitespace_returnsProgress() throws Exception {
+        String progressWithoutWhiteSpace = VALID_PROGRESS_1;
+        Progress expectedProgress = new Progress(VALID_PROGRESS_1);
+        assertEquals(expectedProgress, ParserUtil.parseProgress(progressWithoutWhiteSpace));
     }
 }

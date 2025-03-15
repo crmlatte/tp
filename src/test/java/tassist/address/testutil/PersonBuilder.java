@@ -9,6 +9,7 @@ import tassist.address.model.person.Github;
 import tassist.address.model.person.Name;
 import tassist.address.model.person.Person;
 import tassist.address.model.person.Phone;
+import tassist.address.model.person.Progress;
 import tassist.address.model.tag.Tag;
 import tassist.address.model.util.SampleDataUtil;
 
@@ -22,6 +23,7 @@ public class PersonBuilder {
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_GITHUB = "https://github.com/tammzz";
+    public static final String DEFAULT_PROGRESS = "0";
 
     private Name name;
     private Phone phone;
@@ -29,6 +31,7 @@ public class PersonBuilder {
     private Address address;
     private Github github;
     private Set<Tag> tags;
+    private Progress progress;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -40,6 +43,7 @@ public class PersonBuilder {
         address = new Address(DEFAULT_ADDRESS);
         github = new Github(DEFAULT_GITHUB);
         tags = new HashSet<>();
+        progress = new Progress(DEFAULT_PROGRESS);
     }
 
     /**
@@ -52,6 +56,7 @@ public class PersonBuilder {
         address = personToCopy.getAddress();
         github = personToCopy.getGithub();
         tags = new HashSet<>(personToCopy.getTags());
+        progress = personToCopy.getProgress();
     }
 
     /**
@@ -102,8 +107,16 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Progress} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withProgress(String progress) {
+        this.progress = new Progress(progress);
+        return this;
+    }
+
     public Person build() {
-        return new Person(name, phone, email, address, github, tags);
+        return new Person(name, phone, email, address, github, tags, progress);
     }
 
 }
