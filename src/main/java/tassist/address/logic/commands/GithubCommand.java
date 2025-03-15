@@ -22,8 +22,7 @@ public class GithubCommand extends Command {
             + ": Edits the github of the person identified "
             + "by the {Student id number}. "
             + "Existing github will be overwritten by the input.\n"
-            + "Parameters: STUDENT_ID (must be at least 2 characters long, alphanumeric, no spaces) "
-            + "g/[GITHUB_URL]\n"
+            + "Parameters: STUDENT_ID , g/[GITHUB_URL]\n"
             + "Example: " + COMMAND_WORD + " A1234567X "
             + "g/https://github.com/tammzz";
 
