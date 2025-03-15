@@ -61,8 +61,7 @@ public class ListCommand extends Command {
         isValidFilterAndSort();
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         List<Person> list = model.getFilteredPersonList();
-
-        if (filterType != null && filterValue != null) {
+        if (filterType != null && filterValue != null && filterType != "" && filterValue != "") {
             Predicate<Person> filter = getFilter(filterType, filterValue);
             if (filter == null) {
                 return new CommandResult(MESSAGE_NO_STUDENTS);
@@ -70,7 +69,7 @@ public class ListCommand extends Command {
             model.updateFilteredPersonList(filter);
         }
 
-        if (sortType != null && sortOrder != null) {
+        if (sortType != null && sortOrder != null && sortType != "" && sortOrder != "") {
             Comparator<Person> comp = this.getComparator(sortType, sortOrder);
             if (comp == null) {
                 throw new CommandException(MESSAGE_INVALID_SORT);
@@ -105,8 +104,7 @@ public class ListCommand extends Command {
         case "team":
             return person -> "placeholder".equals(filterValue); //temporary placeholder for person.getTeam()
         case "progress":
-            return person -> String.valueOf(0).equals(filterValue); //temporary placeholder for
-        // person.getProgress()
+            return person -> String.valueOf(person.getProgress()).equals(filterValue);
         default:
             return person -> true;
         }
@@ -119,16 +117,15 @@ public class ListCommand extends Command {
             comparator = Comparator.comparing(person -> person.getName().fullName);
             break;
         case "progress":
-            comparator = Comparator.comparing(person -> 0); //temporary placeholder for person.getProgress().value
+            comparator = Comparator.comparing(person -> person.getProgress().value);
             break;
         case "github":
-            comparator = Comparator.comparing(person -> "placeholder"); //temporary placeholder for
-            // person.getGithub().github
+            comparator = Comparator.comparing(person -> person.getGithub().value);
             break;
         default:
             return null;
         }
 
-        return sortOrder.equals("asc") ? comparator : comparator.reversed();
+        return (sortOrder == null || sortOrder.equals("asc")) ? comparator : comparator.reversed();
     }
 }
