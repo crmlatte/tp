@@ -39,7 +39,11 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
+    private Label github;
+    @FXML
     private FlowPane tags;
+    @FXML
+    private Label progress;
 
     /**
      * Creates a {@code PersonCode} with the given {@code Person} and index to display.
@@ -51,9 +55,11 @@ public class PersonCard extends UiPart<Region> {
         name.setText(person.getName().fullName);
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
+        github.setText(person.getGithub().value);
         email.setText(person.getEmail().value);
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        progress.setText(String.valueOf(person.getProgress().value));
     }
 }
