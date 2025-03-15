@@ -113,7 +113,7 @@ class JsonAdaptedPerson {
         if (!ClassNumber.isValidClassNumber(classNumber)) {
             throw new IllegalValueException(ClassNumber.MESSAGE_CONSTRAINTS);
         }
-        final ClassNumber modelClassNumber = new ClassNumber("No tutorial assigned");
+        final ClassNumber modelClassNumber = new ClassNumber(classNumber);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
         return new Person(modelName, modelPhone, modelEmail, modelAddress, modelClassNumber, modelTags);
