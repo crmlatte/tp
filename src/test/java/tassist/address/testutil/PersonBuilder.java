@@ -5,6 +5,7 @@ import java.util.Set;
 
 import tassist.address.model.person.Address;
 import tassist.address.model.person.Email;
+import tassist.address.model.person.Github;
 import tassist.address.model.person.Name;
 import tassist.address.model.person.Person;
 import tassist.address.model.person.Phone;
@@ -21,12 +22,14 @@ public class PersonBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_GITHUB = "https://github.com/tammzz";
     public static final String DEFAULT_PROGRESS = "0";
 
     private Name name;
     private Phone phone;
     private Email email;
     private Address address;
+    private Github github;
     private Set<Tag> tags;
     private Progress progress;
 
@@ -38,6 +41,7 @@ public class PersonBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
+        github = new Github(DEFAULT_GITHUB);
         tags = new HashSet<>();
         progress = new Progress(DEFAULT_PROGRESS);
     }
@@ -50,6 +54,7 @@ public class PersonBuilder {
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
+        github = personToCopy.getGithub();
         tags = new HashSet<>(personToCopy.getTags());
         progress = personToCopy.getProgress();
     }
@@ -79,6 +84,14 @@ public class PersonBuilder {
     }
 
     /**
+     * Sets the {@code Github} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withGithub(String github) {
+        this.github = new Github(github);
+        return this;
+    }
+
+    /**
      * Sets the {@code Phone} of the {@code Person} that we are building.
      */
     public PersonBuilder withPhone(String phone) {
@@ -103,7 +116,7 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(name, phone, email, address, tags, progress);
+        return new Person(name, phone, email, address, github, tags, progress);
     }
 
 }

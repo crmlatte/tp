@@ -13,6 +13,7 @@ import tassist.address.commons.exceptions.IllegalValueException;
 import tassist.address.logic.parser.exceptions.ParseException;
 import tassist.address.model.person.Address;
 import tassist.address.model.person.Email;
+import tassist.address.model.person.Github;
 import tassist.address.model.person.Name;
 import tassist.address.model.person.Person;
 import tassist.address.model.person.Phone;
@@ -30,6 +31,7 @@ class JsonAdaptedPerson {
     private final String phone;
     private final String email;
     private final String address;
+    private final String github;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
     private final String progress;
 
@@ -39,11 +41,13 @@ class JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
+            @JsonProperty("github") String github,
             @JsonProperty("tags") List<JsonAdaptedTag> tags, @JsonProperty("progress") String progress) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.github = github;
         if (tags != null) {
             this.tags.addAll(tags);
         }
@@ -58,6 +62,7 @@ class JsonAdaptedPerson {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
+        github = source.getGithub().value;
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -107,6 +112,11 @@ class JsonAdaptedPerson {
         }
         final Address modelAddress = new Address(address);
 
+        if (github == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Github.class.getSimpleName()));
+        }
+        final Github modelGithub = new Github(github);
+
         final Set<Tag> modelTags = new HashSet<>(personTags);
 
         if (progress == null) {
@@ -120,6 +130,6 @@ class JsonAdaptedPerson {
         }
         final Progress modelProgress = new Progress(progressValue);
 
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelProgress);
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelGithub, modelTags, modelProgress);
     }
 }

@@ -69,7 +69,8 @@ public class EditPersonDescriptorTest {
                 + editPersonDescriptor.getName().orElse(null) + ", phone="
                 + editPersonDescriptor.getPhone().orElse(null) + ", email="
                 + editPersonDescriptor.getEmail().orElse(null) + ", address="
-                + editPersonDescriptor.getAddress().orElse(null) + ", tags="
+                + editPersonDescriptor.getAddress().orElse(null) + ", github="
+                + editPersonDescriptor.getGithub().orElse(null) + ", tags="
                 + editPersonDescriptor.getTags().orElse(null) + ", progress="
                 + editPersonDescriptor.getProgress().orElse(null) + "}";
         assertEquals(expected, editPersonDescriptor.toString());
