@@ -9,7 +9,8 @@ import static tassist.address.commons.util.AppUtil.checkArgument;
  */
 public class ClassNumber {
 
-    public static final String MESSAGE_CONSTRAINTS = "Class numbers should be of the format Txx";
+    public static final String MESSAGE_CONSTRAINTS =
+            "Class numbers should be either 'No tutorial assigned' or of the format 'Txx' (where xx is 01-99).";
 
     public static final String VALIDATION_REGEX = "^T(0[1-9]|[1-9][0-9])$";
 
@@ -30,7 +31,7 @@ public class ClassNumber {
      * Returns true if a given string is a valid email.
      */
     public static boolean isValidClassNumber(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.equals("No tutorial assigned") || test.matches(VALIDATION_REGEX);
     }
 
     @Override
