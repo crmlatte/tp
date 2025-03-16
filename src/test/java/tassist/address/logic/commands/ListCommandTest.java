@@ -1,6 +1,7 @@
 package tassist.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static tassist.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static tassist.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static tassist.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
@@ -15,6 +16,7 @@ import java.util.function.Predicate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import tassist.address.logic.commands.exceptions.CommandException;
 import tassist.address.model.Model;
 import tassist.address.model.ModelManager;
 import tassist.address.model.UserPrefs;
@@ -75,7 +77,6 @@ public class ListCommandTest {
     @Test
     public void execute_filterByProgress_success() throws Exception {
         ListCommand command = new ListCommand(null, null, "progress", "30");
-
         Predicate<Person> expectedPredicate = person -> person.getProgress().value <= 30;
         expectedModel.updateFilteredPersonList(expectedPredicate);
 
@@ -85,7 +86,6 @@ public class ListCommandTest {
     @Test
     public void execute_filterByProgress_noMatch() throws Exception {
         ListCommand command = new ListCommand(null, null, "progress", "-1"); // Assume no one has 999%
-
         expectedModel.updateFilteredPersonList(person -> person.getProgress().value <= -1);
 
         assertCommandSuccess(command, model, ListCommand.MESSAGE_NO_STUDENTS, expectedModel);
@@ -94,13 +94,73 @@ public class ListCommandTest {
     @Test
     public void execute_filterProgressAndSortNameDesc_success() throws Exception {
         ListCommand command = new ListCommand("name", "des", "progress", "30");
-
         Predicate<Person> expectedPredicate = person -> person.getProgress().value <= 30;
         expectedModel.updateFilteredPersonList(expectedPredicate);
         List<Person> sortedList = new ArrayList<>(expectedModel.getFilteredPersonList());
         sortedList.sort(Comparator.comparing(p -> p.getProgress().value, Comparator.reverseOrder()));
 
         assertCommandSuccess(command, model, ListCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void execute_invalidFilterType_throwsCommandException() {
+        ListCommand command = new ListCommand(null, null, "invalidfilter", "value");
+        CommandException thrown = assertThrows(CommandException.class, () -> command.execute(model));
+        assertEquals(ListCommand.MESSAGE_INVALID_FILTER, thrown.getMessage());
+    }
+
+    @Test
+    public void execute_invalidSortType_throwsCommandException() {
+        ListCommand command = new ListCommand("invalidtype", "asc", null, null);
+        CommandException thrown = assertThrows(CommandException.class, () -> command.execute(model));
+        assertEquals(ListCommand.MESSAGE_INVALID_SORT, thrown.getMessage());
+    }
+
+    @Test
+    public void execute_invalidSortOrder_throwsCommandException() {
+        ListCommand command = new ListCommand("name", "invalidorder", null, null);
+        CommandException thrown = assertThrows(CommandException.class, () -> command.execute(model));
+        assertEquals(ListCommand.MESSAGE_INVALID_SORT_ORDER, thrown.getMessage());
+    }
+
+    @Test
+    public void execute_filterByCourseNoMatch_returnsNoStudents() throws Exception {
+        ListCommand command = new ListCommand(null, null, "course", "placeholder");
+        Predicate<Person> expectedPredicate = person -> "placeholder".equals("placeholder");
+        //true for placeholder
+        expectedModel.updateFilteredPersonList(expectedPredicate);
+
+        assertCommandSuccess(command, model, ListCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void execute_filteredByTeamNoMatch_returnsNoStudents() throws Exception {
+        ListCommand command = new ListCommand(null, null, "team", "placeholder");
+        Predicate<Person> expectedPredicate = person -> "placeholder".equals("placeholder");
+        expectedModel.updateFilteredPersonList(expectedPredicate);
+
+        assertCommandSuccess(command, model, ListCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void execute_filteredByCourseInvalidValue_throwsCommandException() {
+        ListCommand command = new ListCommand(null, null, "course", "invalidValue");
+        CommandException thrown = assertThrows(CommandException.class, () -> command.execute(model));
+        assertEquals(ListCommand.MESSAGE_INVALID_FILTER_VALUE, thrown.getMessage());
+    }
+
+    @Test
+    public void execute_filteredByTeamInvalidValue_throwsCommandException() {
+        ListCommand command = new ListCommand(null, null, "team", "invalidValue");
+        CommandException thrown = assertThrows(CommandException.class, () -> command.execute(model));
+        assertEquals(ListCommand.MESSAGE_INVALID_FILTER_VALUE, thrown.getMessage());
+    }
+
+    @Test
+    public void execute_filteredByProgressInvalidValue_throwsCommandException() {
+        ListCommand command = new ListCommand(null, null, "progress", "invalidValue");
+        CommandException thrown = assertThrows(CommandException.class, () -> command.execute(model));
+        assertEquals(ListCommand.MESSAGE_INVALID_FILTER_VALUE, thrown.getMessage());
     }
 
     /*@Test

@@ -67,7 +67,7 @@ public class ListCommand extends Command {
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         List<Person> list = model.getFilteredPersonList();
         if (filterType != null && filterValue != null && filterType != "" && filterValue != "") {
-            Predicate<Person> filter = getFilter(filterType, filterValue);
+            Predicate<Person> filter = getFilter(model, filterType, filterValue);
             if (filter == null) {
                 return new CommandResult(MESSAGE_NO_STUDENTS);
             }
@@ -102,13 +102,31 @@ public class ListCommand extends Command {
     }
 
 
-    private Predicate<Person> getFilter(String filterType, String filterValue) {
+    private Predicate<Person> getFilter(Model model, String filterType, String filterValue) throws CommandException {
         switch (filterType) {
         case "course":
-            return person -> "placeholder".equals(filterValue); //temporary placeholder for person.getCourse()
+            boolean hasCourse = model.getFilteredPersonList().stream().anyMatch(person ->
+                    "placeholder".equalsIgnoreCase(filterValue)); //temporary placeholder for person.getCourse().value
+            if (!hasCourse) {
+                throw new CommandException(MESSAGE_INVALID_FILTER_VALUE);
+            }
+            return person -> "placeholder".equals(filterValue); //temporary placeholder for
+            // person.getCourse().value
         case "team":
-            return person -> "placeholder".equals(filterValue); //temporary placeholder for person.getTeam()
+            boolean hasTeam = model.getFilteredPersonList().stream()
+                    .anyMatch(p -> "placeholder".equalsIgnoreCase(filterValue));
+            if (!hasTeam) {
+                throw new CommandException(MESSAGE_INVALID_FILTER_VALUE);
+            }
+            return person -> "placeholder".equals(filterValue);
+            //temporary placeholder for person.getTeam().value
         case "progress":
+            int filterProgress;
+            try {
+                filterProgress = Integer.parseInt(filterValue);
+            } catch (NumberFormatException e) {
+                throw new CommandException(MESSAGE_INVALID_FILTER_VALUE);
+            }
             return person -> person.getProgress().value <= Integer.valueOf(filterValue);
         default:
             return person -> true;
