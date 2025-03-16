@@ -1,12 +1,18 @@
 package tassist.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
 import static tassist.address.commons.util.CollectionUtil.requireAllNonNull;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_CLASS;
+import static tassist.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+
+import java.util.List;
 
 import tassist.address.commons.core.index.Index;
+import tassist.address.logic.Messages;
 import tassist.address.logic.commands.exceptions.CommandException;
 import tassist.address.model.Model;
 import tassist.address.model.person.ClassNumber;
+import tassist.address.model.person.Person;
 
 /**
  * Assigns a student to a tutorial class identified using it's displayed index from the address book.
@@ -26,6 +32,9 @@ public class ClassCommand extends Command {
 
     public static final String MESSAGE_ARGUMENTS = "Index: %1$d, Class Number: %2$s";
 
+    public static final String MESSAGE_ADD_REMARK_SUCCESS = "Assigned tutorial class to student: %1$s";
+    public static final String MESSAGE_DELETE_REMARK_SUCCESS = "Removed tutorial class from student: %1$s";
+
     private final Index index;
     private final ClassNumber classNumber;
 
@@ -42,8 +51,33 @@ public class ClassCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        throw new CommandException(
-                String.format(MESSAGE_ARGUMENTS, index.getOneBased(), classNumber));
+        requireNonNull(model);
+        List<Person> lastShownList = model.getFilteredPersonList();
+
+        if (index.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
+
+        Person personToEdit = lastShownList.get(index.getZeroBased());
+        Person editedPerson = new Person(
+                personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
+                personToEdit.getAddress(), classNumber, personToEdit.getGithub(), personToEdit.getTags(),
+                personToEdit.getProgress());
+
+        model.setPerson(personToEdit, editedPerson);
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
+        return new CommandResult(generateSuccessMessage(editedPerson));
+    }
+
+    /**
+     * Generates a command execution success message based on whether
+     * the class number is added to or removed from
+     * {@code personToEdit}.
+     */
+    private String generateSuccessMessage(Person personToEdit) {
+        String message = !classNumber.value.isEmpty() ? MESSAGE_ADD_REMARK_SUCCESS : MESSAGE_DELETE_REMARK_SUCCESS;
+        return String.format(message, Messages.format(personToEdit));
     }
 
     @Override
