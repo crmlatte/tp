@@ -79,7 +79,7 @@ public class ListCommand extends Command {
             if (comp == null) {
                 throw new CommandException(MESSAGE_INVALID_SORT);
             }
-            list.sort(comp);
+            model.sortFilteredPersonList(comp);
         }
         if (list.isEmpty()) {
             return new CommandResult(MESSAGE_NO_STUDENTS);
@@ -109,7 +109,7 @@ public class ListCommand extends Command {
         case "team":
             return person -> "placeholder".equals(filterValue); //temporary placeholder for person.getTeam()
         case "progress":
-            return person -> String.valueOf(person.getProgress()).equals(filterValue);
+            return person -> person.getProgress().value <= Integer.valueOf(filterValue);
         default:
             return person -> true;
         }
