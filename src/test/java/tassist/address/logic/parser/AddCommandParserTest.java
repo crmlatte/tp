@@ -203,7 +203,8 @@ public class AddCommandParserTest {
     public void parse_invalidValue_failure() {
         // invalid name
         assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + STUDENTID_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + PROGRESS_DESC_BOB, Name.MESSAGE_CONSTRAINTS);
+                + STUDENTID_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + PROGRESS_DESC_BOB,
+                Name.MESSAGE_CONSTRAINTS);
 
         // invalid phone
         assertParseFailure(parser, NAME_DESC_BOB + INVALID_PHONE_DESC + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
