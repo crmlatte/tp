@@ -5,12 +5,16 @@
     "email": "alice@example.com",
     "address": "123, Jurong West Ave 6, #08-111",
     "classNumber": "T01",
-    "tags": [ "friends" ]
+    "github": "https://github.com/default",
+    "tags": [ "friends" ],
+    "progress": "60"
   }, {
     "name": "Alice Pauline",
     "phone": "94351253",
     "email": "pauline@example.com",
     "address": "4th street",
     "classNumber": "T15"
+    "github": "https://github.com/default",
+    "progress": "60"
   } ]
 }

@@ -24,20 +24,25 @@ public class Person {
     // Data fields
     private final ClassNumber classNumber;
     private final Address address;
+    private final Progress progress;
     private final Set<Tag> tags = new HashSet<>();
+    private final Github github;
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address,
-                  ClassNumber classNumber, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Person(Name name, Phone phone, Email email, Address address, ClassNumber classNumber
+                  Github github, Set<Tag> tags, Progress progress) {
+        requireAllNonNull(name, phone, email, address, tags, progress);
+
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.classNumber = classNumber;
         this.address = address;
+        this.github = github;
         this.tags.addAll(tags);
+        this.progress = progress;
     }
 
     public Name getName() {
@@ -58,6 +63,14 @@ public class Person {
 
     public Address getAddress() {
         return address;
+    }
+
+    public Progress getProgress() {
+        return progress;
+    }
+
+    public Github getGithub() {
+        return github;
     }
 
     /**
@@ -107,7 +120,7 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, github, tags, progress);
     }
 
     @Override
@@ -118,6 +131,7 @@ public class Person {
                 .add("email", email)
                 .add("address", address)
                 .add("tags", tags)
+                .add("progress", progress)
                 .toString();
     }
 
