@@ -1,7 +1,9 @@
 package tassist.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tassist.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static tassist.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static tassist.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
@@ -67,6 +69,19 @@ public class ListCommandTest {
         expectedModel.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         List<Person> sortedList = new ArrayList<>(expectedModel.getFilteredPersonList());
         sortedList.sort(Comparator.comparing(p -> p.getProgress().value, Comparator.reverseOrder()));
+
+        assertCommandSuccess(command, model, ListCommand.MESSAGE_SUCCESS, expectedModel);
+
+        List<Person> actualList = new ArrayList<>(model.getFilteredPersonList());
+        assertEquals(sortedList, actualList);
+    }
+
+    @Test
+    public void execute_sortByGithubDescending_success() throws Exception {
+        ListCommand command = new ListCommand("github", "des", null, null);
+        expectedModel.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        List<Person> sortedList = new ArrayList<>(expectedModel.getFilteredPersonList());
+        sortedList.sort(Comparator.comparing(p -> p.getGithub().value, Comparator.reverseOrder()));
 
         assertCommandSuccess(command, model, ListCommand.MESSAGE_SUCCESS, expectedModel);
 
@@ -163,14 +178,38 @@ public class ListCommandTest {
         assertEquals(ListCommand.MESSAGE_INVALID_FILTER_VALUE, thrown.getMessage());
     }
 
-    /*@Test
-    public void execute_filterByTeam_success() throws Exception {
-        ListCommand command = new ListCommand(null, null, "team", "alpha");
+    @Test
+    public void equals() {
+        // Same values
+        ListCommand command1 = new ListCommand("name", "asc", "course", "cs2103");
+        ListCommand command1Copy = new ListCommand("name", "asc", "course", "cs2103");
+        assertTrue(command1.equals(command1));
+        assertTrue(command1.equals(command1Copy));
 
-        Predicate<Person> expectedPredicate = person -> person.getTeam().equalsIgnoreCase("alpha");
-        expectedModel.updateFilteredPersonList(expectedPredicate);
+        // Different sort type
+        ListCommand command2 = new ListCommand("progress", "asc", "course", "cs2103");
+        assertFalse(command1.equals(command2));
 
-        assertCommandSuccess(command, model, ListCommand.MESSAGE_SUCCESS, expectedModel);
-    }*/
+        // Different sort order
+        ListCommand command3 = new ListCommand("name", "des", "course", "cs2103");
+        assertFalse(command1.equals(command3));
 
+        // Different filter type
+        ListCommand command4 = new ListCommand("name", "asc", "team", "teamA");
+        assertFalse(command1.equals(command4));
+
+        // Different filter value
+        ListCommand command5 = new ListCommand("name", "asc", "course", "cs1101s");
+        assertFalse(command1.equals(command5));
+
+        // Empty parameters (default constructor)
+        ListCommand defaultCommand = new ListCommand();
+        ListCommand defaultCommandCopy = new ListCommand();
+        assertTrue(defaultCommand.equals(defaultCommandCopy));
+        assertFalse(defaultCommand.equals(command1));
+
+        // different type -> returns false
+        assertFalse(command1.equals(5));
+
+    }
 }

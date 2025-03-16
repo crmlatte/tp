@@ -68,17 +68,11 @@ public class ListCommand extends Command {
         List<Person> list = model.getFilteredPersonList();
         if (filterType != null && filterValue != null && filterType != "" && filterValue != "") {
             Predicate<Person> filter = getFilter(model, filterType, filterValue);
-            if (filter == null) {
-                return new CommandResult(MESSAGE_NO_STUDENTS);
-            }
             model.updateFilteredPersonList(filter);
         }
 
         if (sortType != null && sortOrder != null && sortType != "" && sortOrder != "") {
             Comparator<Person> comp = this.getComparator(sortType, sortOrder);
-            if (comp == null) {
-                throw new CommandException(MESSAGE_INVALID_SORT);
-            }
             model.sortFilteredPersonList(comp);
         }
         if (list.isEmpty()) {
@@ -129,11 +123,11 @@ public class ListCommand extends Command {
             }
             return person -> person.getProgress().value <= Integer.valueOf(filterValue);
         default:
-            return person -> true;
+            throw new CommandException(MESSAGE_INVALID_FILTER);
         }
     }
 
-    private Comparator<Person> getComparator(String sortType, String sortOrder) {
+    private Comparator<Person> getComparator(String sortType, String sortOrder) throws CommandException {
         Comparator<Person> comparator;
         switch(sortType) {
         case "name":
@@ -146,7 +140,7 @@ public class ListCommand extends Command {
             comparator = Comparator.comparing(person -> person.getGithub().value);
             break;
         default:
-            return null;
+            throw new CommandException(MESSAGE_INVALID_SORT);
         }
 
         return (sortOrder == null || sortOrder.equals("asc")) ? comparator : comparator.reversed();
