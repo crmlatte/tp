@@ -6,6 +6,7 @@ import static tassist.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Predicate;
 
 import tassist.address.logic.commands.exceptions.CommandException;
@@ -22,9 +23,13 @@ public class ListCommand extends Command {
     public static final String MESSAGE_NO_STUDENTS = "No students found.";
     public static final String MESSAGE_INVALID_SORT = "Invalid sort type. Allowed sort type: name, progress, github.";
     public static final String MESSAGE_INVALID_SORT_ORDER = "Invalid sort order. Allowed sort order: asc, des.";
+    public static final String MESSAGE_MISSING_SORT_ORDER = "Please enter sort order. list s/[SORT TYPE] o/[SORT ORDER]"
+            + "Allowed sort order: asc,des.";
     public static final String MESSAGE_INVALID_FILTER = "Invalid filter type. Allowed filter type: course, team, "
             + "progress";
     public static final String MESSAGE_INVALID_FILTER_VALUE = "This filter value does not exists.";
+    public static final String MESSAGE_MISSING_FILTER_VALUE = "Please enter filter value. list f/[FILTER TYPE] "
+            + "fv/[FILTER VALUE]";
 
     public static final List<String> VALID_SORT_ORDERS = Arrays.asList("asc", "des");
     public static final List<String> VALID_SORT_TYPES = Arrays.asList("name", "progress", "github");
@@ -127,5 +132,32 @@ public class ListCommand extends Command {
         }
 
         return (sortOrder == null || sortOrder.equals("asc")) ? comparator : comparator.reversed();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof ListCommand)) {
+            return false;
+        }
+
+        ListCommand otherCommand = (ListCommand) other;
+        return Objects.equals(this.sortType, otherCommand.sortType)
+                && Objects.equals(this.sortOrder, otherCommand.sortOrder)
+                && Objects.equals(this.filterType, otherCommand.filterType)
+                && Objects.equals(this.filterValue, otherCommand.filterValue);
+    }
+
+    @Override
+    public String toString() {
+        return "ListCommand{"
+                + "sortType='" + sortType + '\''
+                + ", sortOrder='" + sortOrder + '\''
+                + ", filterType='" + filterType + '\''
+                + ", filterValue='" + filterValue + '\''
+                + '}';
     }
 }
