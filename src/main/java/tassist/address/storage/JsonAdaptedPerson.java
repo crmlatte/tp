@@ -120,7 +120,7 @@ class JsonAdaptedPerson {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     StudentId.class.getSimpleName()));
         }
-        
+
         final StudentId modelStudentId = new StudentId(studentId);
 
         if (github == null) {

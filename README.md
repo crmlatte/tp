@@ -4,22 +4,22 @@
 
 ![Ui](docs/images/Ui.png)
 
-## **🤖 TAssist ** 
+## **🤖 TAssist **
 A Teaching Assistant Management Tool
 
 ## **Overview** 💡
-TAssist is a desktop application designed for university tutors and teaching assistants (TAs) to efficiently 
+TAssist is a desktop application designed for university tutors and teaching assistants (TAs) to efficiently
 manage students, track progress, and assign students to project teams or classes.
 
-The application is built for users who prefer keyboard-driven interactions, ensuring fast and efficient student 
+The application is built for users who prefer keyboard-driven interactions, ensuring fast and efficient student
 management.
 
-TAssist is built with a Command Line Interface (CLI) and Graphical User Interface (GUI) to enhance productivity 
+TAssist is built with a Command Line Interface (CLI) and Graphical User Interface (GUI) to enhance productivity
 while maintaining usability.
 
 ## **Key Features**
 
-### **🤓 Student Management**   
+### **🤓 Student Management**
 - **View a list of students** – Quickly browse all students.
 - **Add, edit, or delete student details** – Manage contact details easily.
 - **Store multiple GitHub repositories per student** – Store github accounts and repositories for each student.
@@ -57,7 +57,7 @@ while maintaining usability.
    ```
     java -jar TAssist.jar
    ```
-   
+
 ## **Acknowledgment**
 This project is based on the **AddressBook-Level3** project created by the [SE-EDU initiative](https://se-education.org).
 
