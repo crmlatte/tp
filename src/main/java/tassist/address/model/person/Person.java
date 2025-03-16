@@ -31,7 +31,7 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, ClassNumber classNumber
+    public Person(Name name, Phone phone, Email email, Address address, ClassNumber classNumber,
                   Github github, Set<Tag> tags, Progress progress) {
         requireAllNonNull(name, phone, email, address, tags, progress);
 

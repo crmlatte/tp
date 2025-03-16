@@ -119,7 +119,7 @@ public class PersonBuilder {
         this.classNumber = new ClassNumber(classNumber);
         return this;
     }
-  
+
     /**
      * Sets the {@code Progress} of the {@code Person} that we are building.
      */
@@ -128,7 +128,7 @@ public class PersonBuilder {
         return this;
     }
 
-    public Person build() 
+    public Person build() {
         return new Person(name, phone, email, address, classNumber, github, tags, progress);
     }
 

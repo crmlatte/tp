@@ -111,7 +111,7 @@ public class EditCommand extends Command {
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
         Progress updatedProgress = editPersonDescriptor.getProgress().orElse(personToEdit.getProgress());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedClassNumber, updatedGithub, 
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedClassNumber, updatedGithub,
                 updatedTags, updatedProgress);
     }
 
@@ -216,7 +216,7 @@ public class EditCommand extends Command {
         public Optional<ClassNumber> getClassNumber() {
             return Optional.ofNullable(classNumber);
         }
-      
+
         public void setGithub(Github github) {
             this.github = github;
         }

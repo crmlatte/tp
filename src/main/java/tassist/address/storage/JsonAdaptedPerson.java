@@ -143,7 +143,7 @@ class JsonAdaptedPerson {
         }
         final Progress modelProgress = new Progress(progressValue);
 
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelClassNumber, modelGithub, 
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelClassNumber, modelGithub,
                           modelTags, modelProgress);
     }
 }
