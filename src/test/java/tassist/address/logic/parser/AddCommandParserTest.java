@@ -9,8 +9,8 @@ import static tassist.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DES
 import static tassist.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static tassist.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static tassist.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
-import static tassist.address.logic.commands.CommandTestUtil.INVALID_STUDENTID_DESC;
 import static tassist.address.logic.commands.CommandTestUtil.INVALID_PROGRESS_DESC;
+import static tassist.address.logic.commands.CommandTestUtil.INVALID_STUDENTID_DESC;
 import static tassist.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static tassist.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static tassist.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
@@ -18,10 +18,10 @@ import static tassist.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static tassist.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static tassist.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static tassist.address.logic.commands.CommandTestUtil.STUDENTID_DESC_AMY;
-import static tassist.address.logic.commands.CommandTestUtil.STUDENTID_DESC_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.PROGRESS_DESC_AMY;
 import static tassist.address.logic.commands.CommandTestUtil.PROGRESS_DESC_BOB;
+import static tassist.address.logic.commands.CommandTestUtil.STUDENTID_DESC_AMY;
+import static tassist.address.logic.commands.CommandTestUtil.STUDENTID_DESC_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static tassist.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
@@ -35,8 +35,8 @@ import static tassist.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static tassist.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_PROGRESS;
+import static tassist.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 import static tassist.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static tassist.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static tassist.address.testutil.TypicalPersons.AMY;
@@ -51,8 +51,8 @@ import tassist.address.model.person.Email;
 import tassist.address.model.person.Name;
 import tassist.address.model.person.Person;
 import tassist.address.model.person.Phone;
-import tassist.address.model.person.StudentId;
 import tassist.address.model.person.Progress;
+import tassist.address.model.person.StudentId;
 import tassist.address.model.tag.Tag;
 import tassist.address.testutil.PersonBuilder;
 
@@ -203,27 +203,37 @@ public class AddCommandParserTest {
     public void parse_invalidValue_failure() {
         // invalid name
         assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-        + STUDENTID_DESC_BOB  + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + PROGRESS_DESC_BOB, Name.MESSAGE_CONSTRAINTS);
+                + STUDENTID_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + PROGRESS_DESC_BOB, Name.MESSAGE_CONSTRAINTS);
 
         // invalid phone
         assertParseFailure(parser, NAME_DESC_BOB + INVALID_PHONE_DESC + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + STUDENTID_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + PROGRESS_DESC_BOB, Phone.MESSAGE_CONSTRAINTS);
+                + STUDENTID_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + PROGRESS_DESC_BOB,
+                Phone.MESSAGE_CONSTRAINTS);
 
         // invalid email
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + INVALID_EMAIL_DESC + ADDRESS_DESC_BOB
-                + STUDENTID_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + PROGRESS_DESC_BOB, Email.MESSAGE_CONSTRAINTS);
+                + STUDENTID_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + PROGRESS_DESC_BOB,
+                Email.MESSAGE_CONSTRAINTS);
 
         // invalid address
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_ADDRESS_DESC
-                + STUDENTID_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + PROGRESS_DESC_BOB, Address.MESSAGE_CONSTRAINTS);
+                + STUDENTID_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + PROGRESS_DESC_BOB,
+                Address.MESSAGE_CONSTRAINTS);
+
+        //invalid studentId
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_ADDRESS_DESC
+                + INVALID_STUDENTID_DESC + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + PROGRESS_DESC_BOB,
+                StudentId.MESSAGE_CONSTRAINTS);
 
         // invalid tag
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + STUDENTID_DESC_BOB + INVALID_TAG_DESC + VALID_TAG_FRIEND + PROGRESS_DESC_BOB, Tag.MESSAGE_CONSTRAINTS);
+                + STUDENTID_DESC_BOB + INVALID_TAG_DESC + VALID_TAG_FRIEND + PROGRESS_DESC_BOB,
+                Tag.MESSAGE_CONSTRAINTS);
 
         // invalid progress
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + STUDENTID_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + INVALID_PROGRESS_DESC, Progress.MESSAGE_CONSTRAINTS);
+                + STUDENTID_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + INVALID_PROGRESS_DESC,
+                Progress.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_ADDRESS_DESC

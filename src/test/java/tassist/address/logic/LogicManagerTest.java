@@ -7,8 +7,8 @@ import static tassist.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static tassist.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static tassist.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static tassist.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static tassist.address.logic.commands.CommandTestUtil.STUDENTID_DESC_AMY;
 import static tassist.address.logic.commands.CommandTestUtil.PROGRESS_DESC_AMY;
+import static tassist.address.logic.commands.CommandTestUtil.STUDENTID_DESC_AMY;
 import static tassist.address.testutil.Assert.assertThrows;
 import static tassist.address.testutil.TypicalPersons.AMY;
 

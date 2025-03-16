@@ -9,8 +9,8 @@ import tassist.address.model.person.Github;
 import tassist.address.model.person.Name;
 import tassist.address.model.person.Person;
 import tassist.address.model.person.Phone;
-import tassist.address.model.person.StudentId;
 import tassist.address.model.person.Progress;
+import tassist.address.model.person.StudentId;
 import tassist.address.model.tag.Tag;
 import tassist.address.model.util.SampleDataUtil;
 
@@ -128,6 +128,9 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Builds and returns a {@code Person} instance with the set attributes.
+     */
     public Person build() {
         return new Person(name, phone, email, address, studentId, github, tags, progress);
 
