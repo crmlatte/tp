@@ -53,7 +53,6 @@ public class ListCommandTest {
     public void execute_sortByNameAscending_success() throws Exception {
         ListCommand command = new ListCommand("name", "asc", null, null);
         expectedModel.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-
         List<Person> sortedExpectedList = new ArrayList<>(expectedModel.getFilteredPersonList());
         sortedExpectedList.sort(Comparator.comparing(p -> p.getName().fullName));
 
@@ -100,7 +99,7 @@ public class ListCommandTest {
 
     @Test
     public void execute_filterByProgress_noMatch() throws Exception {
-        ListCommand command = new ListCommand(null, null, "progress", "-1"); // Assume no one has 999%
+        ListCommand command = new ListCommand(null, null, "progress", "-1");
         expectedModel.updateFilteredPersonList(person -> person.getProgress().value <= -1);
 
         assertCommandSuccess(command, model, ListCommand.MESSAGE_NO_STUDENTS, expectedModel);
