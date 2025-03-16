@@ -7,9 +7,12 @@ import java.util.stream.Stream;
 import tassist.address.logic.commands.EditCommand.EditPersonDescriptor;
 import tassist.address.model.person.Address;
 import tassist.address.model.person.Email;
+import tassist.address.model.person.Github;
 import tassist.address.model.person.Name;
 import tassist.address.model.person.Person;
 import tassist.address.model.person.Phone;
+import tassist.address.model.person.Progress;
+import tassist.address.model.person.StudentId;
 import tassist.address.model.tag.Tag;
 
 /**
@@ -36,6 +39,8 @@ public class EditPersonDescriptorBuilder {
         descriptor.setPhone(person.getPhone());
         descriptor.setEmail(person.getEmail());
         descriptor.setAddress(person.getAddress());
+        descriptor.setStudentId(person.getStudentId());
+        descriptor.setGithub(person.getGithub());
         descriptor.setTags(person.getTags());
     }
 
@@ -72,12 +77,36 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
+     * Sets the {@code StudentId} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withStudentId(String studentId) {
+        descriptor.setStudentId(new StudentId(studentId));
+        return this;
+    }
+    /**
+     * Sets the {@code Github} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withGithub(String github) {
+        descriptor.setGithub(new Github(github));
+        return this;
+    }
+
+    /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor}
      * that we are building.
      */
     public EditPersonDescriptorBuilder withTags(String... tags) {
         Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
         descriptor.setTags(tagSet);
+        return this;
+    }
+
+    /**
+     * Parses the {@code progress} into a {@code Progress} and set it to the {@code EditPersonDescriptor}
+     * that we are building.
+     */
+    public EditPersonDescriptorBuilder withProgress(String progress) {
+        descriptor.setProgress(new Progress(progress));
         return this;
     }
 

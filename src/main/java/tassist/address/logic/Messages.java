@@ -47,6 +47,7 @@ public class Messages {
                 .append(person.getStudentId())
                 .append("; Tags: ");
         person.getTags().forEach(builder::append);
+        builder.append("; Progress: ").append(person.getProgress());
         return builder.toString();
     }
 

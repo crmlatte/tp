@@ -25,19 +25,25 @@ public class Person {
 
     // Data fields
     private final Address address;
+    private final Progress progress;
     private final Set<Tag> tags = new HashSet<>();
+    private final Github github;
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, StudentId studentId, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, studentId, tags);
+    public Person(Name name, Phone phone, Email email, Address address, StudentId studentId, Github github,
+                Set<Tag> tags, Progress progress) {
+        requireAllNonNull(name, phone, email, address, studentId, tags, progress);
+
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.studentId = studentId;
+        this.github = github;
         this.tags.addAll(tags);
+        this.progress = progress;
     }
 
     public Name getName() {
@@ -58,6 +64,15 @@ public class Person {
 
     public StudentId getStudentId() {
         return studentId;
+    }
+
+    public Progress getProgress() {
+        return progress;
+    }
+
+    public Github getGithub() {
+        return github;
+
     }
 
     /**
@@ -101,13 +116,14 @@ public class Person {
                 && phone.equals(otherPerson.phone)
                 && email.equals(otherPerson.email)
                 && address.equals(otherPerson.address)
+                && studentId.equals(otherPerson.studentId)
                 && tags.equals(otherPerson.tags);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, studentId, github, tags, progress);
     }
 
     @Override
@@ -119,6 +135,7 @@ public class Person {
                 .add("address", address)
                 .add("studentId", studentId)
                 .add("tags", tags)
+                .add("progress", progress)
                 .toString();
     }
 
