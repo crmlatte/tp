@@ -14,6 +14,7 @@ import java.util.Set;
 import tassist.address.logic.commands.AddCommand;
 import tassist.address.logic.commands.EditCommand.EditPersonDescriptor;
 import tassist.address.model.person.Person;
+import tassist.address.model.person.StudentId;
 import tassist.address.model.tag.Tag;
 
 /**
@@ -55,6 +56,8 @@ public class PersonUtil {
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
         descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
         descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
+        descriptor.getStudentId().ifPresent(studentId -> sb.append(PREFIX_STUDENTID).append(studentId.value)
+                .append(" "));
         descriptor.getGithub().ifPresent(github -> sb.append(PREFIX_GITHUB).append(github.value).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();

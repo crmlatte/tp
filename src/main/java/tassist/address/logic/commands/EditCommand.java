@@ -176,7 +176,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags, progress);
+            return CollectionUtil.isAnyNonNull(name, phone, email, address, studentId, tags, progress);
         }
 
         public void setName(Name name) {
@@ -218,13 +218,13 @@ public class EditCommand extends Command {
         public Optional<StudentId> getStudentId() {
             return Optional.ofNullable(studentId);
         }
+
         public void setGithub(Github github) {
             this.github = github;
         }
 
         public Optional<Github> getGithub() {
             return Optional.ofNullable(github);
-
         }
 
         /**

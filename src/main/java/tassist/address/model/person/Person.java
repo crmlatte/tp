@@ -20,9 +20,7 @@ public class Person {
     private final Name name;
     private final Phone phone;
     private final Email email;
-
     private final StudentId studentId;
-
     // Data fields
     private final Address address;
     private final Progress progress;

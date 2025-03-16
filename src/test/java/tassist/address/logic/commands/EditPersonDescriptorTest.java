@@ -70,7 +70,7 @@ public class EditPersonDescriptorTest {
                 + editPersonDescriptor.getPhone().orElse(null) + ", email="
                 + editPersonDescriptor.getEmail().orElse(null) + ", address="
                 + editPersonDescriptor.getAddress().orElse(null) + ", studentId="
-                + editPersonDescriptor.getAddress().orElse(null) + ", github="
+                + editPersonDescriptor.getStudentId().orElse(null) + ", github="
                 + editPersonDescriptor.getGithub().orElse(null) + ", tags="
                 + editPersonDescriptor.getTags().orElse(null) + ", progress="
                 + editPersonDescriptor.getProgress().orElse(null) + "}";
