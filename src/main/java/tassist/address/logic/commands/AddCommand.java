@@ -6,6 +6,7 @@ import static tassist.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_PROGRESS;
+import static tassist.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import tassist.address.commons.util.ToStringBuilder;
@@ -27,6 +28,7 @@ public class AddCommand extends Command {
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
             + PREFIX_ADDRESS + "ADDRESS "
+            + PREFIX_STUDENTID + "STUDENTID "
             + "[" + PREFIX_TAG + "TAG]... "
             + PREFIX_PROGRESS + "PROGRESS\n"
             + "Example: " + COMMAND_WORD + " "
@@ -34,6 +36,7 @@ public class AddCommand extends Command {
             + PREFIX_PHONE + "98765432 "
             + PREFIX_EMAIL + "johnd@example.com "
             + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
+            + PREFIX_STUDENTID + "A0000000B "
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney "
             + PREFIX_PROGRESS + "50";

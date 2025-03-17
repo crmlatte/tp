@@ -12,6 +12,7 @@ import tassist.address.model.person.Name;
 import tassist.address.model.person.Person;
 import tassist.address.model.person.Phone;
 import tassist.address.model.person.Progress;
+import tassist.address.model.person.StudentId;
 import tassist.address.model.tag.Tag;
 
 /**
@@ -38,6 +39,7 @@ public class EditPersonDescriptorBuilder {
         descriptor.setPhone(person.getPhone());
         descriptor.setEmail(person.getEmail());
         descriptor.setAddress(person.getAddress());
+        descriptor.setStudentId(person.getStudentId());
         descriptor.setGithub(person.getGithub());
         descriptor.setTags(person.getTags());
     }
@@ -74,6 +76,13 @@ public class EditPersonDescriptorBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code StudentId} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withStudentId(String studentId) {
+        descriptor.setStudentId(new StudentId(studentId));
+        return this;
+    }
     /**
      * Sets the {@code Github} of the {@code EditPersonDescriptor} that we are building.
      */

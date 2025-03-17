@@ -18,6 +18,7 @@ import tassist.address.model.person.Name;
 import tassist.address.model.person.Person;
 import tassist.address.model.person.Phone;
 import tassist.address.model.person.Progress;
+import tassist.address.model.person.StudentId;
 import tassist.address.model.tag.Tag;
 
 /**
@@ -31,6 +32,7 @@ class JsonAdaptedPerson {
     private final String phone;
     private final String email;
     private final String address;
+    private final String studentId;
     private final String github;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
     private final String progress;
@@ -41,12 +43,13 @@ class JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("github") String github,
+            @JsonProperty("studentId") String studentId, @JsonProperty("github") String github,
             @JsonProperty("tags") List<JsonAdaptedTag> tags, @JsonProperty("progress") String progress) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.studentId = studentId;
         this.github = github;
         if (tags != null) {
             this.tags.addAll(tags);
@@ -62,6 +65,7 @@ class JsonAdaptedPerson {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
+        studentId = source.getStudentId().value;
         github = source.getGithub().value;
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
@@ -112,6 +116,13 @@ class JsonAdaptedPerson {
         }
         final Address modelAddress = new Address(address);
 
+        if (studentId == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    StudentId.class.getSimpleName()));
+        }
+
+        final StudentId modelStudentId = new StudentId(studentId);
+
         if (github == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Github.class.getSimpleName()));
         }
@@ -130,6 +141,7 @@ class JsonAdaptedPerson {
         }
         final Progress modelProgress = new Progress(progressValue);
 
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelGithub, modelTags, modelProgress);
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelStudentId,
+                          modelGithub, modelTags, modelProgress);
     }
 }

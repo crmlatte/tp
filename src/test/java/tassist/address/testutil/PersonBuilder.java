@@ -10,6 +10,7 @@ import tassist.address.model.person.Name;
 import tassist.address.model.person.Person;
 import tassist.address.model.person.Phone;
 import tassist.address.model.person.Progress;
+import tassist.address.model.person.StudentId;
 import tassist.address.model.tag.Tag;
 import tassist.address.model.util.SampleDataUtil;
 
@@ -22,6 +23,7 @@ public class PersonBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_STUDENTID = "A0000000B";
     public static final String DEFAULT_GITHUB = "https://github.com/tammzz";
     public static final String DEFAULT_PROGRESS = "0";
 
@@ -29,6 +31,7 @@ public class PersonBuilder {
     private Phone phone;
     private Email email;
     private Address address;
+    private StudentId studentId;
     private Github github;
     private Set<Tag> tags;
     private Progress progress;
@@ -41,6 +44,7 @@ public class PersonBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
+        studentId = new StudentId(DEFAULT_STUDENTID);
         github = new Github(DEFAULT_GITHUB);
         tags = new HashSet<>();
         progress = new Progress(DEFAULT_PROGRESS);
@@ -54,6 +58,7 @@ public class PersonBuilder {
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
+        studentId = personToCopy.getStudentId();
         github = personToCopy.getGithub();
         tags = new HashSet<>(personToCopy.getTags());
         progress = personToCopy.getProgress();
@@ -108,6 +113,14 @@ public class PersonBuilder {
     }
 
     /**
+     * Sets the {@code StudentId} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withStudentId(String studentId) {
+        this.studentId = new StudentId(studentId);
+        return this;
+    }
+
+    /**
      * Sets the {@code Progress} of the {@code Person} that we are building.
      */
     public PersonBuilder withProgress(String progress) {
@@ -115,8 +128,11 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Builds and returns a {@code Person} instance with the set attributes.
+     */
     public Person build() {
-        return new Person(name, phone, email, address, github, tags, progress);
-    }
+        return new Person(name, phone, email, address, studentId, github, tags, progress);
 
+    }
 }
