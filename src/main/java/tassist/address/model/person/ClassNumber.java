@@ -12,8 +12,8 @@ public class ClassNumber {
     public static final String MESSAGE_CONSTRAINTS =
             "Class numbers should be either 'No tutorial assigned' or of the format 'Txx' (where xx is 01-99).";
 
-    public static final String VALIDATION_REGEX = "^T(0[1-9]|[1-9][0-9])$";
-
+    public static final String VALIDATION_REGEX = "^(T|R)(0[1-9]|[1-9][0-9])$";
+    public static final String DEFAULT_CLASS = "No tutorial assigned";
     public final String value;
 
     /**
@@ -28,10 +28,10 @@ public class ClassNumber {
     }
 
     /**
-     * Returns true if a given string is a valid email.
+     * Returns true if a given string is a valid class number.
      */
     public static boolean isValidClassNumber(String test) {
-        return test.equals("No tutorial assigned") || test.matches(VALIDATION_REGEX);
+        return test.matches(DEFAULT_CLASS) || test.matches(VALIDATION_REGEX);
     }
 
     @Override
