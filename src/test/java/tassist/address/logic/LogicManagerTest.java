@@ -149,7 +149,7 @@ public class LogicManagerTest {
     }
 
     private void assertCommandSuccess(String inputCommand,
-                                      Model expectedModel) throws CommandException, ParseException {
+            Model expectedModel) throws CommandException, ParseException {
         CommandResult result = logic.execute(inputCommand);
         assertEquals(ListCommand.MESSAGE_SUCCESS, result.getFeedbackToUser());
         assertEquals(expectedModel, model);
@@ -164,13 +164,13 @@ public class LogicManagerTest {
     }
 
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
-                                      String expectedMessage) {
+            String expectedMessage) {
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
-                                      String expectedMessage, Model expectedModel) {
+            String expectedMessage, Model expectedModel) {
         assertThrows(expectedException, expectedMessage, () -> logic.execute(inputCommand));
         assertEquals(expectedModel, model);
     }
@@ -193,7 +193,7 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
-                                    + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
         Person expectedPerson = new PersonBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addPerson(expectedPerson);

@@ -104,14 +104,14 @@ public class DeleteCommandTest {
         // Step 1: First execution should return confirmation message
         CommandResult confirmationResult = deleteCommand.execute(model);
         assertEquals(String.format(DeleteCommand.MESSAGE_CONFIRM_DELETE,
-                Messages.format(model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()))),
+                        Messages.format(model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()))),
                 confirmationResult.getFeedbackToUser());
 
         // Step 2: Simulate cancel deletion
         // Simulate cancelling deletion by returning the cancellation message directly
         CommandResult cancellationResult = new CommandResult(DeleteCommand.MESSAGE_DELETE_CANCELLED);
         assertEquals(DeleteCommand.MESSAGE_DELETE_CANCELLED,
-               cancellationResult.getFeedbackToUser());
+                cancellationResult.getFeedbackToUser());
     }
 
     @Test
