@@ -19,6 +19,7 @@ import tassist.address.model.person.Email;
 import tassist.address.model.person.Name;
 import tassist.address.model.person.Phone;
 import tassist.address.model.person.Progress;
+import tassist.address.model.person.StudentId;
 import tassist.address.model.tag.Tag;
 
 public class ParserUtilTest {
@@ -27,6 +28,7 @@ public class ParserUtilTest {
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_STUDENTID = "B0000000M";
     private static final String INVALID_PROGRESS = "180";
 
     private static final String VALID_NAME = "Rachel Walker";
@@ -35,6 +37,7 @@ public class ParserUtilTest {
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_STUDENTID = "A0000000M";
     private static final String VALID_PROGRESS_1 = "80";
     private static final String VALID_PROGRESS_2 = "20%";
 
@@ -196,6 +199,29 @@ public class ParserUtilTest {
         Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
+    }
+
+    @Test
+    public void parseStudentId_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseStudentId((String) null));
+    }
+
+    @Test
+    public void parseStudentId_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseStudentId(INVALID_ADDRESS));
+    }
+
+    @Test
+    public void parseStudentId_validValueWithoutWhitespace_returnsStudentId() throws Exception {
+        StudentId expectedStudentId = new StudentId(VALID_STUDENTID);
+        assertEquals(expectedStudentId, ParserUtil.parseStudentId(VALID_STUDENTID));
+    }
+
+    @Test
+    public void parseStudentId_validValueWithWhitespace_returnsTrimmedStudentId() throws Exception {
+        String studentIdWithWhitespace = WHITESPACE + VALID_STUDENTID + WHITESPACE;
+        StudentId expectedStudentId = new StudentId(VALID_STUDENTID);
+        assertEquals(expectedStudentId, ParserUtil.parseStudentId(studentIdWithWhitespace));
     }
 
     @Test
