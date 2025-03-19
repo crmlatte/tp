@@ -31,7 +31,7 @@ public class ClassCommand extends Command {
             + PREFIX_CLASS + " T01";
 
     public static final String MESSAGE_ADD_CLASS_SUCCESS = "Assigned tutorial class to student: %1$s";
-    public static final String MESSAGE_DELETE_CLASS_SUCCESS = "Removed tutorial class from student: %1$s";
+    public static final String MESSAGE_REMOVE_CLASS_SUCCESS = "Removed tutorial class from student: %1$s";
 
     private final Index index;
     private final ClassNumber classNumber;
@@ -74,7 +74,7 @@ public class ClassCommand extends Command {
      * {@code personToEdit}.
      */
     private String generateSuccessMessage(Person personToEdit) {
-        String message = !classNumber.value.isBlank() ? MESSAGE_ADD_CLASS_SUCCESS : MESSAGE_DELETE_CLASS_SUCCESS;
+        String message = !classNumber.value.isBlank() ? MESSAGE_ADD_CLASS_SUCCESS : MESSAGE_REMOVE_CLASS_SUCCESS;
         return String.format(message, Messages.format(personToEdit));
     }
 

@@ -28,6 +28,7 @@ import tassist.address.model.person.Person;
 public class ClassCommandTest {
 
     private static final ClassNumber VALID_CLASS = new ClassNumber("T01");
+    private static final ClassNumber NO_CLASS = new ClassNumber("No tutorial assigned");
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test

@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 
 import tassist.address.logic.commands.EditCommand.EditPersonDescriptor;
 import tassist.address.model.person.Address;
+import tassist.address.model.person.ClassNumber;
 import tassist.address.model.person.Email;
 import tassist.address.model.person.Github;
 import tassist.address.model.person.Name;
@@ -71,6 +72,14 @@ public class EditPersonDescriptorBuilder {
      */
     public EditPersonDescriptorBuilder withAddress(String address) {
         descriptor.setAddress(new Address(address));
+        return this;
+    }
+
+    /**
+     * Sets the {@code ClassNumber} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withClassNumber(String classNumber) {
+        descriptor.setClassNumber(new ClassNumber(classNumber));
         return this;
     }
 
