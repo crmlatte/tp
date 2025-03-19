@@ -2,6 +2,7 @@ package tassist.address.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static tassist.address.logic.commands.CommandTestUtil.VALID_STUDENTID_AMY;
 import static tassist.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tassist.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_GITHUB;
@@ -28,6 +29,7 @@ import tassist.address.logic.parser.exceptions.ParseException;
 import tassist.address.model.person.Github;
 import tassist.address.model.person.NameContainsKeywordsPredicate;
 import tassist.address.model.person.Person;
+import tassist.address.model.person.StudentId;
 import tassist.address.testutil.EditPersonDescriptorBuilder;
 import tassist.address.testutil.PersonBuilder;
 import tassist.address.testutil.PersonUtil;
@@ -83,8 +85,8 @@ public class AddressBookParserTest {
     public void parseCommand_github() throws Exception {
         final String github = "https://github.com/default";
         GithubCommand command = (GithubCommand) parser.parseCommand(GithubCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_GITHUB + github);
-        assertEquals(new GithubCommand(INDEX_FIRST_PERSON, new Github(github)), command);
+                + VALID_STUDENTID_AMY + " " + PREFIX_GITHUB + github);
+        assertEquals(new GithubCommand(new StudentId(VALID_STUDENTID_AMY), new Github(github)), command);
     }
 
     @Test
