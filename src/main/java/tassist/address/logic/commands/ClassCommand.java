@@ -74,7 +74,7 @@ public class ClassCommand extends Command {
      * {@code personToEdit}.
      */
     private String generateSuccessMessage(Person personToEdit) {
-        String message = !classNumber.value.isEmpty() ? MESSAGE_ADD_CLASS_SUCCESS : MESSAGE_DELETE_CLASS_SUCCESS;
+        String message = !classNumber.value.isBlank() ? MESSAGE_ADD_CLASS_SUCCESS : MESSAGE_DELETE_CLASS_SUCCESS;
         return String.format(message, Messages.format(personToEdit));
     }
 

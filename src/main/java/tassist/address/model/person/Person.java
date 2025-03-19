@@ -120,7 +120,7 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, github, tags, progress);
+        return Objects.hash(name, phone, email, address, classNumber, github, tags, progress);
     }
 
     @Override
@@ -130,6 +130,7 @@ public class Person {
                 .add("phone", phone)
                 .add("email", email)
                 .add("address", address)
+                .add("classNumber", classNumber)
                 .add("tags", tags)
                 .add("progress", progress)
                 .toString();

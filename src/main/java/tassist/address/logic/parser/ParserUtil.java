@@ -10,6 +10,7 @@ import tassist.address.commons.core.index.Index;
 import tassist.address.commons.util.StringUtil;
 import tassist.address.logic.parser.exceptions.ParseException;
 import tassist.address.model.person.Address;
+import tassist.address.model.person.ClassNumber;
 import tassist.address.model.person.Email;
 import tassist.address.model.person.Github;
 import tassist.address.model.person.Name;
@@ -110,6 +111,21 @@ public class ParserUtil {
             throw new ParseException(Email.MESSAGE_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
+    }
+
+    /**
+     * Parses a {@code String class number} into a {@code ClassNumber}.
+     * Leading and trailing white spaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code class number} is invalid.
+     */
+    public static ClassNumber parseClassNumber(String classNumber) throws ParseException {
+        requireNonNull(classNumber);
+        String trimmedClassNumber = classNumber.trim();
+        if (!ClassNumber.isValidClassNumber(trimmedClassNumber)) {
+            throw new ParseException(ClassNumber.MESSAGE_CONSTRAINTS);
+        }
+        return new ClassNumber(trimmedClassNumber);
     }
 
     /**

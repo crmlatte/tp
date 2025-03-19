@@ -2,6 +2,7 @@ package tassist.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static tassist.address.logic.parser.CliSyntax.PREFIX_CLASS;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_GITHUB;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -48,6 +49,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_CLASS + "CLASS NUMBER] "
             + "[" + PREFIX_GITHUB + "GITHUB]"
             + "[" + PREFIX_TAG + "TAG]... "
             + "[" + PREFIX_PROGRESS + "PROGRESS]\n"
@@ -266,6 +268,7 @@ public class EditCommand extends Command {
                     && Objects.equals(phone, otherEditPersonDescriptor.phone)
                     && Objects.equals(email, otherEditPersonDescriptor.email)
                     && Objects.equals(address, otherEditPersonDescriptor.address)
+                    && Objects.equals(classNumber, otherEditPersonDescriptor. classNumber)
                     && Objects.equals(github, otherEditPersonDescriptor.github)
                     && Objects.equals(tags, otherEditPersonDescriptor.tags)
                     && Objects.equals(progress, otherEditPersonDescriptor.progress);
@@ -278,6 +281,7 @@ public class EditCommand extends Command {
                     .add("phone", phone)
                     .add("email", email)
                     .add("address", address)
+                    .add("classNumber", classNumber)
                     .add("github", github)
                     .add("tags", tags)
                     .add("progress", progress)
