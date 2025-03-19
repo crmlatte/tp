@@ -7,7 +7,24 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import tassist.address.model.Model;
+
+
 public class CommandResultTest {
+
+    private static final ConfirmableCommand CONFIRMATION_MOCK = new ConfirmableCommand() {
+        @Override
+        public CommandResult executeConfirmed(Model model) {
+            return new CommandResult("Confirmed action executed.");
+        }
+
+        @Override
+        public String getConfirmationMessage() {
+            return "Confirm action? (Y/N)";
+        }
+    };
+
+
     @Test
     public void equals() {
         CommandResult commandResult = new CommandResult("feedback");
@@ -33,6 +50,9 @@ public class CommandResultTest {
 
         // different exit value -> returns false
         assertFalse(commandResult.equals(new CommandResult("feedback", false, true)));
+
+        // different pendingConfirmation -> returns false
+        assertFalse(commandResult.equals(new CommandResult("feedback", CONFIRMATION_MOCK)));
     }
 
     @Test
@@ -50,6 +70,9 @@ public class CommandResultTest {
 
         // different exit value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false, true).hashCode());
+
+        // different pendingConfirmation value -> returns different hashcode
+        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", CONFIRMATION_MOCK).hashCode());
     }
 
     @Test
@@ -57,7 +80,8 @@ public class CommandResultTest {
         CommandResult commandResult = new CommandResult("feedback");
         String expected = CommandResult.class.getCanonicalName() + "{feedbackToUser="
                 + commandResult.getFeedbackToUser() + ", showHelp=" + commandResult.isShowHelp()
-                + ", exit=" + commandResult.isExit() + "}";
+                + ", exit=" + commandResult.isExit()
+                + ", requiresConfirmation=" + commandResult.requiresConfirmation() + "}";
         assertEquals(expected, commandResult.toString());
     }
 }
