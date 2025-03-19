@@ -3,11 +3,11 @@ package tassist.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static tassist.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_GITHUB_AMY;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_GITHUB_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_STUDENTID_AMY;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_STUDENTID_BOB;
+import static tassist.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static tassist.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
@@ -63,10 +63,12 @@ public class GithubCommandTest {
 
     @Test
     public void equals() {
-        final GithubCommand standardCommand = new GithubCommand(new StudentId(VALID_STUDENTID_AMY), new Github(VALID_GITHUB_AMY));
+        final GithubCommand standardCommand = new GithubCommand(
+                new StudentId(VALID_STUDENTID_AMY), new Github(VALID_GITHUB_AMY));
 
         // same values -> returns true
-        GithubCommand commandWithSameValues = new GithubCommand(new StudentId(VALID_STUDENTID_AMY), new Github(VALID_GITHUB_AMY));
+        GithubCommand commandWithSameValues = new GithubCommand(
+                new StudentId(VALID_STUDENTID_AMY), new Github(VALID_GITHUB_AMY));
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -79,9 +81,11 @@ public class GithubCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new GithubCommand(new StudentId(VALID_STUDENTID_BOB), new Github(VALID_GITHUB_AMY))));
+        assertFalse(standardCommand.equals(new GithubCommand(
+                new StudentId(VALID_STUDENTID_BOB), new Github(VALID_GITHUB_AMY))));
 
         // different github -> returns false
-        assertFalse(standardCommand.equals(new GithubCommand(new StudentId(VALID_STUDENTID_AMY), new Github(VALID_GITHUB_BOB))));
+        assertFalse(standardCommand.equals(
+                new GithubCommand(new StudentId(VALID_STUDENTID_AMY), new Github(VALID_GITHUB_BOB))));
     }
 }
