@@ -27,6 +27,9 @@ public class Person {
     private final Set<Tag> tags = new HashSet<>();
     private final Github github;
 
+    public static final String PLACEHOLDER_COURSE = "placeholder";
+    public static final String PLACEHOLDER_TEAM = "placeholder";
+
     /**
      * Every field must be present and not null.
      */
@@ -65,6 +68,14 @@ public class Person {
 
     public Github getGithub() {
         return github;
+    }
+
+    public String getCourse() {
+        return PLACEHOLDER_COURSE;
+    }
+
+    public String getTeam() {
+        return PLACEHOLDER_TEAM;
     }
 
     /**
