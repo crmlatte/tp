@@ -45,6 +45,8 @@ public class Messages {
                 .append(person.getAddress())
                 .append("; StudentId: ")
                 .append(person.getStudentId())
+                .append("; Github: ")
+                .append(person.getGithub())
                 .append("; Tags: ");
         person.getTags().forEach(builder::append);
         builder.append("; Progress: ").append(person.getProgress());
