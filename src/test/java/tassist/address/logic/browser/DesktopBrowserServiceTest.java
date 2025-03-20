@@ -39,7 +39,7 @@ public class DesktopBrowserServiceTest {
     }
 
     @Test
-    public void openUrl_validUrl_throwsIOExceptionOnHeadless() {
+    public void openUrl_validUrl_throwsIoExceptionOnHeadless() {
         String validUrl = "http://example.com";
         try {
             browserService.openUrl(validUrl);
