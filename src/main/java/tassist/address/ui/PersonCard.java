@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import tassist.address.model.person.Person;
 
 /**
@@ -48,17 +49,20 @@ public class PersonCard extends UiPart<Region> {
     private FlowPane tags;
     @FXML
     private Label progress;
+    @FXML
+    private VBox details;
 
 
     /**
-     * Creates a {@code PersonCode} with the given {@code Person} and index to display.
+     * Creates a {@code PersonCard} with the given {@code Person} and index to display.
      */
     public PersonCard(Person person, int displayedIndex) {
         super(FXML);
         this.person = person;
+        cardPane.getStyleClass().add("person-card");
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
-        classNumber.setText(person.getClassNumber().value);
+        classNumber.setText("Class Number: " + person.getClassNumber().value);
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
         github.setText(person.getGithub().value);
@@ -67,6 +71,24 @@ public class PersonCard extends UiPart<Region> {
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-        progress.setText(String.valueOf(person.getProgress().value));
+        progress.setText("Progress: " + person.getProgress().value + "%");
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof PersonCard)) {
+            return false;
+        }
+
+        // state check
+        PersonCard card = (PersonCard) other;
+        return id.getText().equals(card.id.getText())
+                && person.equals(card.person);
     }
 }

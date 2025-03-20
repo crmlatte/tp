@@ -1,0 +1,336 @@
+.root {
+    -fx-background-color: #1a1a1a;
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+.background {
+    -fx-background-color: #1a1a1a;
+}
+
+.pane-with-border {
+    -fx-background-color: #1a1a1a;
+    -fx-border-width: 0;
+}
+
+.split-pane {
+    -fx-background-color: transparent;
+    -fx-padding: 10;
+}
+
+.split-pane:horizontal > .split-pane-divider {
+    -fx-background-color: #2d2d2d;
+    -fx-padding: 0 1 0 1;
+}
+
+.list-view {
+    -fx-background-color: #1a1a1a;
+    -fx-background-insets: 0;
+    -fx-padding: 8;
+    -fx-border-width: 0;
+}
+
+.list-cell {
+    -fx-background-color: transparent;
+    -fx-padding: 8 4;
+}
+
+.list-cell:filled:hover {
+    -fx-background-color: transparent;
+}
+
+.list-cell:filled:selected {
+    -fx-background-color: transparent;
+}
+
+.person-card {
+    -fx-background-color: #2d2d2d;
+    -fx-padding: 16;
+    -fx-spacing: 10;
+    -fx-background-radius: 8;
+}
+
+.person-card:hover {
+    -fx-background-color: #333333;
+}
+
+.person-card .id {
+    -fx-text-fill: #888888;
+    -fx-font-size: 14px;
+}
+
+.person-card .name {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.person-card .details-label {
+    -fx-text-fill: #e0e0e0;
+    -fx-font-size: 14px;
+    -fx-padding: 2 0;
+}
+
+.person-card .tags {
+    -fx-hgap: 6;
+    -fx-vgap: 4;
+}
+
+.person-card .tags .label {
+    -fx-background-color: #4a9eff;
+    -fx-text-fill: white;
+    -fx-padding: 4 12;
+    -fx-background-radius: 12;
+    -fx-font-size: 12px;
+}
+
+.button {
+    -fx-background-color: #4a9eff;
+    -fx-text-fill: white;
+    -fx-padding: 8 20;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+    -fx-font-size: 13px;
+}
+
+.button:hover {
+    -fx-background-color: #3d84d9;
+}
+
+.text-field {
+    -fx-background-color: #2d2d2d;
+    -fx-background-radius: 6;
+    -fx-padding: 8 12;
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+}
+
+.text-field:focused {
+    -fx-background-color: #333333;
+}
+
+.text-area {
+    -fx-background-color: #2d2d2d;
+    -fx-background-radius: 6;
+    -fx-padding: 8;
+    -fx-wrap-text: true;
+    -fx-font-size: 14px;
+    -fx-background-insets: 0;
+}
+
+.text-area .content {
+    -fx-background-color: #2d2d2d;
+    -fx-background-radius: 6;
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+}
+
+.text-area:focused {
+    -fx-background-color: #333333;
+}
+
+.text-area .viewport {
+    -fx-background-color: transparent;
+}
+
+.menu-bar {
+    -fx-background-color: #2d2d2d;
+    -fx-padding: 2;
+}
+
+.menu-bar .label {
+    -fx-text-fill: white;
+}
+
+.menu-bar .menu:hover {
+    -fx-background-color: #333333;
+}
+
+.menu-item {
+    -fx-background-color: #2d2d2d;
+    -fx-padding: 8 16;
+}
+
+.menu-item .label {
+    -fx-text-fill: white;
+}
+
+.menu-item:hover {
+    -fx-background-color: #333333;
+}
+
+.status-bar {
+    -fx-background-color: #1a1a1a;
+    -fx-text-fill: #888888;
+    -fx-padding: 8;
+    -fx-font-size: 12px;
+}
+
+#resultDisplay {
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+    -fx-background-color: #2d2d2d;
+    -fx-background-radius: 6;
+    -fx-padding: 8;
+    -fx-background-insets: 0;
+}
+
+#resultDisplay .content {
+    -fx-background-color: #2d2d2d;
+    -fx-background-radius: 6;
+    -fx-background-insets: 0;
+}
+
+#resultDisplay .viewport {
+    -fx-background-color: transparent;
+}
+
+#resultDisplay .scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background-radius: 6;
+    -fx-background-insets: 0;
+}
+
+#resultDisplay .scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+#resultDisplay .scroll-pane .content {
+    -fx-background-color: #2d2d2d;
+    -fx-background-radius: 6;
+    -fx-background-insets: 0;
+}
+
+/* Alert Dialog Styling */
+.dialog-pane {
+    -fx-background-color: #2d2d2d;
+}
+
+.dialog-pane > .content.label {
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+}
+
+.dialog-pane:header .header-panel {
+    -fx-background-color: #2d2d2d;
+}
+
+.dialog-pane:header .header-panel .label {
+    -fx-font-size: 16px;
+    -fx-text-fill: white;
+}
+
+.dialog-pane .button {
+    -fx-background-color: #4a9eff;
+    -fx-text-fill: white;
+    -fx-wrap-text: true;
+    -fx-cursor: hand;
+    -fx-padding: 8 20;
+    -fx-background-radius: 6;
+}
+
+.dialog-pane .button:hover {
+    -fx-background-color: #3d84d9;
+}
+
+/* Scrollbar Styling */
+.scroll-bar {
+    -fx-background-color: #2d2d2d;
+    -fx-background-radius: 0;
+}
+
+.scroll-bar:vertical .track,
+.scroll-bar:horizontal .track {
+    -fx-background-color: #2d2d2d;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0;
+}
+
+.scroll-bar:vertical .thumb,
+.scroll-bar:horizontal .thumb {
+    -fx-background-color: #404040;
+    -fx-background-radius: 4;
+}
+
+.scroll-bar:vertical .thumb:hover,
+.scroll-bar:horizontal .thumb:hover {
+    -fx-background-color: #4a4a4a;
+}
+
+.scroll-bar:vertical .increment-button,
+.scroll-bar:vertical .decrement-button,
+.scroll-bar:horizontal .increment-button,
+.scroll-bar:horizontal .decrement-button {
+    -fx-background-color: #2d2d2d;
+    -fx-padding: 4;
+}
+
+.scroll-bar:vertical .increment-arrow,
+.scroll-bar:vertical .decrement-arrow,
+.scroll-bar:horizontal .increment-arrow,
+.scroll-bar:horizontal .decrement-arrow {
+    -fx-background-color: #808080;
+    -fx-padding: 2;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .corner {
+    -fx-background-color: #2d2d2d;
+}
+
+/* Window styling attempts - note these might not work on all systems */
+.decorated-window {
+    -fx-background-color: #1a1a1a;
+}
+
+.decorated-window:window {
+    -fx-background-color: #1a1a1a;
+}
+
+.window {
+    -fx-background-color: #1a1a1a;
+}
+
+.window-header {
+    -fx-background-color: #1a1a1a;
+}
+
+.window-buttons {
+    -fx-background-color: #1a1a1a;
+}
+
+.title-bar {
+    -fx-background-color: #1a1a1a;
+}
+
+.title {
+    -fx-background-color: #1a1a1a;
+    -fx-text-fill: white;
+}
+
+Stage {
+    -fx-background-color: #1a1a1a;
+}
+
+.context-menu {
+    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-insets: 0;
+    -fx-padding: 2;
+    -fx-border-width: 0;
+    -fx-effect: none;
+}
+
+.menu-bar .context-menu {
+    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-insets: 0;
+    -fx-padding: 2;
+    -fx-border-width: 0;
+    -fx-effect: none;
+}
