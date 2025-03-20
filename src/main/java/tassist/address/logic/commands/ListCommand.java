@@ -127,10 +127,10 @@ public class ListCommand extends Command {
 
     private Comparator<Person> getComparator(String sortType, String sortOrder) throws CommandException {
         Comparator<Person> comparator = switch (sortType) {
-            case "name" -> Comparator.comparing(p -> p.getName().fullName);
-            case "progress"-> Comparator.comparing(p -> p.getProgress().value);
-            case "github" -> Comparator.comparing(p -> p.getGithub().value);
-            default -> throw new CommandException(MESSAGE_INVALID_SORT);
+        case "name" -> Comparator.comparing(p -> p.getName().fullName);
+        case "progress"-> Comparator.comparing(p -> p.getProgress().value);
+        case "github" -> Comparator.comparing(p -> p.getGithub().value);
+        default -> throw new CommandException(MESSAGE_INVALID_SORT);
         };
         return "des".equals(sortOrder) ? comparator.reversed() : comparator;
     }

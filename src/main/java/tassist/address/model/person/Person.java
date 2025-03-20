@@ -15,6 +15,8 @@ import tassist.address.model.tag.Tag;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Person {
+    public static final String PLACEHOLDER_COURSE = "placeholder";
+    public static final String PLACEHOLDER_TEAM = "placeholder";
 
     // Identity fields
     private final Name name;
@@ -26,9 +28,6 @@ public class Person {
     private final Progress progress;
     private final Set<Tag> tags = new HashSet<>();
     private final Github github;
-
-    public static final String PLACEHOLDER_COURSE = "placeholder";
-    public static final String PLACEHOLDER_TEAM = "placeholder";
 
     /**
      * Every field must be present and not null.
