@@ -41,6 +41,8 @@ public class Messages {
                 .append(person.getPhone())
                 .append("; Email: ")
                 .append(person.getEmail())
+                .append("; Tutorial Class Number: ")
+                .append(person.getClassNumber())
                 .append("; Address: ")
                 .append(person.getAddress())
                 .append("; StudentId: ")

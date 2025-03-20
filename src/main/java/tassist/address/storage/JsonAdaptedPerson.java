@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import tassist.address.commons.exceptions.IllegalValueException;
 import tassist.address.logic.parser.exceptions.ParseException;
 import tassist.address.model.person.Address;
+import tassist.address.model.person.ClassNumber;
 import tassist.address.model.person.Email;
 import tassist.address.model.person.Github;
 import tassist.address.model.person.Name;
@@ -32,6 +33,7 @@ class JsonAdaptedPerson {
     private final String phone;
     private final String email;
     private final String address;
+    private final String classNumber;
     private final String studentId;
     private final String github;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
@@ -43,12 +45,14 @@ class JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("studentId") String studentId, @JsonProperty("github") String github,
-            @JsonProperty("tags") List<JsonAdaptedTag> tags, @JsonProperty("progress") String progress) {
+            @JsonProperty("classNumber") String classNumber, @JsonProperty("studentId") String studentId,
+            @JsonProperty("github") String github, @JsonProperty("tags") List<JsonAdaptedTag> tags,
+            @JsonProperty("progress") String progress) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.classNumber = classNumber;
         this.studentId = studentId;
         this.github = github;
         if (tags != null) {
@@ -65,6 +69,7 @@ class JsonAdaptedPerson {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
+        classNumber = source.getClassNumber().value;
         studentId = source.getStudentId().value;
         github = source.getGithub().value;
         tags.addAll(source.getTags().stream()
@@ -116,6 +121,15 @@ class JsonAdaptedPerson {
         }
         final Address modelAddress = new Address(address);
 
+        if (classNumber == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    ClassNumber.class.getSimpleName()));
+        }
+        if (!ClassNumber.isValidClassNumber(classNumber)) {
+            throw new IllegalValueException(ClassNumber.MESSAGE_CONSTRAINTS);
+        }
+        final ClassNumber modelClassNumber = new ClassNumber(classNumber);
+
         if (studentId == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     StudentId.class.getSimpleName()));
@@ -141,7 +155,7 @@ class JsonAdaptedPerson {
         }
         final Progress modelProgress = new Progress(progressValue);
 
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelStudentId,
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelClassNumber, modelStudentId,
                           modelGithub, modelTags, modelProgress);
     }
 }

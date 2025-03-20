@@ -29,12 +29,11 @@ public class TypicalPersons {
 
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
-            .withPhone("94351253").withStudentId("A0000000B").withGithub("https://github.com/alice")
-            .withTags("friends").withProgress("0").build();
-
+            .withPhone("94351253").withClassNumber("T01").withStudentId("A0000000B")
+            .withGithub("https://github.com/alice").withTags("friends").withProgress("0").build();
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
             .withAddress("311, Clementi Ave 2, #02-25").withGithub("https://github.com/benson")
-            .withEmail("johnd@example.com").withPhone("98765432")
+            .withEmail("johnd@example.com").withPhone("98765432").withClassNumber("T01")
             .withTags("owesMoney", "friends").withProgress("30").build();
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz").withPhone("95352563")
             .withEmail("heinz@example.com").withAddress("wall street").withProgress("50").build();
