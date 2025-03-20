@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -34,9 +35,13 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private CommandBox commandBox;
 
     @FXML
     private StackPane commandBoxPlaceholder;
+
+    @FXML
+    private StackPane sendButtonPlaceholder;
 
     @FXML
     private MenuItem helpMenuItem;
@@ -119,8 +124,24 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        // Add send button
+        Button sendButton = new Button("Send");
+        sendButton.setOnAction(event -> {
+            try {
+                String commandText = commandBox.getCommandText();
+                if (!commandText.isEmpty()) {
+                    executeCommand(commandText);
+                    commandBox.clearCommandText();
+                }
+            } catch (CommandException | ParseException e) {
+                logger.warning("Error executing command: " + e.getMessage());
+                resultDisplay.setFeedbackToUser(e.getMessage());
+            }
+        });
+        sendButtonPlaceholder.getChildren().add(sendButton);
     }
 
     /**
