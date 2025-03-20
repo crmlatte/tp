@@ -11,8 +11,11 @@ import static tassist.address.testutil.Assert.assertThrows;
 import static tassist.address.testutil.TypicalPersons.AMY;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.AccessDeniedException;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,6 +25,7 @@ import tassist.address.logic.commands.AddCommand;
 import tassist.address.logic.commands.CommandResult;
 import tassist.address.logic.commands.DeleteCommand;
 import tassist.address.logic.commands.ListCommand;
+import tassist.address.logic.commands.OpenCommand;
 import tassist.address.logic.commands.exceptions.CommandException;
 import tassist.address.logic.parser.exceptions.ParseException;
 import tassist.address.model.Model;
@@ -46,6 +50,7 @@ public class LogicManagerTest {
 
     private final Model model = new ModelManager();
     private LogicManager logic;
+    private TestBrowserService browserService;
 
     @BeforeEach
     public void setUp() {
@@ -53,7 +58,8 @@ public class LogicManagerTest {
                 new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
-        logic = new LogicManager(model, storage);
+        browserService = new TestBrowserService();
+        logic = new LogicManager(model, storage, browserService);
     }
 
     @Test
@@ -154,6 +160,26 @@ public class LogicManagerTest {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
     }
 
+    @Test
+    public void execute_openCommand_success() throws Exception {
+        Person personToOpen = new PersonBuilder(AMY).build();
+        model.addPerson(personToOpen);
+
+        String openCommand = "open 1";
+        CommandResult result = logic.execute(openCommand);
+        assertEquals(
+                String.format(OpenCommand.MESSAGE_OPEN_GITHUB_SUCCESS, Messages.format(personToOpen)),
+                result.getFeedbackToUser()
+        );
+        assertEquals(personToOpen.getGithub().value, browserService.getLastUrlOpened());
+    }
+
+    @Test
+    public void execute_openCommandInvalidIndex_failure() throws Exception {
+        String openCommand = "open 1";
+        assertCommandException(openCommand);
+    }
+
     private void assertCommandSuccess(String inputCommand, String expectedMessage,
             Model expectedModel) throws CommandException, ParseException {
         CommandResult result = logic.execute(inputCommand);
@@ -205,5 +231,38 @@ public class LogicManagerTest {
         ModelManager expectedModel = new ModelManager();
         expectedModel.addPerson(expectedPerson);
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
+    }
+
+    /**
+     * Test implementation of BrowserService that records URLs instead of opening them.
+     */
+    private static class TestBrowserService implements OpenCommand.BrowserService {
+        private List<String> urlsOpened = new ArrayList<>();
+
+        @Override
+        public void openUrl(String url) throws IOException, URISyntaxException {
+            urlsOpened.add(url);
+        }
+
+        /**
+         * Returns the list of URLs that would have been opened.
+         */
+        public List<String> getUrlsOpened() {
+            return urlsOpened;
+        }
+
+        /**
+         * Returns the last URL that would have been opened, or null if none.
+         */
+        public String getLastUrlOpened() {
+            return urlsOpened.isEmpty() ? null : urlsOpened.get(urlsOpened.size() - 1);
+        }
+
+        /**
+         * Clears the list of opened URLs.
+         */
+        public void clear() {
+            urlsOpened.clear();
+        }
     }
 }

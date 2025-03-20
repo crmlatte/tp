@@ -19,6 +19,7 @@ import tassist.address.logic.commands.FindCommand;
 import tassist.address.logic.commands.GithubCommand;
 import tassist.address.logic.commands.HelpCommand;
 import tassist.address.logic.commands.ListCommand;
+import tassist.address.logic.commands.OpenCommand;
 import tassist.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -85,6 +86,8 @@ public class AddressBookParser {
         case GithubCommand.COMMAND_WORD:
             return new GithubCommandParser().parse(arguments);
 
+        case OpenCommand.COMMAND_WORD:
+            return new OpenCommandParser().parse(arguments);
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);
