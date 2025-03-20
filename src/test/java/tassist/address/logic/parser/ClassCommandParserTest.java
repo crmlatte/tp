@@ -26,7 +26,7 @@ public class ClassCommandParserTest {
 
         // no Class
         userInput = targetIndex.getOneBased() + " " + PREFIX_CLASS;
-        expectedCommand = new ClassCommand(INDEX_FIRST_PERSON, new ClassNumber("No tutorial assigned"));
+        expectedCommand = new ClassCommand(INDEX_FIRST_PERSON, new ClassNumber(ClassNumber.DEFAULT_CLASS));
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 

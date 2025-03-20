@@ -3,6 +3,7 @@ package tassist.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static tassist.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_CLASS;
+import static tassist.address.model.person.ClassNumber.DEFAULT_CLASS;
 
 import tassist.address.commons.core.index.Index;
 import tassist.address.commons.exceptions.IllegalValueException;
@@ -34,7 +35,7 @@ public class ClassCommandParser implements Parser<ClassCommand> {
 
         String classNumber = argMultimap.getValue(PREFIX_CLASS)
                 .filter(value -> !value.isEmpty())
-                .orElse("No tutorial assigned");
+                .orElse(DEFAULT_CLASS);
 
         return new ClassCommand(index, new ClassNumber(classNumber));
     }
