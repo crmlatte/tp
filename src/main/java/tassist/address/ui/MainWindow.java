@@ -221,7 +221,7 @@ public class MainWindow extends UiPart<Stage> {
     private void handleDarkTheme() {
         Scene scene = primaryStage.getScene();
         scene.getStylesheets().clear();
-        scene.getStylesheets().add(getClass().getResource("/view/Theme.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/view/DarkTheme.css").toExternalForm());
     }
 
     @FXML
