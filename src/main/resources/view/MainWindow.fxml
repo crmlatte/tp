@@ -21,7 +21,7 @@
     <Scene>
       <stylesheets>
         <URL value="@BaseTheme.css" />
-        <URL value="@Theme.css" />
+        <URL value="@DarkTheme.css" />
       </stylesheets>
 
       <VBox>

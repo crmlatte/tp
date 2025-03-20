@@ -20,10 +20,10 @@ public class GithubCommand extends Command {
     public static final String COMMAND_WORD = "github";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits the github of the person identified "
-            + "by the {Student id number}. "
+            + "by the INDEX (must be a positive integer). "
             + "Existing github will be overwritten by the input.\n"
-            + "Parameters: STUDENT_ID , g/[GITHUB_URL]\n"
-            + "Example: " + COMMAND_WORD + " A1234567X "
+            + "Parameters: INDEX , g/[GITHUB_URL]\n"
+            + "Example: " + COMMAND_WORD + " 2 "
             + "g/https://github.com/tammzz";
 
     public static final String MESSAGE_ADD_GITHUB_SUCCESS = "Added github to Person: %1$s";

@@ -35,6 +35,7 @@ public class Messages {
      * Formats the {@code person} for display to the user.
      */
     public static String format(Person person) {
+        /*
         final StringBuilder builder = new StringBuilder();
         builder.append(person.getName())
                 .append("; Phone: ")
@@ -53,6 +54,8 @@ public class Messages {
         person.getTags().forEach(builder::append);
         builder.append("; Progress: ").append(person.getProgress());
         return builder.toString();
+         */
+        return person.getName().toString();
     }
 
 }
