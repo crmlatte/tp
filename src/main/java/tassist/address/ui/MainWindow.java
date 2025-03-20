@@ -17,6 +17,7 @@ import tassist.address.logic.Logic;
 import tassist.address.logic.commands.CommandResult;
 import tassist.address.logic.commands.exceptions.CommandException;
 import tassist.address.logic.parser.exceptions.ParseException;
+import javafx.scene.Scene;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -213,5 +214,26 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    @FXML
+    private void handleDarkTheme() {
+        Scene scene = primaryStage.getScene();
+        scene.getStylesheets().clear();
+        scene.getStylesheets().add(getClass().getResource("/view/Theme.css").toExternalForm());
+    }
+
+    @FXML
+    private void handleBrightTheme() {
+        Scene scene = primaryStage.getScene();
+        scene.getStylesheets().clear();
+        scene.getStylesheets().add(getClass().getResource("/view/BrightTheme.css").toExternalForm());
+    }
+
+    @FXML
+    private void handlePinkTheme() {
+        Scene scene = primaryStage.getScene();
+        scene.getStylesheets().clear();
+        scene.getStylesheets().add(getClass().getResource("/view/PinkTheme.css").toExternalForm());
     }
 }

@@ -20,6 +20,7 @@
   <scene>
     <Scene>
       <stylesheets>
+        <URL value="@BaseTheme.css" />
         <URL value="@Theme.css" />
       </stylesheets>
 
@@ -30,6 +31,11 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
+          </Menu>
+          <Menu mnemonicParsing="false" text="Theme">
+            <MenuItem mnemonicParsing="false" onAction="#handleDarkTheme" text="Dark Theme" />
+            <MenuItem mnemonicParsing="false" onAction="#handleBrightTheme" text="Bright Theme" />
+            <MenuItem mnemonicParsing="false" onAction="#handlePinkTheme" text="Pink Theme" />
           </Menu>
         </MenuBar>
 

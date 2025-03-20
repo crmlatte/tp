@@ -317,4 +317,20 @@
 
 Stage {
     -fx-background-color: #1a1a1a;
+}
+
+.context-menu {
+    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-insets: 0;
+    -fx-padding: 2;
+    -fx-border-width: 0;
+    -fx-effect: none;
+}
+
+.menu-bar .context-menu {
+    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-insets: 0;
+    -fx-padding: 2;
+    -fx-border-width: 0;
+    -fx-effect: none;
 } 
