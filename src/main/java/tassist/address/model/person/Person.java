@@ -35,7 +35,7 @@ public class Person {
      */
     public Person(Name name, Phone phone, Email email, Address address, ClassNumber classNumber,
                 StudentId studentId, Github github, Set<Tag> tags, Progress progress) {
-        requireAllNonNull(name, phone, email, address, studentId, tags, progress);
+        requireAllNonNull(name, phone, email, address, studentId, github, tags, progress);
 
         this.name = name;
         this.phone = phone;
@@ -78,7 +78,6 @@ public class Person {
 
     public Github getGithub() {
         return github;
-
     }
 
     public String getCourse() {
@@ -131,6 +130,7 @@ public class Person {
                 && email.equals(otherPerson.email)
                 && address.equals(otherPerson.address)
                 && studentId.equals(otherPerson.studentId)
+                && github.equals(otherPerson.github)
                 && tags.equals(otherPerson.tags);
     }
 
@@ -149,6 +149,7 @@ public class Person {
                 .add("address", address)
                 .add("classNumber", classNumber)
                 .add("studentId", studentId)
+                .add("github", github)
                 .add("tags", tags)
                 .add("progress", progress)
                 .toString();
