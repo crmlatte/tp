@@ -2,6 +2,7 @@ package tassist.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static tassist.address.logic.parser.CliSyntax.PREFIX_CLASS;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_GITHUB;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -25,6 +26,7 @@ import tassist.address.logic.Messages;
 import tassist.address.logic.commands.exceptions.CommandException;
 import tassist.address.model.Model;
 import tassist.address.model.person.Address;
+import tassist.address.model.person.ClassNumber;
 import tassist.address.model.person.Email;
 import tassist.address.model.person.Github;
 import tassist.address.model.person.Name;
@@ -49,6 +51,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_CLASS + "CLASS NUMBER] "
             + "[" + PREFIX_STUDENTID + "STUDENTID] "
             + "[" + PREFIX_GITHUB + "GITHUB]"
             + "[" + PREFIX_TAG + "TAG]... "
@@ -108,13 +111,14 @@ public class EditCommand extends Command {
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
+        ClassNumber updatedClassNumber = editPersonDescriptor.getClassNumber().orElse(personToEdit.getClassNumber());
         StudentId updatedStudentId = editPersonDescriptor.getStudentId().orElse(personToEdit.getStudentId());
         Github updatedGithub = editPersonDescriptor.getGithub().orElse(personToEdit.getGithub());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
         Progress updatedProgress = editPersonDescriptor.getProgress().orElse(personToEdit.getProgress());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedStudentId,
-                updatedGithub, updatedTags, updatedProgress);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedClassNumber,
+                updatedStudentId, updatedGithub, updatedTags, updatedProgress);
     }
 
     @Override
@@ -150,6 +154,7 @@ public class EditCommand extends Command {
         private Phone phone;
         private Email email;
         private Address address;
+        private ClassNumber classNumber;
         private StudentId studentId;
         private Github github;
         private Set<Tag> tags;
@@ -166,6 +171,7 @@ public class EditCommand extends Command {
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setAddress(toCopy.address);
+            setClassNumber(toCopy.classNumber);
             setStudentId(toCopy.studentId);
             setGithub(toCopy.github);
             setTags(toCopy.tags);
@@ -176,7 +182,8 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, studentId, github, tags, progress);
+            return CollectionUtil.isAnyNonNull(name, phone, email, address,
+                    classNumber, studentId, github, tags, progress);
         }
 
         public void setName(Name name) {
@@ -209,6 +216,14 @@ public class EditCommand extends Command {
 
         public Optional<Address> getAddress() {
             return Optional.ofNullable(address);
+        }
+
+        public void setClassNumber(ClassNumber classNumber) {
+            this.classNumber = classNumber;
+        }
+
+        public Optional<ClassNumber> getClassNumber() {
+            return Optional.ofNullable(classNumber);
         }
 
         public void setStudentId(StudentId studentId) {
@@ -268,6 +283,7 @@ public class EditCommand extends Command {
                     && Objects.equals(phone, otherEditPersonDescriptor.phone)
                     && Objects.equals(email, otherEditPersonDescriptor.email)
                     && Objects.equals(address, otherEditPersonDescriptor.address)
+                    && Objects.equals(classNumber, otherEditPersonDescriptor.classNumber)
                     && Objects.equals(studentId, otherEditPersonDescriptor.studentId)
                     && Objects.equals(github, otherEditPersonDescriptor.github)
                     && Objects.equals(tags, otherEditPersonDescriptor.tags)
@@ -281,6 +297,7 @@ public class EditCommand extends Command {
                     .add("phone", phone)
                     .add("email", email)
                     .add("address", address)
+                    .add("classNumber", classNumber)
                     .add("studentId", studentId)
                     .add("github", github)
                     .add("tags", tags)
