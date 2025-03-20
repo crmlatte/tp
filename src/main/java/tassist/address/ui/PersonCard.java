@@ -34,6 +34,8 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
+    private Label classNumber;
+    @FXML
     private Label phone;
     @FXML
     private Label address;
@@ -50,6 +52,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private VBox details;
 
+
     /**
      * Creates a {@code PersonCard} with the given {@code Person} and index to display.
      */
@@ -57,14 +60,14 @@ public class PersonCard extends UiPart<Region> {
         super(FXML);
         this.person = person;
         cardPane.getStyleClass().add("person-card");
-        
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
-        phone.setText("Phone: " + person.getPhone().value);
-        address.setText("Address: " + person.getAddress().value);
-        github.setText("GitHub: " + person.getGithub().value);
-        email.setText("Email: " + person.getEmail().value);
-        studentId.setText("Student ID: " + person.getStudentId().value);
+        classNumber.setText("Class Number: " + person.getClassNumber().value);
+        phone.setText(person.getPhone().value);
+        address.setText(person.getAddress().value);
+        github.setText(person.getGithub().value);
+        email.setText(person.getEmail().value);
+        studentId.setText(person.getStudentId().value);
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

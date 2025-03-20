@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tassist.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tassist.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static tassist.address.logic.parser.CliSyntax.PREFIX_CLASS;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_GITHUB;
 import static tassist.address.testutil.Assert.assertThrows;
 import static tassist.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import tassist.address.logic.commands.AddCommand;
+import tassist.address.logic.commands.ClassCommand;
 import tassist.address.logic.commands.ClearCommand;
 import tassist.address.logic.commands.DeleteCommand;
 import tassist.address.logic.commands.EditCommand;
@@ -25,6 +27,7 @@ import tassist.address.logic.commands.GithubCommand;
 import tassist.address.logic.commands.HelpCommand;
 import tassist.address.logic.commands.ListCommand;
 import tassist.address.logic.parser.exceptions.ParseException;
+import tassist.address.model.person.ClassNumber;
 import tassist.address.model.person.Github;
 import tassist.address.model.person.NameContainsKeywordsPredicate;
 import tassist.address.model.person.Person;
@@ -41,6 +44,14 @@ public class AddressBookParserTest {
         Person person = new PersonBuilder().build();
         AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(person));
         assertEquals(new AddCommand(person), command);
+    }
+
+    @Test
+    public void parseCommand_class() throws Exception {
+        final ClassNumber classNumber = new ClassNumber("T01");
+        ClassCommand command = (ClassCommand) parser.parseCommand(ClassCommand.COMMAND_WORD + " "
+                + INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_CLASS + classNumber.value);
+        assertEquals(new ClassCommand(INDEX_FIRST_PERSON, classNumber), command);
     }
 
     @Test

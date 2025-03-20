@@ -32,6 +32,7 @@
           <Insets top="5" bottom="5" />
         </padding>
       </FlowPane>
+      <Label fx:id="classNumber" styleClass="cell_small_label" text="\$classNumber" />
       <Label fx:id="phone" styleClass="details-label" text="\$phone" />
       <Label fx:id="address" styleClass="details-label" text="\$address" />
       <Label fx:id="email" styleClass="details-label" text="\$email" />
