@@ -94,35 +94,36 @@ public class ListCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_FILTER);
         }
     }
-
-
+    
     private Predicate<Person> getFilter(Model model, String filterType, String filterValue) throws CommandException {
-        switch (filterType) {
-        case "course":
+        return switch (filterType) {
+        case "course" -> {
             boolean hasCourse = model.getFilteredPersonList().stream().anyMatch(p ->
                     p.getCourse().equalsIgnoreCase(filterValue));
             if (!hasCourse) {
                 throw new CommandException(MESSAGE_INVALID_FILTER_VALUE);
             }
-            return p -> p.getCourse().equals(filterValue);
-        case "team":
+            yield p -> p.getCourse().equals(filterValue);
+        }
+        case "team" -> {
             boolean hasTeam = model.getFilteredPersonList().stream()
                     .anyMatch(p -> p.getTeam().equalsIgnoreCase(filterValue));
             if (!hasTeam) {
                 throw new CommandException(MESSAGE_INVALID_FILTER_VALUE);
             }
-            return p -> p.getTeam().equals(filterValue);
-        case "progress":
+            yield p -> p.getTeam().equals(filterValue);
+        }
+        case "progress" -> {
             int filterProgress;
             try {
                 filterProgress = Integer.parseInt(filterValue);
             } catch (NumberFormatException e) {
                 throw new CommandException(MESSAGE_INVALID_FILTER_VALUE);
             }
-            return person -> person.getProgress().value <= filterProgress;
-        default:
-            throw new CommandException(MESSAGE_INVALID_FILTER);
+            yield person -> person.getProgress().value <= filterProgress;
         }
+        default -> throw new CommandException(MESSAGE_INVALID_FILTER);
+        };
     }
 
     private Comparator<Person> getComparator(String sortType, String sortOrder) throws CommandException {
