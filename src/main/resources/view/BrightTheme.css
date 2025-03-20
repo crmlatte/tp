@@ -9,7 +9,7 @@
     -result-color: #F1C0E8;      /* Soft pink - now for results */
     -status-color: #8EECF5;      /* Cyan - status bar */
     -accent1-color: #98F5E1;     /* Mint - for tags */
-    
+
     /* Derived colors for interactions */
     -hover-color: derive(#90DBF4, -10%);  /* Darker shade of card color for hover */
     -text-color: #2d2d2d;        /* Dark gray for better readability on pastels */
@@ -290,4 +290,4 @@
 
 .dialog-pane .button:hover {
     -fx-opacity: -hover-opacity;
-} 
+}

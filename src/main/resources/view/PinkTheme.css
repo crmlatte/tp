@@ -12,7 +12,7 @@
     -accent2-color: #FFCAD4;         /* Very light pink - secondary accent */
     -accent3-color: #F4ACB7;         /* Dusty pink - tertiary accent */
     -hover-color: #FFA6C1;           /* Medium-light pink - hover states */
-    
+
     /* Derived colors for interactions */
     -text-color: #4a1526;            /* Dark pink-brown for text */
     -text-light: #943148;            /* Lighter pink-brown for secondary text */
@@ -242,4 +242,4 @@
 
 .dialog-pane .button:hover {
     -fx-background-color: -hover-color;
-} 
+}
