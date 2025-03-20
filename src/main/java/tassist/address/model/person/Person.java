@@ -15,6 +15,8 @@ import tassist.address.model.tag.Tag;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Person {
+    public static final String PLACEHOLDER_COURSE = "placeholder";
+    public static final String PLACEHOLDER_TEAM = "placeholder";
 
     // Identity fields
     private final Name name;
@@ -71,6 +73,14 @@ public class Person {
     public Github getGithub() {
         return github;
 
+    }
+
+    public String getCourse() {
+        return PLACEHOLDER_COURSE;
+    }
+
+    public String getTeam() {
+        return PLACEHOLDER_TEAM;
     }
 
     /**
