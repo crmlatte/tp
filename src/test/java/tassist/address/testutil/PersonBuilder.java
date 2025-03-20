@@ -24,7 +24,7 @@ public class PersonBuilder {
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_STUDENTID = "A0000000B";
-    public static final String DEFAULT_GITHUB = "https://github.com/tammzz";
+    public static final String DEFAULT_GITHUB = "https://github.com/default";
     public static final String DEFAULT_PROGRESS = "0";
 
     private Name name;
