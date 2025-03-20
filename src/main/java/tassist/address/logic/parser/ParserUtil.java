@@ -16,6 +16,7 @@ import tassist.address.model.person.Github;
 import tassist.address.model.person.Name;
 import tassist.address.model.person.Phone;
 import tassist.address.model.person.Progress;
+import tassist.address.model.person.StudentId;
 import tassist.address.model.tag.Tag;
 
 /**
@@ -156,6 +157,21 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String email} into an {@code Email}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code email} is invalid.
+     */
+    public static StudentId parseStudentId(String studentId) throws ParseException {
+        requireNonNull(studentId);
+        String trimmedStudentId = studentId.trim();
+        if (!StudentId.isValidStudentId(trimmedStudentId)) {
+            throw new ParseException(StudentId.MESSAGE_CONSTRAINTS);
+        }
+        return new StudentId(trimmedStudentId);
+    }
+
+    /**
      * Parses a {@code String progress} into a {@code Progress}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -169,5 +185,6 @@ public class ParserUtil {
             throw new ParseException(Progress.MESSAGE_CONSTRAINTS);
         }
         return new Progress(trimmedProgress);
+
     }
 }

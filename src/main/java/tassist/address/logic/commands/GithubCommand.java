@@ -59,7 +59,7 @@ public class GithubCommand extends Command {
         Person personToEdit = lastShownList.get(index.getZeroBased());
         Person editedPerson = new Person(
                 personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
-                personToEdit.getAddress(), personToEdit.getClassNumber(),
+                personToEdit.getAddress(), personToEdit.getClassNumber(), personToEdit.getStudentId(),
                 github, personToEdit.getTags(), personToEdit.getProgress());
 
         model.setPerson(personToEdit, editedPerson);

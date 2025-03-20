@@ -20,7 +20,7 @@ public class Person {
     private final Name name;
     private final Phone phone;
     private final Email email;
-
+    private final StudentId studentId;
     // Data fields
     private final ClassNumber classNumber;
     private final Address address;
@@ -32,14 +32,15 @@ public class Person {
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, Address address, ClassNumber classNumber,
-                  Github github, Set<Tag> tags, Progress progress) {
-        requireAllNonNull(name, phone, email, address, tags, progress);
+                StudentId studentId, Github github, Set<Tag> tags, Progress progress) {
+        requireAllNonNull(name, phone, email, address, studentId, tags, progress);
 
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.classNumber = classNumber;
         this.address = address;
+        this.studentId = studentId;
         this.github = github;
         this.tags.addAll(tags);
         this.progress = progress;
@@ -65,12 +66,17 @@ public class Person {
         return address;
     }
 
+    public StudentId getStudentId() {
+        return studentId;
+    }
+
     public Progress getProgress() {
         return progress;
     }
 
     public Github getGithub() {
         return github;
+
     }
 
     /**
@@ -114,13 +120,14 @@ public class Person {
                 && phone.equals(otherPerson.phone)
                 && email.equals(otherPerson.email)
                 && address.equals(otherPerson.address)
+                && studentId.equals(otherPerson.studentId)
                 && tags.equals(otherPerson.tags);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, classNumber, github, tags, progress);
+        return Objects.hash(name, phone, email, address, classNumber, studentId, github, tags, progress);
     }
 
     @Override
@@ -131,6 +138,7 @@ public class Person {
                 .add("email", email)
                 .add("address", address)
                 .add("classNumber", classNumber)
+                .add("studentId", studentId)
                 .add("tags", tags)
                 .add("progress", progress)
                 .toString();

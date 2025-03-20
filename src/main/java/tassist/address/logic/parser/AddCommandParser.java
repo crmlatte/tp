@@ -8,6 +8,7 @@ import static tassist.address.logic.parser.CliSyntax.PREFIX_GITHUB;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_PROGRESS;
+import static tassist.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static tassist.address.model.person.ClassNumber.DEFAULT_CLASS;
 
@@ -24,6 +25,7 @@ import tassist.address.model.person.Name;
 import tassist.address.model.person.Person;
 import tassist.address.model.person.Phone;
 import tassist.address.model.person.Progress;
+import tassist.address.model.person.StudentId;
 import tassist.address.model.tag.Tag;
 
 /**
@@ -39,23 +41,24 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
-                        PREFIX_CLASS, PREFIX_GITHUB, PREFIX_TAG, PREFIX_PROGRESS);
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
+                        PREFIX_CLASS, PREFIX_STUDENTID, PREFIX_GITHUB, PREFIX_TAG, PREFIX_PROGRESS);
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_STUDENTID, PREFIX_EMAIL)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
-                PREFIX_PROGRESS);
+                PREFIX_STUDENTID, PREFIX_PROGRESS);
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         ClassNumber classNumber = ParserUtil.parseClassNumber(argMultimap.getValue(PREFIX_CLASS).orElse(DEFAULT_CLASS));
         Github github = new Github("https://github.com/default");
+        StudentId studentId = ParserUtil.parseStudentId(argMultimap.getValue(PREFIX_STUDENTID).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         Progress progress = ParserUtil.parseProgress(argMultimap.getValue(PREFIX_PROGRESS).orElse("0"));
-        Person person = new Person(name, phone, email, address, classNumber, github, tagList, progress);
+        Person person = new Person(name, phone, email, address, classNumber, studentId, github, tagList, progress);
         return new AddCommand(person);
     }
 

@@ -32,11 +32,9 @@
       <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
       <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
       <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
-<<<<<<< HEAD
-      <Label fx:id="progress" styleClass="cell_small_label" text="\$progress" />
-=======
+      <Label fx:id="studentId" styleClass="cell_small_label" text="\$studentId" />
       <Label fx:id="github" styleClass="cell_small_label" text="\$github" />
->>>>>>> master
+      <Label fx:id="progress" styleClass="cell_small_label" text="\$progress" />
     </VBox>
   </GridPane>
 </HBox>
