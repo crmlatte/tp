@@ -54,10 +54,10 @@ public class ListCommand extends Command {
      * Constructor for ListCommand without sorting and filtering.
      */
     public ListCommand() {
-        this.sortType = "";
-        this.sortOrder = "";
-        this.filterType = "";
-        this.filterValue = "";
+        this.sortType = null;
+        this.sortOrder = null;
+        this.filterType = null;
+        this.filterValue = null;
     }
 
     @Override
@@ -66,12 +66,12 @@ public class ListCommand extends Command {
         isValidFilterAndSort();
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         List<Person> list = model.getFilteredPersonList();
-        if (filterType != null && filterValue != null && filterType != "" && filterValue != "") {
+        if (filterType != null && filterValue != null) {
             Predicate<Person> filter = getFilter(model, filterType, filterValue);
             model.updateFilteredPersonList(filter);
         }
 
-        if (sortType != null && sortOrder != null && sortType != "" && sortOrder != "") {
+        if (sortType != null && sortOrder != null) {
             Comparator<Person> comp = this.getComparator(sortType, sortOrder);
             model.updateSortedPersonList(comp);
         }
@@ -82,19 +82,19 @@ public class ListCommand extends Command {
     }
 
     private void isValidFilterAndSort() throws CommandException {
-        if (sortType != null && !sortType.isEmpty() && !VALID_SORT_TYPES.contains(sortType)) {
+        if (sortType != null && !VALID_SORT_TYPES.contains(sortType)) {
             throw new CommandException(MESSAGE_INVALID_SORT);
         }
 
-        if (sortOrder != null && !sortOrder.isEmpty() && !VALID_SORT_ORDERS.contains(sortOrder)) {
+        if (sortOrder != null && !VALID_SORT_ORDERS.contains(sortOrder)) {
             throw new CommandException(MESSAGE_INVALID_SORT_ORDER);
         }
 
-        if (filterType != null && !filterType.isEmpty() && !VALID_FILTER_TYPES.contains(filterType)) {
+        if (filterType != null && !VALID_FILTER_TYPES.contains(filterType)) {
             throw new CommandException(MESSAGE_INVALID_FILTER);
         }
     }
-    
+
     private Predicate<Person> getFilter(Model model, String filterType, String filterValue) throws CommandException {
         return switch (filterType) {
         case "course" -> {
