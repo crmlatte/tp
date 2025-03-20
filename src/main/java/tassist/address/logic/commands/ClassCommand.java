@@ -26,7 +26,7 @@ public class ClassCommand extends Command {
             + "by the index. " // will be changed to student id once ready
             + "Existing tutorial class will be overwritten by the input.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_CLASS + " T + [Tutorial Class Number xx (xx = 01-99)]\n"
+            + PREFIX_CLASS + " T/R + [Tutorial Class Number xx (xx = 01-99)]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_CLASS + " T01";
 
@@ -34,8 +34,8 @@ public class ClassCommand extends Command {
     public static final String MESSAGE_REMOVE_CLASS_SUCCESS = "Removed tutorial class from student: %1$s";
     public static final String MESSAGE_INVALID_CLASS =
             "Class numbers should be either 'No tutorial assigned'\n"
-                    + "+ or of the format 'Txx' (where xx is 01-99).\n"
-                    + "'T' must be capitalized.";
+                    + "+ or of the format 'Txx/Rxx' (where xx is 01-99).\n"
+                    + "'T/R' must be capitalized.";
 
     private final Index index;
     private final ClassNumber classNumber;
