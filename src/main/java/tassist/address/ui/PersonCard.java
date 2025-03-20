@@ -40,6 +40,7 @@ public class PersonCard extends UiPart<Region> {
     private Label email;
     @FXML
     private Label studentId;
+    @FXML
     private Label github;
     @FXML
     private FlowPane tags;
