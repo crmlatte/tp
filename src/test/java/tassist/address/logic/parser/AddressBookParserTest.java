@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tassist.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tassist.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static tassist.address.logic.parser.CliSyntax.PREFIX_CLASS;
+import static tassist.address.logic.parser.CliSyntax.PREFIX_GITHUB;
 import static tassist.address.testutil.Assert.assertThrows;
 import static tassist.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
@@ -14,15 +16,20 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import tassist.address.logic.commands.AddCommand;
+import tassist.address.logic.commands.ClassCommand;
 import tassist.address.logic.commands.ClearCommand;
 import tassist.address.logic.commands.DeleteCommand;
 import tassist.address.logic.commands.EditCommand;
 import tassist.address.logic.commands.EditCommand.EditPersonDescriptor;
 import tassist.address.logic.commands.ExitCommand;
 import tassist.address.logic.commands.FindCommand;
+import tassist.address.logic.commands.GithubCommand;
 import tassist.address.logic.commands.HelpCommand;
 import tassist.address.logic.commands.ListCommand;
+import tassist.address.logic.commands.OpenCommand;
 import tassist.address.logic.parser.exceptions.ParseException;
+import tassist.address.model.person.ClassNumber;
+import tassist.address.model.person.Github;
 import tassist.address.model.person.NameContainsKeywordsPredicate;
 import tassist.address.model.person.Person;
 import tassist.address.testutil.EditPersonDescriptorBuilder;
@@ -38,6 +45,14 @@ public class AddressBookParserTest {
         Person person = new PersonBuilder().build();
         AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(person));
         assertEquals(new AddCommand(person), command);
+    }
+
+    @Test
+    public void parseCommand_class() throws Exception {
+        final ClassNumber classNumber = new ClassNumber("T01");
+        ClassCommand command = (ClassCommand) parser.parseCommand(ClassCommand.COMMAND_WORD + " "
+                + INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_CLASS + classNumber.value);
+        assertEquals(new ClassCommand(INDEX_FIRST_PERSON, classNumber), command);
     }
 
     @Test
@@ -77,6 +92,14 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_github() throws Exception {
+        final String github = "https://github.com/default";
+        GithubCommand command = (GithubCommand) parser.parseCommand(GithubCommand.COMMAND_WORD + " "
+                + INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_GITHUB + github);
+        assertEquals(new GithubCommand(INDEX_FIRST_PERSON, new Github(github)), command);
+    }
+
+    @Test
     public void parseCommand_help() throws Exception {
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3") instanceof HelpCommand);
@@ -86,6 +109,13 @@ public class AddressBookParserTest {
     public void parseCommand_list() throws Exception {
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+    }
+
+    @Test
+    public void parseCommand_open() throws Exception {
+        OpenCommand command = (OpenCommand) parser.parseCommand(
+                OpenCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
+        assertEquals(new OpenCommand(INDEX_FIRST_PERSON), command);
     }
 
     @Test

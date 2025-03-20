@@ -9,14 +9,17 @@ import java.util.regex.Pattern;
 
 import tassist.address.commons.core.LogsCenter;
 import tassist.address.logic.commands.AddCommand;
+import tassist.address.logic.commands.ClassCommand;
 import tassist.address.logic.commands.ClearCommand;
 import tassist.address.logic.commands.Command;
 import tassist.address.logic.commands.DeleteCommand;
 import tassist.address.logic.commands.EditCommand;
 import tassist.address.logic.commands.ExitCommand;
 import tassist.address.logic.commands.FindCommand;
+import tassist.address.logic.commands.GithubCommand;
 import tassist.address.logic.commands.HelpCommand;
 import tassist.address.logic.commands.ListCommand;
+import tassist.address.logic.commands.OpenCommand;
 import tassist.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -56,6 +59,9 @@ public class AddressBookParser {
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
 
+        case ClassCommand.COMMAND_WORD:
+            return new ClassCommandParser().parse(arguments);
+
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
 
@@ -69,13 +75,19 @@ public class AddressBookParser {
             return new FindCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+            return new ListCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case GithubCommand.COMMAND_WORD:
+            return new GithubCommandParser().parse(arguments);
+
+        case OpenCommand.COMMAND_WORD:
+            return new OpenCommandParser().parse(arguments);
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);

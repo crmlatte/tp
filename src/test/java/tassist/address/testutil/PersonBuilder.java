@@ -4,10 +4,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 import tassist.address.model.person.Address;
+import tassist.address.model.person.ClassNumber;
 import tassist.address.model.person.Email;
+import tassist.address.model.person.Github;
 import tassist.address.model.person.Name;
 import tassist.address.model.person.Person;
 import tassist.address.model.person.Phone;
+import tassist.address.model.person.Progress;
+import tassist.address.model.person.StudentId;
 import tassist.address.model.tag.Tag;
 import tassist.address.model.util.SampleDataUtil;
 
@@ -20,12 +24,20 @@ public class PersonBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_CLASS = "T01";
+    public static final String DEFAULT_STUDENTID = "A0000000B";
+    public static final String DEFAULT_GITHUB = "https://github.com/default";
+    public static final String DEFAULT_PROGRESS = "0";
 
     private Name name;
     private Phone phone;
     private Email email;
     private Address address;
+    private ClassNumber classNumber;
+    private StudentId studentId;
+    private Github github;
     private Set<Tag> tags;
+    private Progress progress;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -35,7 +47,11 @@ public class PersonBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
+        classNumber = new ClassNumber(DEFAULT_CLASS);
+        studentId = new StudentId(DEFAULT_STUDENTID);
+        github = new Github(DEFAULT_GITHUB);
         tags = new HashSet<>();
+        progress = new Progress(DEFAULT_PROGRESS);
     }
 
     /**
@@ -46,7 +62,11 @@ public class PersonBuilder {
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
+        classNumber = personToCopy.getClassNumber();
+        studentId = personToCopy.getStudentId();
+        github = personToCopy.getGithub();
         tags = new HashSet<>(personToCopy.getTags());
+        progress = personToCopy.getProgress();
     }
 
     /**
@@ -74,6 +94,14 @@ public class PersonBuilder {
     }
 
     /**
+     * Sets the {@code Github} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withGithub(String github) {
+        this.github = new Github(github);
+        return this;
+    }
+
+    /**
      * Sets the {@code Phone} of the {@code Person} that we are building.
      */
     public PersonBuilder withPhone(String phone) {
@@ -89,8 +117,34 @@ public class PersonBuilder {
         return this;
     }
 
-    public Person build() {
-        return new Person(name, phone, email, address, tags);
+    /**
+     * Sets the {@code ClassNumber} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withClassNumber(String classNumber) {
+        this.classNumber = new ClassNumber(classNumber);
+        return this;
     }
 
+    /**
+     * Sets the {@code StudentId} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withStudentId(String studentId) {
+        this.studentId = new StudentId(studentId);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Progress} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withProgress(String progress) {
+        this.progress = new Progress(progress);
+        return this;
+    }
+
+    /**
+     * Builds and returns a {@code Person} instance with the set attributes.
+     */
+    public Person build() {
+        return new Person(name, phone, email, address, classNumber, studentId, github, tags, progress);
+    }
 }

@@ -15,26 +15,37 @@ import tassist.address.model.tag.Tag;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Person {
+    public static final String PLACEHOLDER_COURSE = "placeholder";
+    public static final String PLACEHOLDER_TEAM = "placeholder";
 
     // Identity fields
     private final Name name;
     private final Phone phone;
     private final Email email;
-
+    private final StudentId studentId;
     // Data fields
+    private final ClassNumber classNumber;
     private final Address address;
+    private final Progress progress;
     private final Set<Tag> tags = new HashSet<>();
+    private final Github github;
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Person(Name name, Phone phone, Email email, Address address, ClassNumber classNumber,
+                StudentId studentId, Github github, Set<Tag> tags, Progress progress) {
+        requireAllNonNull(name, phone, email, address, studentId, github, tags, progress);
+
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.classNumber = classNumber;
         this.address = address;
+        this.studentId = studentId;
+        this.github = github;
         this.tags.addAll(tags);
+        this.progress = progress;
     }
 
     public Name getName() {
@@ -49,8 +60,32 @@ public class Person {
         return email;
     }
 
+    public ClassNumber getClassNumber() {
+        return classNumber;
+    }
+
     public Address getAddress() {
         return address;
+    }
+
+    public StudentId getStudentId() {
+        return studentId;
+    }
+
+    public Progress getProgress() {
+        return progress;
+    }
+
+    public Github getGithub() {
+        return github;
+    }
+
+    public String getCourse() {
+        return PLACEHOLDER_COURSE;
+    }
+
+    public String getTeam() {
+        return PLACEHOLDER_TEAM;
     }
 
     /**
@@ -94,13 +129,15 @@ public class Person {
                 && phone.equals(otherPerson.phone)
                 && email.equals(otherPerson.email)
                 && address.equals(otherPerson.address)
+                && studentId.equals(otherPerson.studentId)
+                && github.equals(otherPerson.github)
                 && tags.equals(otherPerson.tags);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, classNumber, studentId, github, tags, progress);
     }
 
     @Override
@@ -110,7 +147,11 @@ public class Person {
                 .add("phone", phone)
                 .add("email", email)
                 .add("address", address)
+                .add("classNumber", classNumber)
+                .add("studentId", studentId)
+                .add("github", github)
                 .add("tags", tags)
+                .add("progress", progress)
                 .toString();
     }
 

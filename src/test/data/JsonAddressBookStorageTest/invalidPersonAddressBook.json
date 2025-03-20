@@ -3,6 +3,9 @@
     "name": "Person with invalid name field: Ha!ns Mu@ster",
     "phone": "9482424",
     "email": "hans@example.com",
-    "address": "4th street"
+    "address": "4th street",
+    "studentId" : "A0000000B",
+    "github": "https://github.com/default",
+    "progress": "50"
   } ]
 }

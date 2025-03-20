@@ -10,9 +10,13 @@ import tassist.address.commons.core.index.Index;
 import tassist.address.commons.util.StringUtil;
 import tassist.address.logic.parser.exceptions.ParseException;
 import tassist.address.model.person.Address;
+import tassist.address.model.person.ClassNumber;
 import tassist.address.model.person.Email;
+import tassist.address.model.person.Github;
 import tassist.address.model.person.Name;
 import tassist.address.model.person.Phone;
+import tassist.address.model.person.Progress;
+import tassist.address.model.person.StudentId;
 import tassist.address.model.tag.Tag;
 
 /**
@@ -81,6 +85,21 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String github link} into a {@code Github}.
+     * Leading and trailing white spaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code github} is invalid.
+     */
+    public static Github parseGithub(String github) throws ParseException {
+        requireNonNull(github);
+        String trimmedGithub = github.trim();
+        if (!Github.isValidGithub(trimmedGithub)) {
+            throw new ParseException(Github.MESSAGE_CONSTRAINTS);
+        }
+        return new Github(trimmedGithub);
+    }
+
+    /**
      * Parses a {@code String email} into an {@code Email}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -93,6 +112,21 @@ public class ParserUtil {
             throw new ParseException(Email.MESSAGE_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
+    }
+
+    /**
+     * Parses a {@code String class number} into a {@code ClassNumber}.
+     * Leading and trailing white spaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code class number} is invalid.
+     */
+    public static ClassNumber parseClassNumber(String classNumber) throws ParseException {
+        requireNonNull(classNumber);
+        String trimmedClassNumber = classNumber.trim();
+        if (!ClassNumber.isValidClassNumber(trimmedClassNumber)) {
+            throw new ParseException(ClassNumber.MESSAGE_CONSTRAINTS);
+        }
+        return new ClassNumber(trimmedClassNumber);
     }
 
     /**
@@ -120,5 +154,37 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String email} into an {@code Email}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code email} is invalid.
+     */
+    public static StudentId parseStudentId(String studentId) throws ParseException {
+        requireNonNull(studentId);
+        String trimmedStudentId = studentId.trim();
+        if (!StudentId.isValidStudentId(trimmedStudentId)) {
+            throw new ParseException(StudentId.MESSAGE_CONSTRAINTS);
+        }
+        return new StudentId(trimmedStudentId);
+    }
+
+    /**
+     * Parses a {@code String progress} into a {@code Progress}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code progress} is invalid.
+     */
+    public static Progress parseProgress(String progress) throws ParseException {
+        requireNonNull(progress);
+        String trimmedProgress = progress.trim();
+
+        if (!Progress.isValidProgress(trimmedProgress)) {
+            throw new ParseException(Progress.MESSAGE_CONSTRAINTS);
+        }
+        return new Progress(trimmedProgress);
+
     }
 }
