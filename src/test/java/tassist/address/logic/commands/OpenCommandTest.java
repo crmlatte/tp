@@ -89,6 +89,44 @@ public class OpenCommandTest {
     }
 
     @Test
+    public void execute_browserServiceThrowsException_returnsFailureMessage() throws CommandException {
+        Person personToOpen = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        OpenCommand openCommand = new OpenCommand(INDEX_FIRST_PERSON, new FailingBrowserService());
+
+        String expectedMessage = String.format(OpenCommand.MESSAGE_OPEN_GITHUB_FAILURE,
+                Messages.format(personToOpen));
+
+        CommandResult result = openCommand.execute(model);
+        assertEquals(expectedMessage, result.getFeedbackToUser());
+    }
+
+    @Test
+    public void executeBrowserServiceThrowsException_returnsFailureMessage_filteredList() throws CommandException {
+        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        Person personToOpen = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        OpenCommand openCommand = new OpenCommand(INDEX_FIRST_PERSON, new FailingBrowserService());
+
+        String expectedMessage = String.format(OpenCommand.MESSAGE_OPEN_GITHUB_FAILURE,
+                Messages.format(personToOpen));
+
+        CommandResult result = openCommand.execute(model);
+        assertEquals(expectedMessage, result.getFeedbackToUser());
+    }
+
+    @Test
+    public void toString_returnsCorrectFormat() {
+        OpenCommand openCommand = new OpenCommand(INDEX_FIRST_PERSON, browserService);
+        String expected = new StringBuilder()
+                .append(OpenCommand.class.getName())
+                .append("{")
+                .append("targetIndex=")
+                .append(INDEX_FIRST_PERSON)
+                .append("}")
+                .toString();
+        assertEquals(expected, openCommand.toString());
+    }
+
+    @Test
     public void equals() {
         OpenCommand openFirstCommand = new OpenCommand(INDEX_FIRST_PERSON, browserService);
         OpenCommand openSecondCommand = new OpenCommand(INDEX_SECOND_PERSON, browserService);
@@ -140,6 +178,16 @@ public class OpenCommandTest {
          */
         public void clear() {
             urlsOpened.clear();
+        }
+    }
+
+    /**
+     * Test implementation of BrowserService that always throws an exception.
+     */
+    private static class FailingBrowserService implements OpenCommand.BrowserService {
+        @Override
+        public void openUrl(String url) throws IOException, URISyntaxException {
+            throw new IOException("Test exception");
         }
     }
 }
