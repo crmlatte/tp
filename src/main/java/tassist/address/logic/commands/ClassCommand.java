@@ -34,8 +34,8 @@ public class ClassCommand extends Command {
     public static final String MESSAGE_REMOVE_CLASS_SUCCESS = "Removed tutorial class from student: %1$s";
     public static final String MESSAGE_INVALID_CLASS =
             "Class numbers should be either 'No tutorial assigned'\n"
-                    + "            + or of the format 'Txx' (where xx is 01-99).\n"
-                    + "            + 'T' must be capitalized.";
+                    + "+ or of the format 'Txx' (where xx is 01-99).\n"
+                    + "'T' must be capitalized.";
 
     private final Index index;
     private final ClassNumber classNumber;
