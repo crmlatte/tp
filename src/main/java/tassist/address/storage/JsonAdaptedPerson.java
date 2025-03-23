@@ -66,7 +66,7 @@ class JsonAdaptedPerson {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         classNumber = source.getClassNumber().value;
-        studentId = source.getStudentId().value;
+        studentId = source.getStudentId().id;
         github = source.getGithub().value;
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)

@@ -11,13 +11,13 @@ public class StudentId {
 
     public static final String MESSAGE_CONSTRAINTS =
             "The Student ID must follow the format AXXXXXXXN, where:\n"
-                    + "- A is the uppercase letter 'A'.\n"
-                    + "- X represents seven digits (0-9).\n"
-                    + "- N is any uppercase letter from A to Z.\n"
+                    + "1. A is the uppercase letter 'A'.\n"
+                    + "2. X represents seven digits (0-9).\n"
+                    + "3. N is any uppercase letter from A to Z.\n"
                     + "Both 'A' and 'N' must be capitalized.";
     public static final String VALIDATION_REGEX = "^A\\d{7}[A-Z]$";
 
-    public final String value;
+    public final String id;
 
     /**
      * Constructs an {@code Address}.
@@ -27,7 +27,7 @@ public class StudentId {
     public StudentId(String studentId) {
         requireNonNull(studentId);
         checkArgument(isValidStudentId(studentId), MESSAGE_CONSTRAINTS);
-        value = studentId;
+        id = studentId;
     }
 
     /**
@@ -39,7 +39,7 @@ public class StudentId {
 
     @Override
     public String toString() {
-        return value;
+        return id;
     }
 
     @Override
@@ -54,11 +54,11 @@ public class StudentId {
         }
 
         StudentId otherStudentId = (StudentId) other;
-        return value.equals(otherStudentId.value);
+        return id.equals(otherStudentId.id);
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return id.hashCode();
     }
 }
