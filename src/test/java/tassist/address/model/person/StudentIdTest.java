@@ -34,7 +34,7 @@ public class StudentIdTest {
         assertFalse(StudentId.isValidStudentId("A123456N")); // only contains
 
         // valid name
-        assertTrue(StudentId.isValidStudentId("A0287670M"));// first character is 'A', followed by 7 numbers,
+        assertTrue(StudentId.isValidStudentId("A0287670M")); // first character is 'A', followed by 7 numbers,
         // followed by an uppercase character 'M'
         assertTrue(StudentId.isValidStudentId("A0000000Z"));
     }
