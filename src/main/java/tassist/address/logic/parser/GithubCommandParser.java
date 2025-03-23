@@ -26,24 +26,26 @@ public class GithubCommandParser implements Parser<GithubCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
                 PREFIX_GITHUB);
 
-        Index index;
-        StudentId studentId;
-
-        if (argMultimap.getValue(PREFIX_GITHUB).isEmpty()) {
-            throw new ParseException(String.format(GithubCommand.MESSAGE_EMPTY));
+        if (argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    GithubCommand.MESSAGE_USAGE));
         }
         String github = argMultimap.getValue(PREFIX_GITHUB).orElse("");
+        if (argMultimap.getValue(PREFIX_GITHUB).isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    GithubCommand.MESSAGE_USAGE));
+        }
         try {
             Github githubUrl = new Github(github);
         } catch (IllegalArgumentException e) {
             throw new ParseException(GithubCommand.MESSAGE_INVALID_GITHUB, e);
         }
         try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
             return new GithubCommand(index, new Github(github));
         } catch (ParseException e) {
             try {
-                studentId = ParserUtil.parseStudentId(argMultimap.getPreamble());
+                StudentId studentId = ParserUtil.parseStudentId(argMultimap.getPreamble());
                 return new GithubCommand(studentId, new Github(github));
             } catch (IllegalValueException ive) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
@@ -51,5 +53,4 @@ public class GithubCommandParser implements Parser<GithubCommand> {
             }
         }
     }
-
 }

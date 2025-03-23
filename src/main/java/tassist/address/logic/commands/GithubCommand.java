@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static tassist.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import tassist.address.commons.core.index.Index;
@@ -27,7 +28,7 @@ public class GithubCommand extends Command {
             + "Parameters: STUDENTID | INDEX , g/[GITHUB_URL]\n"
             + "Example: " + COMMAND_WORD + " 2 "
             + "g/https://github.com/tammzz\n"
-            + "or: " + COMMAND_WORD + "AxxxxxxxB g/https://github.com/tammzz";
+            + "or: " + COMMAND_WORD + " AxxxxxxxB g/https://github.com/tammzz";
 
     public static final String MESSAGE_ADD_GITHUB_SUCCESS = "Added github to Person: %1$s";
     public static final String MESSAGE_DELETE_GITHUB_SUCCESS = "Removed github from Person: %1$s";
@@ -119,9 +120,9 @@ public class GithubCommand extends Command {
         }
 
         GithubCommand e = (GithubCommand) other;
-        return studentId.equals(e.studentId)
-                && index.equals(e.index)
-                && github.equals(e.github);
+        return Objects.equals(studentId, e.studentId)
+                && Objects.equals(index, e.index)
+                && Objects.equals(github, e.github);
     }
 
 }

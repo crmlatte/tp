@@ -12,6 +12,7 @@ import static tassist.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
+import tassist.address.commons.core.index.Index;
 import tassist.address.logic.Messages;
 import tassist.address.model.Model;
 import tassist.address.model.ModelManager;
@@ -31,7 +32,7 @@ public class GithubCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
-    public void execute_validGithubUrl_success() throws Exception {
+    public void validGithubUrl_success_studentId() throws Exception {
         Model model = new ModelManager();
 
         Person originalPerson = new PersonBuilder().withName("Alice").withStudentId("A1239878D").build();
@@ -47,6 +48,26 @@ public class GithubCommandTest {
         Person editedPerson = model.getFilteredPersonList().stream().filter(
                 person -> person.getStudentId().equals(validStudentId)).findFirst().get();
 
+        assertEquals(validGithub, editedPerson.getGithub()); // Assert GitHub was updated
+        assertEquals(String.format(GithubCommand.MESSAGE_ADD_GITHUB_SUCCESS, Messages.format(editedPerson)),
+                result.getFeedbackToUser()); // Assert success message
+    }
+
+    @Test
+    public void validGithubUrl_success_index() throws Exception {
+        Model model = new ModelManager();
+
+        Person originalPerson = new PersonBuilder().withName("Alice").withStudentId("A1239878D").build();
+        model.addPerson(originalPerson);
+
+        Index validIndex = Index.fromZeroBased(0);
+        Github validGithub = new Github("https://github.com/alice123");
+
+        GithubCommand githubCommand = new GithubCommand(validIndex, validGithub);
+
+        CommandResult result = githubCommand.execute(model);
+
+        Person editedPerson = model.getFilteredPersonList().get(0);
         assertEquals(validGithub, editedPerson.getGithub()); // Assert GitHub was updated
         assertEquals(String.format(GithubCommand.MESSAGE_ADD_GITHUB_SUCCESS, Messages.format(editedPerson)),
                 result.getFeedbackToUser()); // Assert success message

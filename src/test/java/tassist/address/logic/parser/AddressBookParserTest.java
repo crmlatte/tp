@@ -94,11 +94,19 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_github() throws Exception {
+    public void parseCommand_github_studentId() throws Exception {
         final String github = "https://github.com/default";
         GithubCommand command = (GithubCommand) parser.parseCommand(GithubCommand.COMMAND_WORD + " "
                 + VALID_STUDENTID_AMY + " " + PREFIX_GITHUB + github);
         assertEquals(new GithubCommand(new StudentId(VALID_STUDENTID_AMY), new Github(github)), command);
+    }
+
+    @Test
+    public void parseCommand_github_index() throws Exception {
+        final String github = "https://github.com/default";
+        GithubCommand command = (GithubCommand) parser.parseCommand(GithubCommand.COMMAND_WORD + " "
+                + INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_GITHUB + github);
+        assertEquals(new GithubCommand(INDEX_FIRST_PERSON, new Github(github)), command);
     }
 
     @Test
