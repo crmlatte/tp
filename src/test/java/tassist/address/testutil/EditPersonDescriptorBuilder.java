@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import tassist.address.logic.commands.EditCommand.EditPersonDescriptor;
-import tassist.address.model.person.Address;
+import tassist.address.model.person.ClassNumber;
 import tassist.address.model.person.Email;
 import tassist.address.model.person.Github;
 import tassist.address.model.person.Name;
@@ -38,7 +38,6 @@ public class EditPersonDescriptorBuilder {
         descriptor.setName(person.getName());
         descriptor.setPhone(person.getPhone());
         descriptor.setEmail(person.getEmail());
-        descriptor.setAddress(person.getAddress());
         descriptor.setStudentId(person.getStudentId());
         descriptor.setGithub(person.getGithub());
         descriptor.setTags(person.getTags());
@@ -69,10 +68,10 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Address} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code ClassNumber} of the {@code EditPersonDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withAddress(String address) {
-        descriptor.setAddress(new Address(address));
+    public EditPersonDescriptorBuilder withClassNumber(String classNumber) {
+        descriptor.setClassNumber(new ClassNumber(classNumber));
         return this;
     }
 
@@ -83,6 +82,7 @@ public class EditPersonDescriptorBuilder {
         descriptor.setStudentId(new StudentId(studentId));
         return this;
     }
+
     /**
      * Sets the {@code Github} of the {@code EditPersonDescriptor} that we are building.
      */

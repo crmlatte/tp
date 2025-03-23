@@ -3,7 +3,7 @@ package tassist.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import tassist.address.model.person.Address;
+import tassist.address.model.person.ClassNumber;
 import tassist.address.model.person.Email;
 import tassist.address.model.person.Github;
 import tassist.address.model.person.Name;
@@ -22,15 +22,15 @@ public class PersonBuilder {
     public static final String DEFAULT_NAME = "Amy Bee";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
-    public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_CLASS = "T01";
     public static final String DEFAULT_STUDENTID = "A0000000B";
-    public static final String DEFAULT_GITHUB = "https://github.com/tammzz";
+    public static final String DEFAULT_GITHUB = "https://github.com/default";
     public static final String DEFAULT_PROGRESS = "0";
 
     private Name name;
     private Phone phone;
     private Email email;
-    private Address address;
+    private ClassNumber classNumber;
     private StudentId studentId;
     private Github github;
     private Set<Tag> tags;
@@ -43,7 +43,7 @@ public class PersonBuilder {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
-        address = new Address(DEFAULT_ADDRESS);
+        classNumber = new ClassNumber(DEFAULT_CLASS);
         studentId = new StudentId(DEFAULT_STUDENTID);
         github = new Github(DEFAULT_GITHUB);
         tags = new HashSet<>();
@@ -57,7 +57,7 @@ public class PersonBuilder {
         name = personToCopy.getName();
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
-        address = personToCopy.getAddress();
+        classNumber = personToCopy.getClassNumber();
         studentId = personToCopy.getStudentId();
         github = personToCopy.getGithub();
         tags = new HashSet<>(personToCopy.getTags());
@@ -80,13 +80,6 @@ public class PersonBuilder {
         return this;
     }
 
-    /**
-     * Sets the {@code Address} of the {@code Person} that we are building.
-     */
-    public PersonBuilder withAddress(String address) {
-        this.address = new Address(address);
-        return this;
-    }
 
     /**
      * Sets the {@code Github} of the {@code Person} that we are building.
@@ -113,6 +106,14 @@ public class PersonBuilder {
     }
 
     /**
+     * Sets the {@code ClassNumber} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withClassNumber(String classNumber) {
+        this.classNumber = new ClassNumber(classNumber);
+        return this;
+    }
+
+    /**
      * Sets the {@code StudentId} of the {@code Person} that we are building.
      */
     public PersonBuilder withStudentId(String studentId) {
@@ -132,7 +133,6 @@ public class PersonBuilder {
      * Builds and returns a {@code Person} instance with the set attributes.
      */
     public Person build() {
-        return new Person(name, phone, email, address, studentId, github, tags, progress);
-
+        return new Person(name, phone, email, classNumber, studentId, github, tags, progress);
     }
 }

@@ -9,7 +9,7 @@ import java.util.Set;
 import tassist.address.commons.core.index.Index;
 import tassist.address.commons.util.StringUtil;
 import tassist.address.logic.parser.exceptions.ParseException;
-import tassist.address.model.person.Address;
+import tassist.address.model.person.ClassNumber;
 import tassist.address.model.person.Email;
 import tassist.address.model.person.Github;
 import tassist.address.model.person.Name;
@@ -68,20 +68,6 @@ public class ParserUtil {
         return new Phone(trimmedPhone);
     }
 
-    /**
-     * Parses a {@code String address} into an {@code Address}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code address} is invalid.
-     */
-    public static Address parseAddress(String address) throws ParseException {
-        requireNonNull(address);
-        String trimmedAddress = address.trim();
-        if (!Address.isValidAddress(trimmedAddress)) {
-            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
-        }
-        return new Address(trimmedAddress);
-    }
 
     /**
      * Parses a {@code String github link} into a {@code Github}.
@@ -111,6 +97,21 @@ public class ParserUtil {
             throw new ParseException(Email.MESSAGE_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
+    }
+
+    /**
+     * Parses a {@code String class number} into a {@code ClassNumber}.
+     * Leading and trailing white spaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code class number} is invalid.
+     */
+    public static ClassNumber parseClassNumber(String classNumber) throws ParseException {
+        requireNonNull(classNumber);
+        String trimmedClassNumber = classNumber.trim();
+        if (!ClassNumber.isValidClassNumber(trimmedClassNumber)) {
+            throw new ParseException(ClassNumber.MESSAGE_CONSTRAINTS);
+        }
+        return new ClassNumber(trimmedClassNumber);
     }
 
     /**
