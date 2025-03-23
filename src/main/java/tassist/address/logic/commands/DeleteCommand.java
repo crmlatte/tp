@@ -35,11 +35,17 @@ public class DeleteCommand extends Command implements ConfirmableCommand {
     private final Index targetIndex;
     private final StudentId targetStudentId;
 
+    /**
+     * @param targetIndex of person to be deleted
+     */
     public DeleteCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
         this.targetStudentId = null;
     }
 
+    /**
+     * @param targetstudentId of person to be deleted
+     */
     public DeleteCommand(StudentId targetstudentId) {
         this.targetStudentId = targetstudentId;
         this.targetIndex = null;

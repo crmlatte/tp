@@ -7,7 +7,6 @@ import static tassist.address.logic.commands.CommandTestUtil.assertCommandFailur
 import static tassist.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static tassist.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static tassist.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static tassist.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
@@ -18,6 +17,9 @@ import tassist.address.model.Model;
 import tassist.address.model.ModelManager;
 import tassist.address.model.UserPrefs;
 import tassist.address.model.person.Person;
+import tassist.address.model.person.StudentId;
+import tassist.address.testutil.PersonBuilder;
+import tassist.address.testutil.TypicalPersons;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
@@ -25,12 +27,27 @@ import tassist.address.model.person.Person;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(TypicalPersons.getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_showsConfirmationMessage() throws CommandException {
         Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
+
+        // Expected confirmation message
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_CONFIRM_DELETE, Messages.format(personToDelete));
+
+        // Ensure confirmation message is shown first
+        CommandResult commandResult = deleteCommand.execute(model);
+        assertEquals(expectedMessage, commandResult.getFeedbackToUser());
+        assertTrue(commandResult.requiresConfirmation());
+    }
+
+    @Test
+    public void execute_validStudentId_showsConfirmationMessage() throws CommandException {
+        Person personToDelete = new PersonBuilder().withName("Alice").withStudentId("A1239878D").build();
+        model.addPerson(personToDelete);
+        DeleteCommand deleteCommand = new DeleteCommand(new StudentId("A1239878D"));
 
         // Expected confirmation message
         String expectedMessage = String.format(DeleteCommand.MESSAGE_CONFIRM_DELETE, Messages.format(personToDelete));

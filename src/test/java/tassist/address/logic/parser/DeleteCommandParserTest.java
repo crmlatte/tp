@@ -8,6 +8,7 @@ import static tassist.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import org.junit.jupiter.api.Test;
 
 import tassist.address.logic.commands.DeleteCommand;
+import tassist.address.model.person.StudentId;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations
@@ -21,8 +22,13 @@ public class DeleteCommandParserTest {
     private DeleteCommandParser parser = new DeleteCommandParser();
 
     @Test
-    public void parse_validArgs_returnsDeleteCommand() {
+    public void parse_validIndex_returnsDeleteCommand() {
         assertParseSuccess(parser, "1", new DeleteCommand(INDEX_FIRST_PERSON));
+    }
+
+    @Test
+    public void parse_validStudentId_returnsDeleteCommand() {
+        assertParseSuccess(parser, "A1111111B", new DeleteCommand(new StudentId("A1111111B")));
     }
 
     @Test
