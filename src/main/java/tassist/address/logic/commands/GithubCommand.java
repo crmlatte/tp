@@ -25,7 +25,7 @@ public class GithubCommand extends Command {
             + ": Edits the github of the person identified "
             + "by the STUDENTID or INDEX. "
             + "Existing github will be overwritten by the input.\n"
-            + "Parameters: STUDENTID | INDEX , g/[GITHUB_URL]\n"
+            + "Parameters: STUDENTID or INDEX , g/[GITHUB_URL]\n"
             + "Example: " + COMMAND_WORD + " 2 "
             + "g/https://github.com/tammzz\n"
             + "or: " + COMMAND_WORD + " AxxxxxxxB g/https://github.com/tammzz";
