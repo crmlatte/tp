@@ -2,6 +2,7 @@ package tassist.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tassist.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static tassist.address.logic.commands.CommandTestUtil.showPersonAtIndex;
@@ -167,6 +168,23 @@ public class DeleteCommandTest {
         // Step 2: Simulate invalid response
         CommandResult commandResult = new CommandResult("Invalid response. Please enter Y/N.");
         assertEquals(commandResult.getFeedbackToUser(), "Invalid response. Please enter Y/N.");
+    }
+
+    @Test
+    public void execute_invalidStudentId_throwsCommandException() {
+        StudentId invalidId = new StudentId("A9999999Z");
+        DeleteCommand command = new DeleteCommand(invalidId);
+
+        assertThrows(CommandException.class, () -> command.execute(model));
+    }
+
+    @Test
+    public void executeConfirmed_invalidStudentId_returnsErrorMessage() {
+        StudentId invalidId = new StudentId("A9999999Z");
+        DeleteCommand command = new DeleteCommand(invalidId);
+
+        CommandResult result = command.executeConfirmed(model);
+        assertEquals(Messages.MESSAGE_PERSON_NOT_FOUND + invalidId, result.getFeedbackToUser());
     }
 
     @Test
