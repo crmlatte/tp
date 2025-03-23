@@ -3,8 +3,10 @@ package tassist.address.logic.parser;
 import static tassist.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import tassist.address.commons.core.index.Index;
+import tassist.address.commons.exceptions.IllegalValueException;
 import tassist.address.logic.commands.DeleteCommand;
 import tassist.address.logic.parser.exceptions.ParseException;
+import tassist.address.model.person.StudentId;
 
 /**
  * Parses input arguments and creates a new DeleteCommand object
@@ -21,8 +23,13 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             Index index = ParserUtil.parseIndex(args);
             return new DeleteCommand(index);
         } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE), pe);
+            try {
+                StudentId studentId = ParserUtil.parseStudentId(args);
+                return new DeleteCommand(studentId);
+            } catch (IllegalValueException ive) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        DeleteCommand.MESSAGE_USAGE), pe);
+            }
         }
     }
 
