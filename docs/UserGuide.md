@@ -3,7 +3,7 @@ layout: page
 title: User Guide
 ---
 
-TAssist is a **desktop app for managing contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TAssist can get your contact management tasks done faster than traditional GUI apps.
+TAssist is a **desktop application** for Teaching Assistants (TAs) to easily track and manage student information. Iy is optimized for use via a **Command Line Interface** (CLI), complemented by a user-friendly Graphical User Interface (GUI). If you can type fast, TAssist helps you complete student management tasks more quickly than traditional GUI-based apps.
 
 * Table of Contents
 {:toc}
@@ -83,7 +83,7 @@ Format: `help`
 
 Adds a student to the student list.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL s/STUDENT_ID [g/GITHUB] [t/TAG]…​ [pr/PROGRESS]`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL s/STUDENT_ID [g/GITHUB_URL] [t/TAG]…​ [pr/PROGRESS]`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A student can have any number of tags (including 0)
@@ -130,7 +130,7 @@ Examples:
 
 Edits an existing student in the student list.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [c/CLASS] [s/STUDENTID] [g/GITHUB][t/TAG]…​ [pr/PROGRESS]`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [c/CLASS] [s/STUDENTID] [g/GITHUB_URL] [t/TAG]…​ [pr/PROGRESS]`
 
 * Edits the student at the specified `INDEX`. The index refers to the index number shown in the displayed student list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
@@ -197,6 +197,19 @@ Format: `github INDEX g/GITHUB_URL`
 Examples:
 * `github 2 g/https://github.com/alice` <br>
   Updates the 2nd student's GitHub link to `https://github.com/alice`.
+
+### Opening a student's GitHub page: `open`
+
+Opens the GitHub page of the student at the specified `INDEX` in your default web browser.
+
+Format: `open INDEX`
+
+* Opens the GitHub URL of the student at the given `INDEX`.
+* The index refers to the index number shown in the displayed student list.
+* The index **must be a positive integer** 1, 2, 3, …​
+
+Example:
+* `list` followed by `open 1` opens the GitHub page of the first student shown in the list.
 
 ### Deleting a student : `delete`
 
@@ -265,10 +278,13 @@ _Details coming soon ..._
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL s/STUDENT_ID [g/GITHUB] [t/TAG]…​ [pr/PROGRESS]` <br> e.g., `add n/John Doe p/98765432 e/johnd@example.com s/A0000000B t/friends t/owesMoney pr/50`
+**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL s/STUDENT_ID [g/GITHUB_URL] [c/CLASS_NUMBER] [t/TAG]…​ [pr/PROGRESS]` <br> e.g., `add n/John Doe p/98765432 e/johnd@example.com s/A0000000B g/https://github.com/username c/T02 t/friends t/owesMoney pr/50`
 **Clear** | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [c/CLASS] [s/STUDENTID] [g/GITHUB][t/TAG]…​ [pr/PROGRESS]`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
+**Edit** | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [c/CLASS] [s/STUDENTID] [g/GITHUB_URL] [t/TAG]…​ [pr/PROGRESS]`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List** | `list [f/FILTER_TYPE fv/FILTER_VALUE] [s/SORT_TYPE o/SORT_ORDER]`<br> e.g.,`list f/progress fv/50 s/name o/des`
+**Class** | `class INDEX c/CLASS_NUMBER` <br> e.g.,`class 1 c/T01`
+**Github** | `github INDEX g/GITHUB_URL` <br> e.g.,`github 2 g/https://github.com/alice`
+**Open** | `open INDEX` <br> e.g., `open 3`
 **Help** | `help`
