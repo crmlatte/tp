@@ -2,12 +2,12 @@ package tassist.address.logic.parser;
 
 import static tassist.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.util.Optional;
+
 import tassist.address.commons.core.index.Index;
 import tassist.address.logic.commands.DeleteCommand;
 import tassist.address.logic.parser.exceptions.ParseException;
 import tassist.address.model.person.StudentId;
-
-import java.util.Optional;
 
 /**
  * Parses input arguments and creates a new DeleteCommand object
