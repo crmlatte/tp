@@ -3,9 +3,7 @@ package tassist.address.logic.parser;
 import static tassist.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import tassist.address.commons.core.index.Index;
-import tassist.address.commons.exceptions.IllegalValueException;
 import tassist.address.logic.commands.DeleteCommand;
-import tassist.address.logic.commands.FindCommand;
 import tassist.address.logic.parser.exceptions.ParseException;
 import tassist.address.model.person.StudentId;
 
