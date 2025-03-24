@@ -31,12 +31,16 @@ public class StudentIdTest {
         assertFalse(StudentId.isValidStudentId("1234567")); // only contains numeric characters
         assertFalse(StudentId.isValidStudentId("B1234567N")); // first character is not 'A'
         assertFalse(StudentId.isValidStudentId("A12345*7N")); // contains non-alphanumeric characters
-        assertFalse(StudentId.isValidStudentId("A123456N")); // only contains
+        assertFalse(StudentId.isValidStudentId("A123456N")); // only contains 6 digits
+        assertFalse(StudentId.isValidStudentId("a123456N")); // lowercase 'a' at the start
+
 
         // valid name
         assertTrue(StudentId.isValidStudentId("A0287670M")); // first character is 'A', followed by 7 numbers,
         // followed by an uppercase character 'M'
-        assertTrue(StudentId.isValidStudentId("A0000000Z"));
+        assertTrue(StudentId.isValidStudentId("A0000000Z")); // all the same digits
+        assertTrue(StudentId.isValidStudentId("A0000000A")); // last letter is 'A'
+
     }
 
     @Test
