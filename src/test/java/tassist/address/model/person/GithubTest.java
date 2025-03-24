@@ -20,7 +20,7 @@ public class GithubTest {
     }
 
     @Test
-    public  void isValidGithub() {
+    public void isValidGithub() {
         // blank github
         assertFalse(Github.isValidGithub("")); // empty string
         assertFalse(Github.isValidGithub(" ")); // spaces only
