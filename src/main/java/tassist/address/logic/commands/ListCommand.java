@@ -20,6 +20,10 @@ public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
     public static final String MESSAGE_SUCCESS = "Listed all students";
+    public static final String MESSAGE_LIST_ALL = "Listed all students.";
+    public static final String MESSAGE_LIST_FILTERED = "Listed students with filter applied.";
+    public static final String MESSAGE_LIST_SORTED = "Listed students with sorting applied.";
+    public static final String MESSAGE_LIST_FILTERED_SORTED = "Listed students with filter and sorting applied.";
     public static final String MESSAGE_NO_STUDENTS = "No students found.";
     public static final String MESSAGE_INVALID_SORT = "Invalid sort type. Allowed sort type: name, progress, github.";
     public static final String MESSAGE_INVALID_SORT_ORDER = "Invalid sort order. Allowed sort order: asc, des.";
@@ -66,19 +70,34 @@ public class ListCommand extends Command {
         isValidFilterAndSort();
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         List<Person> list = model.getFilteredPersonList();
-        if (filterType != null && filterValue != null) {
+
+        boolean hasFilter = filterType != null && filterValue != null;
+        boolean hasSort = sortType != null && sortOrder != null;
+
+        if (hasFilter) {
             Predicate<Person> filter = getFilter(model, filterType, filterValue);
             model.updateFilteredPersonList(filter);
         }
 
-        if (sortType != null && sortOrder != null) {
+        if (hasSort) {
             Comparator<Person> comp = this.getComparator(sortType, sortOrder);
             model.updateSortedPersonList(comp);
         }
         if (list.isEmpty()) {
             return new CommandResult(MESSAGE_NO_STUDENTS);
         }
-        return new CommandResult(MESSAGE_SUCCESS);
+
+        String message;
+        if (hasFilter && hasSort) {
+            message = MESSAGE_LIST_FILTERED_SORTED;
+        } else if (hasFilter) {
+            message = MESSAGE_LIST_FILTERED;
+        } else if (hasSort) {
+            message = MESSAGE_LIST_SORTED;
+        } else {
+            message = MESSAGE_LIST_ALL;
+        }
+        return new CommandResult(message);
     }
 
     private void isValidFilterAndSort() throws CommandException {
