@@ -17,9 +17,10 @@ public class StudentId {
                     + "Both 'A' and 'N' must be capitalized.";
     public static final String VALIDATION_REGEX = "^A\\d{7}[A-Z]$";
 
-    public final String id;
+    public final String value;
 
     /**
+     *
      * Constructs an {@code Address}.
      *
      * @param studentId A valid address.
@@ -27,7 +28,7 @@ public class StudentId {
     public StudentId(String studentId) {
         requireNonNull(studentId);
         checkArgument(isValidStudentId(studentId), MESSAGE_CONSTRAINTS);
-        id = studentId;
+        value = studentId;
     }
 
     /**
@@ -39,7 +40,7 @@ public class StudentId {
 
     @Override
     public String toString() {
-        return id;
+        return value;
     }
 
     @Override
@@ -54,11 +55,6 @@ public class StudentId {
         }
 
         StudentId otherStudentId = (StudentId) other;
-        return id.equals(otherStudentId.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return id.hashCode();
+        return value.equals(otherStudentId.value);
     }
 }

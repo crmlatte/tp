@@ -37,7 +37,7 @@ public class PersonUtil {
         sb.append(PREFIX_PHONE + person.getPhone().value + " ");
         sb.append(PREFIX_EMAIL + person.getEmail().value + " ");
         sb.append(PREFIX_CLASS + person.getClassNumber().value + " ");
-        sb.append(PREFIX_STUDENTID + person.getStudentId().id + " ");
+        sb.append(PREFIX_STUDENTID + person.getStudentId().value + " ");
         sb.append(PREFIX_GITHUB + person.getGithub().value + " ");
         person.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
@@ -56,7 +56,7 @@ public class PersonUtil {
         descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
         descriptor.getClassNumber().ifPresent(classNumber -> sb.append(PREFIX_CLASS).append(classNumber.value)
                 .append(" "));
-        descriptor.getStudentId().ifPresent(studentId -> sb.append(PREFIX_STUDENTID).append(studentId.id)
+        descriptor.getStudentId().ifPresent(studentId -> sb.append(PREFIX_STUDENTID).append(studentId.value)
                 .append(" "));
         descriptor.getGithub().ifPresent(github -> sb.append(PREFIX_GITHUB).append(github.value).append(" "));
         if (descriptor.getTags().isPresent()) {

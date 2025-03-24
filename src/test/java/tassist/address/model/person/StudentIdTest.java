@@ -41,21 +41,21 @@ public class StudentIdTest {
 
     @Test
     public void equals() {
-        StudentId id = new StudentId("A0000000A");
+        StudentId value = new StudentId("A0000000A");
 
         // same values -> returns true
-        assertTrue(id.equals(new StudentId("A0000000A")));
+        assertTrue(value.equals(new StudentId("A0000000A")));
 
         // same object -> returns true
-        assertTrue(id.equals(id));
+        assertTrue(value.equals(value));
 
         // null -> returns false
-        assertFalse(id.equals(null));
+        assertFalse(value.equals(null));
 
         // different types -> returns false
-        assertFalse(id.equals(5.0f));
+        assertFalse(value.equals(5.0f));
 
         // different values -> returns false
-        assertFalse(id.equals(new StudentId("A0000000B")));
+        assertFalse(value.equals(new StudentId("A0000000B")));
     }
 }
