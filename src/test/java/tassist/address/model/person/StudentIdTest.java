@@ -36,8 +36,7 @@ public class StudentIdTest {
 
 
         // valid name
-        assertTrue(StudentId.isValidStudentId("A0287670M")); // first character is 'A', followed by 7 numbers,
-        // followed by an uppercase character 'M'
+        assertTrue(StudentId.isValidStudentId("A0287670M"));
         assertTrue(StudentId.isValidStudentId("A0000000Z")); // all the same digits
         assertTrue(StudentId.isValidStudentId("A0000000A")); // last letter is 'A'
 
