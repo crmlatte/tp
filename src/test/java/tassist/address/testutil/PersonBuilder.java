@@ -22,9 +22,9 @@ public class PersonBuilder {
     public static final String DEFAULT_NAME = "Amy Bee";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
-    public static final String DEFAULT_CLASS = "T01";
+    public static final String DEFAULT_CLASS = "No tutorial assigned";
     public static final String DEFAULT_STUDENTID = "A0000000B";
-    public static final String DEFAULT_GITHUB = "https://github.com/default";
+    public static final String DEFAULT_GITHUB = "No Github assigned";
     public static final String DEFAULT_PROGRESS = "0";
 
     private Name name;

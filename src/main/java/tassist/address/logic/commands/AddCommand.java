@@ -1,12 +1,7 @@
 package tassist.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static tassist.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static tassist.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static tassist.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static tassist.address.logic.parser.CliSyntax.PREFIX_PROGRESS;
-import static tassist.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
-import static tassist.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static tassist.address.logic.parser.CliSyntax.*;
 
 import tassist.address.commons.util.ToStringBuilder;
 import tassist.address.logic.Messages;
@@ -27,6 +22,8 @@ public class AddCommand extends Command {
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
             + PREFIX_STUDENTID + "STUDENTID "
+            + PREFIX_GITHUB + "GITHUB "
+            + PREFIX_CLASS + "CLASS "
             + "[" + PREFIX_TAG + "TAG]... "
             + PREFIX_PROGRESS + "PROGRESS\n"
             + "Example: " + COMMAND_WORD + " "
@@ -36,7 +33,9 @@ public class AddCommand extends Command {
             + PREFIX_STUDENTID + "A0000000B "
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney "
-            + PREFIX_PROGRESS + "50";
+            + PREFIX_PROGRESS + "50\n"
+            + "To add a person, minimally NAME, EMAIL, PHONE, STUDENTID "
+            + "must be present.";
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
