@@ -28,10 +28,10 @@ public class Github {
             + "    - consist of alphanumeric characters, separated only by dashes, if any.";
 
     // alphanumeric and special characters
+    public static final String NO_GITHUB = "No Github assigned";
     private static final String GITHUB_URL_REGEX = "^https://github\\.com/";
     private static final String USERNAME_REGEX = "[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*$";
     public static final String VALIDATION_REGEX = GITHUB_URL_REGEX + USERNAME_REGEX + "$";
-    public static final String NO_GITHUB = "No Github assigned";
     public final String value;
 
     /**
