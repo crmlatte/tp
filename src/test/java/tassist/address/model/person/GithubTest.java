@@ -31,7 +31,7 @@ public class GithubTest {
         assertFalse(Github.isValidGithub("john")); // missing domain name
 
         assertFalse(Github.isValidGithub("https://github.com/$$hi")); // invalid user name
-        assertTrue(Github.isValidGithub("https://github.com/url")); // underscore in domain name
+        assertFalse(Github.isValidGithub("https://github.com/ur_l")); // underscore in user name
         assertTrue(Github.isValidGithub("https://github.com/jOhn-12"));
     }
     @Test
