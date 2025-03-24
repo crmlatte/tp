@@ -23,10 +23,10 @@ public class DeleteCommand extends Command implements ConfirmableCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the person identified by the index number "
-            + "or studentId used in the displayed person list.\n"
+            + "used in the displayed person list, or studentId.\n"
             + "Parameters: INDEX (must be a positive integer) or STUDENTID\n"
             + "Example: " + COMMAND_WORD + " 1"
-            + " or: " + COMMAND_WORD + " AxxxxxxxB";
+            + " or: " + COMMAND_WORD + " A1234567B";
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
     public static final String MESSAGE_CONFIRM_DELETE = "Are you sure you want to delete: %s? (Y/N)";
@@ -36,6 +36,8 @@ public class DeleteCommand extends Command implements ConfirmableCommand {
     private final StudentId targetStudentId;
 
     /**
+     * Constructs a {@code DeleteCommand} using a specified
+     * index to identify the target Student
      * @param targetIndex of person to be deleted
      */
     public DeleteCommand(Index targetIndex) {
@@ -44,6 +46,8 @@ public class DeleteCommand extends Command implements ConfirmableCommand {
     }
 
     /**
+     * Constructs a {@code DeleteCommand} using a specified
+     * studentId to identify the target Student
      * @param targetstudentId of person to be deleted
      */
     public DeleteCommand(StudentId targetstudentId) {
