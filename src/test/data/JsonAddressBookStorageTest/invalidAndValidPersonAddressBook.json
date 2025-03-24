@@ -3,11 +3,17 @@
     "name": "Valid Person",
     "phone": "9482424",
     "email": "hans@example.com",
-    "address": "4th street"
+    "address": "4th street",
+    "studentId" : "A0000000B",
+    "github": "https://github.com/default",
+    "progress": "20"
   }, {
     "name": "Person With Invalid Phone Field",
     "phone": "948asdf2424",
     "email": "hans@example.com",
-    "address": "4th street"
+    "address": "4th street",
+    "studentId" : "A0000000B",
+    "github": "https://github.com/default",
+    "progress": "30"
   } ]
 }
