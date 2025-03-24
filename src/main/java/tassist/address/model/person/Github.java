@@ -8,6 +8,7 @@ import static tassist.address.commons.util.AppUtil.checkArgument;
  */
 public class Github {
 
+    public static final String NO_GITHUB = "No Github assigned";
     private static final String SPECIAL_CHARACTERS = "/:.";
     public static final String MESSAGE_CONSTRAINTS =
             "Githubs links should be of the format https://github.com/{username} "
@@ -30,7 +31,6 @@ public class Github {
     // alphanumeric and special characters
     private static final String GITHUB_URL_REGEX = "^https://github\\.com/";
     private static final String USERNAME_REGEX = "[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*$";
-    public static final String NO_GITHUB = "No Github assigned";
     public static final String VALIDATION_REGEX = GITHUB_URL_REGEX + USERNAME_REGEX + "$";
     public final String value;
 
