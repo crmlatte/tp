@@ -126,8 +126,13 @@ public class DeleteCommand extends Command implements ConfirmableCommand {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-                .add("targetIndex", targetIndex)
-                .toString();
+        ToStringBuilder builder = new ToStringBuilder(this);
+        if (targetIndex != null) {
+            builder.add("targetIndex", targetIndex);
+        }
+        if (targetStudentId != null) {
+            builder.add("targetStudentId", targetStudentId);
+        }
+        return builder.toString();
     }
 }
