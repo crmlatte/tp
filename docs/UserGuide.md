@@ -17,16 +17,20 @@ TAssist is a **desktop application** for Teaching Assistants (TAs) to easily tra
 
 2. Download the latest `.jar` file from [here](https://github.com/AY2425S2-CS2103T-W12-4/tp/releases).
 
-3. Copy the file to the folder you want to use as the _home folder_ for your TAssist.
+3. Copy the file to a folder you want to use as the _home folder_ for TAssist.
 
 4. Open the Command Prompt (Windows) or Terminal (Mac/Linux)
+
 5. Navigate to the folder where you saved the TAssist1.3.jar file using `cd` command<br>
    Example (Windows): `cd C:\Users\YourName\Downloads`. <br>
    Example (Mac/Linux): `cd /Users/YourName/Downloads`.
+
 6. Type this command and press enter to run the application.<br>
     ```java -jar TAssist1.3jar```
+
 7. A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
+
 8. TAssist allows users to personalize the appearance of the application by switching between different color themes.<br>
     Available themes: Dark, Bright, Pink
 
@@ -73,7 +77,7 @@ TAssist is a **desktop application** for Teaching Assistants (TAs) to easily tra
 
 ### Viewing help : `help`
 
-Shows a message explaning how to access the help page.
+Shows a message explaining how to access the help page.
 
 ![help message](images/helpMessage.png)
 
@@ -85,8 +89,8 @@ Adds a student to the student list.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL s/STUDENT_ID [g/GITHUB_URL] [t/TAG]…​ [pr/PROGRESS]`
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A student can have any number of tags (including 0)
+<div markdown="span" class="alert alert-primary">
+:bulb: <strong>Tip:</strong> A student can have any number of tags (including 0)
 </div>
 
 Examples:
@@ -101,18 +105,19 @@ Format: `list [f/FILTER_TYPE fv/FILTER_VALUE] [s/SORT_TYPE o/SORT_ORDER]` <br>
 All parameters are optional. Filters and sorting can be used together or independently.
 
 #### Filter Options
-FILTER_TYPE:<br>
+`FILTER_TYPE:`<br>
 progress: Filters students whose progress is less than or equal to the provided value. <br>
 course: (Not yet implemented) Will filter by existing course codes.<br>
 team: (Not yet implemented) Will filter by existing team names.
 
-FILTER_VALUE: <br>
+`FILTER_VALUE:`<br>
 For course and team: must match an existing value (currently unimplemented). <br>
 For progress: an integer between 0 and 100. <br>
 
 #### Sort Options
-SORT_TYPE: name, progress, github.<br>
-SORT_ORDER:<br>
+`SORT_TYPE:`name, progress, github.<br>
+
+`SORT_ORDER:`<br>
 asc — Ascending (A → Z or lowest → highest). <br>
 des — Descending (Z → A or highest → lowest).
 
