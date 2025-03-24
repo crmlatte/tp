@@ -20,7 +20,6 @@ public class StudentId {
     public final String value;
 
     /**
-     *
      * Constructs an {@code Address}.
      *
      * @param studentId A valid address.
