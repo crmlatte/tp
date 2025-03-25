@@ -1,5 +1,7 @@
 package tassist.address.logic;
 
+import static tassist.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
 import java.nio.file.Path;
@@ -75,7 +77,14 @@ public class LogicManager implements Logic {
 
         if (command instanceof OpenCommand) {
             OpenCommand openCommand = (OpenCommand) command;
-            command = new OpenCommand(openCommand.getTargetIndex(), browserService);
+            if (openCommand.getTargetStudentId() != null) {
+                command = new OpenCommand(openCommand.getTargetStudentId(), browserService);
+            } else if (openCommand.getTargetIndex() != null) {
+                command = new OpenCommand(openCommand.getTargetIndex(), browserService);
+            } else {
+                //won't reach here, throwing an exception just in case
+                throw new CommandException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, OpenCommand.MESSAGE_USAGE));
+            }
         }
 
         commandResult = command.execute(model);
