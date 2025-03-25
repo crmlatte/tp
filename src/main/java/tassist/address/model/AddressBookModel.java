@@ -125,6 +125,11 @@ public class AddressBookModel implements Model {
     }
 
     @Override
+    public void deleteTimedEvent(TimedEvent timedEvent) {
+        addressBook.removeTimedEvent(timedEvent);
+    }
+
+    @Override
     public ObservableList<TimedEvent> getTimedEventList() {
         return addressBook.getTimedEventList();
     }
