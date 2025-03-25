@@ -7,7 +7,6 @@ import static tassist.address.model.person.StudentId.VALIDATION_REGEX;
 
 import tassist.address.commons.core.index.Index;
 import tassist.address.commons.exceptions.IllegalValueException;
-import tassist.address.logic.commands.DeleteCommand;
 import tassist.address.logic.commands.GithubCommand;
 import tassist.address.logic.parser.exceptions.ParseException;
 import tassist.address.model.person.Github;
@@ -59,7 +58,7 @@ public class GithubCommandParser implements Parser<GithubCommand> {
             return new GithubCommand(index, new Github(github));
         } catch (IllegalValueException ive) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    DeleteCommand.MESSAGE_USAGE), ive);
+                    GithubCommand.MESSAGE_USAGE), ive);
         }
     }
 }
