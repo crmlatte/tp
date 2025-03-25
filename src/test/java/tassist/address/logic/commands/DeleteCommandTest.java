@@ -191,8 +191,8 @@ public class DeleteCommandTest {
     public void toString_withIndex_returnsCorrectFormat() {
         Index index = Index.fromOneBased(2);
         DeleteCommand command = new DeleteCommand(index);
-        String expected = "tassist.address.logic.commands.DeleteCommand{" +
-                "targetIndex=tassist.address.commons.core.index.Index{zeroBasedIndex=1}}";
+        String expected = "tassist.address.logic.commands.DeleteCommand{"
+                + "targetIndex=tassist.address.commons.core.index.Index{zeroBasedIndex=1}}";
         assertEquals(expected, command.toString());
     }
 
@@ -200,8 +200,8 @@ public class DeleteCommandTest {
     public void toString_withStudentId_returnsCorrectFormat() {
         StudentId studentId = new StudentId("A1234567B");
         DeleteCommand command = new DeleteCommand(studentId);
-        String expected = "tassist.address.logic.commands.DeleteCommand{" +
-                "targetStudentId=A1234567B}";
+        String expected = "tassist.address.logic.commands.DeleteCommand{"
+                + "targetStudentId=A1234567B}";
         assertEquals(expected, command.toString());
     }
 
