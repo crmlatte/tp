@@ -15,6 +15,7 @@ import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import tassist.address.commons.core.GuiSettings;
 import tassist.address.logic.Messages;
@@ -176,6 +177,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void deleteTimedEvent(TimedEvent timedEvent) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<TimedEvent> getTimedEventList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -220,6 +226,11 @@ public class AddCommandTest {
         @Override
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
+        }
+
+        @Override
+        public ObservableList<TimedEvent> getTimedEventList() {
+            return FXCollections.observableArrayList();
         }
     }
 

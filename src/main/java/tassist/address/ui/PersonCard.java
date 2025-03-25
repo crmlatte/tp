@@ -71,7 +71,6 @@ public class PersonCard extends UiPart<Region> {
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
         progress.setText("Progress: " + person.getProgress().value + "%");
-        
         // Display timed events with time differences
         if (person.getTimedEvents().isEmpty()) {
             timedEvents.setText("No assignments");

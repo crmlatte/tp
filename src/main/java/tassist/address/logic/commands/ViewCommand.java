@@ -42,4 +42,4 @@ public class ViewCommand extends Command {
 
         return new CommandResult(result.toString());
     }
-} 
+}

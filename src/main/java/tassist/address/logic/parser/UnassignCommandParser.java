@@ -25,4 +25,4 @@ public class UnassignCommandParser implements Parser<UnassignCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE), pe);
         }
     }
-} 
+}
