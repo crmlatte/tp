@@ -20,6 +20,7 @@ import tassist.address.model.person.Phone;
 import tassist.address.model.person.Progress;
 import tassist.address.model.person.StudentId;
 import tassist.address.model.tag.Tag;
+import tassist.address.model.timedevents.TimedEvent;
 
 /**
  * Jackson-friendly version of {@link Person}.
@@ -36,6 +37,7 @@ class JsonAdaptedPerson {
     private final String github;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
     private final String progress;
+    private final List<JsonAdaptedTimedEvent> timedEvents = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
@@ -45,7 +47,8 @@ class JsonAdaptedPerson {
             @JsonProperty("email") String email, @JsonProperty("classNumber") String classNumber,
             @JsonProperty("studentId") String studentId,
             @JsonProperty("github") String github, @JsonProperty("tags") List<JsonAdaptedTag> tags,
-            @JsonProperty("progress") String progress) {
+            @JsonProperty("progress") String progress,
+            @JsonProperty("timedEvents") List<JsonAdaptedTimedEvent> timedEvents) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -56,6 +59,9 @@ class JsonAdaptedPerson {
             this.tags.addAll(tags);
         }
         this.progress = progress;
+        if (timedEvents != null) {
+            this.timedEvents.addAll(timedEvents);
+        }
     }
 
     /**
@@ -72,6 +78,9 @@ class JsonAdaptedPerson {
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
         progress = String.valueOf(source.getProgress().value);
+        timedEvents.addAll(source.getTimedEvents().stream()
+                .map(JsonAdaptedTimedEvent::new)
+                .collect(Collectors.toList()));
     }
 
     /**
@@ -143,7 +152,14 @@ class JsonAdaptedPerson {
         }
         final Progress modelProgress = new Progress(progressValue);
 
-        return new Person(modelName, modelPhone, modelEmail, modelClassNumber, modelStudentId,
-                          modelGithub, modelTags, modelProgress);
+        Person person = new Person(modelName, modelPhone, modelEmail, modelClassNumber, modelStudentId,
+                modelGithub, modelTags, modelProgress);
+
+        // Add timed events
+        for (JsonAdaptedTimedEvent timedEvent : timedEvents) {
+            person.addTimedEvent(timedEvent.toModelType());
+        }
+
+        return person;
     }
 }
