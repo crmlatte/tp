@@ -9,6 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import tassist.address.model.person.Person;
+import tassist.address.model.timedevents.TimedEvent;
 
 /**
  * A UI component that displays information of a {@code Person}.
@@ -48,8 +49,9 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label progress;
     @FXML
+    private Label timedEvents;
+    @FXML
     private VBox details;
-
 
     /**
      * Creates a {@code PersonCard} with the given {@code Person} and index to display.
@@ -69,6 +71,22 @@ public class PersonCard extends UiPart<Region> {
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
         progress.setText("Progress: " + person.getProgress().value + "%");
+        // Display timed events with time differences
+        if (person.getTimedEvents().isEmpty()) {
+            timedEvents.setText("No assignments");
+        } else {
+            StringBuilder eventsText = new StringBuilder("Assignments:\n");
+            person.getTimedEvents().stream()
+                    .sorted(Comparator.comparing(TimedEvent::getTime))
+                    .forEach(event -> {
+                        String timeLeft = event.calculateRemainingTime();
+                        String eventText = String.format("%s - Due in: %s\n", event.getName(), timeLeft);
+                        eventsText.append(eventText);
+                    });
+            // Remove the last newline
+            eventsText.setLength(eventsText.length() - 1);
+            timedEvents.setText(eventsText.toString());
+        }
     }
 
     @Override

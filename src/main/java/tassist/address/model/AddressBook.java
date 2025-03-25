@@ -123,6 +123,15 @@ public class AddressBook implements ReadOnlyAddressBook {
         timedEvents.add(timedEvent);
     }
 
+    /**
+     * Removes the given timed event from the address book.
+     * The timed event must exist in the address book.
+     */
+    public void removeTimedEvent(TimedEvent timedEvent) {
+        requireNonNull(timedEvent);
+        timedEvents.remove(timedEvent);
+    }
+
     //// util methods
 
     @Override

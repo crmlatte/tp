@@ -20,14 +20,17 @@ import tassist.address.model.timedevents.Assignment;
  */
 public class AssignmentCommandParser implements Parser<AssignmentCommand> {
 
-    private static final String MESSAGE_INVALID_DATE = "Invalid date format. Use: dd-MM-yyyy, dd-MM-yy, or dd-MM";
-    private static final String MESSAGE_DATE_IN_PAST = "Assignment date must be in the future";
+    public static final String MESSAGE_INVALID_DATE = "Invalid date format. Use: dd-MM-yyyy, dd-MM-yy, or dd-MM";
+    public static final String MESSAGE_DATE_IN_PAST = "Assignment date must be in the future";
+    public static final String MESSAGE_INVALID_NAME = "Name should only contain alphanumeric"
+            + " characters and spaces, and it should not be blank";
 
     /**
      * Parses the given {@code String} of arguments in the context of the AssignmentCommand
      * and returns an AssignmentCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
+    @Override
     public AssignmentCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DATE);
@@ -38,13 +41,62 @@ public class AssignmentCommandParser implements Parser<AssignmentCommand> {
                     AssignmentCommand.MESSAGE_USAGE));
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_DATE);
-        String name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()).toString();
-        LocalDateTime date = parseDate(argMultimap.getValue(PREFIX_DATE).get());
+        String name = argMultimap.getValue(PREFIX_NAME).get();
+        String dateStr = argMultimap.getValue(PREFIX_DATE).get();
 
-        Assignment assignment = new Assignment(name, "", date); // Empty description for now
+        // Validate name format
+        if (!name.matches("[\\p{Alnum}][\\p{Alnum} ]*")) {
+            throw new ParseException(MESSAGE_INVALID_NAME);
+        }
 
+        LocalDateTime dateTime;
+        try {
+            dateTime = parseDateTime(dateStr);
+        } catch (DateTimeParseException e) {
+            throw new ParseException(MESSAGE_INVALID_DATE);
+        }
+
+        // Check if the date is today or in the past
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime tomorrow = now.toLocalDate().plusDays(1).atStartOfDay();
+        if (dateTime.isBefore(tomorrow)) {
+            throw new ParseException(MESSAGE_DATE_IN_PAST);
+        }
+
+        Assignment assignment = new Assignment(name, "", dateTime); // Empty description for now
         return new AssignmentCommand(assignment);
+    }
+
+    /**
+     * Parses the date string into a LocalDateTime object.
+     * Supports formats: dd-MM-yyyy, dd-MM-yy, dd-MM
+     */
+    private LocalDateTime parseDateTime(String dateStr) {
+        DateTimeFormatter formatter;
+        LocalDate date;
+        int currentYear = LocalDate.now().getYear();
+
+        if (dateStr.matches("\\d{2}-\\d{2}-\\d{4}")) {
+            // Full date format (dd-MM-yyyy)
+            formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            date = LocalDate.parse(dateStr, formatter);
+        } else if (dateStr.matches("\\d{2}-\\d{2}-\\d{2}")) {
+            // Short date format (dd-MM-yy)
+            formatter = DateTimeFormatter.ofPattern("dd-MM-yy");
+            date = LocalDate.parse(dateStr, formatter);
+        } else if (dateStr.matches("\\d{2}-\\d{2}")) {
+            // Minimal date format (dd-MM)
+            formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            date = LocalDate.parse(dateStr + "-" + currentYear, formatter);
+            // If the date would be in the past with current year, use next year
+            if (date.isBefore(LocalDate.now())) {
+                date = date.plusYears(1);
+            }
+        } else {
+            throw new DateTimeParseException("Invalid date format", dateStr, 0);
+        }
+
+        return date.atTime(LocalTime.of(23, 59));
     }
 
     /**
@@ -54,48 +106,4 @@ public class AssignmentCommandParser implements Parser<AssignmentCommand> {
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
-
-    /**
-     * Parses the date string into a LocalDateTime object.
-     * Accepts formats: dd-MM-yyyy, dd-MM-yy, dd-MM (current year)
-     * Throws ParseException if date is invalid or in the past.
-     */
-    private LocalDateTime parseDate(String dateStr) throws ParseException {
-        try {
-            // Try dd-MM-yyyy format
-            DateTimeFormatter fullFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-            LocalDate date = LocalDate.parse(dateStr, fullFormatter);
-            return validateAndCreateDateTime(date);
-        } catch (DateTimeParseException e1) {
-            try {
-                // Try dd-MM-yy format
-                DateTimeFormatter shortFormatter = DateTimeFormatter.ofPattern("dd-MM-yy");
-                LocalDate date = LocalDate.parse(dateStr, shortFormatter);
-                return validateAndCreateDateTime(date);
-            } catch (DateTimeParseException e2) {
-                try {
-                    // Try dd-MM format (use current year)
-                    DateTimeFormatter currentYearFormatter = DateTimeFormatter.ofPattern("dd-MM");
-                    LocalDate currentDate = LocalDate.now();
-                    LocalDate date = LocalDate.parse(dateStr, currentYearFormatter)
-                            .withYear(currentDate.getYear());
-                    return validateAndCreateDateTime(date);
-                } catch (DateTimeParseException e3) {
-                    throw new ParseException(MESSAGE_INVALID_DATE);
-                }
-            }
-        }
-    }
-
-    /**
-     * Validates that the date is in the future and creates a LocalDateTime with midnight time.
-     * @throws ParseException if date is in the past
-     */
-    private LocalDateTime validateAndCreateDateTime(LocalDate date) throws ParseException {
-        LocalDate today = LocalDate.now();
-        if (date.isBefore(today)) {
-            throw new ParseException(MESSAGE_DATE_IN_PAST);
-        }
-        return LocalDateTime.of(date, LocalTime.MIDNIGHT);
-    }
-} 
+}

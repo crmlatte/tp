@@ -4,15 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_NAME;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-
-import tassist.address.logic.Messages;
 import tassist.address.logic.commands.exceptions.CommandException;
 import tassist.address.model.Model;
 import tassist.address.model.timedevents.Assignment;
-import tassist.address.model.timedevents.UniqueTimedEventList;
 
 /**
  * Adds an assignment to the address book.
@@ -47,12 +41,16 @@ public class AssignmentCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasTimedEvent(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_ASSIGNMENT);
-        }
+        try {
+            if (model.hasTimedEvent(toAdd)) {
+                throw new CommandException(MESSAGE_DUPLICATE_ASSIGNMENT);
+            }
 
-        model.addTimedEvent(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.toString()));
+            model.addTimedEvent(toAdd);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.toString()));
+        } catch (IllegalArgumentException e) {
+            throw new CommandException(e.getMessage());
+        }
     }
 
     @Override
@@ -68,4 +66,4 @@ public class AssignmentCommand extends Command {
         AssignmentCommand otherAssignmentCommand = (AssignmentCommand) other;
         return toAdd.equals(otherAssignmentCommand.toAdd);
     }
-} 
+}

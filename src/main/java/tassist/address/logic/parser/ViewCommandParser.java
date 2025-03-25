@@ -21,4 +21,4 @@ public class ViewCommandParser implements Parser<ViewCommand> {
         }
         return new ViewCommand();
     }
-} 
+}

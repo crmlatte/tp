@@ -8,6 +8,7 @@ import static tassist.address.testutil.Assert.assertThrows;
 import static tassist.address.testutil.TypicalPersons.ALICE;
 import static tassist.address.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -19,7 +20,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import tassist.address.model.person.Person;
 import tassist.address.model.person.exceptions.DuplicatePersonException;
+import tassist.address.model.timedevents.Assignment;
 import tassist.address.model.timedevents.TimedEvent;
+import tassist.address.model.timedevents.exceptions.DuplicateTimedEventException;
+import tassist.address.model.timedevents.exceptions.TimedEventNotFoundException;
 import tassist.address.testutil.PersonBuilder;
 
 public class AddressBookTest {
@@ -84,12 +88,66 @@ public class AddressBookTest {
     }
 
     @Test
+    public void getTimedEventList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> addressBook.getTimedEventList().remove(0));
+    }
+
+    @Test
     public void toStringMethod() {
         String expected = AddressBook.class.getCanonicalName() + "{"
                 + "persons=" + addressBook.getPersonList()
                 + ", timedEvents=" + addressBook.getTimedEventList()
                 + "}";
         assertEquals(expected, addressBook.toString());
+    }
+
+    @Test
+    public void hasTimedEvent_nullTimedEvent_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> addressBook.hasTimedEvent(null));
+    }
+
+    @Test
+    public void hasTimedEvent_timedEventNotInAddressBook_returnsFalse() {
+        TimedEvent timedEvent = new Assignment("Test Assignment", "Test Description", LocalDateTime.now());
+        assertFalse(addressBook.hasTimedEvent(timedEvent));
+    }
+
+    @Test
+    public void hasTimedEvent_timedEventInAddressBook_returnsTrue() {
+        TimedEvent timedEvent = new Assignment("Test Assignment", "Test Description", LocalDateTime.now());
+        addressBook.addTimedEvent(timedEvent);
+        assertTrue(addressBook.hasTimedEvent(timedEvent));
+    }
+
+    @Test
+    public void addTimedEvent_nullTimedEvent_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> addressBook.addTimedEvent(null));
+    }
+
+    @Test
+    public void addTimedEvent_duplicateTimedEvent_throwsDuplicateTimedEventException() {
+        TimedEvent timedEvent = new Assignment("Test Assignment", "Test Description", LocalDateTime.now());
+        addressBook.addTimedEvent(timedEvent);
+        assertThrows(DuplicateTimedEventException.class, () -> addressBook.addTimedEvent(timedEvent));
+    }
+
+    @Test
+    public void removeTimedEvent_nullTimedEvent_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> addressBook.removeTimedEvent(null));
+    }
+
+    @Test
+    public void removeTimedEvent_timedEventDoesNotExist_throwsTimedEventNotFoundException() {
+        TimedEvent timedEvent = new Assignment("Test Assignment", "Test Description", LocalDateTime.now());
+        assertThrows(TimedEventNotFoundException.class, () -> addressBook.removeTimedEvent(timedEvent));
+    }
+
+    @Test
+    public void removeTimedEvent_existingTimedEvent_removesTimedEvent() {
+        TimedEvent timedEvent = new Assignment("Test Assignment", "Test Description", LocalDateTime.now());
+        addressBook.addTimedEvent(timedEvent);
+        addressBook.removeTimedEvent(timedEvent);
+        assertFalse(addressBook.hasTimedEvent(timedEvent));
     }
 
     /**
