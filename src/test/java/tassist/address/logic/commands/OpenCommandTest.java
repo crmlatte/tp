@@ -3,6 +3,9 @@ package tassist.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static tassist.address.logic.commands.CommandTestUtil.NONEXISTENT_STUDENTID;
+import static tassist.address.logic.commands.CommandTestUtil.VALID_STUDENTID_AMY;
+import static tassist.address.logic.commands.CommandTestUtil.VALID_STUDENTID_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static tassist.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static tassist.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -24,6 +27,7 @@ import tassist.address.model.Model;
 import tassist.address.model.ModelManager;
 import tassist.address.model.UserPrefs;
 import tassist.address.model.person.Person;
+import tassist.address.model.person.StudentId;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
@@ -89,6 +93,27 @@ public class OpenCommandTest {
     }
 
     @Test
+    public void execute_validStudentId_success() throws CommandException {
+        Person personToOpen = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        OpenCommand openCommand = new OpenCommand(personToOpen.getStudentId(), browserService);
+
+        String expectedMessage = String.format(OpenCommand.MESSAGE_OPEN_GITHUB_SUCCESS,
+                Messages.format(personToOpen));
+
+        CommandResult result = openCommand.execute(model);
+        assertEquals(expectedMessage, result.getFeedbackToUser());
+        assertEquals(personToOpen.getGithub().value, browserService.getLastUrlOpened());
+    }
+
+    @Test
+    public void execute_nonExistingStudentId_throwsCommandException() {
+        OpenCommand openCommand = new OpenCommand(new StudentId(NONEXISTENT_STUDENTID), browserService);
+
+        assertCommandFailure(openCommand, model,
+                Messages.MESSAGE_PERSON_NOT_FOUND + NONEXISTENT_STUDENTID);
+    }
+
+    @Test
     public void execute_browserServiceThrowsException_returnsFailureMessage() throws CommandException {
         Person personToOpen = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         OpenCommand openCommand = new OpenCommand(INDEX_FIRST_PERSON, new FailingBrowserService());
@@ -114,7 +139,7 @@ public class OpenCommandTest {
     }
 
     @Test
-    public void toString_returnsCorrectFormat() {
+    public void toString_withIndex_returnsCorrectFormat() {
         OpenCommand openCommand = new OpenCommand(INDEX_FIRST_PERSON, browserService);
         String expected = new StringBuilder()
                 .append(OpenCommand.class.getName())
@@ -127,16 +152,37 @@ public class OpenCommandTest {
     }
 
     @Test
+    public void toString_withStudentId_returnsCorrectFormat() {
+        StudentId validStudentId = new StudentId(VALID_STUDENTID_AMY);
+        OpenCommand openCommand = new OpenCommand(validStudentId, browserService);
+        String expected = new StringBuilder()
+                .append(OpenCommand.class.getName())
+                .append("{")
+                .append("targetStudentId=")
+                .append(VALID_STUDENTID_AMY)
+                .append("}")
+                .toString();
+        assertEquals(expected, openCommand.toString());
+    }
+
+    @Test
     public void equals() {
         OpenCommand openFirstCommand = new OpenCommand(INDEX_FIRST_PERSON, browserService);
         OpenCommand openSecondCommand = new OpenCommand(INDEX_SECOND_PERSON, browserService);
+        StudentId firstStudentId = new StudentId(VALID_STUDENTID_AMY);
+        StudentId secondStudentId = new StudentId(VALID_STUDENTID_BOB);
+        OpenCommand openFirstCommandWithStudentId = new OpenCommand(firstStudentId, browserService);
+        OpenCommand openSecondCommandWithStudentId = new OpenCommand(secondStudentId, browserService);
 
         // same object -> returns true
         assertEquals(openFirstCommand, openFirstCommand);
+        assertEquals(openFirstCommandWithStudentId, openFirstCommandWithStudentId);
 
         // same values -> returns true
         OpenCommand openFirstCommandCopy = new OpenCommand(INDEX_FIRST_PERSON, browserService);
         assertEquals(openFirstCommand, openFirstCommandCopy);
+        OpenCommand openFirstCommandWithStudentIdCopy = new OpenCommand(firstStudentId, browserService);
+        assertEquals(openFirstCommandWithStudentId, openFirstCommandWithStudentIdCopy);
 
         // different types -> returns false
         assertNotEquals(1, openFirstCommand);
@@ -146,6 +192,7 @@ public class OpenCommandTest {
 
         // different person -> returns false
         assertNotEquals(openFirstCommand, openSecondCommand);
+        assertNotEquals(openFirstCommandWithStudentId, openSecondCommandWithStudentId);
     }
 
     /**
