@@ -8,6 +8,7 @@ import static tassist.address.logic.commands.CommandTestUtil.VALID_GITHUB_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_STUDENTID_AMY;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_STUDENTID_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static tassist.address.logic.commands.GithubCommand.MESSAGE_DUPLICATE_GITHUB;
 import static tassist.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
@@ -80,6 +81,53 @@ public class GithubCommandTest {
 
         assertCommandFailure(githubCommand, model,
                 Messages.MESSAGE_PERSON_NOT_FOUND + invalidStudentId);
+    }
+
+    @Test
+    public void checkDuplicates_duplicateGithub_throwsCommandException() {
+        // Setup model with two persons
+        Person existingPerson = new PersonBuilder()
+                .withName("Alice")
+                .withStudentId("A1112222B")
+                .withGithub("https://github.com/duplicateUser").build();
+        Person targetPerson = new PersonBuilder()
+                .withName("Bob")
+                .withStudentId("A2221111B")
+                .withGithub("https://github.com/originalUser").build();
+
+        Model model = new ModelManager();
+        model.addPerson(existingPerson);
+        model.addPerson(targetPerson);
+
+        Github duplicateGithub = new Github("https://github.com/duplicateUser");
+        GithubCommand command = new GithubCommand(targetPerson.getStudentId(), duplicateGithub);
+
+        assertCommandFailure(command, model, MESSAGE_DUPLICATE_GITHUB);
+    }
+
+    @Test
+    public void checkDuplicate_github_success() throws Exception {
+        Person alice = new PersonBuilder()
+                .withName("Alice")
+                .withStudentId("A1112222B")
+                .withGithub("https://github.com/alice").build();
+        Person bob = new PersonBuilder()
+                .withName("Bob")
+                .withStudentId("A2221111B")
+                .withGithub("https://github.com/bob").build();
+
+        Model model = new ModelManager();
+        model.addPerson(alice);
+        model.addPerson(bob);
+
+        Github newGithub = new Github("https://github.com/charles");
+        GithubCommand command = new GithubCommand(bob.getStudentId(), newGithub);
+        CommandResult result = command.execute(model);
+        Person editedBob = model.getFilteredPersonList().stream()
+                .filter(p -> p.getStudentId().equals(bob.getStudentId())).findFirst().get();
+        assertEquals(newGithub, editedBob.getGithub()); // Assert GitHub was updated
+        assertEquals(String.format(GithubCommand.MESSAGE_ADD_GITHUB_SUCCESS, Messages.format(editedBob)),
+                result.getFeedbackToUser());
     }
 
     @Test
