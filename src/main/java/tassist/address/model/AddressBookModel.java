@@ -1,27 +1,24 @@
 package tassist.address.model;
 
 import static java.util.Objects.requireNonNull;
-import static tassist.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.Comparator;
+import java.util.Objects;
 import java.util.function.Predicate;
-import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import tassist.address.commons.core.GuiSettings;
-import tassist.address.commons.core.LogsCenter;
 import tassist.address.model.person.Person;
 import tassist.address.model.timedevents.TimedEvent;
 
 /**
  * Represents the in-memory model of the address book data.
  */
-public class ModelManager implements Model {
-    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
-
+public class AddressBookModel implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
@@ -30,10 +27,9 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
-        requireAllNonNull(addressBook, userPrefs);
-
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+    public AddressBookModel(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+        requireNonNull(addressBook);
+        requireNonNull(userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
@@ -41,7 +37,7 @@ public class ModelManager implements Model {
         sortedPersons = new SortedList<>(filteredPersons);
     }
 
-    public ModelManager() {
+    public AddressBookModel() {
         this(new AddressBook(), new UserPrefs());
     }
 
@@ -111,8 +107,7 @@ public class ModelManager implements Model {
 
     @Override
     public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
+        requireNonNull(editedPerson);
         addressBook.setPerson(target, editedPerson);
     }
 
@@ -158,20 +153,27 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean equals(Object other) {
-        if (other == this) {
+    public boolean equals(Object obj) {
+        // short circuit if same object
+        if (obj == this) {
             return true;
         }
 
         // instanceof handles nulls
-        if (!(other instanceof ModelManager)) {
+        if (!(obj instanceof AddressBookModel)) {
             return false;
         }
 
-        ModelManager otherModelManager = (ModelManager) other;
-        return addressBook.equals(otherModelManager.addressBook)
-                && userPrefs.equals(otherModelManager.userPrefs)
-                && filteredPersons.equals(otherModelManager.filteredPersons)
-                && sortedPersons.equals(otherModelManager.sortedPersons);
+        // state check
+        AddressBookModel other = (AddressBookModel) obj;
+        return addressBook.equals(other.addressBook)
+                && userPrefs.equals(other.userPrefs)
+                && filteredPersons.equals(other.filteredPersons)
+                && sortedPersons.equals(other.sortedPersons);
     }
-}
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(addressBook, userPrefs, filteredPersons, sortedPersons);
+    }
+} 

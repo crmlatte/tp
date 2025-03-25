@@ -24,6 +24,7 @@ import tassist.address.model.Model;
 import tassist.address.model.ReadOnlyAddressBook;
 import tassist.address.model.ReadOnlyUserPrefs;
 import tassist.address.model.person.Person;
+import tassist.address.model.timedevents.TimedEvent;
 import tassist.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -161,6 +162,21 @@ public class AddCommandTest {
 
         @Override
         public void updateSortedPersonList(Comparator<Person> comparator) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasTimedEvent(TimedEvent timedEvent) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addTimedEvent(TimedEvent timedEvent) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<TimedEvent> getTimedEventList() {
             throw new AssertionError("This method should not be called.");
         }
     }

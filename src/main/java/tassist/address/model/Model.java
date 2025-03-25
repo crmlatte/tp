@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import tassist.address.commons.core.GuiSettings;
 import tassist.address.model.person.Person;
+import tassist.address.model.timedevents.TimedEvent;
 
 /**
  * The API of the Model component.
@@ -90,4 +91,18 @@ public interface Model {
      * Sort the student list by the given {@code comparator}.
      */
     void updateSortedPersonList(Comparator<Person> comparator);
+
+    /**
+     * Returns true if a timed event with the same identity as {@code timedEvent} exists.
+     */
+    boolean hasTimedEvent(TimedEvent timedEvent);
+
+    /**
+     * Adds the given timed event.
+     * {@code timedEvent} must not already exist.
+     */
+    void addTimedEvent(TimedEvent timedEvent);
+
+    /** Returns an unmodifiable view of the timed events list */
+    ObservableList<TimedEvent> getTimedEventList();
 }

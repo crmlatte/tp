@@ -19,6 +19,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import tassist.address.model.person.Person;
 import tassist.address.model.person.exceptions.DuplicatePersonException;
+import tassist.address.model.timedevents.TimedEvent;
 import tassist.address.testutil.PersonBuilder;
 
 public class AddressBookTest {
@@ -84,7 +85,10 @@ public class AddressBookTest {
 
     @Test
     public void toStringMethod() {
-        String expected = AddressBook.class.getCanonicalName() + "{persons=" + addressBook.getPersonList() + "}";
+        String expected = AddressBook.class.getCanonicalName() + "{"
+                + "persons=" + addressBook.getPersonList()
+                + ", timedEvents=" + addressBook.getTimedEventList()
+                + "}";
         assertEquals(expected, addressBook.toString());
     }
 
@@ -93,6 +97,7 @@ public class AddressBookTest {
      */
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
+        private final ObservableList<TimedEvent> timedEvents = FXCollections.observableArrayList();
 
         AddressBookStub(Collection<Person> persons) {
             this.persons.setAll(persons);
@@ -101,6 +106,11 @@ public class AddressBookTest {
         @Override
         public ObservableList<Person> getPersonList() {
             return persons;
+        }
+
+        @Override
+        public ObservableList<TimedEvent> getTimedEventList() {
+            return timedEvents;
         }
     }
 

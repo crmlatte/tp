@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 
 import tassist.address.commons.core.LogsCenter;
 import tassist.address.logic.commands.AddCommand;
+import tassist.address.logic.commands.AssignmentCommand;
 import tassist.address.logic.commands.ClassCommand;
 import tassist.address.logic.commands.ClearCommand;
 import tassist.address.logic.commands.Command;
@@ -88,6 +89,9 @@ public class AddressBookParser {
 
         case OpenCommand.COMMAND_WORD:
             return new OpenCommandParser().parse(arguments);
+
+        case AssignmentCommand.COMMAND_WORD:
+            return new AssignmentCommandParser().parse(arguments);
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);
