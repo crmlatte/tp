@@ -113,11 +113,10 @@ public class EditCommand extends Command {
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
         Progress updatedProgress = editPersonDescriptor.getProgress().orElse(personToEdit.getProgress());
 
+        // Create the edited person with the same timed events list
         Person editedPerson = new Person(updatedName, updatedPhone, updatedEmail, updatedClassNumber,
-                updatedStudentId, updatedGithub, updatedTags, updatedProgress);
-        
-        // Copy over all timed events from the original person
-        personToEdit.getTimedEvents().forEach(editedPerson::addTimedEvent);
+                updatedStudentId, updatedGithub, updatedTags, updatedProgress,
+                personToEdit.getTimedEventsList());
 
         return editedPerson;
     }
