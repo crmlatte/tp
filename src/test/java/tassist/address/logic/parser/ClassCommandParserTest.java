@@ -1,12 +1,10 @@
 package tassist.address.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static tassist.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_CLASS_AMY;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_CLASS_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_STUDENTID_AMY;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_CLASS;
-import static tassist.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static tassist.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static tassist.address.testutil.Assert.assertThrows;
 import static tassist.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -40,7 +38,8 @@ public class ClassCommandParserTest {
     @Test
     public void parse_validStudentId_success() throws Exception {
         String userInput = VALID_STUDENTID_AMY + " " + PREFIX_CLASS + VALID_CLASS_BOB;
-        ClassCommand expectedCommand = new ClassCommand(new StudentId(VALID_STUDENTID_AMY), new ClassNumber(VALID_CLASS_BOB));
+        ClassCommand expectedCommand = new ClassCommand(new StudentId(VALID_STUDENTID_AMY),
+                new ClassNumber(VALID_CLASS_BOB));
         assertEquals(expectedCommand, parser.parse(userInput));
     }
 
