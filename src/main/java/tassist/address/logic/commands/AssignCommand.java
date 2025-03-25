@@ -89,8 +89,6 @@ public class AssignCommand extends Command {
         TimedEvent targetEvent = timedEvents.get(timedEventIndex.getZeroBased());
 
         StringBuilder resultMessage = new StringBuilder();
-        boolean hasSuccess = false;
-        boolean hasFailure = false;
 
         if (studentIndex != null) {
             // Assign to single student by index
@@ -100,30 +98,25 @@ public class AssignCommand extends Command {
             Person targetStudent = lastShownList.get(studentIndex.getZeroBased());
             try {
                 targetStudent.addTimedEvent(targetEvent);
-                model.setPerson(targetStudent, targetStudent);
                 resultMessage.append(String.format(MESSAGE_ASSIGN_SUCCESS, Messages.format(targetStudent)));
-                hasSuccess = true;
             } catch (DuplicateTimedEventException e) {
                 resultMessage.append(String.format(MESSAGE_DUPLICATE_ASSIGNMENT));
-                hasFailure = true;
             }
         } else if (studentId != null) {
             // Assign to single student by ID
             Optional<Person> personOptional = lastShownList.stream()
                     .filter(person -> person.getStudentId().equals(studentId))
                     .findFirst();
+
             if (personOptional.isEmpty()) {
                 throw new CommandException(Messages.MESSAGE_PERSON_NOT_FOUND + studentId);
             }
             Person targetStudent = personOptional.get();
             try {
                 targetStudent.addTimedEvent(targetEvent);
-                model.setPerson(targetStudent, targetStudent);
                 resultMessage.append(String.format(MESSAGE_ASSIGN_SUCCESS, Messages.format(targetStudent)));
-                hasSuccess = true;
             } catch (DuplicateTimedEventException e) {
                 resultMessage.append(String.format(MESSAGE_DUPLICATE_ASSIGNMENT));
-                hasFailure = true;
             }
         } else if (classNumber != null) {
             // Assign to all students in class using streams
@@ -140,7 +133,6 @@ public class AssignCommand extends Command {
                     .map(student -> {
                         try {
                             student.addTimedEvent(targetEvent);
-                            model.setPerson(student, student);
                             return String.format(MESSAGE_ASSIGN_SUCCESS, Messages.format(student));
                         } catch (DuplicateTimedEventException e) {
                             return MESSAGE_DUPLICATE_ASSIGNMENT;
@@ -150,8 +142,6 @@ public class AssignCommand extends Command {
                     .orElse("");
 
             resultMessage.append(results);
-            hasSuccess = results.contains(MESSAGE_ASSIGN_SUCCESS);
-            hasFailure = results.contains(MESSAGE_DUPLICATE_ASSIGNMENT);
         }
 
         model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
