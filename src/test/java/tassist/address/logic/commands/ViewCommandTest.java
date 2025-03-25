@@ -44,8 +44,10 @@ public class ViewCommandTest {
 
         // Verify the result
         String expectedMessage = ViewCommand.MESSAGE_SUCCESS + "\n"
-                + "1. Test Assignment 1 - Assignment\n   Due: " + assignment1.getTime().format(java.time.format.DateTimeFormatter.ofPattern("dd-MM-yyyy")) + "\n"
-                + "2. Test Assignment 2 - Assignment\n   Due: " + assignment2.getTime().format(java.time.format.DateTimeFormatter.ofPattern("dd-MM-yyyy")) + "\n";
+                + "1. Test Assignment 1 - Assignment\n   Due: "
+                + assignment1.getTime().format(java.time.format.DateTimeFormatter.ofPattern("dd-MM-yyyy")) + "\n"
+                + "2. Test Assignment 2 - Assignment\n   Due: "
+                + assignment2.getTime().format(java.time.format.DateTimeFormatter.ofPattern("dd-MM-yyyy")) + "\n";
         assertEquals(expectedMessage, commandResult.getFeedbackToUser());
     }
 
