@@ -5,10 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tassist.address.logic.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static tassist.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static tassist.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static tassist.address.testutil.TypicalPersons.CARL;
 import static tassist.address.testutil.TypicalPersons.ELLE;
 import static tassist.address.testutil.TypicalPersons.FIONA;
-import static tassist.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.Arrays;
 import java.util.Collections;

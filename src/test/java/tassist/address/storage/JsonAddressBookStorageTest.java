@@ -3,10 +3,10 @@ package tassist.address.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static tassist.address.testutil.Assert.assertThrows;
+import static tassist.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static tassist.address.testutil.TypicalPersons.ALICE;
 import static tassist.address.testutil.TypicalPersons.HOON;
 import static tassist.address.testutil.TypicalPersons.IDA;
-import static tassist.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.io.IOException;
 import java.nio.file.Path;

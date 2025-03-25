@@ -52,6 +52,7 @@ public class UniqueTimedEventList implements Iterable<TimedEvent> {
      * The timed event identity of {@code editedTimedEvent} must not be the same as another existing timed event in the list.
      */
     public void setTimedEvent(TimedEvent target, TimedEvent editedTimedEvent) {
+        requireNonNull(target);
         requireNonNull(editedTimedEvent);
 
         int index = internalList.indexOf(target);

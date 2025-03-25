@@ -17,6 +17,9 @@ public abstract class TimedEvent {
     private final String description;
     private final LocalDateTime time;
 
+    public static final String MESSAGE_NAME_CONSTRAINTS = "Name can only contain alphanumeric characters and spaces, and cannot start with a space";
+    public static final String MESSAGE_DESCRIPTION_CONSTRAINTS = "Description cannot be empty or contain only whitespace";
+
     /**
      * Every field must be present and not null.
      */
@@ -24,6 +27,14 @@ public abstract class TimedEvent {
         requireNonNull(name);
         requireNonNull(description);
         requireNonNull(time);
+
+        if (!name.matches("[\\p{Alnum}][\\p{Alnum} ]*")) {
+            throw new IllegalArgumentException(MESSAGE_NAME_CONSTRAINTS);
+        }
+        if (description.trim().isEmpty()) {
+            throw new IllegalArgumentException(MESSAGE_DESCRIPTION_CONSTRAINTS);
+        }
+
         this.name = name;
         this.description = description;
         this.time = time;
@@ -59,9 +70,9 @@ public abstract class TimedEvent {
         }
 
         LocalDateTime now = LocalDateTime.now();
-        long totalDays = ChronoUnit.DAYS.between(now, time);
-        long totalMonths = ChronoUnit.MONTHS.between(now, time);
-        long totalYears = ChronoUnit.YEARS.between(now, time);
+        long totalDays = ChronoUnit.DAYS.between(now.toLocalDate(), time.toLocalDate());
+        long totalMonths = ChronoUnit.MONTHS.between(now.toLocalDate(), time.toLocalDate());
+        long totalYears = ChronoUnit.YEARS.between(now.toLocalDate(), time.toLocalDate());
 
         // If the event is due tomorrow, show 1 day
         if (totalDays == 0 && time.isAfter(now)) {
@@ -77,7 +88,8 @@ public abstract class TimedEvent {
         // If less than a year, show months and days
         else if (totalYears == 0) {
             timeLeft.append(totalMonths).append(" month").append(totalMonths > 1 ? "s" : "");
-            long remainingDays = totalDays % 30;
+            LocalDateTime afterMonths = now.plusMonths(totalMonths);
+            long remainingDays = ChronoUnit.DAYS.between(afterMonths.toLocalDate(), time.toLocalDate());
             if (remainingDays > 0) {
                 timeLeft.append(" ").append(remainingDays).append(" day").append(remainingDays > 1 ? "s" : "");
             }
@@ -85,11 +97,13 @@ public abstract class TimedEvent {
         // If more than a year, show years, months, and days
         else {
             timeLeft.append(totalYears).append(" year").append(totalYears > 1 ? "s" : "");
-            long remainingMonths = totalMonths % 12;
+            LocalDateTime afterYears = now.plusYears(totalYears);
+            long remainingMonths = ChronoUnit.MONTHS.between(afterYears.toLocalDate(), time.toLocalDate());
             if (remainingMonths > 0) {
                 timeLeft.append(" ").append(remainingMonths).append(" month").append(remainingMonths > 1 ? "s" : "");
             }
-            long remainingDays = totalDays % 30;
+            LocalDateTime afterMonths = afterYears.plusMonths(remainingMonths);
+            long remainingDays = ChronoUnit.DAYS.between(afterMonths.toLocalDate(), time.toLocalDate());
             if (remainingDays > 0) {
                 timeLeft.append(" ").append(remainingDays).append(" day").append(remainingDays > 1 ? "s" : "");
             }

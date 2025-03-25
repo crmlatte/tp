@@ -4,7 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static tassist.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static tassist.address.testutil.Assert.assertThrows;
+import static tassist.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static tassist.address.testutil.TypicalPersons.ALICE;
 
 import java.nio.file.Path;
@@ -15,6 +17,7 @@ import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import tassist.address.commons.core.GuiSettings;
 import tassist.address.logic.Messages;
@@ -176,6 +179,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void deleteTimedEvent(TimedEvent timedEvent) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<TimedEvent> getTimedEventList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -220,6 +228,11 @@ public class AddCommandTest {
         @Override
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
+        }
+
+        @Override
+        public ObservableList<TimedEvent> getTimedEventList() {
+            return FXCollections.observableArrayList();
         }
     }
 

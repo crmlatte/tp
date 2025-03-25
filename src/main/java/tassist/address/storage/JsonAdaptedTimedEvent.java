@@ -75,6 +75,8 @@ class JsonAdaptedTimedEvent {
             }
         } catch (java.time.format.DateTimeParseException e) {
             throw new IllegalValueException("Invalid date format: " + time);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalValueException(e.getMessage());
         }
     }
 } 

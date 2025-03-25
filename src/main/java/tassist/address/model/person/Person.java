@@ -1,6 +1,7 @@
 package tassist.address.model.person;
 
 import static tassist.address.commons.util.CollectionUtil.requireAllNonNull;
+import static java.util.Objects.requireNonNull;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -50,6 +51,26 @@ public class Person {
         this.progress = progress;
         this.timedEvents = new UniqueTimedEventList();
     }
+
+    /**
+     * Every field must be present and not null.
+     */
+    public Person(Name name, Phone phone, Email email, ClassNumber classNumber,
+                StudentId studentId, Github github, Set<Tag> tags, Progress progress,
+                UniqueTimedEventList timedEvents) {
+        requireAllNonNull(name, phone, email, classNumber, studentId, github, tags, progress, timedEvents);
+
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.classNumber = classNumber;
+        this.studentId = studentId;
+        this.github = github;
+        this.tags.addAll(tags);
+        this.progress = progress;
+        this.timedEvents = timedEvents;
+    }
+
 
     public Name getName() {
         return name;
@@ -101,6 +122,13 @@ public class Person {
      */
     public ObservableList<TimedEvent> getTimedEvents() {
         return timedEvents.asUnmodifiableObservableList();
+    }
+
+    /**
+     * Returns the underlying UniqueTimedEventList.
+     */
+    public UniqueTimedEventList getTimedEventsList() {
+        return timedEvents;
     }
 
     /**
