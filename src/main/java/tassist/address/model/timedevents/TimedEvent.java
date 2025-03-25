@@ -18,7 +18,7 @@ public abstract class TimedEvent {
     private final LocalDateTime time;
 
     public static final String MESSAGE_NAME_CONSTRAINTS = "Name can only contain alphanumeric characters and spaces, and cannot start with a space";
-    public static final String MESSAGE_DESCRIPTION_CONSTRAINTS = "Description cannot be empty or contain only whitespace";
+    public static final String MESSAGE_DESCRIPTION_CONSTRAINTS = "Description cannot be null";
 
     /**
      * Every field must be present and not null.
@@ -30,9 +30,6 @@ public abstract class TimedEvent {
 
         if (!name.matches("[\\p{Alnum}][\\p{Alnum} ]*")) {
             throw new IllegalArgumentException(MESSAGE_NAME_CONSTRAINTS);
-        }
-        if (description.trim().isEmpty()) {
-            throw new IllegalArgumentException(MESSAGE_DESCRIPTION_CONSTRAINTS);
         }
 
         this.name = name;

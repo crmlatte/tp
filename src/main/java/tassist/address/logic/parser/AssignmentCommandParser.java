@@ -14,6 +14,7 @@ import tassist.address.logic.Messages;
 import tassist.address.logic.commands.AssignmentCommand;
 import tassist.address.logic.parser.exceptions.ParseException;
 import tassist.address.model.timedevents.Assignment;
+import tassist.address.model.timedevents.TimedEvent;
 
 /**
  * Parses input arguments and creates a new AssignmentCommand object
@@ -41,6 +42,11 @@ public class AssignmentCommandParser implements Parser<AssignmentCommand> {
 
         String name = argMultimap.getValue(PREFIX_NAME).get();
         String dateStr = argMultimap.getValue(PREFIX_DATE).get();
+
+        // Validate name format
+        if (!name.matches("[\\p{Alnum}][\\p{Alnum} ]*")) {
+            throw new ParseException(TimedEvent.MESSAGE_NAME_CONSTRAINTS);
+        }
 
         LocalDateTime dateTime;
         try {

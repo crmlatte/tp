@@ -47,12 +47,16 @@ public class AssignmentCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasTimedEvent(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_ASSIGNMENT);
-        }
+        try {
+            if (model.hasTimedEvent(toAdd)) {
+                throw new CommandException(MESSAGE_DUPLICATE_ASSIGNMENT);
+            }
 
-        model.addTimedEvent(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.toString()));
+            model.addTimedEvent(toAdd);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.toString()));
+        } catch (IllegalArgumentException e) {
+            throw new CommandException(e.getMessage());
+        }
     }
 
     @Override
