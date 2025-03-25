@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import tassist.address.model.AddressBook;
-import tassist.address.model.ReadOnlyAddressBook;
 import tassist.address.model.person.Person;
 import tassist.address.model.timedevents.Assignment;
 import tassist.address.model.timedevents.TimedEvent;
@@ -71,6 +70,4 @@ public class TimedEventTestUtil {
         }
         return ab;
     }
-
-    private TimedEventTestUtil() {} // prevent instantiation
-} 
+}

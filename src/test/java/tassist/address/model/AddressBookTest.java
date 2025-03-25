@@ -18,8 +18,8 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import tassist.address.model.person.exceptions.DuplicatePersonException;
 import tassist.address.model.person.Person;
+import tassist.address.model.person.exceptions.DuplicatePersonException;
 import tassist.address.model.timedevents.Assignment;
 import tassist.address.model.timedevents.TimedEvent;
 import tassist.address.model.timedevents.exceptions.DuplicateTimedEventException;

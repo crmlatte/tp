@@ -55,4 +55,4 @@ public class TypicalTimedEvents {
     public static List<TimedEvent> getTypicalTimedEvents() {
         return new ArrayList<>(Arrays.asList(ASSIGNMENT_1, ASSIGNMENT_2, ASSIGNMENT_3, ASSIGNMENT_4, ASSIGNMENT_5));
     }
-} 
+}

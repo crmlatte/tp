@@ -21,7 +21,6 @@ import tassist.address.model.person.Person;
 import tassist.address.model.person.StudentId;
 import tassist.address.testutil.PersonBuilder;
 import tassist.address.testutil.TypicalPersons;
-import tassist.address.model.AddressBook;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for

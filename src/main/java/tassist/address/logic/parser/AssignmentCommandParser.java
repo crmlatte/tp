@@ -58,7 +58,6 @@ public class AssignmentCommandParser implements Parser<AssignmentCommand> {
         // Check if the date is today or in the past
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime tomorrow = now.toLocalDate().plusDays(1).atStartOfDay();
-        
         if (dateTime.isBefore(tomorrow)) {
             throw new ParseException(MESSAGE_DATE_IN_PAST);
         }
@@ -96,4 +95,4 @@ public class AssignmentCommandParser implements Parser<AssignmentCommand> {
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
-} 
+}

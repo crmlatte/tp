@@ -17,8 +17,8 @@ public class Assignment extends TimedEvent {
 
     @Override
     public String toString() {
-        return String.format("Assignment: %s (Due: %s)", 
-            getName(), 
-            getTime().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+        return String.format("Assignment: %s (Due: %s)",
+                getName(),
+                getTime().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
     }
-} 
+}

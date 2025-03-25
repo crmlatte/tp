@@ -20,8 +20,6 @@ import tassist.address.model.person.Name;
 import tassist.address.model.person.Phone;
 import tassist.address.model.person.Progress;
 import tassist.address.model.person.StudentId;
-import tassist.address.model.timedevents.Assignment;
-import tassist.address.model.timedevents.TimedEvent;
 
 public class JsonAdaptedPersonTest {
     private static final String INVALID_NAME = "R@chel";
@@ -46,8 +44,8 @@ public class JsonAdaptedPersonTest {
 
     static {
         VALID_TIMED_EVENTS.add(new JsonAdaptedTimedEvent(ASSIGNMENT_1));
-        INVALID_TIMED_EVENTS.add(new JsonAdaptedTimedEvent("Invalid Name", "Description", 
-            LocalDateTime.now().toString(), "InvalidType"));
+        INVALID_TIMED_EVENTS.add(new JsonAdaptedTimedEvent("Invalid Name", "Description",
+                LocalDateTime.now().toString(), "InvalidType"));
     }
 
     @Test

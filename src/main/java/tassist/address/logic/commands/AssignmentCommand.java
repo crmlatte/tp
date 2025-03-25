@@ -4,15 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_NAME;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-
-import tassist.address.logic.Messages;
 import tassist.address.logic.commands.exceptions.CommandException;
 import tassist.address.model.Model;
 import tassist.address.model.timedevents.Assignment;
-import tassist.address.model.timedevents.UniqueTimedEventList;
 
 /**
  * Adds an assignment to the address book.
@@ -72,4 +66,4 @@ public class AssignmentCommand extends Command {
         AssignmentCommand otherAssignmentCommand = (AssignmentCommand) other;
         return toAdd.equals(otherAssignmentCommand.toAdd);
     }
-} 
+}

@@ -4,9 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static tassist.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static tassist.address.testutil.Assert.assertThrows;
-import static tassist.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static tassist.address.testutil.TypicalPersons.ALICE;
 
 import java.nio.file.Path;

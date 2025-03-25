@@ -1,33 +1,30 @@
 package tassist.address.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tassist.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static tassist.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static tassist.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static tassist.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static tassist.address.testutil.AssignCommandTestUtil.getTypicalAddressBook;
 import static tassist.address.testutil.AssignCommandTestUtil.ALICE;
 import static tassist.address.testutil.AssignCommandTestUtil.BENSON;
 import static tassist.address.testutil.AssignCommandTestUtil.CARL;
+import static tassist.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static tassist.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import tassist.address.commons.core.index.Index;
 import tassist.address.logic.Messages;
-import tassist.address.logic.commands.exceptions.CommandException;
+import tassist.address.model.AddressBook;
 import tassist.address.model.Model;
 import tassist.address.model.ModelManager;
 import tassist.address.model.UserPrefs;
+import tassist.address.model.person.ClassNumber;
 import tassist.address.model.person.Person;
 import tassist.address.model.person.StudentId;
-import tassist.address.model.person.ClassNumber;
-import tassist.address.model.AddressBook;
 import tassist.address.model.timedevents.TimedEvent;
-import tassist.address.testutil.PersonBuilder;
 import tassist.address.testutil.AssignCommandTestUtil;
+import tassist.address.testutil.PersonBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
@@ -46,18 +43,18 @@ public class AssignCommandTest {
         alice = new PersonBuilder(ALICE).build();
         benson = new PersonBuilder(BENSON).build();
         carl = new PersonBuilder(CARL).build();
-        
+
         // Create a fresh address book with the new person instances
         AddressBook ab = new AddressBook();
         ab.addPerson(alice);
         ab.addPerson(benson);
         ab.addPerson(carl);
-        
+
         // Add the timed events
         for (TimedEvent timedEvent : AssignCommandTestUtil.getTypicalTimedEvents()) {
             ab.addTimedEvent(timedEvent);
         }
-        
+
         model = new ModelManager(ab, new UserPrefs());
     }
 
@@ -138,8 +135,8 @@ public class AssignCommandTest {
     public void execute_invalidClassNumber_failure() {
         ClassNumber nonExistentClass = new ClassNumber("T99");
         AssignCommand assignCommand = new AssignCommand(INDEX_FIRST_PERSON, nonExistentClass);
-
-        assertCommandFailure(assignCommand, model, String.format(AssignCommand.MESSAGE_NO_STUDENTS_IN_CLASS, nonExistentClass));
+        assertCommandFailure(assignCommand, model,
+                String.format(AssignCommand.MESSAGE_NO_STUDENTS_IN_CLASS, nonExistentClass));
     }
 
     @Test
@@ -171,4 +168,4 @@ public class AssignCommandTest {
         // different class number -> returns false
         assertFalse(standardCommand.equals(new AssignCommand(INDEX_FIRST_PERSON, new ClassNumber("T01"))));
     }
-} 
+}

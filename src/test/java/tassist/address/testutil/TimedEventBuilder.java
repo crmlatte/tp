@@ -13,6 +13,9 @@ public class TimedEventBuilder {
     private String description;
     private LocalDateTime time;
 
+    /**
+     * Creates a TimedEventBuilder with the default values.
+     */
     public TimedEventBuilder() {
         name = "Test Assignment";
         description = "Test Description";
@@ -49,4 +52,4 @@ public class TimedEventBuilder {
     public TimedEvent build() {
         return new Assignment(name, description, time);
     }
-} 
+}

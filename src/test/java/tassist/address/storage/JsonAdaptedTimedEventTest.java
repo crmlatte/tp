@@ -1,18 +1,13 @@
 package tassist.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static tassist.address.model.timedevents.TimedEvent.MESSAGE_NAME_CONSTRAINTS;
 import static tassist.address.testutil.Assert.assertThrows;
 import static tassist.address.testutil.TypicalTimedEvents.ASSIGNMENT_1;
-import static tassist.address.model.timedevents.TimedEvent.MESSAGE_NAME_CONSTRAINTS;
-import static tassist.address.model.timedevents.TimedEvent.MESSAGE_DESCRIPTION_CONSTRAINTS;
-
-import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Test;
 
 import tassist.address.commons.exceptions.IllegalValueException;
-import tassist.address.model.timedevents.Assignment;
-import tassist.address.model.timedevents.TimedEvent;
 
 public class JsonAdaptedTimedEventTest {
     private static final String INVALID_NAME = "R@chel";
@@ -33,7 +28,8 @@ public class JsonAdaptedTimedEventTest {
 
     @Test
     public void toModelType_invalidName_throwsIllegalValueException() {
-        JsonAdaptedTimedEvent timedEvent = new JsonAdaptedTimedEvent(INVALID_NAME, VALID_DESCRIPTION, VALID_TIME, VALID_TYPE);
+        JsonAdaptedTimedEvent timedEvent =
+                new JsonAdaptedTimedEvent(INVALID_NAME, VALID_DESCRIPTION, VALID_TIME, VALID_TYPE);
         assertThrows(IllegalValueException.class, MESSAGE_NAME_CONSTRAINTS, timedEvent::toModelType);
     }
 
@@ -53,7 +49,8 @@ public class JsonAdaptedTimedEventTest {
 
     @Test
     public void toModelType_invalidTime_throwsIllegalValueException() {
-        JsonAdaptedTimedEvent timedEvent = new JsonAdaptedTimedEvent(VALID_NAME, VALID_DESCRIPTION, INVALID_TIME, VALID_TYPE);
+        JsonAdaptedTimedEvent timedEvent =
+                new JsonAdaptedTimedEvent(VALID_NAME, VALID_DESCRIPTION, INVALID_TIME, VALID_TYPE);
         assertThrows(IllegalValueException.class, timedEvent::toModelType);
     }
 
@@ -66,7 +63,8 @@ public class JsonAdaptedTimedEventTest {
 
     @Test
     public void toModelType_invalidType_throwsIllegalValueException() {
-        JsonAdaptedTimedEvent timedEvent = new JsonAdaptedTimedEvent(VALID_NAME, VALID_DESCRIPTION, VALID_TIME, INVALID_TYPE);
+        JsonAdaptedTimedEvent timedEvent =
+                new JsonAdaptedTimedEvent(VALID_NAME, VALID_DESCRIPTION, VALID_TIME, INVALID_TYPE);
         assertThrows(IllegalValueException.class, timedEvent::toModelType);
     }
 
@@ -76,4 +74,4 @@ public class JsonAdaptedTimedEventTest {
         String expectedMessage = String.format(JsonAdaptedTimedEvent.MISSING_FIELD_MESSAGE_FORMAT, "type");
         assertThrows(IllegalValueException.class, expectedMessage, timedEvent::toModelType);
     }
-} 
+}

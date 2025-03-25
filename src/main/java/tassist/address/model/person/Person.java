@@ -1,7 +1,6 @@
 package tassist.address.model.person;
 
 import static tassist.address.commons.util.CollectionUtil.requireAllNonNull;
-import static java.util.Objects.requireNonNull;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -38,7 +37,7 @@ public class Person {
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, ClassNumber classNumber,
-                StudentId studentId, Github github, Set<Tag> tags, Progress progress) {
+            StudentId studentId, Github github, Set<Tag> tags, Progress progress) {
         requireAllNonNull(name, phone, email, classNumber, studentId, github, tags, progress);
 
         this.name = name;
@@ -56,8 +55,8 @@ public class Person {
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, ClassNumber classNumber,
-                StudentId studentId, Github github, Set<Tag> tags, Progress progress,
-                UniqueTimedEventList timedEvents) {
+            StudentId studentId, Github github, Set<Tag> tags, Progress progress,
+            UniqueTimedEventList timedEvents) {
         requireAllNonNull(name, phone, email, classNumber, studentId, github, tags, progress, timedEvents);
 
         this.name = name;

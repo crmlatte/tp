@@ -9,9 +9,9 @@ import tassist.address.commons.core.index.Index;
 import tassist.address.logic.Messages;
 import tassist.address.logic.commands.exceptions.CommandException;
 import tassist.address.model.Model;
+import tassist.address.model.person.ClassNumber;
 import tassist.address.model.person.Person;
 import tassist.address.model.person.StudentId;
-import tassist.address.model.person.ClassNumber;
 import tassist.address.model.timedevents.TimedEvent;
 import tassist.address.model.timedevents.exceptions.DuplicateTimedEventException;
 
@@ -23,7 +23,7 @@ public class AssignCommand extends Command {
     public static final String COMMAND_WORD = "assign";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Assigns a timed event to one or more students identified by their index, student ID, or class number.\n"
+            + ": Assigns a timed event to one or more students identified by their index, student ID, or class number\n"
             + "Parameters: TIMED_EVENT_INDEX (must be a positive integer) "
             + "STUDENT_INDEX (must be a positive integer) or STUDENT_ID or CLASS_NUMBER\n"
             + "Example: " + COMMAND_WORD + " 1 2"
@@ -123,7 +123,6 @@ public class AssignCommand extends Command {
             List<Person> studentsInClass = lastShownList.stream()
                     .filter(person -> person.getClassNumber().equals(classNumber))
                     .toList();
-            
             if (studentsInClass.isEmpty()) {
                 throw new CommandException(String.format(MESSAGE_NO_STUDENTS_IN_CLASS, classNumber));
             }
@@ -164,4 +163,4 @@ public class AssignCommand extends Command {
                 || (studentId != null && studentId.equals(otherAssignCommand.studentId))
                 || (classNumber != null && classNumber.equals(otherAssignCommand.classNumber)));
     }
-} 
+}

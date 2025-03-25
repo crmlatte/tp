@@ -7,7 +7,6 @@ import java.util.Comparator;
 import java.util.Objects;
 import java.util.function.Predicate;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -181,4 +180,4 @@ public class AddressBookModel implements Model {
     public int hashCode() {
         return Objects.hash(addressBook, userPrefs, filteredPersons, sortedPersons);
     }
-} 
+}

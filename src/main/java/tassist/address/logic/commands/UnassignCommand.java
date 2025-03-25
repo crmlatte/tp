@@ -1,7 +1,6 @@
 package tassist.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static tassist.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
 
@@ -9,7 +8,6 @@ import tassist.address.commons.core.index.Index;
 import tassist.address.logic.Messages;
 import tassist.address.logic.commands.exceptions.CommandException;
 import tassist.address.model.Model;
-import tassist.address.model.person.Person;
 import tassist.address.model.timedevents.TimedEvent;
 
 /**
@@ -24,7 +22,8 @@ public class UnassignCommand extends Command implements ConfirmableCommand {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_UNASSIGN_EVENT_SUCCESS = "Unassigned timed event: %1$s";
-    public static final String MESSAGE_CONFIRM = "Are you sure you want to unassign the timed event '%1$s' from all students? (Y/N)";
+    public static final String MESSAGE_CONFIRM = "Are you sure you want to "
+            + "unassign the timed event '%1$s' from all students? (Y/N)";
     public static final String MESSAGE_UNASSIGN_CANCELLED = "Action cancelled.";
 
     private final Index targetIndex;
@@ -53,7 +52,7 @@ public class UnassignCommand extends Command implements ConfirmableCommand {
             return new CommandResult(Messages.MESSAGE_INVALID_TIMED_EVENT_DISPLAYED_INDEX);
         }
         TimedEvent eventToUnassign = lastShownList.get(targetIndex.getZeroBased());
-        
+
         // Remove the event from all students who have it
         model.getFilteredPersonList().stream()
                 .filter(person -> person.hasTimedEvent(eventToUnassign))
@@ -61,7 +60,7 @@ public class UnassignCommand extends Command implements ConfirmableCommand {
                     person.removeTimedEvent(eventToUnassign);
                     model.setPerson(person, person); // Trigger UI update
                 });
-        
+
         // Remove the event from the event list
         model.deleteTimedEvent(eventToUnassign);
         return new CommandResult(String.format(MESSAGE_UNASSIGN_EVENT_SUCCESS, eventToUnassign.getName()));
@@ -69,7 +68,12 @@ public class UnassignCommand extends Command implements ConfirmableCommand {
 
     @Override
     public String getConfirmationMessage() {
-        return MESSAGE_CONFIRM;
+        List<TimedEvent> lastShownList = model.getTimedEventList();
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            return Messages.MESSAGE_INVALID_TIMED_EVENT_DISPLAYED_INDEX;
+        }
+        TimedEvent eventToUnassign = lastShownList.get(targetIndex.getZeroBased());
+        return String.format(MESSAGE_CONFIRM, eventToUnassign.getName());
     }
 
     @Override
@@ -78,4 +82,4 @@ public class UnassignCommand extends Command implements ConfirmableCommand {
                 || (other instanceof UnassignCommand // instanceof handles nulls
                 && targetIndex.equals(((UnassignCommand) other).targetIndex)); // state check
     }
-} 
+}

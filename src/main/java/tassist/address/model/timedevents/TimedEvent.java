@@ -12,13 +12,13 @@ import tassist.address.commons.util.ToStringBuilder;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public abstract class TimedEvent {
-    // Identity fields
+    public static final String MESSAGE_NAME_CONSTRAINTS = "Name can only contain alphanumeric characters and spaces, "
+            + "and cannot start with a space";
+    public static final String MESSAGE_DESCRIPTION_CONSTRAINTS = "Description cannot be null";
+
     private final String name;
     private final String description;
     private final LocalDateTime time;
-
-    public static final String MESSAGE_NAME_CONSTRAINTS = "Name can only contain alphanumeric characters and spaces, and cannot start with a space";
-    public static final String MESSAGE_DESCRIPTION_CONSTRAINTS = "Description cannot be null";
 
     /**
      * Every field must be present and not null.
@@ -53,8 +53,8 @@ public abstract class TimedEvent {
      * Returns true if the event is overdue (due date is today or in the past).
      */
     public boolean isOverdue() {
-        return time.toLocalDate().isBefore(LocalDateTime.now().toLocalDate()) 
-            || time.toLocalDate().equals(LocalDateTime.now().toLocalDate());
+        return time.toLocalDate().isBefore(LocalDateTime.now().toLocalDate())
+                || time.toLocalDate().equals(LocalDateTime.now().toLocalDate());
     }
 
     /**
@@ -77,22 +77,18 @@ public abstract class TimedEvent {
         }
 
         StringBuilder timeLeft = new StringBuilder();
-        
+
         // If less than a month, only show days
         if (totalMonths == 0) {
             timeLeft.append(totalDays).append(" day").append(totalDays > 1 ? "s" : "");
-        }
-        // If less than a year, show months and days
-        else if (totalYears == 0) {
+        } else if (totalYears == 0) {
             timeLeft.append(totalMonths).append(" month").append(totalMonths > 1 ? "s" : "");
             LocalDateTime afterMonths = now.plusMonths(totalMonths);
             long remainingDays = ChronoUnit.DAYS.between(afterMonths.toLocalDate(), time.toLocalDate());
             if (remainingDays > 0) {
                 timeLeft.append(" ").append(remainingDays).append(" day").append(remainingDays > 1 ? "s" : "");
             }
-        }
-        // If more than a year, show years, months, and days
-        else {
+        } else {
             timeLeft.append(totalYears).append(" year").append(totalYears > 1 ? "s" : "");
             LocalDateTime afterYears = now.plusYears(totalYears);
             long remainingMonths = ChronoUnit.MONTHS.between(afterYears.toLocalDate(), time.toLocalDate());
@@ -105,7 +101,7 @@ public abstract class TimedEvent {
                 timeLeft.append(" ").append(remainingDays).append(" day").append(remainingDays > 1 ? "s" : "");
             }
         }
-        
+
         return timeLeft.toString();
     }
 
@@ -157,4 +153,4 @@ public abstract class TimedEvent {
                 .add("time", time)
                 .toString();
     }
-} 
+}

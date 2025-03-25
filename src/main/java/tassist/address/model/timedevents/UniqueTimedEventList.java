@@ -49,7 +49,7 @@ public class UniqueTimedEventList implements Iterable<TimedEvent> {
     /**
      * Replaces the timed event {@code target} in the list with {@code editedTimedEvent}.
      * {@code target} must exist in the list.
-     * The timed event identity of {@code editedTimedEvent} must not be the same as another existing timed event in the list.
+     * The timed event identity of {@code editedTimedEvent} must not be the same as another in the list.
      */
     public void setTimedEvent(TimedEvent target, TimedEvent editedTimedEvent) {
         requireNonNull(target);
@@ -145,4 +145,4 @@ public class UniqueTimedEventList implements Iterable<TimedEvent> {
     public String toString() {
         return internalList.toString();
     }
-} 
+}

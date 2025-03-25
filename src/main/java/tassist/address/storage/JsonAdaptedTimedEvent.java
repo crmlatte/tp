@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import tassist.address.commons.exceptions.IllegalValueException;
-import tassist.address.model.timedevents.TimedEvent;
 import tassist.address.model.timedevents.Assignment;
+import tassist.address.model.timedevents.TimedEvent;
 
 /**
  * Jackson-friendly version of {@link TimedEvent}.
@@ -68,10 +68,10 @@ class JsonAdaptedTimedEvent {
         try {
             java.time.LocalDateTime parsedTime = java.time.LocalDateTime.parse(time);
             switch (type) {
-                case "Assignment":
-                    return new Assignment(name, description, parsedTime);
-                default:
-                    throw new IllegalValueException("Invalid timed event type: " + type);
+            case "Assignment":
+                return new Assignment(name, description, parsedTime);
+            default:
+                throw new IllegalValueException("Invalid timed event type: " + type);
             }
         } catch (java.time.format.DateTimeParseException e) {
             throw new IllegalValueException("Invalid date format: " + time);
@@ -79,4 +79,4 @@ class JsonAdaptedTimedEvent {
             throw new IllegalValueException(e.getMessage());
         }
     }
-} 
+}
