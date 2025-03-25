@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 
 import tassist.address.commons.core.LogsCenter;
 import tassist.address.logic.commands.AddCommand;
+import tassist.address.logic.commands.AssignCommand;
 import tassist.address.logic.commands.AssignmentCommand;
 import tassist.address.logic.commands.ClassCommand;
 import tassist.address.logic.commands.ClearCommand;
@@ -54,12 +55,16 @@ public class AddressBookParser {
         // Note to developers: Change the log level in config.json to enable lower level (i.e., FINE, FINER and lower)
         // log messages such as the one below.
         // Lower level log messages are used sparingly to minimize noise in the code.
-        logger.fine("Command word: " + commandWord + "; Arguments: " + arguments);
+        logger.fine("Command word: " + commandWord);
+        logger.fine("Arguments: " + arguments);
 
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
+
+        case AssignCommand.COMMAND_WORD:
+            return new AssignCommandParser().parse(arguments);
 
         case ClassCommand.COMMAND_WORD:
             return new ClassCommandParser().parse(arguments);

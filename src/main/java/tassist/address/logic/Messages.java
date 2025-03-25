@@ -15,10 +15,13 @@ public class Messages {
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
+    public static final String MESSAGE_INVALID_TIMED_EVENT_DISPLAYED_INDEX = "The timed event index provided is invalid";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
+    public static final String MESSAGE_PERSON_NOT_FOUND = "Person not found: ";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_ASSIGNMENT = "This assignment already exists in the address book.";
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
-    public static final String MESSAGE_PERSON_NOT_FOUND = "No student found with StudentId: ";
 
     /**
      * Returns an error message indicating the duplicate prefixes.
@@ -36,25 +39,21 @@ public class Messages {
      * Formats the {@code person} for display to the user.
      */
     public static String format(Person person) {
-        /*
         final StringBuilder builder = new StringBuilder();
         builder.append(person.getName())
                 .append("; Phone: ")
                 .append(person.getPhone())
                 .append("; Email: ")
                 .append(person.getEmail())
-                .append("; Tutorial Class Number: ")
+                .append("; Class: ")
                 .append(person.getClassNumber())
-                .append("; StudentId: ")
+                .append("; Student ID: ")
                 .append(person.getStudentId())
-                .append("; Github: ")
+                .append("; GitHub: ")
                 .append(person.getGithub())
-                .append("; Tags: ");
-        person.getTags().forEach(builder::append);
-        builder.append("; Progress: ").append(person.getProgress());
+                .append("; Progress: ")
+                .append(person.getProgress());
         return builder.toString();
-         */
-        return person.getName().toString();
     }
 
 }
