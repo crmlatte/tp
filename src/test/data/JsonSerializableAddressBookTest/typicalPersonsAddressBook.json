@@ -5,7 +5,7 @@
     "phone" : "94351253",
     "email" : "alice@example.com",
     "classNumber": "T01",
-    "studentId" : "A0000000B",
+    "studentId" : "A1111111B",
     "github": "No Github assigned",
     "tags" : [ "friends" ],
     "progress" : "0"
@@ -14,7 +14,7 @@
     "phone" : "98765432",
     "email" : "johnd@example.com",
     "classNumber": "T01",
-    "studentId" : "A0000000B",
+    "studentId" : "A0101011A",
     "github": "No Github assigned",
     "tags" : [ "owesMoney", "friends" ],
     "progress" : "30"
@@ -24,7 +24,7 @@
     "email" : "heinz@example.com",
     "address" : "wall street",
     "classNumber": "No tutorial assigned",
-    "studentId" : "A0000000B",
+    "studentId" : "A0101010C",
     "github": "No Github assigned",
     "tags" : [ ],
     "progress" : "50"
@@ -33,7 +33,7 @@
     "phone" : "87652533",
     "email" : "cornelia@example.com",
     "classNumber": "T04",
-    "studentId" : "A0000000B",
+    "studentId" : "A0001234X",
     "github": "No Github assigned",
     "tags" : [ "friends" ],
     "progress" : "0"
@@ -42,7 +42,7 @@
     "phone" : "9482224",
     "email" : "werner@example.com",
     "classNumber": "No tutorial assigned",
-    "studentId" : "A0000000B",
+    "studentId" : "A1928374M",
     "github": "No Github assigned",
     "tags" : [ ],
     "progress" : "60"
@@ -51,7 +51,7 @@
     "phone" : "9482427",
     "email" : "lydia@example.com",
     "classNumber": "No tutorial assigned",
-    "studentId" : "A0000000B",
+    "studentId" : "A7654321J",
     "github": "No Github assigned",
     "tags" : [ ],
     "progress" : "40"
@@ -60,7 +60,7 @@
     "phone" : "9482442",
     "email" : "anna@example.com",
     "classNumber": "No tutorial assigned",
-    "studentId" : "A0000000B",
+    "studentId" : "A9182736L",
     "github": "No Github assigned",
     "tags" : [ ],
     "progress" : "5"
