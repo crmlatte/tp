@@ -22,6 +22,7 @@ import tassist.address.logic.commands.GithubCommand;
 import tassist.address.logic.commands.HelpCommand;
 import tassist.address.logic.commands.ListCommand;
 import tassist.address.logic.commands.OpenCommand;
+import tassist.address.logic.commands.UnassignCommand;
 import tassist.address.logic.commands.ViewCommand;
 import tassist.address.logic.parser.exceptions.ParseException;
 
@@ -58,16 +59,10 @@ public class AddressBookParser {
         logger.fine("Command word: " + commandWord);
         logger.fine("Arguments: " + arguments);
 
-        switch (commandWord) {
+        switch (commandWord.toLowerCase()) {
 
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
-
-        case AssignCommand.COMMAND_WORD:
-            return new AssignCommandParser().parse(arguments);
-
-        case ClassCommand.COMMAND_WORD:
-            return new ClassCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
@@ -82,7 +77,7 @@ public class AddressBookParser {
             return new FindCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommandParser().parse(arguments);
+            return new ListCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -90,17 +85,26 @@ public class AddressBookParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
+        case ClassCommand.COMMAND_WORD:
+            return new ClassCommandParser().parse(arguments);
+
         case GithubCommand.COMMAND_WORD:
             return new GithubCommandParser().parse(arguments);
-
-        case OpenCommand.COMMAND_WORD:
-            return new OpenCommandParser().parse(arguments);
 
         case AssignmentCommand.COMMAND_WORD:
             return new AssignmentCommandParser().parse(arguments);
 
+        case AssignCommand.COMMAND_WORD:
+            return new AssignCommandParser().parse(arguments);
+
         case ViewCommand.COMMAND_WORD:
             return new ViewCommandParser().parse(arguments);
+
+        case UnassignCommand.COMMAND_WORD:
+            return new UnassignCommandParser().parse(arguments);
+
+        case OpenCommand.COMMAND_WORD:
+            return new OpenCommandParser().parse(arguments);
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);

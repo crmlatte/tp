@@ -72,16 +72,20 @@ public class PersonCard extends UiPart<Region> {
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
         progress.setText("Progress: " + person.getProgress().value + "%");
         
-        // Display timed events
+        // Display timed events with time differences
         if (person.getTimedEvents().isEmpty()) {
             timedEvents.setText("No assignments");
         } else {
-            StringBuilder eventsText = new StringBuilder("Assignments: ");
+            StringBuilder eventsText = new StringBuilder("Assignments:\n");
             person.getTimedEvents().stream()
-                    .map(TimedEvent::getName)
-                    .forEach(eventName -> eventsText.append(eventName).append(", "));
-            // Remove the last comma and space
-            eventsText.setLength(eventsText.length() - 2);
+                    .sorted(Comparator.comparing(TimedEvent::getTime))
+                    .forEach(event -> {
+                        String timeLeft = event.calculateRemainingTime();
+                        String eventText = String.format("%s - Due in: %s\n", event.getName(), timeLeft);
+                        eventsText.append(eventText);
+                    });
+            // Remove the last newline
+            eventsText.setLength(eventsText.length() - 1);
             timedEvents.setText(eventsText.toString());
         }
     }

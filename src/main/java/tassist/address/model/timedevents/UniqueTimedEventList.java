@@ -72,7 +72,8 @@ public class UniqueTimedEventList implements Iterable<TimedEvent> {
      */
     public void remove(TimedEvent toRemove) {
         requireNonNull(toRemove);
-        if (!internalList.remove(toRemove)) {
+        boolean removed = internalList.removeIf(event -> event.isSameTimedEvent(toRemove));
+        if (!removed) {
             throw new TimedEventNotFoundException();
         }
     }

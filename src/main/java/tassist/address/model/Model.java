@@ -103,6 +103,12 @@ public interface Model {
      */
     void addTimedEvent(TimedEvent timedEvent);
 
+    /**
+     * Deletes the given timed event.
+     * The timed event must exist in the address book.
+     */
+    void deleteTimedEvent(TimedEvent timedEvent);
+
     /** Returns an unmodifiable view of the timed events list */
     ObservableList<TimedEvent> getTimedEventList();
 }
