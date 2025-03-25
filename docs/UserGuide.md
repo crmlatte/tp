@@ -17,16 +17,20 @@ TAssist is a **desktop application** for Teaching Assistants (TAs) to easily tra
 
 2. Download the latest `.jar` file from [here](https://github.com/AY2425S2-CS2103T-W12-4/tp/releases).
 
-3. Copy the file to the folder you want to use as the _home folder_ for your TAssist.
+3. Copy the file to a folder you want to use as the _home folder_ for TAssist.
 
 4. Open the Command Prompt (Windows) or Terminal (Mac/Linux)
+
 5. Navigate to the folder where you saved the TAssist1.3.jar file using `cd` command<br>
    Example (Windows): `cd C:\Users\YourName\Downloads`. <br>
    Example (Mac/Linux): `cd /Users/YourName/Downloads`.
+
 6. Type this command and press enter to run the application.<br>
     ```java -jar TAssist1.3jar```
+
 7. A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
+
 8. TAssist allows users to personalize the appearance of the application by switching between different color themes.<br>
     Available themes: Dark, Bright, Pink
 
@@ -35,7 +39,7 @@ TAssist is a **desktop application** for Teaching Assistants (TAs) to easily tra
 
    * `list` : Lists all contacts.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the student list.
+   * `add n/John Doe p/98765432 e/johnd@example.com s/A0135246R` : Adds a contact named `John Doe` to the student list.
 
    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
@@ -73,7 +77,7 @@ TAssist is a **desktop application** for Teaching Assistants (TAs) to easily tra
 
 ### Viewing help : `help`
 
-Shows a message explaning how to access the help page.
+Shows a message explaining how to access the help page.
 
 ![help message](images/helpMessage.png)
 
@@ -85,8 +89,8 @@ Adds a student to the student list.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL s/STUDENT_ID [g/GITHUB_URL] [t/TAG]…​ [pr/PROGRESS]`
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A student can have any number of tags (including 0)
+<div markdown="span" class="alert alert-primary">
+:bulb: <strong>Tip:</strong> A student can have any number of tags (including 0)
 </div>
 
 Examples:
@@ -101,20 +105,25 @@ Format: `list [f/FILTER_TYPE fv/FILTER_VALUE] [s/SORT_TYPE o/SORT_ORDER]` <br>
 All parameters are optional. Filters and sorting can be used together or independently.
 
 #### Filter Options
-FILTER_TYPE:<br>
-progress: Filters students whose progress is less than or equal to the provided value. <br>
-course: (Not yet implemented) Will filter by existing course codes.<br>
-team: (Not yet implemented) Will filter by existing team names.
+`FILTER_TYPE:`<br>
+* progress: Filters students whose progress is less than or equal to the provided value. <br>
+* course: (Not yet implemented) Will filter by existing course codes.<br>
+* team: (Not yet implemented) Will filter by existing team names.
 
-FILTER_VALUE: <br>
-For course and team: must match an existing value (currently unimplemented). <br>
-For progress: an integer between 0 and 100. <br>
+`FILTER_VALUE:`<br>
+* progress: an integer between 0 and 100. <br>
+* course: (Not yet implemented) must match an existing course value.<br>
+* team: (Not yet implemented) must match an existing team value.
 
 #### Sort Options
-SORT_TYPE: name, progress, github.<br>
-SORT_ORDER:<br>
-asc — Ascending (A → Z or lowest → highest). <br>
-des — Descending (Z → A or highest → lowest).
+`SORT_TYPE:`<br>
+* name
+* progress
+* github.<br>
+
+`SORT_ORDER:`<br>
+* asc — Ascending (A → Z or lowest → highest). <br>
+* des — Descending (Z → A or highest → lowest).
 
 Examples:
 * `list`<br>
@@ -122,9 +131,9 @@ Examples:
 * `list f/progress fv/60` <br>
   Displays students with progress ≤ 60. 
 * `list s/github o/asc`<br>
-  Displays all students, sorted by Github username in ascending order.
+  Displays all students, sorted by Github username in ascending lexicographical order.
 * `list f/progress fv/50 s/name o/des`<br>
-  Displays students with progress ≤ 50, sorted by name in descending order.
+  Displays students with progress ≤ 50, sorted by name in descending lexicographical order.
 
 ### Editing a student : `edit`
 
@@ -134,7 +143,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [c/CLASS] [s/STUDENTID] [g/GITH
 
 * Edits the student at the specified `INDEX`. The index refers to the index number shown in the displayed student list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
+* Existing values will be updated to the valid input values.
 * When editing tags, the existing tags of the student will be removed i.e adding of tags is not cumulative.
 * You can remove all the student’s tags by typing `t/` without
     specifying any tags after it.
@@ -169,12 +178,12 @@ Assigns a **tutorial class** to a student identified by their displayed index.
 
 Format: `class INDEX c/CLASS_NUMBER`
 
+* `Txx`or `Rxx` where xx is integer from 01 to 99 (e.g., T01, T15, R05, R99)
+    * Note: 'T' and 'R' must be uppercase.
+    * 'T' and 'R' represent Tutorial and Recitation respectively.
+* Edits the `CLASS_NUMBER` of the student at the specified `INDEX`
 * The index refers to the index number shown in the displayed student list.
 * The index **must be a positive integer** 1, 2, 3, …​
-
-Valid Class Numbers:
-* `Txx`or `Rxx` where xx is integer from 01 to 99 (e.g., T01, T15, R05, R99)
-  * Note: 'T' and 'R' must be uppercase.
 
 Examples:
 * `class 1 c/T01` <br>
@@ -190,9 +199,9 @@ Updates the **GitHub URL** of the student identified by their displayed index.
 
 Format: `github INDEX g/GITHUB_URL`
 
+* Edits the `GITHUB_URL` of the student at the specified `INDEX`
 * The index refers to the index number shown in the displayed student list.
 * The index **must be a positive integer** 1, 2, 3, …​
-* Example of a valid GitHub link: `https://github.com/username`
 
 Examples:
 * `github 2 g/https://github.com/alice` <br>
@@ -204,7 +213,7 @@ Opens the GitHub page of the student at the specified `INDEX` in your default we
 
 Format: `open INDEX`
 
-* Opens the GitHub URL of the student at the given `INDEX`.
+* Opens the `GITHUB_URL` of the student at the given `INDEX`.
 * The index refers to the index number shown in the displayed student list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
