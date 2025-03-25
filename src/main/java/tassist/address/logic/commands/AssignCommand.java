@@ -11,30 +11,34 @@ import tassist.address.logic.commands.exceptions.CommandException;
 import tassist.address.model.Model;
 import tassist.address.model.person.Person;
 import tassist.address.model.person.StudentId;
+import tassist.address.model.person.ClassNumber;
 import tassist.address.model.timedevents.TimedEvent;
 import tassist.address.model.timedevents.exceptions.DuplicateTimedEventException;
 
 /**
- * Assigns a timed event to one or more students identified by their index or student ID.
+ * Assigns a timed event to one or more students identified by their index, student ID, or class number.
  */
 public class AssignCommand extends Command {
 
     public static final String COMMAND_WORD = "assign";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Assigns a timed event to one or more students identified by their index or student ID.\n"
+            + ": Assigns a timed event to one or more students identified by their index, student ID, or class number.\n"
             + "Parameters: TIMED_EVENT_INDEX (must be a positive integer) "
-            + "STUDENT_INDEX (must be a positive integer) or STUDENT_ID\n"
+            + "STUDENT_INDEX (must be a positive integer) or STUDENT_ID or CLASS_NUMBER\n"
             + "Example: " + COMMAND_WORD + " 1 2"
-            + " or: " + COMMAND_WORD + " 1 A1234567B";
+            + " or: " + COMMAND_WORD + " 1 A1234567B"
+            + " or: " + COMMAND_WORD + " 1 T01";
 
     public static final String MESSAGE_ASSIGN_SUCCESS = "Assigned timed event to student: %1$s";
     public static final String MESSAGE_ASSIGN_FAILURE = "Failed to assign timed event to student: %1$s";
     public static final String MESSAGE_DUPLICATE_ASSIGNMENT = "This assignment is already assigned to the student";
+    public static final String MESSAGE_NO_STUDENTS_IN_CLASS = "No students found in class: %1$s";
 
     private final Index timedEventIndex;
     private final Index studentIndex;
     private final StudentId studentId;
+    private final ClassNumber classNumber;
 
     /**
      * Creates an AssignCommand using a timed event index and a student index.
@@ -45,6 +49,7 @@ public class AssignCommand extends Command {
         this.timedEventIndex = timedEventIndex;
         this.studentIndex = studentIndex;
         this.studentId = null;
+        this.classNumber = null;
     }
 
     /**
@@ -56,6 +61,19 @@ public class AssignCommand extends Command {
         this.timedEventIndex = timedEventIndex;
         this.studentIndex = null;
         this.studentId = studentId;
+        this.classNumber = null;
+    }
+
+    /**
+     * Creates an AssignCommand using a timed event index and a class number.
+     */
+    public AssignCommand(Index timedEventIndex, ClassNumber classNumber) {
+        requireNonNull(timedEventIndex);
+        requireNonNull(classNumber);
+        this.timedEventIndex = timedEventIndex;
+        this.studentIndex = null;
+        this.studentId = null;
+        this.classNumber = classNumber;
     }
 
     @Override
@@ -70,35 +88,74 @@ public class AssignCommand extends Command {
         }
         TimedEvent targetEvent = timedEvents.get(timedEventIndex.getZeroBased());
 
-        // Find target student(s)
-        Person targetStudent = null;
+        StringBuilder resultMessage = new StringBuilder();
+        boolean hasSuccess = false;
+        boolean hasFailure = false;
+
         if (studentIndex != null) {
+            // Assign to single student by index
             if (studentIndex.getZeroBased() >= lastShownList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
             }
-            targetStudent = lastShownList.get(studentIndex.getZeroBased());
+            Person targetStudent = lastShownList.get(studentIndex.getZeroBased());
+            try {
+                targetStudent.addTimedEvent(targetEvent);
+                model.setPerson(targetStudent, targetStudent);
+                resultMessage.append(String.format(MESSAGE_ASSIGN_SUCCESS, Messages.format(targetStudent)));
+                hasSuccess = true;
+            } catch (DuplicateTimedEventException e) {
+                resultMessage.append(String.format(MESSAGE_DUPLICATE_ASSIGNMENT));
+                hasFailure = true;
+            }
         } else if (studentId != null) {
+            // Assign to single student by ID
             Optional<Person> personOptional = lastShownList.stream()
                     .filter(person -> person.getStudentId().equals(studentId))
                     .findFirst();
             if (personOptional.isEmpty()) {
                 throw new CommandException(Messages.MESSAGE_PERSON_NOT_FOUND + studentId);
             }
-            targetStudent = personOptional.get();
+            Person targetStudent = personOptional.get();
+            try {
+                targetStudent.addTimedEvent(targetEvent);
+                model.setPerson(targetStudent, targetStudent);
+                resultMessage.append(String.format(MESSAGE_ASSIGN_SUCCESS, Messages.format(targetStudent)));
+                hasSuccess = true;
+            } catch (DuplicateTimedEventException e) {
+                resultMessage.append(String.format(MESSAGE_DUPLICATE_ASSIGNMENT));
+                hasFailure = true;
+            }
+        } else if (classNumber != null) {
+            // Assign to all students in class using streams
+            List<Person> studentsInClass = lastShownList.stream()
+                    .filter(person -> person.getClassNumber().equals(classNumber))
+                    .toList();
+            
+            if (studentsInClass.isEmpty()) {
+                throw new CommandException(String.format(MESSAGE_NO_STUDENTS_IN_CLASS, classNumber));
+            }
+
+            // Process each student and collect results
+            String results = studentsInClass.stream()
+                    .map(student -> {
+                        try {
+                            student.addTimedEvent(targetEvent);
+                            model.setPerson(student, student);
+                            return String.format(MESSAGE_ASSIGN_SUCCESS, Messages.format(student));
+                        } catch (DuplicateTimedEventException e) {
+                            return MESSAGE_DUPLICATE_ASSIGNMENT;
+                        }
+                    })
+                    .reduce((a, b) -> a + "\n" + b)
+                    .orElse("");
+
+            resultMessage.append(results);
+            hasSuccess = results.contains(MESSAGE_ASSIGN_SUCCESS);
+            hasFailure = results.contains(MESSAGE_DUPLICATE_ASSIGNMENT);
         }
 
-        try {
-            // Add timed event to student's list
-            targetStudent.addTimedEvent(targetEvent);
-            
-            // Update the model to reflect changes
-            model.setPerson(targetStudent, targetStudent);
-            model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
-            
-            return new CommandResult(String.format(MESSAGE_ASSIGN_SUCCESS, Messages.format(targetStudent)));
-        } catch (DuplicateTimedEventException e) {
-            throw new CommandException(MESSAGE_DUPLICATE_ASSIGNMENT);
-        }
+        model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
+        return new CommandResult(resultMessage.toString());
     }
 
     @Override
@@ -114,6 +171,7 @@ public class AssignCommand extends Command {
         AssignCommand otherAssignCommand = (AssignCommand) other;
         return timedEventIndex.equals(otherAssignCommand.timedEventIndex)
                 && ((studentIndex != null && studentIndex.equals(otherAssignCommand.studentIndex))
-                || (studentId != null && studentId.equals(otherAssignCommand.studentId)));
+                || (studentId != null && studentId.equals(otherAssignCommand.studentId))
+                || (classNumber != null && classNumber.equals(otherAssignCommand.classNumber)));
     }
 } 
