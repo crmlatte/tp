@@ -51,6 +51,13 @@ public class TypicalAssignments {
             .withProgress("50")
             .build();
 
+    public static final Assignment ASSIGNMENT_A = new Assignment("CS2103T Project", "",
+            LocalDateTime.of(2025, 1, 30, 23, 59));
+    public static final Assignment ASSIGNMENT_B = new Assignment("CS2100 Assignment", "",
+            LocalDateTime.of(2025, 2, 15, 23, 59));
+    public static final Assignment ASSIGNMENT_C = new Assignment("CS2101 Presentation", "",
+            LocalDateTime.of(2025, 3, 1, 23, 59));
+
     private TypicalAssignments() {} // prevents instantiation
 
     /**
