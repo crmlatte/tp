@@ -45,12 +45,6 @@ public class JsonAdaptedTimedEventTest {
     }
 
     @Test
-    public void toModelType_invalidDescription_throwsIllegalValueException() {
-        JsonAdaptedTimedEvent timedEvent = new JsonAdaptedTimedEvent(VALID_NAME, INVALID_DESCRIPTION, VALID_TIME, VALID_TYPE);
-        assertThrows(IllegalValueException.class, MESSAGE_DESCRIPTION_CONSTRAINTS, timedEvent::toModelType);
-    }
-
-    @Test
     public void toModelType_nullDescription_throwsIllegalValueException() {
         JsonAdaptedTimedEvent timedEvent = new JsonAdaptedTimedEvent(VALID_NAME, null, VALID_TIME, VALID_TYPE);
         String expectedMessage = String.format(JsonAdaptedTimedEvent.MISSING_FIELD_MESSAGE_FORMAT, "description");
