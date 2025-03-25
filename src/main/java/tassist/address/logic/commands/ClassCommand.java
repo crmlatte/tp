@@ -6,6 +6,9 @@ import static tassist.address.logic.parser.CliSyntax.PREFIX_CLASS;
 import static tassist.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.logging.Logger;
 
 import tassist.address.commons.core.index.Index;
 import tassist.address.logic.Messages;
@@ -13,6 +16,7 @@ import tassist.address.logic.commands.exceptions.CommandException;
 import tassist.address.model.Model;
 import tassist.address.model.person.ClassNumber;
 import tassist.address.model.person.Person;
+import tassist.address.model.person.StudentId;
 
 /**
  * Assigns a student to a tutorial class identified using it's displayed index from the address book.
@@ -37,34 +41,77 @@ public class ClassCommand extends Command {
                     + "+ or of the format 'Txx/Rxx' (where xx is 01-99).\n"
                     + "'T/R' must be capitalized.";
 
+    private static final Logger logger = Logger.getLogger(ClassCommand.class.getName());
+
     private final Index index;
     private final ClassNumber classNumber;
+    private final StudentId studentId;
 
     /**
-     * @param index of the student in the filtered student list to edit the tutorial class number
-     * @param classNumber of the student to be updated to
+     * Constructs a {@code ClassCommand} that assigns a class to a student identified by their index in the displayed
+     * list.
+     *
+     * @param index The index of the student in the currently displayed student list.
+     * @param classNumber The class number to assign to the student.
      */
     public ClassCommand(Index index, ClassNumber classNumber) {
         requireAllNonNull(index, classNumber);
 
         this.index = index;
         this.classNumber = classNumber;
+        this.studentId = null;
+    }
+
+    /**
+     * Constructs a {@code ClassCommand} that assigns a class to a student identified by their student ID.
+     *
+     * @param studentId A unique ID identifying the student.
+     * @param classNumber The class number to assign to the student.
+     */
+    public ClassCommand(StudentId studentId, ClassNumber classNumber) {
+        requireAllNonNull(studentId, classNumber);
+
+        this.classNumber = classNumber;
+        this.studentId = studentId;
+        this.index = null;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+        logger.info("Executing ClassCommand with " + (index != null ? "Index: " + index : "Student ID: "
+                + studentId));
 
-        if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        Person personToEdit;
+
+        if (index != null) {
+            List<Person> lastShownList = model.getFilteredPersonList();
+            if (index.getZeroBased() >= lastShownList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            }
+            personToEdit = lastShownList.get(index.getZeroBased());
+        } else if (studentId != null) {
+            Optional<Person> personOptional = model.getFilteredPersonList().stream()
+                    .filter(person -> person.getStudentId().equals(studentId)).findFirst();
+            if (personOptional.isEmpty()) {
+                throw new CommandException(Messages.MESSAGE_PERSON_NOT_FOUND + studentId);
+            }
+            personToEdit = personOptional.get();
+        } else {
+            // won't reach this line, throwing an assertion just in case
+            throw new AssertionError("Either index or student ID must be provided");
         }
 
-        Person personToEdit = lastShownList.get(index.getZeroBased());
         Person editedPerson = new Person(
-                personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
-                classNumber, personToEdit.getStudentId(),
-                personToEdit.getGithub(), personToEdit.getTags(), personToEdit.getProgress());
+                personToEdit.getName(),
+                personToEdit.getPhone(),
+                personToEdit.getEmail(),
+                classNumber,
+                personToEdit.getStudentId(),
+                personToEdit.getGithub(),
+                personToEdit.getTags(),
+                personToEdit.getProgress()
+        );
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -96,7 +143,8 @@ public class ClassCommand extends Command {
 
         // state check
         ClassCommand otherClassCommand = (ClassCommand) other;
-        return index.equals(otherClassCommand.index)
-                && classNumber.equals(otherClassCommand.classNumber);
+        return Objects.equals(index, otherClassCommand.index)
+                && Objects.equals(studentId, otherClassCommand.studentId)
+                && Objects.equals(classNumber, otherClassCommand.classNumber);
     }
 }
