@@ -3,6 +3,7 @@ package tassist.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import tassist.address.commons.core.index.Index;
@@ -23,7 +24,8 @@ public class AssignCommand extends Command {
     public static final String COMMAND_WORD = "assign";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Assigns a timed event to one or more students identified by their index, student ID, or class number\n"
+            + ": Assigns a timed event to one or more students identified by by the index number "
+            + "used in the displayed person list., student ID, or class number\n"
             + "Parameters: TIMED_EVENT_INDEX (must be a positive integer) "
             + "STUDENT_INDEX (must be a positive integer) or STUDENT_ID or CLASS_NUMBER\n"
             + "Example: " + COMMAND_WORD + " 1 2"
@@ -158,9 +160,9 @@ public class AssignCommand extends Command {
         }
 
         AssignCommand otherAssignCommand = (AssignCommand) other;
-        return timedEventIndex.equals(otherAssignCommand.timedEventIndex)
-                && ((studentIndex != null && studentIndex.equals(otherAssignCommand.studentIndex))
-                || (studentId != null && studentId.equals(otherAssignCommand.studentId))
-                || (classNumber != null && classNumber.equals(otherAssignCommand.classNumber)));
+        return Objects.equals(timedEventIndex, otherAssignCommand.timedEventIndex)
+                && Objects.equals(studentIndex, otherAssignCommand.studentIndex)
+                && Objects.equals(studentId, otherAssignCommand.studentId)
+                && Objects.equals(classNumber, otherAssignCommand.classNumber);
     }
 }
