@@ -32,7 +32,7 @@ public class GithubCommand extends Command {
 
     public static final String MESSAGE_ADD_GITHUB_SUCCESS = "Added github to Person: %1$s";
     public static final String MESSAGE_DELETE_GITHUB_SUCCESS = "Removed github from Person: %1$s";
-    public static final String MESSAGE_EMPTY = "Github is empty.";
+    public static final String MESSAGE_DUPLICATE_GITHUB = "Error! This Github belongs to another person";
     public static final String MESSAGE_INVALID_GITHUB =
             "Invalid GitHub URL! The correct format is: https://github.com/{username}";
 
@@ -86,6 +86,7 @@ public class GithubCommand extends Command {
             }
             personToEdit = personOptional.get();
         }
+        checkDuplicates(model, personToEdit);
 
         Person editedPerson = new Person(
                 personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
@@ -96,6 +97,20 @@ public class GithubCommand extends Command {
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
         return new CommandResult(generateSuccessMessage(editedPerson));
+    }
+
+    /**
+     * Checks if Github link already belongs to another student
+     * @param personToEdit Github will be excluded
+     * @throws CommandException
+     */
+    private void checkDuplicates(Model model, Person personToEdit) throws CommandException {
+        List<Github> githubList = model.getFilteredPersonList().stream()
+                .filter(person -> !person.equals(personToEdit))
+                .map(person -> person.getGithub()).toList();
+        if (githubList.contains(github)) {
+            throw new CommandException(MESSAGE_DUPLICATE_GITHUB);
+        }
     }
 
     /**

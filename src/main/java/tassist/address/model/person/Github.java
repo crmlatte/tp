@@ -8,10 +8,12 @@ import static tassist.address.commons.util.AppUtil.checkArgument;
  */
 public class Github {
 
+    public static final String NO_GITHUB = "No Github assigned";
     private static final String SPECIAL_CHARACTERS = "/:.";
     public static final String MESSAGE_CONSTRAINTS =
             "Githubs links should be of the format https://github.com/{username} "
             + "in the form [github url]/username "
+            + "or 'No Github assigned' "
             + "and adhere to the following constraints:\n"
             + "1. The github url part should only contain alphanumeric characters "
             + "and these special characters, excluding "
@@ -30,7 +32,6 @@ public class Github {
     private static final String GITHUB_URL_REGEX = "^https://github\\.com/";
     private static final String USERNAME_REGEX = "[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*$";
     public static final String VALIDATION_REGEX = GITHUB_URL_REGEX + USERNAME_REGEX + "$";
-
     public final String value;
 
     /**
@@ -47,7 +48,7 @@ public class Github {
      * Returns if a given string is a valid github link.
      */
     public static boolean isValidGithub(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX) || test.matches(NO_GITHUB);
     }
 
     @Override

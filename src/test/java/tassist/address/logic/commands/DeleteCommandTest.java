@@ -2,12 +2,12 @@ package tassist.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tassist.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static tassist.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static tassist.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static tassist.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static tassist.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
@@ -18,6 +18,9 @@ import tassist.address.model.Model;
 import tassist.address.model.ModelManager;
 import tassist.address.model.UserPrefs;
 import tassist.address.model.person.Person;
+import tassist.address.model.person.StudentId;
+import tassist.address.testutil.PersonBuilder;
+import tassist.address.testutil.TypicalPersons;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
@@ -25,12 +28,27 @@ import tassist.address.model.person.Person;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(TypicalPersons.getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_showsConfirmationMessage() throws CommandException {
         Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
+
+        // Expected confirmation message
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_CONFIRM_DELETE, Messages.format(personToDelete));
+
+        // Ensure confirmation message is shown first
+        CommandResult commandResult = deleteCommand.execute(model);
+        assertEquals(expectedMessage, commandResult.getFeedbackToUser());
+        assertTrue(commandResult.requiresConfirmation());
+    }
+
+    @Test
+    public void execute_validStudentId_showsConfirmationMessage() throws CommandException {
+        Person personToDelete = new PersonBuilder().withName("Alice").withStudentId("A1239878D").build();
+        model.addPerson(personToDelete);
+        DeleteCommand deleteCommand = new DeleteCommand(new StudentId("A1239878D"));
 
         // Expected confirmation message
         String expectedMessage = String.format(DeleteCommand.MESSAGE_CONFIRM_DELETE, Messages.format(personToDelete));
@@ -150,6 +168,41 @@ public class DeleteCommandTest {
         // Step 2: Simulate invalid response
         CommandResult commandResult = new CommandResult("Invalid response. Please enter Y/N.");
         assertEquals(commandResult.getFeedbackToUser(), "Invalid response. Please enter Y/N.");
+    }
+
+    @Test
+    public void execute_invalidStudentId_throwsCommandException() {
+        StudentId invalidId = new StudentId("A9999999Z");
+        DeleteCommand command = new DeleteCommand(invalidId);
+
+        assertThrows(CommandException.class, () -> command.execute(model));
+    }
+
+    @Test
+    public void executeConfirmed_invalidStudentId_returnsErrorMessage() {
+        StudentId invalidId = new StudentId("A9999999Z");
+        DeleteCommand command = new DeleteCommand(invalidId);
+
+        CommandResult result = command.executeConfirmed(model);
+        assertEquals(Messages.MESSAGE_PERSON_NOT_FOUND + invalidId, result.getFeedbackToUser());
+    }
+
+    @Test
+    public void toString_withIndex_returnsCorrectFormat() {
+        Index index = Index.fromOneBased(2);
+        DeleteCommand command = new DeleteCommand(index);
+        String expected = "tassist.address.logic.commands.DeleteCommand{"
+                + "targetIndex=tassist.address.commons.core.index.Index{zeroBasedIndex=1}}";
+        assertEquals(expected, command.toString());
+    }
+
+    @Test
+    public void toString_withStudentId_returnsCorrectFormat() {
+        StudentId studentId = new StudentId("A1234567B");
+        DeleteCommand command = new DeleteCommand(studentId);
+        String expected = "tassist.address.logic.commands.DeleteCommand{"
+                + "targetStudentId=A1234567B}";
+        assertEquals(expected, command.toString());
     }
 
     @Test
