@@ -43,7 +43,7 @@ public class CommandTestUtil {
     public static final String VALID_TAG_FRIEND = "friend";
     public static final String VALID_PROGRESS_AMY = "60";
     public static final String VALID_PROGRESS_BOB = "80";
-    public static final String NONEXISTING_STUDENTID = "A9999999Z";
+    public static final String NONEXISTENT_STUDENTID = "A9999999Z";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;

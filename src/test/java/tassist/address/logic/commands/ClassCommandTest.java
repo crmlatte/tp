@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static tassist.address.logic.commands.CommandTestUtil.NONEXISTING_STUDENTID;
+import static tassist.address.logic.commands.CommandTestUtil.NONEXISTENT_STUDENTID;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_CLASS_AMY;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_CLASS_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_STUDENTID_AMY;
@@ -63,7 +63,7 @@ public class ClassCommandTest {
 
     @Test
     public void execute_studentIdNotFound_throwsCommandException() {
-        StudentId nonExistentStudentId = new StudentId(NONEXISTING_STUDENTID);
+        StudentId nonExistentStudentId = new StudentId(NONEXISTENT_STUDENTID);
         ClassNumber classNumber = new ClassNumber("T01");
 
         ClassCommand command = new ClassCommand(nonExistentStudentId, classNumber);
