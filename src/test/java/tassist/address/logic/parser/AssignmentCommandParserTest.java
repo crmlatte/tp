@@ -10,9 +10,9 @@ import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Test;
 
+import tassist.address.logic.Messages;
 import tassist.address.logic.commands.AssignmentCommand;
 import tassist.address.model.timedevents.Assignment;
-import tassist.address.logic.Messages;
 
 public class AssignmentCommandParserTest {
     private AssignmentCommandParser parser = new AssignmentCommandParser();
