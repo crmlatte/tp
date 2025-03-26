@@ -245,24 +245,24 @@
 }
 
 .calendar-view {
-    -fx-background-color: -background-color;
+    -fx-background-color: #fce4ec;
     -fx-padding: 10;
 }
 
 .calendar-grid {
-    -fx-background-color: -background-color;
+    -fx-background-color: #fce4ec;
     -fx-padding: 10;
 }
 
 .calendar-date {
-    -fx-text-fill: -text-color;
+    -fx-text-fill: #880e4f;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-padding: 5 10;
 }
 
 .calendar-events {
-    -fx-background-color: -card-color;
+    -fx-background-color: #f8bbd0;
     -fx-padding: 10;
     -fx-background-radius: 5;
     -fx-spacing: 5;
@@ -270,14 +270,14 @@
 }
 
 .calendar-event {
-    -fx-text-fill: -text-color;
+    -fx-text-fill: #880e4f;
     -fx-font-size: 12px;
     -fx-padding: 5;
-    -fx-background-color: -menu-color;
+    -fx-background-color: #f48fb1;
     -fx-background-radius: 3;
 }
 
 .calendar-event-list {
-    -fx-background-color: -background-color;
+    -fx-background-color: #fce4ec;
     -fx-padding: 10;
 }

@@ -150,3 +150,42 @@
     -fx-padding: 8 20;
     -fx-background-radius: 6;
 }
+
+/* Calendar View Base Structure */
+.calendar-view {
+    -fx-padding: 10;
+}
+
+.calendar-grid {
+    -fx-padding: 10;
+}
+
+.calendar-date {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 5 10;
+}
+
+.calendar-events {
+    -fx-padding: 10;
+    -fx-background-radius: 5;
+    -fx-spacing: 5;
+}
+
+.calendar-event {
+    -fx-font-size: 12px;
+    -fx-padding: 5;
+    -fx-background-radius: 3;
+}
+
+.calendar-event-list {
+    -fx-padding: 10;
+}
+
+.calendar-scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.calendar-scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}

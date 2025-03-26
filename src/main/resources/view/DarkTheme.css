@@ -1,14 +1,26 @@
+@import "BaseTheme.css";
+
+/* Color Variables */
+* {
+    -background-color: #1a1a1a;
+    -card-color: #2d2d2d;
+    -menu-color: #4a9eff;
+    -text-color: white;
+    -text-light: #888888;
+    -hover-color: #333333;
+}
+
 .root {
-    -fx-background-color: #1a1a1a;
+    -fx-background-color: -background-color;
     -fx-font-family: "Segoe UI", "Arial", sans-serif;
 }
 
 .background {
-    -fx-background-color: #1a1a1a;
+    -fx-background-color: -background-color;
 }
 
 .pane-with-border {
-    -fx-background-color: #1a1a1a;
+    -fx-background-color: -background-color;
     -fx-border-width: 0;
 }
 
@@ -23,7 +35,7 @@
 }
 
 .list-view {
-    -fx-background-color: #1a1a1a;
+    -fx-background-color: -background-color;
     -fx-background-insets: 0;
     -fx-padding: 8;
     -fx-border-width: 0;
@@ -43,29 +55,29 @@
 }
 
 .person-card {
-    -fx-background-color: #2d2d2d;
+    -fx-background-color: -card-color;
     -fx-padding: 16;
     -fx-spacing: 10;
     -fx-background-radius: 8;
 }
 
 .person-card:hover {
-    -fx-background-color: #333333;
+    -fx-background-color: -hover-color;
 }
 
 .person-card .id {
-    -fx-text-fill: #888888;
+    -fx-text-fill: -text-light;
     -fx-font-size: 14px;
 }
 
 .person-card .name {
     -fx-font-size: 16px;
     -fx-font-weight: bold;
-    -fx-text-fill: white;
+    -fx-text-fill: -text-color;
 }
 
 .person-card .details-label {
-    -fx-text-fill: #e0e0e0;
+    -fx-text-fill: -text-color;
     -fx-font-size: 14px;
     -fx-padding: 2 0;
 }
@@ -76,16 +88,16 @@
 }
 
 .person-card .tags .label {
-    -fx-background-color: #4a9eff;
-    -fx-text-fill: white;
+    -fx-background-color: -menu-color;
+    -fx-text-fill: -text-color;
     -fx-padding: 4 12;
     -fx-background-radius: 12;
     -fx-font-size: 12px;
 }
 
 .button {
-    -fx-background-color: #4a9eff;
-    -fx-text-fill: white;
+    -fx-background-color: -menu-color;
+    -fx-text-fill: -text-color;
     -fx-padding: 8 20;
     -fx-background-radius: 6;
     -fx-cursor: hand;
@@ -93,23 +105,23 @@
 }
 
 .button:hover {
-    -fx-background-color: #3d84d9;
+    -fx-background-color: derive(-menu-color, -10%);
 }
 
 .text-field {
-    -fx-background-color: #2d2d2d;
+    -fx-background-color: -card-color;
     -fx-background-radius: 6;
     -fx-padding: 8 12;
     -fx-font-size: 14px;
-    -fx-text-fill: white;
+    -fx-text-fill: -text-color;
 }
 
 .text-field:focused {
-    -fx-background-color: #333333;
+    -fx-background-color: -hover-color;
 }
 
 .text-area {
-    -fx-background-color: #2d2d2d;
+    -fx-background-color: -card-color;
     -fx-background-radius: 6;
     -fx-padding: 8;
     -fx-wrap-text: true;
@@ -118,14 +130,14 @@
 }
 
 .text-area .content {
-    -fx-background-color: #2d2d2d;
+    -fx-background-color: -card-color;
     -fx-background-radius: 6;
     -fx-padding: 0;
     -fx-background-insets: 0;
 }
 
 .text-area:focused {
-    -fx-background-color: #333333;
+    -fx-background-color: -hover-color;
 }
 
 .text-area .viewport {
@@ -133,34 +145,34 @@
 }
 
 .menu-bar {
-    -fx-background-color: #2d2d2d;
+    -fx-background-color: -card-color;
     -fx-padding: 2;
 }
 
 .menu-bar .label {
-    -fx-text-fill: white;
+    -fx-text-fill: -text-color;
 }
 
 .menu-bar .menu:hover {
-    -fx-background-color: #333333;
+    -fx-background-color: -hover-color;
 }
 
 .menu-item {
-    -fx-background-color: #2d2d2d;
+    -fx-background-color: -card-color;
     -fx-padding: 8 16;
 }
 
 .menu-item .label {
-    -fx-text-fill: white;
+    -fx-text-fill: -text-color;
 }
 
 .menu-item:hover {
-    -fx-background-color: #333333;
+    -fx-background-color: -hover-color;
 }
 
 .status-bar {
-    -fx-background-color: #1a1a1a;
-    -fx-text-fill: #888888;
+    -fx-background-color: -background-color;
+    -fx-text-fill: -text-light;
     -fx-padding: 8;
     -fx-font-size: 12px;
 }
@@ -168,15 +180,15 @@
 #resultDisplay {
     -fx-font-family: "Segoe UI", "Arial", sans-serif;
     -fx-font-size: 14px;
-    -fx-text-fill: white;
-    -fx-background-color: #2d2d2d;
+    -fx-text-fill: -text-color;
+    -fx-background-color: -card-color;
     -fx-background-radius: 6;
     -fx-padding: 8;
     -fx-background-insets: 0;
 }
 
 #resultDisplay .content {
-    -fx-background-color: #2d2d2d;
+    -fx-background-color: -card-color;
     -fx-background-radius: 6;
     -fx-background-insets: 0;
 }
@@ -196,33 +208,33 @@
 }
 
 #resultDisplay .scroll-pane .content {
-    -fx-background-color: #2d2d2d;
+    -fx-background-color: -card-color;
     -fx-background-radius: 6;
     -fx-background-insets: 0;
 }
 
 /* Alert Dialog Styling */
 .dialog-pane {
-    -fx-background-color: #2d2d2d;
+    -fx-background-color: -card-color;
 }
 
 .dialog-pane > .content.label {
     -fx-font-size: 14px;
-    -fx-text-fill: white;
+    -fx-text-fill: -text-color;
 }
 
 .dialog-pane:header .header-panel {
-    -fx-background-color: #2d2d2d;
+    -fx-background-color: -card-color;
 }
 
 .dialog-pane:header .header-panel .label {
     -fx-font-size: 16px;
-    -fx-text-fill: white;
+    -fx-text-fill: -text-color;
 }
 
 .dialog-pane .button {
-    -fx-background-color: #4a9eff;
-    -fx-text-fill: white;
+    -fx-background-color: -menu-color;
+    -fx-text-fill: -text-color;
     -fx-wrap-text: true;
     -fx-cursor: hand;
     -fx-padding: 8 20;
@@ -230,18 +242,18 @@
 }
 
 .dialog-pane .button:hover {
-    -fx-background-color: #3d84d9;
+    -fx-background-color: derive(-menu-color, -10%);
 }
 
 /* Scrollbar Styling */
 .scroll-bar {
-    -fx-background-color: #2d2d2d;
+    -fx-background-color: -card-color;
     -fx-background-radius: 0;
 }
 
 .scroll-bar:vertical .track,
 .scroll-bar:horizontal .track {
-    -fx-background-color: #2d2d2d;
+    -fx-background-color: -card-color;
     -fx-border-color: transparent;
     -fx-background-radius: 0;
 }
@@ -261,7 +273,7 @@
 .scroll-bar:vertical .decrement-button,
 .scroll-bar:horizontal .increment-button,
 .scroll-bar:horizontal .decrement-button {
-    -fx-background-color: #2d2d2d;
+    -fx-background-color: -card-color;
     -fx-padding: 4;
 }
 
@@ -343,37 +355,34 @@ Stage {
 
 .calendar-view {
     -fx-background-color: #2b2b2b;
-    -fx-padding: 10;
 }
 
 .calendar-grid {
     -fx-background-color: #2b2b2b;
-    -fx-padding: 10;
 }
 
 .calendar-date {
     -fx-text-fill: white;
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-    -fx-padding: 5 10;
 }
 
 .calendar-events {
     -fx-background-color: #3c3f41;
-    -fx-padding: 10;
-    -fx-background-radius: 5;
-    -fx-spacing: 5;
 }
 
 .calendar-event {
     -fx-text-fill: white;
-    -fx-font-size: 12px;
-    -fx-padding: 5;
     -fx-background-color: #4a4a4a;
-    -fx-background-radius: 3;
 }
 
 .calendar-event-list {
     -fx-background-color: #2b2b2b;
-    -fx-padding: 10;
+}
+
+/* Calendar View Styles */
+.calendar-scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.calendar-scroll-pane > .viewport {
+    -fx-background-color: transparent;
 }

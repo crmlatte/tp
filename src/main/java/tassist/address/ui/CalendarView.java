@@ -9,10 +9,8 @@ import javafx.scene.layout.StackPane;
 import tassist.address.model.timedevents.TimedEvent;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.ArrayList;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * A UI component that displays timed events in a calendar format.
@@ -40,18 +38,27 @@ public class CalendarView extends UiPart<Region> {
         calendarGrid.getChildren().clear();
         eventList.getChildren().clear();
 
-        // Group events by date
-        Map<String, List<TimedEvent>> eventsByDate = new HashMap<>();
-        for (TimedEvent event : events) {
-            String date = event.getTime().format(DATE_FORMATTER);
-            eventsByDate.computeIfAbsent(date, k -> new ArrayList<>()).add(event);
+        // Sort events by date
+        List<TimedEvent> sortedEvents = events.stream()
+                .sorted((e1, e2) -> e1.getTime().compareTo(e2.getTime()))
+                .collect(Collectors.toList());
+
+        // Group events by date using a TreeMap with custom comparator for reverse chronological order
+        Map<LocalDateTime, List<TimedEvent>> eventsByDate = new TreeMap<>((d1, d2) -> d1.compareTo(d2));
+        
+        for (TimedEvent event : sortedEvents) {
+            LocalDateTime eventDate = event.getTime().toLocalDate().atStartOfDay();
+            eventsByDate.computeIfAbsent(eventDate, k -> new ArrayList<>()).add(event);
         }
 
         // Create calendar grid
         int row = 0;
-        for (Map.Entry<String, List<TimedEvent>> entry : eventsByDate.entrySet()) {
-            String date = entry.getKey();
+        for (Map.Entry<LocalDateTime, List<TimedEvent>> entry : eventsByDate.entrySet()) {
+            String date = entry.getKey().format(DATE_FORMATTER);
             List<TimedEvent> dayEvents = entry.getValue();
+
+            // Sort events within the day by time
+            dayEvents.sort((e1, e2) -> e1.getTime().compareTo(e2.getTime()));
 
             // Date header
             Label dateLabel = new Label(date);
