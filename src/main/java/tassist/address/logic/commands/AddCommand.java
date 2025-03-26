@@ -40,7 +40,7 @@ public class AddCommand extends Command {
             + PREFIX_PHONE + "98765432 "
             + PREFIX_EMAIL + "johnd@example.com "
             + PREFIX_STUDENT_ID + "A0000000B "
-            + PREFIX_PROJECT_TEAM + "TAssist"
+            + PREFIX_PROJECT_TEAM + "TAssist "
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney "
             + PREFIX_PROGRESS + "50\n"
