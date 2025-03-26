@@ -33,7 +33,6 @@ import tassist.address.model.ModelManager;
 import tassist.address.model.ReadOnlyAddressBook;
 import tassist.address.model.UserPrefs;
 import tassist.address.model.person.Person;
-import tassist.address.model.person.ProjectTeam;
 import tassist.address.storage.JsonAddressBookStorage;
 import tassist.address.storage.JsonUserPrefsStorage;
 import tassist.address.storage.StorageManager;
