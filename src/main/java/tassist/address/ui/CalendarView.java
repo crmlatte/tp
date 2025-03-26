@@ -2,7 +2,7 @@ package tassist.address.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
@@ -24,10 +24,7 @@ public class CalendarView extends UiPart<Region> {
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     @FXML
-    private GridPane calendarGrid;
-
-    @FXML
-    private VBox eventList;
+    private HBox calendarGrid;
 
     private final Logic logic;
 
@@ -42,14 +39,13 @@ public class CalendarView extends UiPart<Region> {
      */
     public void updateEvents(List<TimedEvent> events) {
         calendarGrid.getChildren().clear();
-        eventList.getChildren().clear();
 
         // Sort events by date
         List<TimedEvent> sortedEvents = events.stream()
                 .sorted((e1, e2) -> e1.getTime().compareTo(e2.getTime()))
                 .collect(Collectors.toList());
 
-        // Group events by date using a TreeMap with custom comparator for reverse chronological order
+        // Group events by date using a TreeMap with custom comparator for chronological order
         Map<LocalDateTime, List<TimedEvent>> eventsByDate = new TreeMap<>((d1, d2) -> d1.compareTo(d2));
         
         for (TimedEvent event : sortedEvents) {
@@ -58,7 +54,6 @@ public class CalendarView extends UiPart<Region> {
         }
 
         // Create calendar grid
-        int row = 0;
         for (Map.Entry<LocalDateTime, List<TimedEvent>> entry : eventsByDate.entrySet()) {
             String date = entry.getKey().format(DATE_FORMATTER);
             List<TimedEvent> dayEvents = entry.getValue();
@@ -66,19 +61,24 @@ public class CalendarView extends UiPart<Region> {
             // Sort events within the day by time
             dayEvents.sort((e1, e2) -> e1.getTime().compareTo(e2.getTime()));
 
+            // Create a column for this date
+            VBox dateColumn = new VBox(10);
+            dateColumn.getStyleClass().add("calendar-date-column");
+            dateColumn.setMinWidth(250); // Set minimum width for each date column
+
             // Date header
             Label dateLabel = new Label(date);
             dateLabel.getStyleClass().add("calendar-date");
-            calendarGrid.add(dateLabel, 0, row);
+            dateColumn.getChildren().add(dateLabel);
 
             // Events for the day
-            VBox dayEventsBox = new VBox(5);
+            VBox dayEventsBox = new VBox(8);
             dayEventsBox.getStyleClass().add("calendar-events");
             for (TimedEvent event : dayEvents) {
                 VBox eventBox = new VBox(2);
                 eventBox.getStyleClass().add("calendar-event");
 
-                // Event name
+                // Event name and type
                 TextFlow nameFlow = new TextFlow();
                 Text nameText = new Text(event.getName());
                 nameText.getStyleClass().add("event-name");
@@ -113,9 +113,8 @@ public class CalendarView extends UiPart<Region> {
 
                 dayEventsBox.getChildren().add(eventBox);
             }
-            calendarGrid.add(dayEventsBox, 1, row);
-
-            row++;
+            dateColumn.getChildren().add(dayEventsBox);
+            calendarGrid.getChildren().add(dateColumn);
         }
     }
 
