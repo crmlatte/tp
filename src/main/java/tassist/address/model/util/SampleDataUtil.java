@@ -44,7 +44,7 @@ public class SampleDataUtil {
                     new ClassNumber("R10"), new StudentId("A8529637G"), DEFAULT_GITHUB, new ProjectTeam("Rawrness"),
                     getTagSet("classmates"), new Progress("60")),
             new Person(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
-                    new ClassNumber("T04"), new StudentId("A3210987E"), DEFAULT_GITHUB,  new ProjectTeam("WealthVault"),
+                    new ClassNumber("T04"), new StudentId("A3210987E"), DEFAULT_GITHUB, new ProjectTeam("WealthVault"),
                     getTagSet("colleagues"), new Progress("77"))
         };
     }

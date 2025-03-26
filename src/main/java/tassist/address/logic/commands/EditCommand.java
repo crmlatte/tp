@@ -7,9 +7,9 @@ import static tassist.address.logic.parser.CliSyntax.PREFIX_GITHUB;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_PROGRESS;
+import static tassist.address.logic.parser.CliSyntax.PREFIX_PROJECT_TEAM;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_STUDENT_ID;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static tassist.address.logic.parser.CliSyntax.PREFIX_PROJECT_TEAM;
 import static tassist.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
@@ -118,7 +118,7 @@ public class EditCommand extends Command {
         Progress updatedProgress = editPersonDescriptor.getProgress().orElse(personToEdit.getProgress());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedClassNumber,
-                updatedStudentId, updatedGithub,updatedTeam, updatedTags, updatedProgress);
+                updatedStudentId, updatedGithub, updatedTeam, updatedTags, updatedProgress);
     }
 
     @Override

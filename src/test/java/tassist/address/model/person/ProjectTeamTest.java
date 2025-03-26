@@ -28,10 +28,12 @@ public class ProjectTeamTest {
         assertFalse(ProjectTeam.isValidProjectTeam("")); // empty string
         assertFalse(ProjectTeam.isValidProjectTeam(" ")); // a whitespace
 
-
         // valid name
         assertTrue(ProjectTeam.isValidProjectTeam("weatl")); // all alphabets
         assertTrue(ProjectTeam.isValidProjectTeam("1389")); // all numbers
+        assertTrue(ProjectTeam.isValidProjectTeam("%$")); // special characters
+        assertTrue(ProjectTeam.isValidProjectTeam("YOYO1389")); // alphanumeric characters
+        assertTrue(ProjectTeam.isValidProjectTeam("$doLla23"));
     }
 
     @Test
