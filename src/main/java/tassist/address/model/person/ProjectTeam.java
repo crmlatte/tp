@@ -9,8 +9,9 @@ import static tassist.address.commons.util.AppUtil.checkArgument;
 public class ProjectTeam {
 
     public static final String MESSAGE_CONSTRAINTS = "Project Team can take any values but should not be blank";
+    public static final String NO_PROJECT_TEAM = "No Github assigned";
 
-    /*
+    /**
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
@@ -25,14 +26,14 @@ public class ProjectTeam {
      */
     public ProjectTeam(String projectTeam) {
         requireNonNull(projectTeam);
-        checkArgument(isValidTeam(projectTeam), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidProjectTeam(projectTeam), MESSAGE_CONSTRAINTS);
         value = projectTeam;
     }
 
     /**
      * Returns true if a given string is a valid projectTeam string.
      */
-    public static boolean isValidTeam(String test) {
+    public static boolean isValidProjectTeam(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
