@@ -28,4 +28,4 @@
             <Label fx:id="remainingTime" styleClass="cell_small_label" text="\$remainingTime" />
         </VBox>
     </GridPane>
-</HBox> 
+</HBox>
