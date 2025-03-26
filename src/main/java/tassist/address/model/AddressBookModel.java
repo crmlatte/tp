@@ -22,6 +22,8 @@ public class AddressBookModel implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final SortedList<Person> sortedPersons;
+    private final FilteredList<TimedEvent> filteredTimedEvents;
+    private final SortedList<TimedEvent> sortedTimedEvents;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -34,6 +36,8 @@ public class AddressBookModel implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         sortedPersons = new SortedList<>(filteredPersons);
+        filteredTimedEvents = new FilteredList<>(this.addressBook.getTimedEventList());
+        sortedTimedEvents = new SortedList<>(filteredTimedEvents);
     }
 
     public AddressBookModel() {
@@ -106,11 +110,10 @@ public class AddressBookModel implements Model {
 
     @Override
     public void setPerson(Person target, Person editedPerson) {
+        requireNonNull(target);
         requireNonNull(editedPerson);
         addressBook.setPerson(target, editedPerson);
     }
-
-    //=========== TimedEvent ================================================================================
 
     @Override
     public boolean hasTimedEvent(TimedEvent timedEvent) {
@@ -121,6 +124,7 @@ public class AddressBookModel implements Model {
     @Override
     public void addTimedEvent(TimedEvent timedEvent) {
         addressBook.addTimedEvent(timedEvent);
+        updateFilteredTimedEventList(PREDICATE_SHOW_ALL_TIMED_EVENTS);
     }
 
     @Override
@@ -133,12 +137,23 @@ public class AddressBookModel implements Model {
         return addressBook.getTimedEventList();
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    @Override
+    public ObservableList<TimedEvent> getFilteredTimedEventList() {
+        return sortedTimedEvents;
+    }
 
-    /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
-     */
+    @Override
+    public void updateFilteredTimedEventList(Predicate<TimedEvent> predicate) {
+        requireNonNull(predicate);
+        filteredTimedEvents.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateSortedTimedEventList(Comparator<TimedEvent> comparator) {
+        requireNonNull(comparator);
+        sortedTimedEvents.setComparator(comparator);
+    }
+
     @Override
     public ObservableList<Person> getFilteredPersonList() {
         return sortedPersons;
@@ -173,11 +188,11 @@ public class AddressBookModel implements Model {
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons)
-                && sortedPersons.equals(other.sortedPersons);
+                && filteredTimedEvents.equals(other.filteredTimedEvents);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(addressBook, userPrefs, filteredPersons, sortedPersons);
+        return Objects.hash(addressBook, userPrefs, filteredPersons, filteredTimedEvents);
     }
 }

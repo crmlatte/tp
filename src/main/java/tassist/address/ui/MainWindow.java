@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -37,6 +38,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private CommandBox commandBox;
+    private CalendarView calendarView;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -55,6 +57,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private SplitPane splitPane;
 
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
@@ -122,6 +127,8 @@ public class MainWindow extends UiPart<Stage> {
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        calendarView = new CalendarView(logic.getTimedEventList());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
@@ -215,6 +222,56 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    @FXML
+    private void handleStudentCardsView() {
+        // Restore person list panel and split pane position
+        personListPanelPlaceholder.getChildren().clear();
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        splitPane.lookupAll(".split-pane-divider").forEach(div -> div.setVisible(true));
+        splitPane.setDividerPositions(0.35);
+        
+        // Restore result display
+        resultDisplayPlaceholder.getChildren().clear();
+        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+        
+        // Restore command box and send button
+        commandBoxPlaceholder.getChildren().clear();
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+        
+        Button sendButton = new Button("Send");
+        sendButton.setOnAction(event -> {
+            try {
+                String commandText = commandBox.getCommandText();
+                if (!commandText.isEmpty()) {
+                    executeCommand(commandText);
+                    commandBox.clearCommandText();
+                }
+            } catch (CommandException | ParseException e) {
+                logger.warning("Error executing command: " + e.getMessage());
+                resultDisplay.setFeedbackToUser(e.getMessage());
+            }
+        });
+        sendButtonPlaceholder.getChildren().clear();
+        sendButtonPlaceholder.getChildren().add(sendButton);
+    }
+
+    @FXML
+    private void handleCalendarView() {
+        // Hide the person list panel and collapse the split pane
+        personListPanelPlaceholder.getChildren().clear();
+        splitPane.setDividerPositions(0.0);
+        splitPane.lookupAll(".split-pane-divider").forEach(div -> div.setVisible(false));
+        
+        // Clear and show calendar in the main area
+        resultDisplayPlaceholder.getChildren().clear();
+        resultDisplayPlaceholder.getChildren().add(calendarView.getRoot());
+        calendarView.updateEvents(logic.getTimedEventList());
+        
+        // Hide command box and send button
+        commandBoxPlaceholder.getChildren().clear();
+        sendButtonPlaceholder.getChildren().clear();
     }
 
     @FXML

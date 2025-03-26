@@ -29,6 +29,10 @@
           <Menu mnemonicParsing="false" text="File">
             <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
           </Menu>
+          <Menu mnemonicParsing="false" text="View">
+            <MenuItem mnemonicParsing="false" onAction="#handleStudentCardsView" text="Student Cards" />
+            <MenuItem mnemonicParsing="false" onAction="#handleCalendarView" text="Calendar" />
+          </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
           </Menu>
@@ -39,9 +43,9 @@
           </Menu>
         </MenuBar>
 
-        <SplitPane VBox.vgrow="ALWAYS" dividerPositions="0.35">
+        <SplitPane fx:id="splitPane" VBox.vgrow="ALWAYS" dividerPositions="0.35">
           <!-- Left side: Student List -->
-          <VBox fx:id="personList" styleClass="pane-with-border" minWidth="200" prefWidth="250">
+          <VBox fx:id="personList" styleClass="pane-with-border" minWidth="0" prefWidth="250">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
@@ -54,7 +58,7 @@
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
             <StackPane fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
-                      VBox.vgrow="ALWAYS">
+                      VBox.vgrow="ALWAYS" minWidth="400">
               <padding>
                 <Insets top="10" right="10" bottom="10" left="10" />
               </padding>

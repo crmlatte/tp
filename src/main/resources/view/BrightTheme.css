@@ -291,3 +291,41 @@
 .dialog-pane .button:hover {
     -fx-opacity: -hover-opacity;
 }
+
+.calendar-view {
+    -fx-background-color: -background-color;
+    -fx-padding: 10;
+}
+
+.calendar-grid {
+    -fx-background-color: -background-color;
+    -fx-padding: 10;
+}
+
+.calendar-date {
+    -fx-text-fill: -text-color;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 5 10;
+}
+
+.calendar-events {
+    -fx-background-color: -card-color;
+    -fx-padding: 10;
+    -fx-background-radius: 5;
+    -fx-spacing: 5;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 8, 0, 0, 1);
+}
+
+.calendar-event {
+    -fx-text-fill: -text-color;
+    -fx-font-size: 12px;
+    -fx-padding: 5;
+    -fx-background-color: -menu-color;
+    -fx-background-radius: 3;
+}
+
+.calendar-event-list {
+    -fx-background-color: -background-color;
+    -fx-padding: 10;
+}
