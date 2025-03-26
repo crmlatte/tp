@@ -120,7 +120,10 @@ public class Person {
         }
 
         Person otherPerson = (Person) other;
-        return studentId.equals(otherPerson.studentId);
+        return  name.equals(otherPerson.name)
+                && email.equals(otherPerson.email)
+                && studentId.equals(otherPerson.studentId)
+                && github.equals(otherPerson.github);
     }
 
     @Override

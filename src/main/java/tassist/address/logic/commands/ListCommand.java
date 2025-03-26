@@ -126,11 +126,11 @@ public class ListCommand extends Command {
         }
         case "team" -> {
             boolean hasTeam = model.getFilteredPersonList().stream()
-                    .anyMatch(p -> p.getProjectTeam().toString().equalsIgnoreCase(filterValue));
+                    .anyMatch(p -> p.getProjectTeam().value.equalsIgnoreCase(filterValue));
             if (!hasTeam) {
                 throw new CommandException(MESSAGE_INVALID_FILTER_VALUE);
             }
-            yield p -> p.getProjectTeam().toString().equals(filterValue);
+            yield p -> p.getProjectTeam().value.equals(filterValue);
         }
         case "progress" -> {
             int filterProgress;
