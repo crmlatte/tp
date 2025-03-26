@@ -66,6 +66,7 @@ public class EditPersonDescriptorTest {
                 + editPersonDescriptor.getEmail().orElse(null) + ", classNumber="
                 + editPersonDescriptor.getClassNumber().orElse(null) + ", studentId="
                 + editPersonDescriptor.getStudentId().orElse(null) + ", github="
+                + editPersonDescriptor.getProjectTeam().orElse(null) + ", project_team="
                 + editPersonDescriptor.getGithub().orElse(null) + ", tags="
                 + editPersonDescriptor.getTags().orElse(null) + ", progress="
                 + editPersonDescriptor.getProgress().orElse(null) + "}";
