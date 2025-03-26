@@ -7,7 +7,7 @@ import static tassist.address.logic.parser.CliSyntax.PREFIX_GITHUB;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_PROGRESS;
-import static tassist.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
+import static tassist.address.logic.parser.CliSyntax.PREFIX_STUDENT_ID;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static tassist.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
@@ -49,7 +49,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_CLASS + "CLASS NUMBER] "
-            + "[" + PREFIX_STUDENTID + "STUDENTID] "
+            + "[" + PREFIX_STUDENT_ID + "STUDENTID] "
             + "[" + PREFIX_GITHUB + "GITHUB]"
             + "[" + PREFIX_TAG + "TAG]... "
             + "[" + PREFIX_PROGRESS + "PROGRESS]\n"

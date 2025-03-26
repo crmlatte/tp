@@ -16,7 +16,6 @@ import tassist.address.model.tag.Tag;
  */
 public class Person {
     public static final String PLACEHOLDER_COURSE = "placeholder";
-    public static final String PLACEHOLDER_TEAM = "placeholder";
 
     // Identity fields
     private final Name name;
@@ -28,13 +27,14 @@ public class Person {
     private final Progress progress;
     private final Set<Tag> tags = new HashSet<>();
     private final Github github;
+    private final ProjectTeam team;
 
     /**
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, ClassNumber classNumber,
-                StudentId studentId, Github github, Set<Tag> tags, Progress progress) {
-        requireAllNonNull(name, phone, email, classNumber, studentId, github, tags, progress);
+                StudentId studentId, Github github, ProjectTeam team, Set<Tag> tags, Progress progress) {
+        requireAllNonNull(name, phone, email, classNumber, studentId, github, team, tags, progress);
 
         this.name = name;
         this.phone = phone;
@@ -42,6 +42,7 @@ public class Person {
         this.classNumber = classNumber;
         this.studentId = studentId;
         this.github = github;
+        this.team = team;
         this.tags.addAll(tags);
         this.progress = progress;
     }
@@ -78,8 +79,8 @@ public class Person {
         return PLACEHOLDER_COURSE;
     }
 
-    public String getTeam() {
-        return PLACEHOLDER_TEAM;
+    public ProjectTeam getTeam() {
+        return team;
     }
 
     /**
