@@ -233,6 +233,7 @@ public class EditCommand extends Command {
         public Optional<Github> getGithub() {
             return Optional.ofNullable(github);
         }
+
         public void setProjectTeam(ProjectTeam projectTeam) {
             this.projectTeam = projectTeam;
         }

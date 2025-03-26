@@ -9,6 +9,8 @@ import static tassist.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_PROGRESS_BOB;
+import static tassist.address.logic.commands.CommandTestUtil.VALID_PROJECT_TEAM_BOB;
+import static tassist.address.logic.commands.CommandTestUtil.VALID_STUDENTID_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
 import org.junit.jupiter.api.Test;
@@ -48,6 +50,14 @@ public class EditPersonDescriptorTest {
         editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withEmail(VALID_EMAIL_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
+        // different studentId -> return false
+        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withStudentId(VALID_STUDENTID_BOB).build();
+        assertFalse(DESC_AMY.equals(editedAmy));
+
+        // different project team -> return false
+        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withProjectTeam(VALID_PROJECT_TEAM_BOB).build();
+        assertFalse(DESC_AMY.equals(editedAmy));
+
         // different tags -> returns false
         editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withTags(VALID_TAG_HUSBAND).build();
         assertFalse(DESC_AMY.equals(editedAmy));
@@ -55,6 +65,7 @@ public class EditPersonDescriptorTest {
         // different progress -> returns false
         editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withProgress(VALID_PROGRESS_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
+
     }
 
     @Test
@@ -66,8 +77,8 @@ public class EditPersonDescriptorTest {
                 + editPersonDescriptor.getEmail().orElse(null) + ", classNumber="
                 + editPersonDescriptor.getClassNumber().orElse(null) + ", studentId="
                 + editPersonDescriptor.getStudentId().orElse(null) + ", github="
-                + editPersonDescriptor.getProjectTeam().orElse(null) + ", project_team="
-                + editPersonDescriptor.getGithub().orElse(null) + ", tags="
+                + editPersonDescriptor.getGithub().orElse(null) + ", project_team="
+                + editPersonDescriptor.getProjectTeam().orElse(null) + ", tags="
                 + editPersonDescriptor.getTags().orElse(null) + ", progress="
                 + editPersonDescriptor.getProgress().orElse(null) + "}";
         assertEquals(expected, editPersonDescriptor.toString());

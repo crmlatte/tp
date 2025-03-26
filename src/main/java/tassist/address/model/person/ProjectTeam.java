@@ -9,7 +9,7 @@ import static tassist.address.commons.util.AppUtil.checkArgument;
 public class ProjectTeam {
 
     public static final String MESSAGE_CONSTRAINTS = "Project Team can take any values but should not be blank";
-    public static final String NO_PROJECT_TEAM = "No Github assigned";
+    public static final String NO_PROJECT_TEAM = "No project team assigned";
 
     /**
      * The first character of the project team must not be a whitespace,
@@ -34,7 +34,7 @@ public class ProjectTeam {
      * Returns true if a given string is a valid projectTeam string.
      */
     public static boolean isValidProjectTeam(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX) || test.matches(NO_PROJECT_TEAM);
     }
 
     @Override

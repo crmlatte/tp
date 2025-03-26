@@ -27,7 +27,7 @@ public class PersonBuilder {
     public static final String DEFAULT_STUDENT_ID = "A0000000B";
     public static final String DEFAULT_GITHUB = "No Github assigned";
     public static final String DEFAULT_PROGRESS = "0";
-    public static final String DEFAULT_PROJECT_TEAM = "No Team Assigned";
+    public static final String DEFAULT_PROJECT_TEAM = "No project team assigned";
 
     private Name name;
     private Phone phone;
