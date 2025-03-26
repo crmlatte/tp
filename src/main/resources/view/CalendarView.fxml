@@ -9,4 +9,4 @@
             <HBox fx:id="calendarGrid" spacing="20" styleClass="calendar-grid"/>
         </VBox>
     </ScrollPane>
-</StackPane> 
+</StackPane>
