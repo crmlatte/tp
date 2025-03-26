@@ -43,41 +43,47 @@
           </Menu>
         </MenuBar>
 
-        <SplitPane fx:id="splitPane" VBox.vgrow="ALWAYS" dividerPositions="0.35">
-          <!-- Left side: Student List -->
-          <VBox fx:id="personList" styleClass="pane-with-border" minWidth="0" prefWidth="250">
-            <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
-            </padding>
-            <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-          </VBox>
-
-          <!-- Right side: Details and Command -->
-          <VBox spacing="10">
-            <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
-            </padding>
-            <StackPane fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
-                      VBox.vgrow="ALWAYS" minWidth="400">
+        <StackPane fx:id="mainContent" VBox.vgrow="ALWAYS">
+          <!-- Split pane for student view -->
+          <SplitPane fx:id="splitPane" VBox.vgrow="ALWAYS" dividerPositions="0.35">
+            <!-- Left side: Student List -->
+            <VBox fx:id="personList" styleClass="pane-with-border" minWidth="0" prefWidth="250">
               <padding>
                 <Insets top="10" right="10" bottom="10" left="10" />
               </padding>
-            </StackPane>
+              <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+            </VBox>
 
-            <HBox spacing="10" VBox.vgrow="NEVER">
-              <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
+            <!-- Right side: Details and Command -->
+            <VBox spacing="10">
+              <padding>
+                <Insets top="10" right="10" bottom="10" left="10" />
+              </padding>
+              <StackPane fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
+                        VBox.vgrow="ALWAYS" minWidth="400">
                 <padding>
-                  <Insets top="5" right="10" bottom="5" left="10" />
+                  <Insets top="10" right="10" bottom="10" left="10" />
                 </padding>
               </StackPane>
-              <StackPane fx:id="sendButtonPlaceholder" styleClass="pane-with-border">
-                <padding>
-                  <Insets top="5" right="10" bottom="5" left="10" />
-                </padding>
-              </StackPane>
-            </HBox>
-          </VBox>
-        </SplitPane>
+
+              <HBox spacing="10" VBox.vgrow="NEVER">
+                <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
+                  <padding>
+                    <Insets top="5" right="10" bottom="5" left="10" />
+                  </padding>
+                </StackPane>
+                <StackPane fx:id="sendButtonPlaceholder" styleClass="pane-with-border">
+                  <padding>
+                    <Insets top="5" right="10" bottom="5" left="10" />
+                  </padding>
+                </StackPane>
+              </HBox>
+            </VBox>
+          </SplitPane>
+
+          <!-- Calendar view (initially hidden) -->
+          <StackPane fx:id="calendarViewPlaceholder" visible="false" managed="false" VBox.vgrow="ALWAYS"/>
+        </StackPane>
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>

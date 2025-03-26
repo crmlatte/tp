@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 
 <StackPane fx:id="placeHolder" styleClass="calendar-view" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
-    <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="AS_NEEDED" vbarPolicy="NEVER">
+    <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="AS_NEEDED" vbarPolicy="AS_NEEDED">
         <VBox spacing="10" styleClass="calendar-event-list">
             <HBox fx:id="calendarGrid" spacing="20" styleClass="calendar-grid"/>
         </VBox>

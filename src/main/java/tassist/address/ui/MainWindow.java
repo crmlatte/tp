@@ -61,6 +61,12 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private SplitPane splitPane;
 
+    @FXML
+    private StackPane mainContent;
+
+    @FXML
+    private StackPane calendarViewPlaceholder;
+
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
      */
@@ -226,10 +232,15 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private void handleStudentCardsView() {
+        // Show split pane and hide calendar view
+        splitPane.setVisible(true);
+        splitPane.setManaged(true);
+        calendarViewPlaceholder.setVisible(false);
+        calendarViewPlaceholder.setManaged(false);
+        
         // Restore person list panel and split pane position
         personListPanelPlaceholder.getChildren().clear();
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-        splitPane.lookupAll(".split-pane-divider").forEach(div -> div.setVisible(true));
         splitPane.setDividerPositions(0.35);
         
         // Restore result display
@@ -259,19 +270,15 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private void handleCalendarView() {
-        // Hide the person list panel and collapse the split pane
-        personListPanelPlaceholder.getChildren().clear();
-        splitPane.setDividerPositions(0.0);
-        splitPane.lookupAll(".split-pane-divider").forEach(div -> div.setVisible(false));
+        // Hide split pane and show calendar view
+        splitPane.setVisible(false);
+        splitPane.setManaged(false);
+        calendarViewPlaceholder.setVisible(true);
+        calendarViewPlaceholder.setManaged(true);
         
-        // Clear and show calendar in the main area
-        resultDisplayPlaceholder.getChildren().clear();
-        resultDisplayPlaceholder.getChildren().add(calendarView.getRoot());
-        calendarView.updateEvents(logic.getTimedEventList());
-        
-        // Hide command box and send button
-        commandBoxPlaceholder.getChildren().clear();
-        sendButtonPlaceholder.getChildren().clear();
+        // Set up calendar view
+        calendarViewPlaceholder.getChildren().clear();
+        calendarViewPlaceholder.getChildren().add(calendarView.getRoot());
     }
 
     @FXML
