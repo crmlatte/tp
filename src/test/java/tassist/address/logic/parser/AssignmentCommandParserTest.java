@@ -1,6 +1,8 @@
 package tassist.address.logic.parser;
 
 import static tassist.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static tassist.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static tassist.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static tassist.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static tassist.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -10,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import tassist.address.logic.commands.AssignmentCommand;
 import tassist.address.model.timedevents.Assignment;
+import tassist.address.logic.Messages;
 
 public class AssignmentCommandParserTest {
     private AssignmentCommandParser parser = new AssignmentCommandParser();
@@ -96,5 +99,20 @@ public class AssignmentCommandParserTest {
 
         // Extra prefix
         assertParseFailure(parser, "n/CS2103T Project d/30-01-2030 n/Extra", expectedMessage);
+    }
+
+    @Test
+    public void parse_multipleRepeatedFields_failure() {
+        // More extensive testing of duplicate parameter detections
+        String userInput = " n/CS2103T Project d/30-01-2030 n/Another Project d/31-01-2030";
+        assertParseFailure(parser, userInput, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_NAME, PREFIX_DATE));
+
+        // Multiple valid fields repeated
+        userInput = " n/CS2103T Project d/30-01-2030 n/CS2103T Quiz d/31-01-2030";
+        assertParseFailure(parser, userInput, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_NAME, PREFIX_DATE));
+
+        // Multiple invalid values
+        userInput = " n/ d/30-01-2030 n/ d/31-01-2030";
+        assertParseFailure(parser, userInput, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_NAME, PREFIX_DATE));
     }
 }
