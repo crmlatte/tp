@@ -6,7 +6,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import tassist.address.model.timedevents.TimedEvent;
+import tassist.address.model.person.Person;
+import tassist.address.logic.Logic;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -18,7 +22,6 @@ import java.util.stream.Collectors;
 public class CalendarView extends UiPart<Region> {
     private static final String FXML = "CalendarView.fxml";
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
 
     @FXML
     private GridPane calendarGrid;
@@ -26,8 +29,11 @@ public class CalendarView extends UiPart<Region> {
     @FXML
     private VBox eventList;
 
-    public CalendarView(List<TimedEvent> events) {
+    private final Logic logic;
+
+    public CalendarView(List<TimedEvent> events, Logic logic) {
         super(FXML);
+        this.logic = logic;
         updateEvents(events);
     }
 
@@ -69,17 +75,56 @@ public class CalendarView extends UiPart<Region> {
             VBox dayEventsBox = new VBox(5);
             dayEventsBox.getStyleClass().add("calendar-events");
             for (TimedEvent event : dayEvents) {
-                Label eventLabel = new Label(String.format("%s - %s (%s)",
-                    event.getTime().format(TIME_FORMATTER),
-                    event.getName(),
-                    event.getClass().getSimpleName()));
-                eventLabel.getStyleClass().add("calendar-event");
-                eventLabel.setWrapText(true);
-                dayEventsBox.getChildren().add(eventLabel);
+                VBox eventBox = new VBox(2);
+                eventBox.getStyleClass().add("calendar-event");
+
+                // Event name
+                TextFlow nameFlow = new TextFlow();
+                Text nameText = new Text(event.getName());
+                nameText.getStyleClass().add("event-name");
+                Text typeText = new Text(" - " + event.getClass().getSimpleName().toLowerCase());
+                typeText.getStyleClass().add("event-type");
+                nameFlow.getChildren().addAll(nameText, typeText);
+                eventBox.getChildren().add(nameFlow);
+
+                // Description
+                if (!event.getDescription().isEmpty()) {
+                    Text descriptionText = new Text(event.getDescription());
+                    descriptionText.getStyleClass().add("event-description");
+                    eventBox.getChildren().add(descriptionText);
+                }
+
+                // Assigned persons
+                List<Person> assignedPersons = getAssignedPersons(event);
+                if (!assignedPersons.isEmpty()) {
+                    VBox assignedBox = new VBox(1);
+                    assignedBox.getStyleClass().add("assigned-persons");
+                    Text assignedLabel = new Text("Assigned to:");
+                    assignedLabel.getStyleClass().add("assigned-label");
+                    assignedBox.getChildren().add(assignedLabel);
+                    
+                    for (Person person : assignedPersons) {
+                        Text personText = new Text("• " + person.getName().toString());
+                        personText.getStyleClass().add("assigned-person");
+                        assignedBox.getChildren().add(personText);
+                    }
+                    eventBox.getChildren().add(assignedBox);
+                }
+
+                dayEventsBox.getChildren().add(eventBox);
             }
             calendarGrid.add(dayEventsBox, 1, row);
 
             row++;
         }
+    }
+
+    /**
+     * Gets the list of persons assigned to a timed event.
+     */
+    private List<Person> getAssignedPersons(TimedEvent event) {
+        return logic.getFilteredPersonList().stream()
+                .filter(person -> person.hasTimedEvent(event))
+                .collect(Collectors.toList());
     }
 } 
