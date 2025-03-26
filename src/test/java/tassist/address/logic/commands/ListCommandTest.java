@@ -145,7 +145,6 @@ public class ListCommandTest {
 
         assertCommandSuccess(command, model, ListCommand.MESSAGE_LIST_FILTERED, expectedModel);
     }
-    
     /*public void execute_filteredByTeamNoMatch_returnsNoStudents() {
         ListCommand command = new ListCommand(null, null, "team", "placeholder");
         Predicate<Person> expectedPredicate = person -> "placeholder".equals("placeholder");

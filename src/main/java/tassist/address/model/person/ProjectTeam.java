@@ -49,12 +49,12 @@ public class ProjectTeam {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof Progress)) {
+        if (!(other instanceof ProjectTeam)) {
             return false;
         }
 
         ProjectTeam otherProjectTeam = (ProjectTeam) other;
-        return this.value == otherProjectTeam.value;
+        return value.equals(otherProjectTeam.value);
     }
 
     @Override
