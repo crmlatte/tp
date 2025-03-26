@@ -1,20 +1,23 @@
 package tassist.address.ui;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-import tassist.address.model.timedevents.TimedEvent;
-import tassist.address.model.person.Person;
 import tassist.address.logic.Logic;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
-import java.util.stream.Collectors;
+import tassist.address.model.person.Person;
+import tassist.address.model.timedevents.TimedEvent;
 
 /**
  * A UI component that displays timed events in a calendar format.
@@ -28,6 +31,11 @@ public class CalendarView extends UiPart<Region> {
 
     private final Logic logic;
 
+    /**
+     * Constructor for CalendarView.
+     * @param events The list of timed events to display.
+     * @param logic The logic component.
+     */
     public CalendarView(List<TimedEvent> events, Logic logic) {
         super(FXML);
         this.logic = logic;
@@ -47,7 +55,7 @@ public class CalendarView extends UiPart<Region> {
 
         // Group events by date using a TreeMap with custom comparator for chronological order
         Map<LocalDateTime, List<TimedEvent>> eventsByDate = new TreeMap<>((d1, d2) -> d1.compareTo(d2));
-        
+
         for (TimedEvent event : sortedEvents) {
             LocalDateTime eventDate = event.getTime().toLocalDate().atStartOfDay();
             eventsByDate.computeIfAbsent(eventDate, k -> new ArrayList<>()).add(event);
@@ -102,7 +110,7 @@ public class CalendarView extends UiPart<Region> {
                     Text assignedLabel = new Text("Assigned to:");
                     assignedLabel.getStyleClass().add("assigned-label");
                     assignedBox.getChildren().add(assignedLabel);
-                    
+
                     for (Person person : assignedPersons) {
                         Text personText = new Text("• " + person.getName().toString());
                         personText.getStyleClass().add("assigned-person");
@@ -126,4 +134,4 @@ public class CalendarView extends UiPart<Region> {
                 .filter(person -> person.hasTimedEvent(event))
                 .collect(Collectors.toList());
     }
-} 
+}

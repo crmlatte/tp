@@ -41,4 +41,4 @@ public class TimeEventListPanel extends UiPart<Region> {
             }
         }
     }
-} 
+}

@@ -237,20 +237,20 @@ public class MainWindow extends UiPart<Stage> {
         splitPane.setManaged(true);
         calendarViewPlaceholder.setVisible(false);
         calendarViewPlaceholder.setManaged(false);
-        
+
         // Restore person list panel and split pane position
         personListPanelPlaceholder.getChildren().clear();
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
         splitPane.setDividerPositions(0.35);
-        
+
         // Restore result display
         resultDisplayPlaceholder.getChildren().clear();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-        
+
         // Restore command box and send button
         commandBoxPlaceholder.getChildren().clear();
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
-        
+
         Button sendButton = new Button("Send");
         sendButton.setOnAction(event -> {
             try {
@@ -275,7 +275,6 @@ public class MainWindow extends UiPart<Stage> {
         splitPane.setManaged(false);
         calendarViewPlaceholder.setVisible(true);
         calendarViewPlaceholder.setManaged(true);
-        
         // Set up calendar view
         calendarViewPlaceholder.getChildren().clear();
         calendarViewPlaceholder.getChildren().add(calendarView.getRoot());

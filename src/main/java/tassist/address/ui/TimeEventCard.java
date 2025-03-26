@@ -71,4 +71,4 @@ public class TimeEventCard extends UiPart<Region> {
     public int hashCode() {
         return timeEvent.hashCode();
     }
-} 
+}
