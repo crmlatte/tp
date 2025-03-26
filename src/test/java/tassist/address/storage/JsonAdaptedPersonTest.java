@@ -28,7 +28,7 @@ public class JsonAdaptedPersonTest {
     private static final String INVALID_TAG = "#friend";
     private static final String INVALID_PROGRESS = "150";
     private static final String INVALID_STUDENT_ID = "A0C";
-    private static final String INVALID_PROJECT_TEAM = " ";
+    private static final String INVALID_PROJECT_TEAM = "";
 
     private static final String VALID_NAME = BENSON.getName().toString();
     private static final String VALID_PHONE = BENSON.getPhone().toString();
@@ -165,7 +165,7 @@ public class JsonAdaptedPersonTest {
     @Test
     public void toModelType_nullProgress_throwsIllegalValueException() {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL,
-                VALID_CLASS, VALID_STUDENT_ID, VALID_PROJECT_TEAM, VALID_GITHUB, VALID_TAGS, null);
+                VALID_CLASS, VALID_STUDENT_ID, VALID_GITHUB, VALID_PROJECT_TEAM, VALID_TAGS, null);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Progress.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }

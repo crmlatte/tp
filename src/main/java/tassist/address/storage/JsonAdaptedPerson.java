@@ -127,6 +127,7 @@ class JsonAdaptedPerson {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     StudentId.class.getSimpleName()));
         }
+
         if (!StudentId.isValidStudentId(studentId)) {
             throw new IllegalValueException(StudentId.MESSAGE_CONSTRAINTS);
         }
@@ -144,7 +145,7 @@ class JsonAdaptedPerson {
                     ProjectTeam.class.getSimpleName()));
         }
         if (!ProjectTeam.isValidProjectTeam(projectTeam)) {
-            throw new IllegalValueException(StudentId.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(ProjectTeam.MESSAGE_CONSTRAINTS);
         }
 
         final ProjectTeam modelProjectTeam = new ProjectTeam(projectTeam);
