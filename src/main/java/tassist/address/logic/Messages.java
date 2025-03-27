@@ -38,21 +38,27 @@ public class Messages {
      * Formats the {@code person} for display to the user.
      */
     public static String format(Person person) {
+        /*
         final StringBuilder builder = new StringBuilder();
         builder.append(person.getName())
                 .append("; Phone: ")
                 .append(person.getPhone())
                 .append("; Email: ")
                 .append(person.getEmail())
-                .append("; Class: ")
+                .append("; Tutorial Class Number: ")
                 .append(person.getClassNumber())
-                .append("; Student ID: ")
+                .append("; StudentId: ")
                 .append(person.getStudentId())
-                .append("; GitHub: ")
+                .append("; Github: ")
                 .append(person.getGithub())
-                .append("; Progress: ")
-                .append(person.getProgress());
+                .append("; ProjectTeam: ")
+                .append(person.getTeam())
+                .append("; Tags: ");
+        person.getTags().forEach(builder::append);
+        builder.append("; Progress: ").append(person.getProgress());
         return builder.toString();
+         */
+        return person.getName().toString();
     }
 
 }

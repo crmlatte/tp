@@ -1,6 +1,7 @@
 package tassist.address.logic.parser;
 
 import static tassist.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static tassist.address.logic.commands.CommandTestUtil.VALID_STUDENTID_AMY;
 import static tassist.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static tassist.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static tassist.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -8,6 +9,7 @@ import static tassist.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import org.junit.jupiter.api.Test;
 
 import tassist.address.logic.commands.OpenCommand;
+import tassist.address.model.person.StudentId;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations
@@ -21,8 +23,13 @@ public class OpenCommandParserTest {
     private OpenCommandParser parser = new OpenCommandParser();
 
     @Test
-    public void parse_validArgs_returnsOpenCommand() {
+    public void parse_validIndexArgs_returnsOpenCommand() {
         assertParseSuccess(parser, "1", new OpenCommand(INDEX_FIRST_PERSON));
+    }
+
+    @Test
+    public void parse_validStudentIdArgs_returnsOpenCommand() {
+        assertParseSuccess(parser, VALID_STUDENTID_AMY, new OpenCommand(new StudentId(VALID_STUDENTID_AMY)));
     }
 
     @Test

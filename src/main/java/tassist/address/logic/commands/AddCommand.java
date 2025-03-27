@@ -7,7 +7,8 @@ import static tassist.address.logic.parser.CliSyntax.PREFIX_GITHUB;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_PROGRESS;
-import static tassist.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
+import static tassist.address.logic.parser.CliSyntax.PREFIX_PROJECT_TEAM;
+import static tassist.address.logic.parser.CliSyntax.PREFIX_STUDENT_ID;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import tassist.address.commons.util.ToStringBuilder;
@@ -28,8 +29,9 @@ public class AddCommand extends Command {
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
-            + PREFIX_STUDENTID + "STUDENTID "
+            + PREFIX_STUDENT_ID + "STUDENTID "
             + PREFIX_GITHUB + "GITHUB "
+            + PREFIX_PROJECT_TEAM + "TEAM "
             + PREFIX_CLASS + "CLASS "
             + "[" + PREFIX_TAG + "TAG]... "
             + PREFIX_PROGRESS + "PROGRESS\n"
@@ -37,12 +39,13 @@ public class AddCommand extends Command {
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "
             + PREFIX_EMAIL + "johnd@example.com "
-            + PREFIX_STUDENTID + "A0000000B "
+            + PREFIX_STUDENT_ID + "A0000000B "
+            + PREFIX_PROJECT_TEAM + "TAssist "
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney "
             + PREFIX_PROGRESS + "50\n"
-            + "To add a person, minimally NAME, EMAIL, PHONE, STUDENTID "
-            + "must be present.";
+            + "To add a person, minimally NAME, EMAIL, PHONE, STUDENTID must be present.\n"
+            + "GITHUB, TEAM, CLASS, TAG and PROGRESS are optional fields and can be omitted out";
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.\n"

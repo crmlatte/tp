@@ -63,8 +63,8 @@ public class ClassCommand extends Command {
         Person personToEdit = lastShownList.get(index.getZeroBased());
         Person editedPerson = new Person(
                 personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
-                classNumber, personToEdit.getStudentId(),
-                personToEdit.getGithub(), personToEdit.getTags(), personToEdit.getProgress());
+                classNumber, personToEdit.getStudentId(), personToEdit.getGithub(), personToEdit.getProjectTeam(),
+                personToEdit.getTags(), personToEdit.getProgress());
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);

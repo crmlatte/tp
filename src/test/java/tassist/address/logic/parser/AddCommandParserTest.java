@@ -31,7 +31,7 @@ import static tassist.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_PROGRESS;
-import static tassist.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
+import static tassist.address.logic.parser.CliSyntax.PREFIX_STUDENT_ID;
 import static tassist.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static tassist.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static tassist.address.testutil.TypicalPersons.AMY;
@@ -97,7 +97,7 @@ public class AddCommandParserTest {
                 validExpectedPersonString + PHONE_DESC_AMY + EMAIL_DESC_AMY + NAME_DESC_AMY
                         + STUDENTID_DESC_AMY + PROGRESS_DESC_AMY + validExpectedPersonString,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_NAME, PREFIX_EMAIL, PREFIX_PHONE,
-                        PREFIX_STUDENTID, PREFIX_PROGRESS));
+                        PREFIX_STUDENT_ID, PREFIX_PROGRESS));
 
         // invalid value followed by valid value
 
@@ -115,7 +115,7 @@ public class AddCommandParserTest {
 
         // invalid studentId
         assertParseFailure(parser, INVALID_STUDENTID_DESC + validExpectedPersonString,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_STUDENTID));
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_STUDENT_ID));
         // invalid progress
         assertParseFailure(parser, INVALID_PROGRESS_DESC + validExpectedPersonString,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PROGRESS));
@@ -136,7 +136,7 @@ public class AddCommandParserTest {
 
         // invalid studentId
         assertParseFailure(parser, validExpectedPersonString + INVALID_STUDENTID_DESC,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_STUDENTID));
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_STUDENT_ID));
 
         // invalid progress
         assertParseFailure(parser, validExpectedPersonString + INVALID_PROGRESS_DESC,
