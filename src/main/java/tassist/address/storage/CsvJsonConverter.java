@@ -46,6 +46,7 @@ public class CsvJsonConverter {
 
         Map<String, List<Map<String, Object>>> wrappedData = new LinkedHashMap<>();
         wrappedData.put("persons", data);
+        wrappedData.put("timedEvents", new ArrayList<>());
         objectMapper.writeValue(new File(jsonFilePath.toString()), wrappedData);
 
         System.out.println("CSV has been successfully converted to JSON!");
