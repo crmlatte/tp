@@ -26,23 +26,27 @@ import tassist.address.model.person.Person;
 public class TypicalPersons {
 
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
-            .withEmail("alice@example.com")
-            .withPhone("94351253").withClassNumber("T01").withStudentId("A1111111B")
+            .withEmail("alice@example.com").withPhone("94351253").withClassNumber("T01")
+            .withStudentId("A1111111B").withProjectTeam("WealthAssist")
             .withTags("friends").withProgress("0").build();
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
             .withEmail("johnd@example.com").withPhone("98765432").withStudentId("A0101011A").withClassNumber("T01")
-            .withTags("owesMoney", "friends").withProgress("30").build();
+            .withProjectTeam("WealthAssist").withTags("owesMoney", "friends").withProgress("30").build();
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz").withPhone("95352563")
-            .withEmail("heinz@example.com").withStudentId("A0101010C").withProgress("50").build();
+            .withEmail("heinz@example.com").withStudentId("A0101010C").withProjectTeam("WealthAssist")
+            .withProgress("50").build();
     public static final Person DANIEL = new PersonBuilder().withName("Daniel Meier").withPhone("87652533")
-            .withEmail("cornelia@example.com").withStudentId("A0001234X").withTags("friends")
-            .withProgress("0").build();
+            .withEmail("cornelia@example.com").withStudentId("A0001234X").withProjectTeam("Bim Bim Bap")
+            .withTags("friends").withProgress("0").build();
     public static final Person ELLE = new PersonBuilder().withName("Elle Meyer").withPhone("9482224")
-            .withEmail("werner@example.com").withStudentId("A1928374M").withProgress("60").build();
+            .withEmail("werner@example.com").withStudentId("A1928374M").withProjectTeam("Bim Bim Bap")
+            .withProgress("60").build();
     public static final Person FIONA = new PersonBuilder().withName("Fiona Kunz").withPhone("9482427")
-            .withEmail("lydia@example.com").withStudentId("A7654321J").withProgress("40").build();
+            .withEmail("lydia@example.com").withStudentId("A7654321J").withProjectTeam("Bim Bim Bap")
+            .withProgress("40").build();
     public static final Person GEORGE = new PersonBuilder().withName("George Best").withPhone("9482442")
-            .withEmail("anna@example.com").withStudentId("A9182736L").withProgress("5").build();
+            .withEmail("anna@example.com").withStudentId("A9182736L").withProjectTeam("Bim Bim Bap")
+            .withProgress("5").build();
 
     // Manually added
     public static final Person HOON = new PersonBuilder().withName("Hoon Meier").withPhone("8482424")

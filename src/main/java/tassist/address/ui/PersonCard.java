@@ -44,6 +44,8 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label github;
     @FXML
+    private Label projectTeam;
+    @FXML
     private FlowPane tags;
     @FXML
     private Label progress;
@@ -65,6 +67,7 @@ public class PersonCard extends UiPart<Region> {
         github.setText("GitHub: " + person.getGithub().value);
         email.setText("Email: " + person.getEmail().value);
         studentId.setText("Student ID: " + person.getStudentId().value);
+        projectTeam.setText("ProjectTeam: " + person.getProjectTeam().value);
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

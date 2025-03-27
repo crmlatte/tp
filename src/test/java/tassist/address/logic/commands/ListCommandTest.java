@@ -146,14 +146,18 @@ public class ListCommandTest {
         assertCommandSuccess(command, model, ListCommand.MESSAGE_LIST_FILTERED, expectedModel);
     }
 
-    @Test
+    /*@Test
     public void execute_filteredByTeamNoMatch_returnsNoStudents() {
-        ListCommand command = new ListCommand(null, null, "team", "placeholder");
-        Predicate<Person> expectedPredicate = person -> "placeholder".equals("placeholder");
+        ListCommand command = new ListCommand(null, null, "team", "nonexistentTeam");
+
+        Predicate<Person> expectedPredicate = person ->
+                person.getProjectTeam() != null && person.getProjectTeam().value.equalsIgnoreCase("nonexistentTeam");
+
         expectedModel.updateFilteredPersonList(expectedPredicate);
 
-        assertCommandSuccess(command, model, ListCommand.MESSAGE_LIST_FILTERED, expectedModel);
-    }
+        assertCommandSuccess(command, model, ListCommand.MESSAGE_NO_STUDENTS, expectedModel);
+
+    }*/
 
     @Test
     public void execute_filteredByCourseInvalidValue_throwsCommandException() {

@@ -16,7 +16,6 @@ import tassist.address.model.tag.Tag;
  */
 public class Person {
     public static final String PLACEHOLDER_COURSE = "placeholder";
-    public static final String PLACEHOLDER_TEAM = "placeholder";
 
     // Identity fields
     private final Name name;
@@ -28,13 +27,14 @@ public class Person {
     private final Progress progress;
     private final Set<Tag> tags = new HashSet<>();
     private final Github github;
+    private final ProjectTeam projectTeam;
 
     /**
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, ClassNumber classNumber,
-                StudentId studentId, Github github, Set<Tag> tags, Progress progress) {
-        requireAllNonNull(name, phone, email, classNumber, studentId, github, tags, progress);
+                StudentId studentId, Github github, ProjectTeam projectTeam, Set<Tag> tags, Progress progress) {
+        requireAllNonNull(name, phone, email, classNumber, studentId, github, projectTeam, tags, progress);
 
         this.name = name;
         this.phone = phone;
@@ -42,6 +42,7 @@ public class Person {
         this.classNumber = classNumber;
         this.studentId = studentId;
         this.github = github;
+        this.projectTeam = projectTeam;
         this.tags.addAll(tags);
         this.progress = progress;
     }
@@ -78,8 +79,8 @@ public class Person {
         return PLACEHOLDER_COURSE;
     }
 
-    public String getTeam() {
-        return PLACEHOLDER_TEAM;
+    public ProjectTeam getProjectTeam() {
+        return projectTeam;
     }
 
     /**
@@ -120,17 +121,15 @@ public class Person {
 
         Person otherPerson = (Person) other;
         return name.equals(otherPerson.name)
-                && phone.equals(otherPerson.phone)
                 && email.equals(otherPerson.email)
                 && studentId.equals(otherPerson.studentId)
-                && github.equals(otherPerson.github)
-                && tags.equals(otherPerson.tags);
+                && github.equals(otherPerson.github);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, classNumber, studentId, github, tags, progress);
+        return Objects.hash(name, phone, email, classNumber, studentId, github, projectTeam, tags, progress);
     }
 
     @Override
@@ -142,6 +141,7 @@ public class Person {
                 .add("classNumber", classNumber)
                 .add("studentId", studentId)
                 .add("github", github)
+                .add("project team", projectTeam)
                 .add("tags", tags)
                 .add("progress", progress)
                 .toString();

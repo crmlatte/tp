@@ -6,6 +6,7 @@
     "address": "4th street",
     "studentId" : "A0000000B",
     "github": "https://github.com/default",
+    "projectTeam" : "WealthAssist",
     "progress": "20"
   }, {
     "name": "Person With Invalid Phone Field",
@@ -14,6 +15,7 @@
     "address": "4th street",
     "studentId" : "A1111111B",
     "github": "https://github.com/default",
+    "projectTeam" : "UWU",
     "progress": "30"
   } ]
 }
