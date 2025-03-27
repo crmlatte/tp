@@ -1,4 +1,3 @@
-
 package tassist.address.ui;
 
 
@@ -34,19 +33,11 @@ import tassist.address.logic.parser.exceptions.ParseException;
 
 public class MainWindow extends UiPart<Stage> {
 
-
     private static final String FXML = "MainWindow.fxml";
-
     private static final String HELP_URL = "https://ay2425s2-cs2103t-w12-4.github.io/tp/UserGuide.html";
-
-
     private final Logger logger = LogsCenter.getLogger(getClass());
-
-
     private Stage primaryStage;
-
     private Logic logic;
-
     private final BrowserService browserService;
 
     // Independent Ui parts residing in this Ui container
@@ -233,7 +224,6 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isShowHelp()) {
                 handleHelp();
             }
-
             if (commandResult.isExit()) {
                 handleExit();
             }
