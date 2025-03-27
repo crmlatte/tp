@@ -95,6 +95,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setPerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
         persons.setPerson(target, editedPerson);
+        // Verify data consistency
+        assert hasPerson(editedPerson) : "Edited person should exist in address book";
     }
 
     /**
@@ -103,6 +105,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removePerson(Person key) {
         persons.remove(key);
+        // Verify person was removed
+        assert !hasPerson(key) : "Person should be removed from address book";
     }
 
     //// timed event-level operations
@@ -121,6 +125,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addTimedEvent(TimedEvent timedEvent) {
         timedEvents.add(timedEvent);
+        // Verify timed event was added
+        assert hasTimedEvent(timedEvent) : "Timed event should exist in address book";
     }
 
     /**
@@ -130,6 +136,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void removeTimedEvent(TimedEvent timedEvent) {
         requireNonNull(timedEvent);
         timedEvents.remove(timedEvent);
+        // Verify timed event was removed
+        assert !hasTimedEvent(timedEvent) : "Timed event should be removed from address book";
     }
 
     //// util methods

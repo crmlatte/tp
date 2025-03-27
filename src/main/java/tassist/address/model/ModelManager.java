@@ -101,12 +101,16 @@ public class ModelManager implements Model {
     @Override
     public void deletePerson(Person target) {
         addressBook.removePerson(target);
+        // Verify person was deleted
+        assert !hasPerson(target) : "Person should be removed from address book";
     }
 
     @Override
     public void addPerson(Person person) {
         addressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        // Verify person was added and visible in filtered list
+        assert hasPerson(person) : "Person should exist in address book";
     }
 
     @Override
@@ -154,12 +158,16 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+        // Verify filtered list state
+        assert filteredPersons.stream().allMatch(predicate) : "All filtered persons should match predicate";
     }
 
     @Override
     public void updateSortedPersonList(Comparator<Person> comparator) {
         requireNonNull(comparator);
         sortedPersons.setComparator(comparator);
+        // Verify sorted list state
+        assert sortedPersons.getComparator() == comparator : "Sorted list should use the provided comparator";
     }
 
     @Override

@@ -46,6 +46,9 @@ public class UniquePersonList implements Iterable<Person> {
             throw new DuplicatePersonException();
         }
         internalList.add(toAdd);
+        // Verify list invariants
+        assert !internalList.contains(null) : "List should not contain null elements";
+        assert personsAreUnique(internalList) : "List should not contain duplicate persons";
     }
 
     /**
@@ -66,6 +69,9 @@ public class UniquePersonList implements Iterable<Person> {
         }
 
         internalList.set(index, editedPerson);
+        // Verify list invariants after modification
+        assert !internalList.contains(null) : "List should not contain null elements";
+        assert personsAreUnique(internalList) : "List should not contain duplicate persons";
     }
 
     /**
@@ -77,6 +83,9 @@ public class UniquePersonList implements Iterable<Person> {
         if (!internalList.remove(toRemove)) {
             throw new PersonNotFoundException();
         }
+        // Verify list invariants after removal
+        assert !internalList.contains(null) : "List should not contain null elements";
+        assert personsAreUnique(internalList) : "List should not contain duplicate persons";
     }
 
     public void setPersons(UniquePersonList replacement) {
@@ -95,6 +104,9 @@ public class UniquePersonList implements Iterable<Person> {
         }
 
         internalList.setAll(persons);
+        // Verify list invariants after setting all persons
+        assert !internalList.contains(null) : "List should not contain null elements";
+        assert personsAreUnique(internalList) : "List should not contain duplicate persons";
     }
 
     /**
