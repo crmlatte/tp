@@ -5,6 +5,7 @@ import static tassist.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static tassist.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static tassist.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static tassist.address.logic.commands.CommandTestUtil.PROGRESS_DESC_AMY;
+import static tassist.address.logic.commands.CommandTestUtil.PROJECT_TEAM_DESC_AMY;
 import static tassist.address.logic.commands.CommandTestUtil.STUDENTID_DESC_AMY;
 import static tassist.address.testutil.Assert.assertThrows;
 import static tassist.address.testutil.TypicalPersons.AMY;
@@ -160,7 +161,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_openCommand_success() throws Exception {
+    public void execute_openCommandWithIndex_success() throws Exception {
         Person personToOpen = new PersonBuilder(AMY).build();
         model.addPerson(personToOpen);
 
@@ -177,6 +178,21 @@ public class LogicManagerTest {
     public void execute_openCommandInvalidIndex_failure() throws Exception {
         String openCommand = "open 1";
         assertCommandException(openCommand);
+    }
+
+    @Test
+    public void execute_openCommandWithStudentId_success() throws Exception {
+        Person personToOpen = new PersonBuilder(AMY).build();
+        model.addPerson(personToOpen);
+
+        String openCommand = "open " + personToOpen.getStudentId().value;
+        CommandResult result = logic.execute(openCommand);
+
+        assertEquals(
+                String.format(OpenCommand.MESSAGE_OPEN_GITHUB_SUCCESS, Messages.format(personToOpen)),
+                result.getFeedbackToUser()
+        );
+        assertEquals(personToOpen.getGithub().value, browserService.getLastUrlOpened());
     }
 
     private void assertCommandSuccess(String inputCommand, String expectedMessage,
@@ -224,7 +240,7 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
-                + EMAIL_DESC_AMY + STUDENTID_DESC_AMY + PROGRESS_DESC_AMY;
+                + EMAIL_DESC_AMY + STUDENTID_DESC_AMY + PROJECT_TEAM_DESC_AMY + PROGRESS_DESC_AMY;
 
         Person expectedPerson = new PersonBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();

@@ -18,6 +18,7 @@ import tassist.address.model.person.Name;
 import tassist.address.model.person.Person;
 import tassist.address.model.person.Phone;
 import tassist.address.model.person.Progress;
+import tassist.address.model.person.ProjectTeam;
 import tassist.address.model.person.StudentId;
 import tassist.address.model.tag.Tag;
 
@@ -36,6 +37,7 @@ class JsonAdaptedPerson {
     private final String github;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
     private final String progress;
+    private final String projectTeam;
     private final List<JsonAdaptedTimedEvent> timedEvents = new ArrayList<>();
 
     /**
@@ -45,7 +47,9 @@ class JsonAdaptedPerson {
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("classNumber") String classNumber,
             @JsonProperty("studentId") String studentId,
-            @JsonProperty("github") String github, @JsonProperty("tags") List<JsonAdaptedTag> tags,
+            @JsonProperty("github") String github,
+            @JsonProperty("projectTeam") String projectTeam,
+            @JsonProperty("tags") List<JsonAdaptedTag> tags,
             @JsonProperty("progress") String progress,
             @JsonProperty("timedEvents") List<JsonAdaptedTimedEvent> timedEvents) {
         this.name = name;
@@ -54,6 +58,7 @@ class JsonAdaptedPerson {
         this.classNumber = classNumber;
         this.studentId = studentId;
         this.github = github;
+        this.projectTeam = projectTeam;
         if (tags != null) {
             this.tags.addAll(tags);
         }
@@ -73,6 +78,7 @@ class JsonAdaptedPerson {
         classNumber = source.getClassNumber().value;
         studentId = source.getStudentId().value;
         github = source.getGithub().value;
+        projectTeam = source.getProjectTeam().value;
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -131,12 +137,27 @@ class JsonAdaptedPerson {
                     StudentId.class.getSimpleName()));
         }
 
+        if (!StudentId.isValidStudentId(studentId)) {
+            throw new IllegalValueException(StudentId.MESSAGE_CONSTRAINTS);
+        }
+
         final StudentId modelStudentId = new StudentId(studentId);
 
         if (github == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Github.class.getSimpleName()));
         }
+
         final Github modelGithub = new Github(github);
+
+        if (projectTeam == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    ProjectTeam.class.getSimpleName()));
+        }
+        if (!ProjectTeam.isValidProjectTeam(projectTeam)) {
+            throw new IllegalValueException(ProjectTeam.MESSAGE_CONSTRAINTS);
+        }
+
+        final ProjectTeam modelProjectTeam = new ProjectTeam(projectTeam);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
 
@@ -152,7 +173,7 @@ class JsonAdaptedPerson {
         final Progress modelProgress = new Progress(progressValue);
 
         Person person = new Person(modelName, modelPhone, modelEmail, modelClassNumber, modelStudentId,
-                modelGithub, modelTags, modelProgress);
+                modelGithub, modelProjectTeam, modelTags, modelProgress);
 
         // Add timed events
         for (JsonAdaptedTimedEvent timedEvent : timedEvents) {
