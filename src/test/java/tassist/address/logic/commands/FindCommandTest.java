@@ -47,18 +47,18 @@ public class FindCommandTest {
 
         FindCommand findFirstNameCommand = new FindCommand(firstNamePredicate);
         FindCommand findSecondNameCommand = new FindCommand(secondNamePredicate);
-        FindCommand findFirstStudenIdCommand = new FindCommand(firstStudentIdPredicate);
+        FindCommand findFirstStudentIdCommand = new FindCommand(firstStudentIdPredicate);
         FindCommand findSecondStudentIdCommand = new FindCommand(secondStudentIdPredicate);
 
         // same object -> returns true
         assertTrue(findFirstNameCommand.equals(findFirstNameCommand));
-        assertTrue(findFirstStudenIdCommand.equals(findFirstStudenIdCommand));
+        assertTrue(findFirstStudentIdCommand.equals(findFirstStudentIdCommand));
 
         // same values -> returns true
         FindCommand findFirstCommandCopy = new FindCommand(firstNamePredicate);
         assertTrue(findFirstNameCommand.equals(findFirstCommandCopy));
         FindCommand findFirstStudentIdCommandCopy = new FindCommand(firstStudentIdPredicate);
-        assertTrue(findFirstStudenIdCommand.equals(findFirstStudentIdCommandCopy));
+        assertTrue(findFirstStudentIdCommand.equals(findFirstStudentIdCommandCopy));
 
         // different types -> returns false
         assertFalse(findFirstNameCommand.equals(1));
@@ -68,8 +68,8 @@ public class FindCommandTest {
 
         // different person -> returns false
         assertFalse(findFirstNameCommand.equals(findSecondNameCommand));
-        assertFalse(findFirstStudenIdCommand.equals(findSecondStudentIdCommand));
-        assertFalse(findFirstNameCommand.equals(findFirstStudenIdCommand));
+        assertFalse(findFirstStudentIdCommand.equals(findSecondStudentIdCommand));
+        assertFalse(findFirstNameCommand.equals(findFirstStudentIdCommand));
     }
 
     @Test
