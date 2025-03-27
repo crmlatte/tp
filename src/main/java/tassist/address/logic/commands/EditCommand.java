@@ -7,7 +7,8 @@ import static tassist.address.logic.parser.CliSyntax.PREFIX_GITHUB;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_PROGRESS;
-import static tassist.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
+import static tassist.address.logic.parser.CliSyntax.PREFIX_PROJECT_TEAM;
+import static tassist.address.logic.parser.CliSyntax.PREFIX_STUDENT_ID;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static tassist.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
@@ -31,6 +32,7 @@ import tassist.address.model.person.Name;
 import tassist.address.model.person.Person;
 import tassist.address.model.person.Phone;
 import tassist.address.model.person.Progress;
+import tassist.address.model.person.ProjectTeam;
 import tassist.address.model.person.StudentId;
 import tassist.address.model.tag.Tag;
 
@@ -49,8 +51,9 @@ public class EditCommand extends Command {
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_CLASS + "CLASS NUMBER] "
-            + "[" + PREFIX_STUDENTID + "STUDENTID] "
+            + "[" + PREFIX_STUDENT_ID + "STUDENTID] "
             + "[" + PREFIX_GITHUB + "GITHUB]"
+            + "[" + PREFIX_PROJECT_TEAM + "TEAM]"
             + "[" + PREFIX_TAG + "TAG]... "
             + "[" + PREFIX_PROGRESS + "PROGRESS]\n"
             + "Example: " + COMMAND_WORD + " 1 "
@@ -110,11 +113,12 @@ public class EditCommand extends Command {
         ClassNumber updatedClassNumber = editPersonDescriptor.getClassNumber().orElse(personToEdit.getClassNumber());
         StudentId updatedStudentId = editPersonDescriptor.getStudentId().orElse(personToEdit.getStudentId());
         Github updatedGithub = editPersonDescriptor.getGithub().orElse(personToEdit.getGithub());
+        ProjectTeam updatedTeam = editPersonDescriptor.getProjectTeam().orElse(personToEdit.getProjectTeam());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
         Progress updatedProgress = editPersonDescriptor.getProgress().orElse(personToEdit.getProgress());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedClassNumber,
-                updatedStudentId, updatedGithub, updatedTags, updatedProgress);
+                updatedStudentId, updatedGithub, updatedTeam, updatedTags, updatedProgress);
     }
 
     @Override
@@ -152,6 +156,7 @@ public class EditCommand extends Command {
         private ClassNumber classNumber;
         private StudentId studentId;
         private Github github;
+        private ProjectTeam projectTeam;
         private Set<Tag> tags;
         private Progress progress;
 
@@ -168,6 +173,7 @@ public class EditCommand extends Command {
             setClassNumber(toCopy.classNumber);
             setStudentId(toCopy.studentId);
             setGithub(toCopy.github);
+            setProjectTeam(toCopy.projectTeam);
             setTags(toCopy.tags);
             setProgress(toCopy.progress);
         }
@@ -177,7 +183,7 @@ public class EditCommand extends Command {
          */
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(name, phone, email,
-                    classNumber, studentId, github, tags, progress);
+                    classNumber, studentId, github, projectTeam, tags, progress);
         }
 
         public void setName(Name name) {
@@ -228,6 +234,14 @@ public class EditCommand extends Command {
             return Optional.ofNullable(github);
         }
 
+        public void setProjectTeam(ProjectTeam projectTeam) {
+            this.projectTeam = projectTeam;
+        }
+
+        public Optional<ProjectTeam> getProjectTeam() {
+            return Optional.ofNullable(projectTeam);
+        }
+
         /**
          * Sets {@code tags} to this object's {@code tags}.
          * A defensive copy of {@code tags} is used internally.
@@ -271,6 +285,7 @@ public class EditCommand extends Command {
                     && Objects.equals(classNumber, otherEditPersonDescriptor.classNumber)
                     && Objects.equals(studentId, otherEditPersonDescriptor.studentId)
                     && Objects.equals(github, otherEditPersonDescriptor.github)
+                    && Objects.equals(projectTeam, otherEditPersonDescriptor.projectTeam)
                     && Objects.equals(tags, otherEditPersonDescriptor.tags)
                     && Objects.equals(progress, otherEditPersonDescriptor.progress);
         }
@@ -284,6 +299,7 @@ public class EditCommand extends Command {
                     .add("classNumber", classNumber)
                     .add("studentId", studentId)
                     .add("github", github)
+                    .add("project_team", projectTeam)
                     .add("tags", tags)
                     .add("progress", progress)
                     .toString();

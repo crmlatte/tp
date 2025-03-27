@@ -127,9 +127,9 @@ All parameters are optional. Filters and sorting can be used together or indepen
 
 Examples:
 * `list`<br>
-  Displays all students. 
+  Displays all students.
 * `list f/progress fv/60` <br>
-  Displays students with progress ≤ 60. 
+  Displays students with progress ≤ 60.
 * `list s/github o/asc`<br>
   Displays all students, sorted by Github username in ascending lexicographical order.
 * `list f/progress fv/50 s/name o/des`<br>
