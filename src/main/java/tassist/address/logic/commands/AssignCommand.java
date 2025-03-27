@@ -100,6 +100,7 @@ public class AssignCommand extends Command {
             Person targetStudent = lastShownList.get(studentIndex.getZeroBased());
             try {
                 targetStudent.addTimedEvent(targetEvent);
+                model.setPerson(targetStudent, targetStudent);
                 resultMessage.append(String.format(MESSAGE_ASSIGN_SUCCESS, Messages.format(targetStudent)));
             } catch (DuplicateTimedEventException e) {
                 resultMessage.append(String.format(MESSAGE_DUPLICATE_ASSIGNMENT));
