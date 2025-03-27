@@ -1,5 +1,12 @@
 package tassist.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
+
+import tassist.address.logic.browser.BrowserService;
+import tassist.address.logic.browser.DesktopBrowserService;
 import tassist.address.model.Model;
 
 /**
@@ -8,14 +15,40 @@ import tassist.address.model.Model;
 public class HelpCommand extends Command {
 
     public static final String COMMAND_WORD = "help";
+    public static final String HELP_URL = "https://ay2425s2-cs2103t-w12-4.github.io/tp/UserGuide.html";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows program usage instructions.\n"
             + "Example: " + COMMAND_WORD;
 
     public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
+    public static final String MESSAGE_OPEN_HELP_FAILURE = "Failed to open help window.";
+
+    private final BrowserService browserService;
+
+    /**
+     * Constructs a HelpCommand with default browser service.
+     */
+    public HelpCommand() {
+        this(new DesktopBrowserService());
+    }
+
+    /**
+     * Constructs a HelpCommand with a specified browser service.
+     *
+     * @param browserService The browser service to handle opening URLs.
+     */
+    public HelpCommand(BrowserService browserService) {
+        this.browserService = browserService;
+    }
 
     @Override
     public CommandResult execute(Model model) {
-        return new CommandResult(SHOWING_HELP_MESSAGE, true, false);
+        requireNonNull(model);
+        try {
+            browserService.openUrl(HELP_URL);
+            return new CommandResult(SHOWING_HELP_MESSAGE, false, false);
+        } catch (IOException | URISyntaxException e) {
+            return new CommandResult(MESSAGE_OPEN_HELP_FAILURE, false, false);
+        }
     }
 }
