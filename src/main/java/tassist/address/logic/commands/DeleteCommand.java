@@ -108,7 +108,6 @@ public class DeleteCommand extends Command implements ConfirmableCommand {
         assert model.hasPerson(personToDelete) : "Person should exist in model before deletion";
 
         model.deletePerson(personToDelete);
-        
         // Verify person was deleted
         assert !model.hasPerson(personToDelete) : "Person should be deleted from model";
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, Messages.format(personToDelete)));
