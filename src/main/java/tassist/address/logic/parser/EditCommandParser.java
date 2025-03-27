@@ -8,7 +8,8 @@ import static tassist.address.logic.parser.CliSyntax.PREFIX_GITHUB;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_PROGRESS;
-import static tassist.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
+import static tassist.address.logic.parser.CliSyntax.PREFIX_PROJECT_TEAM;
+import static tassist.address.logic.parser.CliSyntax.PREFIX_STUDENT_ID;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collection;
@@ -35,8 +36,8 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
-                        PREFIX_CLASS, PREFIX_STUDENTID, PREFIX_GITHUB, PREFIX_TAG, PREFIX_PROGRESS);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_CLASS,
+                        PREFIX_STUDENT_ID, PREFIX_GITHUB, PREFIX_PROJECT_TEAM, PREFIX_TAG, PREFIX_PROGRESS);
 
         Index index;
 
@@ -47,7 +48,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
-                PREFIX_CLASS, PREFIX_GITHUB, PREFIX_STUDENTID, PREFIX_PROGRESS);
+                PREFIX_CLASS, PREFIX_GITHUB, PREFIX_PROJECT_TEAM, PREFIX_STUDENT_ID, PREFIX_PROGRESS);
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
 
@@ -64,11 +65,15 @@ public class EditCommandParser implements Parser<EditCommand> {
             editPersonDescriptor.setClassNumber(ParserUtil.parseClassNumber(argMultimap
                     .getValue(PREFIX_CLASS).get()));
         }
-        if (argMultimap.getValue(PREFIX_STUDENTID).isPresent()) {
-            editPersonDescriptor.setStudentId(ParserUtil.parseStudentId(argMultimap.getValue(PREFIX_STUDENTID).get()));
+        if (argMultimap.getValue(PREFIX_STUDENT_ID).isPresent()) {
+            editPersonDescriptor.setStudentId(ParserUtil.parseStudentId(argMultimap.getValue(PREFIX_STUDENT_ID).get()));
         }
         if (argMultimap.getValue(PREFIX_GITHUB).isPresent()) {
             editPersonDescriptor.setGithub(ParserUtil.parseGithub(argMultimap.getValue(PREFIX_GITHUB).get()));
+        }
+        if (argMultimap.getValue(PREFIX_PROJECT_TEAM).isPresent()) {
+            editPersonDescriptor
+                    .setProjectTeam(ParserUtil.parseProjectTeam(argMultimap.getValue(PREFIX_PROJECT_TEAM).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
         if (argMultimap.getValue(PREFIX_PROGRESS).isPresent()) {

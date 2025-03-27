@@ -31,7 +31,7 @@ import static tassist.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_PROGRESS;
-import static tassist.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
+import static tassist.address.logic.parser.CliSyntax.PREFIX_STUDENT_ID;
 import static tassist.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static tassist.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static tassist.address.testutil.TypicalPersons.AMY;
@@ -67,8 +67,8 @@ public class AddCommandParserTest {
         Person expectedPersonMultipleTags = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                        + STUDENTID_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + PROGRESS_DESC_BOB,
-                        new AddCommand(expectedPersonMultipleTags));
+                + STUDENTID_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + PROGRESS_DESC_BOB,
+                new AddCommand(expectedPersonMultipleTags));
     }
 
     @Test
@@ -95,9 +95,9 @@ public class AddCommandParserTest {
         // multiple fields repeated
         assertParseFailure(parser,
                 validExpectedPersonString + PHONE_DESC_AMY + EMAIL_DESC_AMY + NAME_DESC_AMY
-                        + STUDENTID_DESC_AMY + PROGRESS_DESC_AMY + validExpectedPersonString,
+                + STUDENTID_DESC_AMY + PROGRESS_DESC_AMY + validExpectedPersonString,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_NAME, PREFIX_EMAIL, PREFIX_PHONE,
-                        PREFIX_STUDENTID, PREFIX_PROGRESS));
+                PREFIX_STUDENT_ID, PREFIX_PROGRESS));
 
         // invalid value followed by valid value
 
@@ -115,7 +115,7 @@ public class AddCommandParserTest {
 
         // invalid studentId
         assertParseFailure(parser, INVALID_STUDENTID_DESC + validExpectedPersonString,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_STUDENTID));
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_STUDENT_ID));
         // invalid progress
         assertParseFailure(parser, INVALID_PROGRESS_DESC + validExpectedPersonString,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PROGRESS));
@@ -136,7 +136,7 @@ public class AddCommandParserTest {
 
         // invalid studentId
         assertParseFailure(parser, validExpectedPersonString + INVALID_STUDENTID_DESC,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_STUDENTID));
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_STUDENT_ID));
 
         // invalid progress
         assertParseFailure(parser, validExpectedPersonString + INVALID_PROGRESS_DESC,
@@ -158,23 +158,23 @@ public class AddCommandParserTest {
 
         // missing name prefix
         assertParseFailure(parser, VALID_NAME_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                        + STUDENTID_DESC_BOB, expectedMessage);
+                + STUDENTID_DESC_BOB, expectedMessage);
 
         // missing phone prefix
         assertParseFailure(parser, NAME_DESC_BOB + VALID_PHONE_BOB + EMAIL_DESC_BOB
-                        + STUDENTID_DESC_BOB, expectedMessage);
+                + STUDENTID_DESC_BOB, expectedMessage);
 
         // missing email prefix
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + VALID_EMAIL_BOB
-                        + STUDENTID_DESC_BOB, expectedMessage);
+                + STUDENTID_DESC_BOB, expectedMessage);
 
         // missing studentId prefix
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                        + VALID_STUDENTID_BOB, expectedMessage);
+                + VALID_STUDENTID_BOB, expectedMessage);
 
         // all prefixes missing
         assertParseFailure(parser, VALID_NAME_BOB + VALID_PHONE_BOB + VALID_EMAIL_BOB
-                        + STUDENTID_DESC_BOB, expectedMessage);
+                + STUDENTID_DESC_BOB, expectedMessage);
     }
 
     @Test

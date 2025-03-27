@@ -7,6 +7,7 @@ import static tassist.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_PROGRESS_BOB;
+import static tassist.address.logic.commands.CommandTestUtil.VALID_PROJECT_TEAM_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_STUDENTID_AMY;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_STUDENTID_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
@@ -70,6 +71,7 @@ public class PersonTest {
     public void equals() {
         // same values -> returns true
         Person aliceCopy = new PersonBuilder(ALICE).build();
+
         assertTrue(ALICE.equals(aliceCopy));
 
         // same object -> returns true
@@ -84,13 +86,17 @@ public class PersonTest {
         // different person -> returns false
         assertFalse(ALICE.equals(BOB));
 
-        // different name -> returns false
-        Person editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
+        //different studentId -> returns false
+        Person editedAlice = new PersonBuilder(ALICE).withStudentId(VALID_STUDENTID_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different phone -> returns false
-        editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
+        // different name -> returns false
+        editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
+
+        // different phone -> returns true
+        editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
+        assertTrue(ALICE.equals(editedAlice));
 
         // different email -> returns false
         editedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
@@ -99,6 +105,10 @@ public class PersonTest {
         // different tags -> returns false
         editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
         assertFalse(ALICE.equals(editedAlice));
+
+        // different project team -> returns true
+        editedAlice = new PersonBuilder(ALICE).withProjectTeam(VALID_PROJECT_TEAM_BOB).build();
+        assertTrue(ALICE.equals(editedAlice));
     }
 
     @Test
@@ -108,7 +118,9 @@ public class PersonTest {
                 + ", email=" + ALICE.getEmail()
                 + ", classNumber=" + ALICE.getClassNumber() + ", studentId=" + ALICE.getStudentId()
                 + ", github=" + ALICE.getGithub()
-                + ", tags=" + ALICE.getTags() + ", progress=" + ALICE.getProgress() + "}";
+                + ", project team=" + ALICE.getProjectTeam()
+                + ", tags=" + ALICE.getTags() + ", progress=" + ALICE.getProgress()
+                + ", timedEvents=" + ALICE.getTimedEvents() + "}";
 
         assertEquals(expected, ALICE.toString());
     }

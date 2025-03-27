@@ -37,7 +37,9 @@
       <Label fx:id="email" styleClass="details-label" text="\$email" />
       <Label fx:id="studentId" styleClass="details-label" text="\$studentId" />
       <Label fx:id="github" styleClass="details-label" text="\$github" />
+      <Label fx:id="projectTeam" styleClass="details-label" text="\$projectTeam" />
       <Label fx:id="progress" styleClass="details-label" text="\$progress" />
+      <Label fx:id="timedEvents" styleClass="details-label" text="\$timedEvents" />
     </VBox>
   </GridPane>
 </HBox>

@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import tassist.address.commons.core.GuiSettings;
 import tassist.address.model.person.Person;
+import tassist.address.model.timedevents.TimedEvent;
 
 /**
  * The API of the Model component.
@@ -14,6 +15,8 @@ import tassist.address.model.person.Person;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<TimedEvent> PREDICATE_SHOW_ALL_TIMED_EVENTS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -90,4 +93,38 @@ public interface Model {
      * Sort the student list by the given {@code comparator}.
      */
     void updateSortedPersonList(Comparator<Person> comparator);
+
+    /**
+     * Returns true if a timed event with the same identity as {@code timedEvent} exists.
+     */
+    boolean hasTimedEvent(TimedEvent timedEvent);
+
+    /**
+     * Adds the given timed event.
+     * {@code timedEvent} must not already exist.
+     */
+    void addTimedEvent(TimedEvent timedEvent);
+
+    /**
+     * Deletes the given timed event.
+     * The timed event must exist in the address book.
+     */
+    void deleteTimedEvent(TimedEvent timedEvent);
+
+    /** Returns an unmodifiable view of the timed events list */
+    ObservableList<TimedEvent> getTimedEventList();
+
+    /** Returns an unmodifiable view of the filtered timed events list */
+    ObservableList<TimedEvent> getFilteredTimedEventList();
+
+    /**
+     * Updates the filter of the filtered timed events list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredTimedEventList(Predicate<TimedEvent> predicate);
+
+    /**
+     * Sort the timed events list by the given {@code comparator}.
+     */
+    void updateSortedTimedEventList(Comparator<TimedEvent> comparator);
 }
