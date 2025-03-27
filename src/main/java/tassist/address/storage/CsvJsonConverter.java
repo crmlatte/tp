@@ -4,21 +4,23 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 
 public class CsvJsonConverter {
 
-    public void convertCsvToJson(String csvFile, String jsonFile) throws FileNotFoundException,
-            IOException, CsvException {
-        FileReader fileReader = new FileReader(csvFile);
+    public void convertCsvToJson(Path csvFilePath, Path jsonFilePath) throws IOException, CsvException {
+        FileReader fileReader = new FileReader(csvFilePath.toString());
         CSVReader csvReader = new CSVReader(fileReader);
 
         List<String[]> rows = csvReader.readAll();
@@ -27,9 +29,11 @@ public class CsvJsonConverter {
         List<Map<String, Object>> data = retrieveData(headers, rows);
 
         ObjectMapper objectMapper = new ObjectMapper();
-        Map<String, List<Map<String, Object>>> wrappedData = new HashMap<>();
+        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+
+        Map<String, List<Map<String, Object>>> wrappedData = new LinkedHashMap<>();
         wrappedData.put("persons", data);
-        objectMapper.writeValue(new File(jsonFile), wrappedData);
+        objectMapper.writeValue(new File(jsonFilePath.toString()), wrappedData);
         System.out.println("CSV has been successfully converted to JSON!");
     }
 
@@ -37,16 +41,24 @@ public class CsvJsonConverter {
         List<Map<String, Object>> data = new ArrayList<>();
         for (int i = 1; i < rows.size(); i++) {
             String[] row = rows.get(i);
-            Map<String, Object> personData = new HashMap<>();
+            Map<String, Object> personData = new LinkedHashMap<>();
 
             for (int j = 0; j < headers.length; j++) {
                 String key = headers[j];
                 String value = row[j];
 
-                if (key.equals("tags")) {
-                    personData.put(key, Arrays.asList(value.split(",")));
+                if (key.equalsIgnoreCase("tags")) {
+                    if (value == null || value.trim().isEmpty()) {
+                        personData.put(key, new String[0]);
+                    } else {
+                        personData.put(key, Arrays.asList(value.split(",")));
+                    }
                 } else {
-                    personData.put(key, value);
+                    if (value == null || value.trim().isEmpty()) {
+                        personData.put(key, "");
+                    } else {
+                        personData.put(key, value);
+                    }
                 }
             }
 
