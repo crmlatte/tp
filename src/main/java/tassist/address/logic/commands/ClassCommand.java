@@ -109,6 +109,7 @@ public class ClassCommand extends Command {
                 classNumber,
                 personToEdit.getStudentId(),
                 personToEdit.getGithub(),
+                personToEdit.getProjectTeam(),
                 personToEdit.getTags(),
                 personToEdit.getProgress()
         );
