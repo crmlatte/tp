@@ -288,8 +288,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | CS TA             | record my student's Github accounts                | access their project repositories             |
 | `* *`    | CS TA             | bulk edit project team assignments                 | reorganise teams quickly                      |
 | `* *`    | CS TA             | add assignment deadline                            | keep track of their submission dates          |
-| `* *`    | CS TA             | import a list of students from a CSV file          | add multiple students at once                 |
-| `* *`    | CS TA             | export student data as a CSV file                  | share a list of students with other TAs       |
 | `* *`    | CS TA             | filter the student list                            | view students within a project/class/course   |
 | `* *`    | CS TA             | assign a student to a class                        | filter students by class                      |
 | `* *`    | CS TA             | assign a student to a project team                 | access students in each project team          |
@@ -298,11 +296,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | CS TA             | assign multiple students to a project team at once | organise teams quickly                        |
 | `* *`    | CS TA             | add progress level to each student                 | easily monitor a student's progress and skill |
 | `* *`    | CS TA             | filter students by progress level                  | tailor my guidance to each student            |
-| `* *`    | forgetful CS TA   | set a reminder for a student tasks                 | remember to follow up                         |
-| `* *`    | forgetful CS TA   | schedule notification for assignment deadline      | remember to check submissions                 |
-| `* *`    | forgetful CS TA   | add notes to a student                             | take down important information               |
-| `* *`    | experienced CS TA | perform actions using keyboard commands            | work faster without a mouse                   |
-| `* *`    | CS TA             | add milestone achievements for students            | recognise their progress                      |
+| `*`      | forgetful CS TA   | set a reminder for a student tasks                 | remember to follow up                         |
+| `*`      | forgetful CS TA   | schedule notification for assignment deadline      | remember to check submissions                 |
+| `*`      | forgetful CS TA   | add notes to a student                             | take down important information               |
+| `*`      | experienced CS TA | perform actions using keyboard commands            | work faster without a mouse                   |
+| `*`      | CS TA             | add milestone achievements for students            | recognise their progress                      |
+| `*`      | CS TA             | import a list of students from a CSV file          | add multiple students at once                 |
+| `*`      | CS TA             | export student data as a CSV file                  | share a list of students with other TAs       |
 | `*`      | CS TA             | switch between different semester views            | reference past students easily                |
 | `*`      | CS TA             | see all pending reminders in one view              | ensure I do not miss any reminders            |
 | `*`      | CS TA             | pin a student's contact details                    | find frequently contacted students easily     |
@@ -387,6 +387,60 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 2a. The list is empty.
   * Use case ends.
+
+**Use case: UC5 - Add assignment**
+
+**MSS**
+
+1.  User requests to add an assignment.
+2.  System checks if the input data is a valid future date.
+3.  System adds the assignment to all students.
+4.  Use case ends.
+
+**Extensions**
+
+* 2a. The date is invalid.
+    * System outputs an invalid date message.
+    * Use case ends.
+
+**Use case: UC6 - View assignment list**
+
+**MSS**
+
+1.  User requests to view the current assignment list.
+2.  System shows the current assignment list.
+3.  Use case ends.
+
+**Use case: UC7 - Assign class to a student**
+
+**MSS**
+
+1.  User requests to assign a tutorial class to a student.
+2.  System assigns the tutorial class number to the student.
+3.  Use case ends.
+
+**Extensions**
+
+* 1a. The tutorial number is of invalid format.
+    * System outputs an invalid class number message.
+    * Use case ends.
+
+**Use case: UC8 - Assign an assignment to one or more students**
+
+**MSS**
+
+1.  User requests to add an assignment to some students.
+2.  System adds the assignment to all specified students.
+3.  Use case ends.
+
+**Extensions**
+
+* 1a. The specified assignment index is invalid.
+    * System outputs an invalid assignment index message.
+    * Use case ends.
+* 1b. The specified student index/student ID/tutorial group is invalid.
+    * System outputs an error message.
+    * Use case ends.
 
 *{More to be added}*
 
