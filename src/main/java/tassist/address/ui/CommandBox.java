@@ -84,6 +84,13 @@ public class CommandBox extends UiPart<Region> {
     }
 
     /**
+     * Requests focus on the command text field.
+     */
+    public void requestFocus() {
+        commandTextField.requestFocus();
+    }
+
+    /**
      * Represents a function that can execute commands.
      */
     @FunctionalInterface

@@ -31,7 +31,7 @@
           </Menu>
           <Menu mnemonicParsing="false" text="View">
             <MenuItem mnemonicParsing="false" onAction="#handleStudentCardsView" text="Student Cards" />
-            <MenuItem mnemonicParsing="false" onAction="#handleCalendarView" text="Calendar" />
+            <MenuItem fx:id="calendarMenuItem" mnemonicParsing="false" onAction="#handleCalendarView" text="Calendar" />
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
@@ -40,6 +40,7 @@
             <MenuItem mnemonicParsing="false" onAction="#handleDarkTheme" text="Dark Theme" />
             <MenuItem mnemonicParsing="false" onAction="#handleBrightTheme" text="Bright Theme" />
             <MenuItem mnemonicParsing="false" onAction="#handlePinkTheme" text="Pink Theme" />
+            <MenuItem fx:id="themeMenuItem" mnemonicParsing="false" onAction="#handleThemeCycle" text="Cycle Theme" />
           </Menu>
         </MenuBar>
 
