@@ -10,6 +10,7 @@ import tassist.address.model.person.Name;
 import tassist.address.model.person.Person;
 import tassist.address.model.person.Phone;
 import tassist.address.model.person.Progress;
+import tassist.address.model.person.ProjectTeam;
 import tassist.address.model.person.StudentId;
 import tassist.address.model.tag.Tag;
 import tassist.address.model.util.SampleDataUtil;
@@ -23,9 +24,10 @@ public class PersonBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_CLASS = "No tutorial assigned";
-    public static final String DEFAULT_STUDENTID = "A0000000B";
+    public static final String DEFAULT_STUDENT_ID = "A0000000B";
     public static final String DEFAULT_GITHUB = "No Github assigned";
     public static final String DEFAULT_PROGRESS = "0";
+    public static final String DEFAULT_PROJECT_TEAM = "No project team assigned";
 
     private Name name;
     private Phone phone;
@@ -35,6 +37,7 @@ public class PersonBuilder {
     private Github github;
     private Set<Tag> tags;
     private Progress progress;
+    private ProjectTeam projectTeam;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -44,8 +47,9 @@ public class PersonBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         classNumber = new ClassNumber(DEFAULT_CLASS);
-        studentId = new StudentId(DEFAULT_STUDENTID);
+        studentId = new StudentId(DEFAULT_STUDENT_ID);
         github = new Github(DEFAULT_GITHUB);
+        projectTeam = new ProjectTeam(DEFAULT_PROJECT_TEAM);
         tags = new HashSet<>();
         progress = new Progress(DEFAULT_PROGRESS);
     }
@@ -60,6 +64,7 @@ public class PersonBuilder {
         classNumber = personToCopy.getClassNumber();
         studentId = personToCopy.getStudentId();
         github = personToCopy.getGithub();
+        projectTeam = personToCopy.getProjectTeam();
         tags = new HashSet<>(personToCopy.getTags());
         progress = personToCopy.getProgress();
     }
@@ -122,6 +127,14 @@ public class PersonBuilder {
     }
 
     /**
+     * Sets the {@code ProjectTeam} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withProjectTeam(String projectTeam) {
+        this.projectTeam = new ProjectTeam(projectTeam);
+        return this;
+    }
+
+    /**
      * Sets the {@code Progress} of the {@code Person} that we are building.
      */
     public PersonBuilder withProgress(String progress) {
@@ -133,6 +146,6 @@ public class PersonBuilder {
      * Builds and returns a {@code Person} instance with the set attributes.
      */
     public Person build() {
-        return new Person(name, phone, email, classNumber, studentId, github, tags, progress);
+        return new Person(name, phone, email, classNumber, studentId, github, projectTeam, tags, progress);
     }
 }

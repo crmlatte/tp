@@ -3,6 +3,7 @@ package tassist.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static tassist.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_GITHUB;
+import static tassist.address.model.person.StudentId.VALIDATION_REGEX;
 
 import tassist.address.commons.core.index.Index;
 import tassist.address.commons.exceptions.IllegalValueException;
@@ -25,8 +26,9 @@ public class GithubCommandParser implements Parser<GithubCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
                 PREFIX_GITHUB);
+        String trimmedArgs = argMultimap.getPreamble().trim();
 
-        if (argMultimap.getPreamble().isEmpty()) {
+        if (trimmedArgs.isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     GithubCommand.MESSAGE_USAGE));
         }
@@ -40,17 +42,23 @@ public class GithubCommandParser implements Parser<GithubCommand> {
         } catch (IllegalArgumentException e) {
             throw new ParseException(GithubCommand.MESSAGE_INVALID_GITHUB, e);
         }
-        try {
-            Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
-            return new GithubCommand(index, new Github(github));
-        } catch (ParseException e) {
+
+        if (trimmedArgs.matches(VALIDATION_REGEX)) {
             try {
-                StudentId studentId = ParserUtil.parseStudentId(argMultimap.getPreamble());
+                StudentId studentId = ParserUtil.parseStudentId(trimmedArgs);
                 return new GithubCommand(studentId, new Github(github));
             } catch (IllegalValueException ive) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         GithubCommand.MESSAGE_USAGE), ive);
             }
+        }
+
+        try {
+            Index index = ParserUtil.parseIndex(trimmedArgs);
+            return new GithubCommand(index, new Github(github));
+        } catch (IllegalValueException ive) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    GithubCommand.MESSAGE_USAGE), ive);
         }
     }
 }
