@@ -288,8 +288,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | CS TA             | record my student's Github accounts                | access their project repositories             |
 | `* *`    | CS TA             | bulk edit project team assignments                 | reorganise teams quickly                      |
 | `* *`    | CS TA             | add assignment deadline                            | keep track of their submission dates          |
-| `* *`    | CS TA             | import a list of students from a CSV file          | add multiple students at once                 |
-| `* *`    | CS TA             | export student data as a CSV file                  | share a list of students with other TAs       |
 | `* *`    | CS TA             | filter the student list                            | view students within a project/class/course   |
 | `* *`    | CS TA             | assign a student to a class                        | filter students by class                      |
 | `* *`    | CS TA             | assign a student to a project team                 | access students in each project team          |
@@ -298,11 +296,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | CS TA             | assign multiple students to a project team at once | organise teams quickly                        |
 | `* *`    | CS TA             | add progress level to each student                 | easily monitor a student's progress and skill |
 | `* *`    | CS TA             | filter students by progress level                  | tailor my guidance to each student            |
-| `* *`    | forgetful CS TA   | set a reminder for a student tasks                 | remember to follow up                         |
-| `* *`    | forgetful CS TA   | schedule notification for assignment deadline      | remember to check submissions                 |
-| `* *`    | forgetful CS TA   | add notes to a student                             | take down important information               |
-| `* *`    | experienced CS TA | perform actions using keyboard commands            | work faster without a mouse                   |
-| `* *`    | CS TA             | add milestone achievements for students            | recognise their progress                      |
+| `*`      | forgetful CS TA   | set a reminder for a student tasks                 | remember to follow up                         |
+| `*`      | forgetful CS TA   | schedule notification for assignment deadline      | remember to check submissions                 |
+| `*`      | forgetful CS TA   | add notes to a student                             | take down important information               |
+| `*`      | experienced CS TA | perform actions using keyboard commands            | work faster without a mouse                   |
+| `*`      | CS TA             | add milestone achievements for students            | recognise their progress                      |
+| `*`      | CS TA             | import a list of students from a CSV file          | add multiple students at once                 |
+| `*`      | CS TA             | export student data as a CSV file                  | share a list of students with other TAs       |
 | `*`      | CS TA             | switch between different semester views            | reference past students easily                |
 | `*`      | CS TA             | see all pending reminders in one view              | ensure I do not miss any reminders            |
 | `*`      | CS TA             | pin a student's contact details                    | find frequently contacted students easily     |
