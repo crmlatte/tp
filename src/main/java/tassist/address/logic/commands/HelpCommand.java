@@ -20,8 +20,8 @@ public class HelpCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows program usage instructions.\n"
             + "Example: " + COMMAND_WORD;
 
-    public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
-    public static final String MESSAGE_OPEN_HELP_FAILURE = "Failed to open help window.";
+    public static final String SHOWING_HELP_MESSAGE = "Opened help window in browser.";
+    public static final String MESSAGE_OPEN_HELP_FAILURE = "Failed to open help window in browser.";
 
     private final BrowserService browserService;
 
@@ -33,7 +33,7 @@ public class HelpCommand extends Command {
     }
 
     /**
-     * Constructs a HelpCommand with a specified browser service.
+     * Constructs a HelpCommand with a specified browser service and help window.
      *
      * @param browserService The browser service to handle opening URLs.
      */
@@ -46,9 +46,24 @@ public class HelpCommand extends Command {
         requireNonNull(model);
         try {
             browserService.openUrl(HELP_URL);
-            return new CommandResult(SHOWING_HELP_MESSAGE, false, false);
         } catch (IOException | URISyntaxException e) {
-            return new CommandResult(MESSAGE_OPEN_HELP_FAILURE, false, false);
+            return new CommandResult(MESSAGE_OPEN_HELP_FAILURE, true, false);
         }
+
+        return new CommandResult(SHOWING_HELP_MESSAGE, true, false);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof HelpCommand)) {
+            return false;
+        }
+
+        HelpCommand otherHelpCommand = (HelpCommand) other;
+        return browserService.equals(otherHelpCommand.browserService);
     }
 }

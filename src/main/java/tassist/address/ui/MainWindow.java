@@ -1,4 +1,6 @@
+
 package tassist.address.ui;
+
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -23,24 +25,34 @@ import tassist.address.logic.commands.CommandResult;
 import tassist.address.logic.commands.exceptions.CommandException;
 import tassist.address.logic.parser.exceptions.ParseException;
 
+
 /**
  * The Main Window. Provides the basic application layout containing
+ * <p>
  * a menu bar and space where other JavaFX elements can be placed.
  */
+
 public class MainWindow extends UiPart<Stage> {
 
+
     private static final String FXML = "MainWindow.fxml";
+
     private static final String HELP_URL = "https://ay2425s2-cs2103t-w12-4.github.io/tp/UserGuide.html";
+
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
+
     private Stage primaryStage;
+
     private Logic logic;
+
     private final BrowserService browserService;
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
+    private HelpWindow helpWindow;
     private CommandBox commandBox;
 
     @FXML
@@ -76,6 +88,8 @@ public class MainWindow extends UiPart<Stage> {
         setWindowDefaultSize(logic.getGuiSettings());
 
         setAccelerators();
+
+        helpWindow = new HelpWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -168,10 +182,20 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     public void handleHelp() {
         try {
+
             browserService.openUrl(HELP_URL);
+
         } catch (IOException | URISyntaxException e) {
+
             logger.warning("Failed to open help window: " + e.getMessage());
+
             resultDisplay.setFeedbackToUser("Failed to open help window.");
+
+        }
+        if (!helpWindow.isShowing()) {
+            helpWindow.show();
+        } else {
+            helpWindow.focus();
         }
     }
 
@@ -187,6 +211,7 @@ public class MainWindow extends UiPart<Stage> {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
+        helpWindow.hide();
         primaryStage.hide();
     }
 
@@ -202,9 +227,20 @@ public class MainWindow extends UiPart<Stage> {
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
+            logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            if (commandResult.isShowHelp()) {
+                handleHelp();
+            }
+
+            if (commandResult.isExit()) {
+                handleExit();
+            }
+
             return commandResult;
         } catch (CommandException | ParseException e) {
+            logger.info("An error occurred while executing command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
