@@ -1,7 +1,6 @@
 package tassist.address.logic.browser;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.awt.Desktop;
 import java.io.IOException;
@@ -19,51 +18,45 @@ public class DesktopBrowserServiceTest {
     @Test
     public void openUrl_invalidUrl_throwsUriSyntaxException() {
         String invalidUrl = "not a url";
-        assertThrows(URISyntaxException.class, () -> new URI(invalidUrl));
+        assertThrows(URISyntaxException.class, () -> browserService.openUrl(invalidUrl));
     }
 
     @Test
     public void openUrl_malformedUrl_throwsUriSyntaxException() {
         String malformedUrl = "http://example.com\\invalid\\path";
-        assertThrows(URISyntaxException.class, () -> new URI(malformedUrl));
+        assertThrows(URISyntaxException.class, () -> browserService.openUrl(malformedUrl));
     }
 
     @Test
     public void openUrl_urlWithSpaces_throwsUriSyntaxException() {
         String urlWithSpaces = "http://example.com/path with spaces";
-        assertThrows(URISyntaxException.class, () -> new URI(urlWithSpaces));
+        assertThrows(URISyntaxException.class, () -> browserService.openUrl(urlWithSpaces));
     }
 
     @Test
     public void openUrl_urlWithInvalidChars_throwsUriSyntaxException() {
         String urlWithInvalidChars = "http://example.com/<>{}|\\^`";
-        assertThrows(URISyntaxException.class, () -> new URI(urlWithInvalidChars));
+        assertThrows(URISyntaxException.class, () -> browserService.openUrl(urlWithInvalidChars));
     }
 
     @Test
-    public void openUrl_validUrl_throwsIoExceptionOnHeadless() {
+    public void openUrl_desktopNotSupported_throwsIoException() {
         String validUrl = "http://example.com";
-        try {
-            browserService.openUrl(validUrl);
-        } catch (IOException e) {
-            // On headless systems, we expect either:
-            // "Desktop is not supported on this platform" or
-            // "Opening URLs is not supported on this platform"
-            assertTrue(e.getMessage().contains("not supported on this platform"));
-        } catch (URISyntaxException e) {
-            // This shouldn't happen with a valid URL
-            throw new AssertionError("Valid URL threw URISyntaxException", e);
+        if (!Desktop.isDesktopSupported()) {
+            assertThrows(IOException.class, () -> browserService.openUrl(validUrl),
+                    "Desktop is not supported on this platform");
         }
     }
 
     @Test
-    public void openUrl_validUrlWithDesktopSupported_throwsIoExceptionIfBrowseNotSupported() {
+    public void openUrl_browsingNotSupported_throwsIoException() {
         String validUrl = "http://example.com";
         // Only run this test if Desktop is supported
         if (Desktop.isDesktopSupported()) {
             Desktop desktop = Desktop.getDesktop();
             if (!desktop.isSupported(Desktop.Action.BROWSE)) {
-                assertThrows(IOException.class, () -> browserService.openUrl(validUrl));
+                assertThrows(IOException.class, () -> browserService.openUrl(validUrl),
+                        "Opening URLs is not supported on this platform");
             }
         }
     }
