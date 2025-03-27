@@ -117,6 +117,7 @@ public class AssignCommand extends Command {
             try {
                 targetStudent.addTimedEvent(targetEvent);
                 resultMessage.append(String.format(MESSAGE_ASSIGN_SUCCESS, Messages.format(targetStudent)));
+                model.setPerson(targetStudent, targetStudent);
             } catch (DuplicateTimedEventException e) {
                 resultMessage.append(String.format(MESSAGE_DUPLICATE_ASSIGNMENT));
             }
@@ -134,6 +135,7 @@ public class AssignCommand extends Command {
                     .map(student -> {
                         try {
                             student.addTimedEvent(targetEvent);
+                            model.setPerson(student, student);
                             return String.format(MESSAGE_ASSIGN_SUCCESS, Messages.format(student));
                         } catch (DuplicateTimedEventException e) {
                             return MESSAGE_DUPLICATE_ASSIGNMENT;
