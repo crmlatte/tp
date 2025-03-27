@@ -144,8 +144,8 @@ Examples:
   Displays all students, sorted by Github username in ascending lexicographical order.
 * `list f/progress fv/50 s/name o/des`<br>
   Displays students with progress ≤ 50, sorted by name in descending lexicographical order.
-* `list f/team fv/BangBang`<br>
-  Displays all students, sorted by Github username in ascending lexicographical order.
+* `list f/team fv/Bang Bang`<br>
+  Displays students with the Team name 'Bang Bang', matched case-insensitively.
 
 ### Editing a student : `edit`
 
