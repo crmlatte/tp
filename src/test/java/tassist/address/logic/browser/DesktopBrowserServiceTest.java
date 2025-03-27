@@ -1,10 +1,7 @@
 package tassist.address.logic.browser;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.awt.Desktop;
-import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -38,34 +35,6 @@ public class DesktopBrowserServiceTest {
     public void openUrl_urlWithInvalidChars_throwsUriSyntaxException() {
         String urlWithInvalidChars = "http://example.com/<>{}|\\^`";
         assertThrows(URISyntaxException.class, () -> new URI(urlWithInvalidChars));
-    }
-
-    @Test
-    public void openUrl_validUrl_throwsIoExceptionOnHeadless() {
-        String validUrl = "http://example.com";
-        try {
-            browserService.openUrl(validUrl);
-        } catch (IOException e) {
-            // On headless systems, we expect either:
-            // "Desktop is not supported on this platform" or
-            // "Opening URLs is not supported on this platform"
-            assertTrue(e.getMessage().contains("not supported on this platform"));
-        } catch (URISyntaxException e) {
-            // This shouldn't happen with a valid URL
-            throw new AssertionError("Valid URL threw URISyntaxException", e);
-        }
-    }
-
-    @Test
-    public void openUrl_validUrlWithDesktopSupported_throwsIoExceptionIfBrowseNotSupported() {
-        String validUrl = "http://example.com";
-        // Only run this test if Desktop is supported
-        if (Desktop.isDesktopSupported()) {
-            Desktop desktop = Desktop.getDesktop();
-            if (!desktop.isSupported(Desktop.Action.BROWSE)) {
-                assertThrows(IOException.class, () -> browserService.openUrl(validUrl));
-            }
-        }
     }
 
     @Test

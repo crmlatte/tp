@@ -65,13 +65,13 @@ public class ListCommandTest {
     public void execute_sortByProgressDescending_success() {
         ListCommand command = new ListCommand("progress", "des", null, null);
         expectedModel.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        List<Person> sortedList = new ArrayList<>(expectedModel.getFilteredPersonList());
-        sortedList.sort(Comparator.comparing(p -> p.getProgress().value, Comparator.reverseOrder()));
-
+        expectedModel.updateSortedPersonList(Comparator.comparing(p -> p.getProgress().value,
+                Comparator.reverseOrder()));
         assertCommandSuccess(command, model, ListCommand.MESSAGE_LIST_SORTED, expectedModel);
 
         List<Person> actualList = new ArrayList<>(model.getFilteredPersonList());
-        assertEquals(sortedList, actualList);
+        List<Person> expectedList = new ArrayList<>(expectedModel.getFilteredPersonList());
+        assertEquals(expectedList, actualList);
     }
 
     @Test
@@ -100,7 +100,6 @@ public class ListCommandTest {
     public void execute_filterByProgress_noMatch() {
         ListCommand command = new ListCommand(null, null, "progress", "-1");
         expectedModel.updateFilteredPersonList(person -> person.getProgress().value <= -1);
-
         assertCommandSuccess(command, model, ListCommand.MESSAGE_NO_STUDENTS, expectedModel);
     }
 
@@ -109,10 +108,14 @@ public class ListCommandTest {
         ListCommand command = new ListCommand("name", "des", "progress", "30");
         Predicate<Person> expectedPredicate = person -> person.getProgress().value <= 30;
         expectedModel.updateFilteredPersonList(expectedPredicate);
-        List<Person> sortedList = new ArrayList<>(expectedModel.getFilteredPersonList());
-        sortedList.sort(Comparator.comparing(p -> p.getProgress().value, Comparator.reverseOrder()));
+        expectedModel.updateSortedPersonList(Comparator.comparing(p -> p.getName().fullName,
+                Comparator.reverseOrder()));
 
         assertCommandSuccess(command, model, ListCommand.MESSAGE_LIST_FILTERED_SORTED, expectedModel);
+
+        List<Person> actualList = new ArrayList<>(model.getFilteredPersonList());
+        List<Person> expectedList = new ArrayList<>(expectedModel.getFilteredPersonList());
+        assertEquals(expectedList, actualList);
     }
 
     @Test

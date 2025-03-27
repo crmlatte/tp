@@ -102,9 +102,9 @@ public class PersonTest {
         editedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different tags -> returns true
+        // different tags -> returns false
         editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.equals(editedAlice));
+        assertFalse(ALICE.equals(editedAlice));
 
         // different project team -> returns true
         editedAlice = new PersonBuilder(ALICE).withProjectTeam(VALID_PROJECT_TEAM_BOB).build();
@@ -117,8 +117,10 @@ public class PersonTest {
                 + "{name=" + ALICE.getName() + ", phone=" + ALICE.getPhone()
                 + ", email=" + ALICE.getEmail()
                 + ", classNumber=" + ALICE.getClassNumber() + ", studentId=" + ALICE.getStudentId()
-                + ", github=" + ALICE.getGithub() + ", project team=" + ALICE.getProjectTeam()
-                + ", tags=" + ALICE.getTags() + ", progress=" + ALICE.getProgress() + "}";
+                + ", github=" + ALICE.getGithub()
+                + ", project team=" + ALICE.getProjectTeam()
+                + ", tags=" + ALICE.getTags() + ", progress=" + ALICE.getProgress()
+                + ", timedEvents=" + ALICE.getTimedEvents() + "}";
 
         assertEquals(expected, ALICE.toString());
     }

@@ -7,8 +7,11 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import javafx.collections.ObservableList;
 import tassist.address.commons.util.ToStringBuilder;
 import tassist.address.model.tag.Tag;
+import tassist.address.model.timedevents.TimedEvent;
+import tassist.address.model.timedevents.UniqueTimedEventList;
 
 /**
  * Represents a Person in the address book.
@@ -27,13 +30,14 @@ public class Person {
     private final Progress progress;
     private final Set<Tag> tags = new HashSet<>();
     private final Github github;
+    private final UniqueTimedEventList timedEvents;
     private final ProjectTeam projectTeam;
 
     /**
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, ClassNumber classNumber,
-                StudentId studentId, Github github, ProjectTeam projectTeam, Set<Tag> tags, Progress progress) {
+            StudentId studentId, Github github, ProjectTeam projectTeam, Set<Tag> tags, Progress progress) {
         requireAllNonNull(name, phone, email, classNumber, studentId, github, projectTeam, tags, progress);
 
         this.name = name;
@@ -45,7 +49,29 @@ public class Person {
         this.projectTeam = projectTeam;
         this.tags.addAll(tags);
         this.progress = progress;
+        this.timedEvents = new UniqueTimedEventList();
     }
+
+    /**
+     * Every field must be present and not null.
+     */
+    public Person(Name name, Phone phone, Email email, ClassNumber classNumber,
+            StudentId studentId, Github github, ProjectTeam projectTeam, Set<Tag> tags, Progress progress,
+            UniqueTimedEventList timedEvents) {
+        requireAllNonNull(name, phone, email, classNumber, studentId, github, tags, progress, timedEvents);
+
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.classNumber = classNumber;
+        this.studentId = studentId;
+        this.github = github;
+        this.tags.addAll(tags);
+        this.progress = progress;
+        this.timedEvents = timedEvents;
+        this.projectTeam = projectTeam;
+    }
+
 
     public Name getName() {
         return name;
@@ -92,6 +118,44 @@ public class Person {
     }
 
     /**
+     * Returns an unmodifiable view of the timed events list.
+     * This list will not contain any duplicate timed events.
+     */
+    public ObservableList<TimedEvent> getTimedEvents() {
+        return timedEvents.asUnmodifiableObservableList();
+    }
+
+    /**
+     * Returns the underlying UniqueTimedEventList.
+     */
+    public UniqueTimedEventList getTimedEventsList() {
+        return timedEvents;
+    }
+
+    /**
+     * Adds a timed event to the person's list.
+     * The timed event must not already exist in the list.
+     */
+    public void addTimedEvent(TimedEvent timedEvent) {
+        timedEvents.add(timedEvent);
+    }
+
+    /**
+     * Removes a timed event from the person's list.
+     * The timed event must exist in the list.
+     */
+    public void removeTimedEvent(TimedEvent timedEvent) {
+        timedEvents.remove(timedEvent);
+    }
+
+    /**
+     * Returns true if the person has the given timed event.
+     */
+    public boolean hasTimedEvent(TimedEvent timedEvent) {
+        return timedEvents.contains(timedEvent);
+    }
+
+    /**
      * Returns true if both persons have the same name.
      * This defines a weaker notion of equality between two persons.
      */
@@ -123,13 +187,16 @@ public class Person {
         return name.equals(otherPerson.name)
                 && email.equals(otherPerson.email)
                 && studentId.equals(otherPerson.studentId)
-                && github.equals(otherPerson.github);
+                && github.equals(otherPerson.github)
+                && tags.equals(otherPerson.tags)
+                && timedEvents.equals(otherPerson.timedEvents);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(name, phone, email, classNumber, studentId, github, projectTeam, tags, progress);
+
     }
 
     @Override
@@ -144,6 +211,7 @@ public class Person {
                 .add("project team", projectTeam)
                 .add("tags", tags)
                 .add("progress", progress)
+                .add("timedEvents", timedEvents)
                 .toString();
     }
 
