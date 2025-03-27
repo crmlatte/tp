@@ -58,6 +58,12 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
+    private MenuItem calendarMenuItem;
+
+    @FXML
+    private MenuItem themeMenuItem;
+
+    @FXML
     private StackPane personListPanelPlaceholder;
 
     @FXML
@@ -100,6 +106,8 @@ public class MainWindow extends UiPart<Stage> {
 
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
+        setAccelerator(calendarMenuItem, KeyCombination.valueOf("F3"));
+        setAccelerator(themeMenuItem, KeyCombination.valueOf("F2"));
     }
 
     /**
@@ -290,20 +298,31 @@ public class MainWindow extends UiPart<Stage> {
         });
         sendButtonPlaceholder.getChildren().clear();
         sendButtonPlaceholder.getChildren().add(sendButton);
+
+        // Request focus on command box
+        commandBox.requestFocus();
     }
 
     @FXML
     private void handleCalendarView() {
-        // Hide split pane and show calendar view
-        splitPane.setVisible(false);
-        splitPane.setManaged(false);
-        calendarViewPlaceholder.setVisible(true);
-        calendarViewPlaceholder.setManaged(true);
-        // Set up calendar view
-        calendarViewPlaceholder.getChildren().clear();
-        calendarViewPlaceholder.getChildren().add(calendarView.getRoot());
-        // Refresh the events in calendar view
-        calendarView.updateEvents(logic.getTimedEventList());
+        // Toggle between views
+        if (calendarViewPlaceholder.isVisible()) {
+            // If calendar is visible, switch back to student cards view
+            handleStudentCardsView();
+        } else {
+            // If calendar is hidden, switch to calendar view
+            splitPane.setVisible(false);
+            splitPane.setManaged(false);
+            calendarViewPlaceholder.setVisible(true);
+            calendarViewPlaceholder.setManaged(true);
+            // Set up calendar view
+            calendarViewPlaceholder.getChildren().clear();
+            calendarViewPlaceholder.getChildren().add(calendarView.getRoot());
+            // Refresh the events in calendar view
+            calendarView.updateEvents(logic.getTimedEventList());
+            // Request focus on command box
+            commandBox.requestFocus();
+        }
     }
 
     @FXML
@@ -325,5 +344,41 @@ public class MainWindow extends UiPart<Stage> {
         Scene scene = primaryStage.getScene();
         scene.getStylesheets().clear();
         scene.getStylesheets().add(getClass().getResource("/view/PinkTheme.css").toExternalForm());
+    }
+
+    @FXML
+    private void handleThemeCycle() {
+        Scene scene = primaryStage.getScene();
+        String currentTheme = "";
+
+        // Find the current theme by checking all stylesheets
+        for (String stylesheet : scene.getStylesheets()) {
+            if (stylesheet.contains("DarkTheme")) {
+                currentTheme = "DarkTheme";
+                break;
+            } else if (stylesheet.contains("BrightTheme")) {
+                currentTheme = "BrightTheme";
+                break;
+            } else if (stylesheet.contains("PinkTheme")) {
+                currentTheme = "PinkTheme";
+                break;
+            }
+        }
+
+        // Cycle through themes
+        switch (currentTheme) {
+        case "DarkTheme":
+            handleBrightTheme();
+            break;
+        case "BrightTheme":
+            handlePinkTheme();
+            break;
+        case "PinkTheme":
+            handleDarkTheme();
+            break;
+        default:
+            handleDarkTheme();
+            break;
+        }
     }
 }
