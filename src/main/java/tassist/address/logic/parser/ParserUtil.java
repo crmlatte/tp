@@ -17,6 +17,7 @@ import tassist.address.model.person.Github;
 import tassist.address.model.person.Name;
 import tassist.address.model.person.Phone;
 import tassist.address.model.person.Progress;
+import tassist.address.model.person.ProjectTeam;
 import tassist.address.model.person.StudentId;
 import tassist.address.model.tag.Tag;
 
@@ -156,6 +157,21 @@ public class ParserUtil {
             throw new ParseException(StudentId.MESSAGE_CONSTRAINTS);
         }
         return new StudentId(trimmedStudentId);
+    }
+
+    /**
+     * Parses a {@code String projectTeam} into an {@code ProjectTeam}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code projectTeam} is invalid.
+     */
+    public static ProjectTeam parseProjectTeam(String projectTeam) throws ParseException {
+        requireNonNull(projectTeam);
+        String trimmedProjectTeam = projectTeam.trim();
+        if (!ProjectTeam.isValidProjectTeam(trimmedProjectTeam)) {
+            throw new ParseException(ProjectTeam.MESSAGE_CONSTRAINTS);
+        }
+        return new ProjectTeam(trimmedProjectTeam);
     }
 
     /**
