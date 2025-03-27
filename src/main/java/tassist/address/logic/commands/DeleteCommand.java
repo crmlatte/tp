@@ -81,6 +81,10 @@ public class DeleteCommand extends Command implements ConfirmableCommand {
     @Override
     public CommandResult executeConfirmed(Model model) {
         requireNonNull(model);
+        // Verify command state
+        assert targetIndex != null || targetStudentId != null : "Either index or student ID must be provided";
+        assert !(targetIndex != null && targetStudentId != null) : "Cannot have both index and student ID";
+
         Person personToDelete = null;
 
         if (targetIndex != null) {
@@ -98,7 +102,15 @@ public class DeleteCommand extends Command implements ConfirmableCommand {
             }
             personToDelete = personOptional.get();
         }
+
+        // Verify person exists before deletion
+        assert personToDelete != null : "Person to delete should be found";
+        assert model.hasPerson(personToDelete) : "Person should exist in model before deletion";
+
         model.deletePerson(personToDelete);
+        
+        // Verify person was deleted
+        assert !model.hasPerson(personToDelete) : "Person should be deleted from model";
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, Messages.format(personToDelete)));
     }
 
