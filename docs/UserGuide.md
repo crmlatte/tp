@@ -9,7 +9,6 @@ TAssist is a **desktop application** for Teaching Assistants (TAs) to easily tra
 {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
-
 ## Quick start
 
 1. Ensure you have Java `17` or above installed in your Computer.<br>
@@ -30,17 +29,8 @@ TAssist is a **desktop application** for Teaching Assistants (TAs) to easily tra
 
 7. A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png) 
-
-8. TAssist allows users to personalize the appearance of the application by switching between different color themes.<br>
-   Users can press the `F2` key to cycle through the available themes. <br>
-   Available themes: Dark, Bright, Pink
-
-9. Viewing Upcoming Events Calendar: `F3`
-   TAssist provides a calendar-style view to help you visualize upcoming assignments and timed events. Events are grouped and displayed by their due dates, along with the list of students assigned to each.
-   * Press the F3 key to open the calendar-style event viewer.
-   * Display includes: Assignment names, Event type (e.g., assignment), Assigned students, Dates grouped chronologically
-   
-10. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+ 
+8. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
     Some example commands you can try:
 
    * `list` : Lists all contacts.
@@ -53,9 +43,22 @@ TAssist is a **desktop application** for Teaching Assistants (TAs) to easily tra
 
    * `exit` : Exits the app.
 
-11. Refer to the [Features](#features) below for details of each command.
+9. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
+## Tips
+
+1. TAssist allows users to personalize the appearance of the application by switching between different color themes.<br>
+   Users can press the `F2` key to cycle through the available themes. <br>
+   Available themes: Dark, Bright, Pink
+
+2. Viewing Upcoming Events Calendar: `F3`
+   TAssist provides a calendar-style view to help you visualize upcoming assignments and timed events. Events are grouped and displayed by their due dates, along with the list of students assigned to each.
+    * Press the F3 key to open the calendar-style event viewer.
+    * Display includes: Assignment names, Event type (e.g., assignment), Assigned students, Dates grouped chronologically
+
+--------------------------------------------------------------------------------------------------------------------
+
 
 ## Features
 
