@@ -2,6 +2,7 @@ package tassist.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static tassist.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -47,7 +48,10 @@ public class CommandTestUtil {
     public static final String VALID_PROGRESS_AMY = "60";
     public static final String VALID_PROGRESS_BOB = "80";
     public static final String NONEXISTENT_STUDENTID = "A9999999Z";
-
+    public static final String VALID_DATE_LONG = "30-01-2030";
+    public static final String VALID_DATE_MID = "15-03-30";
+    public static final String VALID_DATE_SHORT = "20-12";
+    public static final String VALID_ASSIGNMENT_NAME = "CS2103T project";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -63,6 +67,36 @@ public class CommandTestUtil {
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
     public static final String PROGRESS_DESC_AMY = " " + PREFIX_PROGRESS + VALID_PROGRESS_AMY;
     public static final String PROGRESS_DESC_BOB = " " + PREFIX_PROGRESS + VALID_PROGRESS_BOB;
+    public static final String ASSIGNMENT_DESC_2103 = " " + PREFIX_NAME + VALID_ASSIGNMENT_NAME;
+    public static final String DATE_DESC_LONG = " " + PREFIX_DATE + VALID_DATE_LONG;
+    public static final String DATE_DESC_MID = " " + PREFIX_DATE + VALID_DATE_MID;
+    public static final String DATE_DESC_SHORT = " " + PREFIX_DATE + VALID_DATE_SHORT;
+    // Invalid assignment test strings
+    public static final String INVALID_ASSIGNMENT_NAME_SPECIAL = " " + PREFIX_NAME + "&" + DATE_DESC_LONG;
+    public static final String INVALID_ASSIGNMENT_NAME_EMPTY = " " + PREFIX_NAME + DATE_DESC_LONG;
+    public static final String INVALID_ASSIGNMENT_NAME_SPACES = " " + PREFIX_NAME + "   " + DATE_DESC_LONG;
+    public static final String INVALID_DATE_FORMAT = ASSIGNMENT_DESC_2103 + " " + PREFIX_DATE + "2030-01-30";
+    public static final String INVALID_DATE_VALUES = ASSIGNMENT_DESC_2103 + " " + PREFIX_DATE + "32-01-2030";
+    public static final String INVALID_DATE_PAST = ASSIGNMENT_DESC_2103 + " " + PREFIX_DATE + "01-01-2020";
+    public static final String EXTRA_ARGUMENTS = ASSIGNMENT_DESC_2103 + DATE_DESC_LONG + " extra";
+    public static final String EXTRA_PREFIX = ASSIGNMENT_DESC_2103 + DATE_DESC_LONG + " " + PREFIX_NAME + "Extra";
+    public static final String MULTIPLE_FIELDS_INPUT = ASSIGNMENT_DESC_2103 + DATE_DESC_LONG + " " + PREFIX_NAME
+            + "Another Project " + PREFIX_DATE + "31-01-2030";
+    public static final String MULTIPLE_VALID_FIELDS_INPUT = ASSIGNMENT_DESC_2103 + DATE_DESC_LONG + " " + PREFIX_NAME
+            + "CS2103T Quiz " + PREFIX_DATE + "31-01-2030";
+    public static final String MULTIPLE_INVALID_FIELDS_INPUT = " " + PREFIX_NAME + " " + DATE_DESC_LONG + " "
+            + PREFIX_NAME + " " + PREFIX_DATE + "31-01-2030";
+
+    // Assign command test strings
+    public static final String VALID_INDEX_ONE = "1";
+    public static final String VALID_INDEX_TWO = "2";
+    public static final String VALID_STUDENT_ID = "A1234567M";
+    public static final String VALID_CLASS_NUMBER = "T01";
+    public static final String INVALID_INDEX = "a";
+    public static final String INVALID_STUDENT_ID = "A123456";
+    public static final String INVALID_CLASS_NUMBER = "T00";
+    public static final String INVALID_STUDENT_INDEX = "a";
+    public static final String TOO_MANY_ARGUMENTS = "1 2 3";
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
@@ -132,6 +166,7 @@ public class CommandTestUtil {
         assertEquals(expectedAddressBook, actualModel.getAddressBook());
         assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
     }
+
     /**
      * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
      * {@code model}'s address book.
