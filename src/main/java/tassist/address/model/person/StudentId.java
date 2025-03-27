@@ -56,4 +56,8 @@ public class StudentId {
         StudentId otherStudentId = (StudentId) other;
         return value.equals(otherStudentId.value);
     }
+
+    public int hashCode() {
+        return value.hashCode();
+    }
 }

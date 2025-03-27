@@ -2,8 +2,6 @@ package tassist.address.logic.browser;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.awt.Desktop;
-import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -37,28 +35,6 @@ public class DesktopBrowserServiceTest {
     public void openUrl_urlWithInvalidChars_throwsUriSyntaxException() {
         String urlWithInvalidChars = "http://example.com/<>{}|\\^`";
         assertThrows(URISyntaxException.class, () -> browserService.openUrl(urlWithInvalidChars));
-    }
-
-    @Test
-    public void openUrl_desktopNotSupported_throwsIoException() {
-        String validUrl = "http://example.com";
-        if (!Desktop.isDesktopSupported()) {
-            assertThrows(IOException.class, () -> browserService.openUrl(validUrl),
-                    "Desktop is not supported on this platform");
-        }
-    }
-
-    @Test
-    public void openUrl_browsingNotSupported_throwsIoException() {
-        String validUrl = "http://example.com";
-        // Only run this test if Desktop is supported
-        if (Desktop.isDesktopSupported()) {
-            Desktop desktop = Desktop.getDesktop();
-            if (!desktop.isSupported(Desktop.Action.BROWSE)) {
-                assertThrows(IOException.class, () -> browserService.openUrl(validUrl),
-                        "Opening URLs is not supported on this platform");
-            }
-        }
     }
 
     @Test

@@ -8,6 +8,8 @@ import javafx.collections.ObservableList;
 import tassist.address.commons.util.ToStringBuilder;
 import tassist.address.model.person.Person;
 import tassist.address.model.person.UniquePersonList;
+import tassist.address.model.timedevents.TimedEvent;
+import tassist.address.model.timedevents.UniqueTimedEventList;
 
 /**
  * Wraps all data at the address-book level
@@ -16,6 +18,7 @@ import tassist.address.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final UniqueTimedEventList timedEvents;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -26,6 +29,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        timedEvents = new UniqueTimedEventList();
     }
 
     public AddressBook() {}
@@ -49,12 +53,20 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the timed event list with {@code timedEvents}.
+     * {@code timedEvents} must not contain duplicate timed events.
+     */
+    public void setTimedEvents(List<TimedEvent> timedEvents) {
+        this.timedEvents.setTimedEvents(timedEvents);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
-
         setPersons(newData.getPersonList());
+        setTimedEvents(newData.getTimedEventList());
     }
 
     //// person-level operations
@@ -82,7 +94,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setPerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
-
         persons.setPerson(target, editedPerson);
     }
 
@@ -94,12 +105,40 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
+    //// timed event-level operations
+
+    /**
+     * Returns true if a timed event with the same identity as {@code timedEvent} exists.
+     */
+    public boolean hasTimedEvent(TimedEvent timedEvent) {
+        requireNonNull(timedEvent);
+        return timedEvents.contains(timedEvent);
+    }
+
+    /**
+     * Adds a timed event to the address book.
+     * The timed event must not already exist.
+     */
+    public void addTimedEvent(TimedEvent timedEvent) {
+        timedEvents.add(timedEvent);
+    }
+
+    /**
+     * Removes the given timed event from the address book.
+     * The timed event must exist in the address book.
+     */
+    public void removeTimedEvent(TimedEvent timedEvent) {
+        requireNonNull(timedEvent);
+        timedEvents.remove(timedEvent);
+    }
+
     //// util methods
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .add("persons", persons)
+                .add("timedEvents", timedEvents)
                 .toString();
     }
 
@@ -109,22 +148,27 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
+    public ObservableList<TimedEvent> getTimedEventList() {
+        return timedEvents.asUnmodifiableObservableList();
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;
         }
 
-        // instanceof handles nulls
         if (!(other instanceof AddressBook)) {
             return false;
         }
 
         AddressBook otherAddressBook = (AddressBook) other;
-        return persons.equals(otherAddressBook.persons);
+        return persons.equals(otherAddressBook.persons)
+                && timedEvents.equals(otherAddressBook.timedEvents);
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return persons.hashCode() ^ timedEvents.hashCode();
     }
 }

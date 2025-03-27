@@ -14,6 +14,7 @@ import javafx.collections.transformation.SortedList;
 import tassist.address.commons.core.GuiSettings;
 import tassist.address.commons.core.LogsCenter;
 import tassist.address.model.person.Person;
+import tassist.address.model.timedevents.TimedEvent;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -115,6 +116,29 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
+    //=========== TimedEvent ================================================================================
+
+    @Override
+    public boolean hasTimedEvent(TimedEvent timedEvent) {
+        requireNonNull(timedEvent);
+        return addressBook.hasTimedEvent(timedEvent);
+    }
+
+    @Override
+    public void addTimedEvent(TimedEvent timedEvent) {
+        addressBook.addTimedEvent(timedEvent);
+    }
+
+    @Override
+    public void deleteTimedEvent(TimedEvent timedEvent) {
+        addressBook.removeTimedEvent(timedEvent);
+    }
+
+    @Override
+    public ObservableList<TimedEvent> getTimedEventList() {
+        return addressBook.getTimedEventList();
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -152,7 +176,7 @@ public class ModelManager implements Model {
         ModelManager otherModelManager = (ModelManager) other;
         return addressBook.equals(otherModelManager.addressBook)
                 && userPrefs.equals(otherModelManager.userPrefs)
-                && filteredPersons.equals(otherModelManager.filteredPersons);
+                && filteredPersons.equals(otherModelManager.filteredPersons)
+                && sortedPersons.equals(otherModelManager.sortedPersons);
     }
-
 }
