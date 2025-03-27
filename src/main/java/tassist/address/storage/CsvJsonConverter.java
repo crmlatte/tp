@@ -1,13 +1,11 @@
 package tassist.address.storage;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,8 +15,23 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 
+/**
+ * A utility class that handles the conversion between CSV and JSON formats.
+ */
 public class CsvJsonConverter {
 
+    /**
+     * Converts a CSV file to a JSON file.
+     * <p>
+     * This method reads a CSV file, processes its content, and converts it into a JSON format, which is then
+     * saved to the provided JSON file path. The JSON is formatted with indentation for better readability.
+     * </p>
+     *
+     * @param csvFilePath the path to the input CSV file to be converted
+     * @param jsonFilePath the path to the output JSON file where the converted data will be saved
+     * @throws IOException if there is an error reading the CSV file or writing the JSON file
+     * @throws CsvException if there is an error during CSV parsing
+     */
     public void convertCsvToJson(Path csvFilePath, Path jsonFilePath) throws IOException, CsvException {
         FileReader fileReader = new FileReader(csvFilePath.toString());
         CSVReader csvReader = new CSVReader(fileReader);
@@ -34,6 +47,7 @@ public class CsvJsonConverter {
         Map<String, List<Map<String, Object>>> wrappedData = new LinkedHashMap<>();
         wrappedData.put("persons", data);
         objectMapper.writeValue(new File(jsonFilePath.toString()), wrappedData);
+
         System.out.println("CSV has been successfully converted to JSON!");
     }
 

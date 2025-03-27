@@ -3,19 +3,15 @@ package tassist.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static tassist.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
-import java.io.FileReader;
 import java.io.IOException;
-import java.nio.charset.CoderMalfunctionError;
 import java.nio.file.Path;
 
-import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 
 import tassist.address.commons.exceptions.DataLoadingException;
 import tassist.address.commons.util.ToStringBuilder;
 import tassist.address.logic.Messages;
 import tassist.address.logic.commands.exceptions.CommandException;
-import tassist.address.model.AddressBook;
 import tassist.address.model.Model;
 import tassist.address.model.ReadOnlyAddressBook;
 import tassist.address.model.util.SampleDataUtil;
@@ -40,11 +36,22 @@ public class ImportCommand extends Command {
     private final Path filePath;
     private final Storage storage;
 
+    /**
+     * Constructs an ImportCommand with a specified file path.
+     *
+     * @param filePath The file path of the CSV file to be imported.
+     */
     public ImportCommand(Path filePath) {
         this.filePath = filePath;
         this.storage = null;
     }
 
+    /**
+     * Constructs an ImportCommand with a specified file path and storage.
+     *
+     * @param filePath The file path of the CSV file to be imported.
+     * @param storage  The storage object used for handling the address book data.
+     */
     public ImportCommand(Path filePath, Storage storage) {
         this.filePath = filePath;
         this.storage = storage;
@@ -80,7 +87,7 @@ public class ImportCommand extends Command {
         } catch (IOException e) {
             throw new CommandException("Invalid File Path", e);
         } catch (DataLoadingException e) {
-            throw new CommandException("File corrupted");
+            throw new CommandException("File is corrupted");
         }
     }
 
