@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -45,6 +46,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private CommandBox commandBox;
+    private CalendarView calendarView;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -63,6 +65,15 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private SplitPane splitPane;
+
+    @FXML
+    private StackPane mainContent;
+
+    @FXML
+    private StackPane calendarViewPlaceholder;
 
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
@@ -131,6 +142,8 @@ public class MainWindow extends UiPart<Stage> {
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        calendarView = new CalendarView(logic.getTimedEventList(), logic);
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
@@ -221,6 +234,11 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
+            // Refresh calendar view if it's visible
+            if (calendarViewPlaceholder.isVisible()) {
+                calendarView.updateEvents(logic.getTimedEventList());
+            }
+
             if (commandResult.isShowHelp()) {
                 handleHelp();
             }
@@ -234,6 +252,58 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    @FXML
+    private void handleStudentCardsView() {
+        // Show split pane and hide calendar view
+        splitPane.setVisible(true);
+        splitPane.setManaged(true);
+        calendarViewPlaceholder.setVisible(false);
+        calendarViewPlaceholder.setManaged(false);
+
+        // Restore person list panel and split pane position
+        personListPanelPlaceholder.getChildren().clear();
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        splitPane.setDividerPositions(0.35);
+
+        // Restore result display
+        resultDisplayPlaceholder.getChildren().clear();
+        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        // Restore command box and send button
+        commandBoxPlaceholder.getChildren().clear();
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        Button sendButton = new Button("Send");
+        sendButton.setOnAction(event -> {
+            try {
+                String commandText = commandBox.getCommandText();
+                if (!commandText.isEmpty()) {
+                    executeCommand(commandText);
+                    commandBox.clearCommandText();
+                }
+            } catch (CommandException | ParseException e) {
+                logger.warning("Error executing command: " + e.getMessage());
+                resultDisplay.setFeedbackToUser(e.getMessage());
+            }
+        });
+        sendButtonPlaceholder.getChildren().clear();
+        sendButtonPlaceholder.getChildren().add(sendButton);
+    }
+
+    @FXML
+    private void handleCalendarView() {
+        // Hide split pane and show calendar view
+        splitPane.setVisible(false);
+        splitPane.setManaged(false);
+        calendarViewPlaceholder.setVisible(true);
+        calendarViewPlaceholder.setManaged(true);
+        // Set up calendar view
+        calendarViewPlaceholder.getChildren().clear();
+        calendarViewPlaceholder.getChildren().add(calendarView.getRoot());
+        // Refresh the events in calendar view
+        calendarView.updateEvents(logic.getTimedEventList());
     }
 
     @FXML

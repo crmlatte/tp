@@ -185,6 +185,21 @@ public class AddCommandTest {
         public ObservableList<TimedEvent> getTimedEventList() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public ObservableList<TimedEvent> getFilteredTimedEventList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredTimedEventList(Predicate<TimedEvent> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateSortedTimedEventList(Comparator<TimedEvent> comparator) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
@@ -231,6 +246,21 @@ public class AddCommandTest {
         @Override
         public ObservableList<TimedEvent> getTimedEventList() {
             return FXCollections.observableArrayList();
+        }
+
+        @Override
+        public ObservableList<TimedEvent> getFilteredTimedEventList() {
+            return FXCollections.observableArrayList();
+        }
+
+        @Override
+        public void updateFilteredTimedEventList(Predicate<TimedEvent> predicate) {
+            // No-op for testing
+        }
+
+        @Override
+        public void updateSortedTimedEventList(Comparator<TimedEvent> comparator) {
+            // No-op for testing
         }
     }
 

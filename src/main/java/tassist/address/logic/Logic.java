@@ -9,6 +9,7 @@ import tassist.address.logic.commands.exceptions.CommandException;
 import tassist.address.logic.parser.exceptions.ParseException;
 import tassist.address.model.ReadOnlyAddressBook;
 import tassist.address.model.person.Person;
+import tassist.address.model.timedevents.TimedEvent;
 
 /**
  * API of the Logic component
@@ -32,6 +33,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
+
+    /** Returns an unmodifiable view of the timed event list */
+    ObservableList<TimedEvent> getTimedEventList();
 
     /**
      * Returns the user prefs' address book file path.

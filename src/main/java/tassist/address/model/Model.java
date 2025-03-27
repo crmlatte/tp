@@ -15,6 +15,8 @@ import tassist.address.model.timedevents.TimedEvent;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<TimedEvent> PREDICATE_SHOW_ALL_TIMED_EVENTS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -111,4 +113,18 @@ public interface Model {
 
     /** Returns an unmodifiable view of the timed events list */
     ObservableList<TimedEvent> getTimedEventList();
+
+    /** Returns an unmodifiable view of the filtered timed events list */
+    ObservableList<TimedEvent> getFilteredTimedEventList();
+
+    /**
+     * Updates the filter of the filtered timed events list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredTimedEventList(Predicate<TimedEvent> predicate);
+
+    /**
+     * Sort the timed events list by the given {@code comparator}.
+     */
+    void updateSortedTimedEventList(Comparator<TimedEvent> comparator);
 }
