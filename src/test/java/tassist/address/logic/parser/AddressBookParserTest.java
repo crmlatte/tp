@@ -1,6 +1,7 @@
 package tassist.address.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tassist.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tassist.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -26,6 +27,7 @@ import tassist.address.logic.commands.ExitCommand;
 import tassist.address.logic.commands.FindCommand;
 import tassist.address.logic.commands.GithubCommand;
 import tassist.address.logic.commands.HelpCommand;
+import tassist.address.logic.commands.ImportCommand;
 import tassist.address.logic.commands.ListCommand;
 import tassist.address.logic.commands.OpenCommand;
 import tassist.address.logic.parser.exceptions.ParseException;
@@ -133,6 +135,11 @@ public class AddressBookParserTest {
         OpenCommand command = (OpenCommand) parser.parseCommand(
                 OpenCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
         assertEquals(new OpenCommand(INDEX_FIRST_PERSON), command);
+    }
+
+    @Test
+    public void parseCommand_import() throws Exception {
+        assertTrue(parser.parseCommand(ImportCommand.COMMAND_WORD) instanceof ImportCommand);
     }
 
     @Test
