@@ -66,4 +66,9 @@ public class AssignmentCommand extends Command {
         AssignmentCommand otherAssignmentCommand = (AssignmentCommand) other;
         return toAdd.equals(otherAssignmentCommand.toAdd);
     }
+
+    @Override
+    public String toString() {
+        return "AssignmentCommand{toAdd=" + toAdd + "}";
+    }
 }
