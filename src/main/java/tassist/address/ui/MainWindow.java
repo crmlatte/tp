@@ -214,6 +214,11 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
+            // Refresh calendar view if it's visible
+            if (calendarViewPlaceholder.isVisible()) {
+                calendarView.updateEvents(logic.getTimedEventList());
+            }
+
             if (commandResult.isShowHelp()) {
                 handleHelp();
             }
@@ -278,6 +283,8 @@ public class MainWindow extends UiPart<Stage> {
         // Set up calendar view
         calendarViewPlaceholder.getChildren().clear();
         calendarViewPlaceholder.getChildren().add(calendarView.getRoot());
+        // Refresh the events in calendar view
+        calendarView.updateEvents(logic.getTimedEventList());
     }
 
     @FXML
