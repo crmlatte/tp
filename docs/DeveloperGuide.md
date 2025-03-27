@@ -388,6 +388,60 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 2a. The list is empty.
   * Use case ends.
 
+**Use case: UC5 - Add assignment**
+
+**MSS**
+
+1.  User requests to add an assignment.
+2.  System checks if the input data is a valid future date.
+3.  System adds the assignment to all students.
+4.  Use case ends.
+
+**Extensions**
+
+* 2a. The date is invalid.
+    * System outputs an invalid date message.
+    * Use case ends.
+
+**Use case: UC6 - View assignment list**
+
+**MSS**
+
+1.  User requests to view the current assignment list.
+2.  System shows the current assignment list.
+3.  Use case ends.
+
+**Use case: UC7 - Assign class to a student**
+
+**MSS**
+
+1.  User requests to assign a tutorial class to a student.
+2.  System assigns the tutorial class number to the student.
+3.  Use case ends.
+
+**Extensions**
+
+* 1a. The tutorial number is of invalid format.
+    * System outputs an invalid class number message.
+    * Use case ends.
+
+**Use case: UC8 - Assign an assignment to one or more students**
+
+**MSS**
+
+1.  User requests to add an assignment to some students.
+2.  System adds the assignment to all specified students.
+3.  Use case ends.
+
+**Extensions**
+
+* 1a. The specified assignment index is invalid.
+    * System outputs an invalid assignment index message.
+    * Use case ends.
+* 1b. The specified student index/student ID/tutorial group is invalid.
+    * System outputs an error message.
+    * Use case ends.
+
 *{More to be added}*
 
 ### Non-Functional Requirements
