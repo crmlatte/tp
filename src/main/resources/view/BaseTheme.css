@@ -150,3 +150,84 @@
     -fx-padding: 8 20;
     -fx-background-radius: 6;
 }
+
+/* Calendar View Base Structure */
+.calendar-view {
+    -fx-padding: 10;
+}
+
+.calendar-grid {
+    -fx-padding: 10;
+    -fx-background-color: transparent;
+}
+
+.calendar-date-column {
+    -fx-min-width: 250;
+    -fx-padding: 0 10;
+}
+
+.calendar-date {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 5 10;
+    -fx-background-color: transparent;
+}
+
+.calendar-events {
+    -fx-padding: 10;
+    -fx-background-radius: 5;
+    -fx-spacing: 8;
+    -fx-background-color: transparent;
+}
+
+.calendar-event {
+    -fx-padding: 8;
+    -fx-background-radius: 4;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 1;
+    -fx-border-radius: 4;
+}
+
+.event-name {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.event-type {
+    -fx-font-size: 12px;
+    -fx-font-style: italic;
+}
+
+.event-description {
+    -fx-font-size: 12px;
+    -fx-padding: 2 0;
+}
+
+.assigned-persons {
+    -fx-padding: 4 0;
+    -fx-spacing: 2;
+}
+
+.assigned-label {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.assigned-person {
+    -fx-font-size: 12px;
+    -fx-padding: 1 0;
+}
+
+.calendar-event-list {
+    -fx-padding: 10;
+    -fx-background-color: transparent;
+}
+
+.calendar-scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.calendar-scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}

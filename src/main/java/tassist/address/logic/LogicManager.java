@@ -20,6 +20,7 @@ import tassist.address.logic.parser.exceptions.ParseException;
 import tassist.address.model.Model;
 import tassist.address.model.ReadOnlyAddressBook;
 import tassist.address.model.person.Person;
+import tassist.address.model.timedevents.TimedEvent;
 import tassist.address.storage.Storage;
 
 /**
@@ -112,6 +113,11 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Person> getFilteredPersonList() {
         return model.getFilteredPersonList();
+    }
+
+    @Override
+    public ObservableList<TimedEvent> getTimedEventList() {
+        return model.getTimedEventList();
     }
 
     @Override
