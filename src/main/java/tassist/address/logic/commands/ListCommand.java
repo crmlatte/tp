@@ -32,6 +32,7 @@ public class ListCommand extends Command {
     public static final String MESSAGE_INVALID_FILTER = "Invalid filter type. Allowed filter type: course, team, "
             + "progress";
     public static final String MESSAGE_INVALID_FILTER_VALUE = "This filter value does not exists.";
+    public static final String MESSAGE_NONEXISTENT_FILTER_VALUE = "The '%s' filter value does not exist.";
     public static final String MESSAGE_MISSING_FILTER_VALUE = "Please enter filter value. list f/[FILTER TYPE] "
             + "fv/[FILTER VALUE]";
 
@@ -120,24 +121,24 @@ public class ListCommand extends Command {
             boolean hasCourse = model.getFilteredPersonList().stream().anyMatch(p ->
                     p.getCourse().equalsIgnoreCase(filterValue));
             if (!hasCourse) {
-                throw new CommandException(MESSAGE_INVALID_FILTER_VALUE);
+                throw new CommandException(String.format(MESSAGE_NONEXISTENT_FILTER_VALUE, filterValue));
             }
-            yield p -> p.getCourse().equals(filterValue);
+            yield p -> p.getCourse().equalsIgnoreCase(filterValue);
         }
         case "team" -> {
             boolean hasTeam = model.getFilteredPersonList().stream()
                     .anyMatch(p -> p.getProjectTeam().value.equalsIgnoreCase(filterValue));
             if (!hasTeam) {
-                throw new CommandException(MESSAGE_INVALID_FILTER_VALUE);
+                throw new CommandException(String.format(MESSAGE_NONEXISTENT_FILTER_VALUE, filterValue));
             }
-            yield p -> p.getProjectTeam().value.equals(filterValue);
+            yield p -> p.getProjectTeam().value.equalsIgnoreCase(filterValue);
         }
         case "progress" -> {
             int filterProgress;
             try {
                 filterProgress = Integer.parseInt(filterValue);
             } catch (NumberFormatException e) {
-                throw new CommandException(MESSAGE_INVALID_FILTER_VALUE);
+                throw new CommandException(String.format(MESSAGE_NONEXISTENT_FILTER_VALUE, filterValue));
             }
             yield person -> person.getProgress().value <= filterProgress;
         }
