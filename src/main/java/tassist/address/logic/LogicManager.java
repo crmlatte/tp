@@ -11,6 +11,7 @@ import tassist.address.commons.core.LogsCenter;
 import tassist.address.logic.commands.Command;
 import tassist.address.logic.commands.CommandResult;
 import tassist.address.logic.commands.ConfirmableCommand;
+import tassist.address.logic.commands.ImportCommand;
 import tassist.address.logic.commands.OpenCommand;
 import tassist.address.logic.commands.exceptions.CommandException;
 import tassist.address.logic.parser.AddressBookParser;
@@ -76,6 +77,9 @@ public class LogicManager implements Logic {
         if (command instanceof OpenCommand) {
             OpenCommand openCommand = (OpenCommand) command;
             command = new OpenCommand(openCommand.getTargetIndex(), browserService);
+        } else if (command instanceof ImportCommand) {
+            ImportCommand importCommand = (ImportCommand) command;
+            command = new ImportCommand(importCommand.getFilePath(), storage);
         }
 
         commandResult = command.execute(model);
