@@ -170,12 +170,12 @@ Examples:
 
 Finds students whose names contain any of the given keywords, or whose student ID matches exactly.
 
-Format: `find KEYWORD [MORE_KEYWORDS]` or `find STUDENT_ID`
+Format: `find NAME [MORE_NAMES]` or `find STUDENT_ID`
 
 * The search is case-insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* The order of the names does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only full words will be matched e.g. `Han` will not match `Hans`
-* Students matching at least one keyword will be returned (i.e. `OR` search).
+* Students matching at least one name will be returned (i.e. `OR` search).
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 * If a valid student ID is entered (e.g. `A1234567B`), it will return the student with an exact match on that ID.
 
