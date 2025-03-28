@@ -13,15 +13,16 @@ Class ModelManager
 Class UserPrefs
 
 Class UniquePersonList
+Class ClassNumber
 Class Person
-Class Email
 Class Name
 Class Phone
-Class Tag
+Class Email
 Class ClassNumber
 Class StudentId
 Class Github
 Class ProjectTeam
+Class Tag
 Class Progress
 
 Class UniqueTimedEventList
