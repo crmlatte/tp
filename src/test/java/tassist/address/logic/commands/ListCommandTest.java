@@ -153,7 +153,8 @@ public class ListCommandTest {
     public void execute_filteredByTeamNoMatch_returnsNoStudents() {
         ListCommand command = new ListCommand(null, null, "team", "nonexistentTeam");
 
-        Predicate<Person> expectedPredicate = person -> person.getProjectTeam().value.equalsIgnoreCase("nonexistentTeam");
+        Predicate<Person> expectedPredicate = person ->
+                person.getProjectTeam().value.equalsIgnoreCase("nonexistentTeam");
 
         expectedModel.updateFilteredPersonList(expectedPredicate);
 
