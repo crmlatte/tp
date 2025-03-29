@@ -28,8 +28,8 @@ TAssist is a **desktop application** for Teaching Assistants (TAs) to easily tra
     ```java -jar TAssist1.3jar```
 
 7. A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/Ui.png) 
- 
+   ![Ui](images/Ui.png)
+
 8. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
     Some example commands you can try:
 
@@ -115,12 +115,12 @@ All parameters are optional. Filters and sorting can be used together or indepen
 
 #### Filter Options
 `FILTER_TYPE:`<br>
-* progress: Filters students whose progress is less than or equal to the provided value. 
+* progress: Filters students whose progress is less than or equal to the provided value.
 * course: (Not yet implemented) Will filter by existing course codes.
 * team: (Not yet implemented) Will filter by existing team names.
 
 `FILTER_VALUE:`<br>
-* PROGRESS: an integer between 0 and 100. 
+* PROGRESS: an integer between 0 and 100.
 * COURSE: (Not yet implemented) must match an existing course value.
 * TEAM: (Not yet implemented) must match an existing team value.
 
@@ -131,7 +131,7 @@ All parameters are optional. Filters and sorting can be used together or indepen
 * github
 
 `SORT_ORDER:`<br>
-* asc — Ascending (A → Z or lowest → highest). 
+* asc — Ascending (A → Z or lowest → highest).
 * des — Descending (Z → A or highest → lowest).
 
 Examples:
@@ -233,7 +233,7 @@ Format: `open INDEX` or `open STUDENT_ID`
 
 Example:
 * `list` followed by `open 1` opens the GitHub page of the first student shown in the list.
-* `open A1234567B` 
+* `open A1234567B`
   Opens the GitHub page of the student with student ID `A1234567B`.
 
 ### Adding a new assignment/timed event: `assignment`
@@ -247,7 +247,7 @@ Format: `assignment n/NAME d/DATE`
 * Accepted date formats: `dd-MM-yyyy`, `dd-MM-yy`, or `dd-MM` (defaults to current year)
 * The date must be a valid future date.
 
-Example: 
+Example:
 * `assignment n/CS2103T Project d/30-01-2025` <br>
   Adds a timed event named "CS2103T Project" with deadline on January 30, 2025.
 * `assignment n/Quiz 1 d/10-04` <br>
@@ -263,7 +263,7 @@ Format: `view`
 
 Assigns a timed event using index in time event list to one or more students identified by their displayed index, student ID, or class number.
 
-Format: `assign TIMED_EVENT_INDEX STUDENT_INDEX` or `assign TIMED_EVENT_INDEX STUDENT_ID` or `assign TIMED_EVENT_INDEX CLASS_NUMBER`  
+Format: `assign TIMED_EVENT_INDEX STUDENT_INDEX` or `assign TIMED_EVENT_INDEX STUDENT_ID` or `assign TIMED_EVENT_INDEX CLASS_NUMBER`
 
 * `TIMED_EVENT_INDEX`: The index of the timed event shown in the timed event list (must be a positive integer).
 * `STUDENT_INDEX`: The index of the student from the displayed student list (must be a positive integer).
