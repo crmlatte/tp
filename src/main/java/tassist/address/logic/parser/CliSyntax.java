@@ -20,4 +20,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_FILTER_VALUE = new Prefix("fv/");
     public static final Prefix PREFIX_DATE = new Prefix("d/");
     public static final Prefix PREFIX_PROJECT_TEAM = new Prefix("pt/");
+    public static final Prefix PREFIX_REPOSITORY = new Prefix("pt/");
 }

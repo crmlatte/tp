@@ -22,6 +22,7 @@ public class Repository {
     public static final String REPOSITORY_REGEX = "[a-zA-Z0-9](?:[a-zA-Z0-9._-]*[a-zA-Z0-9])?$";
 
     public static final String VALIDATION_REGEX = GITHUB_URL_REGEX + USERNAME_REGEX + "/" + REPOSITORY_REGEX + "$";
+    public static final String NO_REPOSITORY = "Repository has not been initialised";
 
     public final String value;
 
@@ -39,7 +40,7 @@ public class Repository {
      * Returns if a given string is a valid repository link.
      */
     public static boolean isValidRepository(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX) || test.matches(NO_REPOSITORY);
     }
 
     @Override
