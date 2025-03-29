@@ -84,6 +84,7 @@ public class ListCommand extends Command {
             Comparator<Person> comp = this.getComparator(sortType, sortOrder);
             model.updateSortedPersonList(comp);
         }
+
         if (list.isEmpty()) {
             return new CommandResult(MESSAGE_NO_STUDENTS);
         }
