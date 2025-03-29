@@ -169,8 +169,7 @@ public class ListCommandTest {
     public void execute_filteredByProgressInvalidValue_throwsCommandException() {
         ListCommand command = new ListCommand(null, null, "progress", "invalidValue");
         CommandException thrown = assertThrows(CommandException.class, () -> command.execute(model));
-        String message = String.format(ListCommand.MESSAGE_NONEXISTENT_FILTER_VALUE, command.filterValue);
-        assertEquals(message, thrown.getMessage());
+        assertEquals(ListCommand.MESSAGE_INVALID_FILTER_VALUE, thrown.getMessage());
     }
 
     @Test

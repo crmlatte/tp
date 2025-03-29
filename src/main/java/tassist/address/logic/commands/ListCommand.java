@@ -139,7 +139,7 @@ public class ListCommand extends Command {
             try {
                 filterProgress = Integer.parseInt(filterValue);
             } catch (NumberFormatException e) {
-                throw new CommandException(String.format(MESSAGE_NONEXISTENT_FILTER_VALUE, filterValue));
+                throw new CommandException(MESSAGE_INVALID_FILTER_VALUE);
             }
             yield person -> person.getProgress().value <= filterProgress;
         }
