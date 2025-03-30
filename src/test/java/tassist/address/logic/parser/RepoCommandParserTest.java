@@ -30,7 +30,8 @@ public class RepoCommandParserTest {
     @Test
     public void parse_studentIdSpecified_success() {
         String userInput = VALID_STUDENTID_BOB + usernamePrefix + repoPrefix;
-        RepoCommand expectedCommand = new RepoCommand(new StudentId(VALID_STUDENTID_BOB), VALID_USERNAME, VALID_REPOSITORY_NAME);
+        RepoCommand expectedCommand = new RepoCommand(new StudentId(VALID_STUDENTID_BOB), VALID_USERNAME,
+                VALID_REPOSITORY_NAME);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
