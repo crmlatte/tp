@@ -4,6 +4,7 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
     id 'application'
     id 'jacoco'
+    id 'org.jetbrains.kotlin.jvm' version '1.9.23'
 }
 
 mainClassName = 'tassist.address.Main'
@@ -63,6 +64,7 @@ dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jUnitVersion
 
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 }
 
 shadowJar {
@@ -73,3 +75,13 @@ run {
 }
 
 defaultTasks 'clean', 'test'
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+}
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+}
