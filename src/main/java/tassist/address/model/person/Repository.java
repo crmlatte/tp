@@ -18,8 +18,8 @@ public class Repository {
             + " - Must start and end with an alphanumeric character\n";
 
     private static final String GITHUB_URL_REGEX = "^https://github\\.com/";
-    private static final String USERNAME_REGEX = "[a-zA-Z0-9]+(-[a-zA-Z0-9]+)+$";
-    public static final String REPOSITORY_REGEX = "[a-zA-Z0-9](?:[a-zA-Z0-9._-]*[a-zA-Z0-9])?$";
+    private static final String USERNAME_REGEX = "[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*";
+    public static final String REPOSITORY_REGEX = "[a-zA-Z0-9](?:[a-zA-Z0-9._-]*[a-zA-Z0-9])?";;
 
     public static final String VALIDATION_REGEX = GITHUB_URL_REGEX + USERNAME_REGEX + "/" + REPOSITORY_REGEX + "$";
     public static final String NO_REPOSITORY = "Repository has not been initialised";
