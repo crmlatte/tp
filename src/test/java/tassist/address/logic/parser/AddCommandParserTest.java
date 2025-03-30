@@ -54,6 +54,8 @@ import tassist.address.model.person.Name;
 import tassist.address.model.person.Person;
 import tassist.address.model.person.Phone;
 import tassist.address.model.person.Progress;
+import tassist.address.model.person.ProjectTeam;
+import tassist.address.model.person.Repository;
 import tassist.address.model.person.StudentId;
 import tassist.address.model.tag.Tag;
 import tassist.address.testutil.PersonBuilder;
@@ -221,33 +223,51 @@ public class AddCommandParserTest {
     public void parse_invalidValue_failure() {
         // invalid name
         assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + STUDENTID_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + PROGRESS_DESC_BOB,
+                + STUDENTID_DESC_BOB + PROJECT_TEAM_DESC_BOB + REPOSITORY_DESC_BOB
+                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + PROGRESS_DESC_BOB,
                 Name.MESSAGE_CONSTRAINTS);
 
         // invalid phone
         assertParseFailure(parser, NAME_DESC_BOB + INVALID_PHONE_DESC + EMAIL_DESC_BOB
-                + STUDENTID_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + PROGRESS_DESC_BOB,
+                + STUDENTID_DESC_BOB + PROJECT_TEAM_DESC_BOB + REPOSITORY_DESC_BOB
+                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + PROGRESS_DESC_BOB,
                 Phone.MESSAGE_CONSTRAINTS);
 
         // invalid email
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + INVALID_EMAIL_DESC
-                + STUDENTID_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + PROGRESS_DESC_BOB,
+                + STUDENTID_DESC_BOB + PROJECT_TEAM_DESC_BOB + REPOSITORY_DESC_BOB
+                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + PROGRESS_DESC_BOB,
                 Email.MESSAGE_CONSTRAINTS);
 
         //invalid studentId
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + INVALID_STUDENTID_DESC + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + PROGRESS_DESC_BOB,
+                + INVALID_STUDENTID_DESC + PROJECT_TEAM_DESC_BOB + REPOSITORY_DESC_BOB + TAG_DESC_HUSBAND
+                + TAG_DESC_FRIEND + PROGRESS_DESC_BOB,
                 StudentId.MESSAGE_CONSTRAINTS);
 
         // invalid tag
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + STUDENTID_DESC_BOB + INVALID_TAG_DESC + VALID_TAG_FRIEND + PROGRESS_DESC_BOB,
+                + STUDENTID_DESC_BOB + PROJECT_TEAM_DESC_BOB + REPOSITORY_DESC_BOB + INVALID_TAG_DESC
+                + VALID_TAG_FRIEND + PROGRESS_DESC_BOB,
                 Tag.MESSAGE_CONSTRAINTS);
 
         // invalid progress
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + STUDENTID_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + INVALID_PROGRESS_DESC,
+                + STUDENTID_DESC_BOB + PROJECT_TEAM_DESC_BOB + REPOSITORY_DESC_BOB
+                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + INVALID_PROGRESS_DESC,
                 Progress.MESSAGE_CONSTRAINTS);
+
+        // invalid project team
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                + STUDENTID_DESC_BOB + INVALID_PROJECT_TEAM_DESC + REPOSITORY_DESC_BOB
+                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + PROGRESS_DESC_BOB,
+                ProjectTeam.MESSAGE_CONSTRAINTS);
+
+        // invalid repository
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                        + STUDENTID_DESC_BOB + PROJECT_TEAM_DESC_BOB + INVALID_REPOSITORY_DESC
+                        + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + PROGRESS_DESC_BOB,
+                Repository.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_NAME_DESC + INVALID_PHONE_DESC + EMAIL_DESC_BOB
