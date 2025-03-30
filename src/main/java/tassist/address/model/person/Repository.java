@@ -3,6 +3,9 @@ package tassist.address.model.person;
 import static java.util.Objects.requireNonNull;
 import static tassist.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * Represents a student's Repository in TAssist.
+ */
 public class Repository {
 
     public static final String MESSAGE_CONSTRAINTS =
@@ -19,9 +22,9 @@ public class Repository {
             + "Example:\n"
             + "https://github.com/johnny-fargo/new.repo";
 
-    private static final String GITHUB_URL_REGEX = "^https://github\\.com/";
-    private static final String USERNAME_REGEX = "[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*";
-    public static final String REPOSITORY_REGEX = "[a-zA-Z0-9](?:[a-zA-Z0-9._-]*[a-zA-Z0-9])?";;
+    public static final String GITHUB_URL_REGEX = "^https://github\\.com/";
+    public static final String USERNAME_REGEX = "[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*";
+    public static final String REPOSITORY_REGEX = "[a-zA-Z0-9](?:[a-zA-Z0-9._-]*[a-zA-Z0-9])?";
 
     public static final String VALIDATION_REGEX = GITHUB_URL_REGEX + USERNAME_REGEX + "/" + REPOSITORY_REGEX + "$";
     public static final String NO_REPOSITORY = "Repository has not been initialised";
