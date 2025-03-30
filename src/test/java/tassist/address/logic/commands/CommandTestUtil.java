@@ -45,6 +45,8 @@ public class CommandTestUtil {
     public static final String VALID_GITHUB_BOB = "https://github.com/bobb-33";
     public static final String VALID_PROJECT_TEAM_AMY = "AmyTeam3000";
     public static final String VALID_PROJECT_TEAM_BOB = "BobTeam3000";
+    public static final String VALID_USERNAME = "ValidUser";
+    public static final String VALID_REPOSITORY_NAME = "valid.repo_1";
     public static final String VALID_REPOSITORY_AMY = "https://github.com/amy123/tp";
     public static final String VALID_REPOSITORY_BOB = "https://github.com/bobb-33/tp";
     public static final String VALID_TAG_HUSBAND = "husband";

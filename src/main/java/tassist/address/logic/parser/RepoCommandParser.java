@@ -2,42 +2,23 @@ package tassist.address.logic.parser;
 
 import tassist.address.commons.core.index.Index;
 import tassist.address.commons.exceptions.IllegalValueException;
-import tassist.address.logic.commands.AddCommand;
 import tassist.address.logic.commands.GithubCommand;
 import tassist.address.logic.commands.RepoCommand;
 import tassist.address.logic.parser.exceptions.ParseException;
-import tassist.address.model.person.Github;
 import tassist.address.model.person.StudentId;
 
 import java.util.stream.Stream;
 
 import static java.util.Objects.requireNonNull;
 import static tassist.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static tassist.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static tassist.address.logic.parser.CliSyntax.PREFIX_FILTER;
-import static tassist.address.logic.parser.CliSyntax.PREFIX_FILTER_VALUE;
-import static tassist.address.logic.parser.CliSyntax.PREFIX_GITHUB;
-import static tassist.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static tassist.address.logic.parser.CliSyntax.PREFIX_ORDER;
-import static tassist.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_REPOSITORY_NAME;
-import static tassist.address.logic.parser.CliSyntax.PREFIX_SORT;
-import static tassist.address.logic.parser.CliSyntax.PREFIX_STUDENT_ID;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_USERNAME;
-import static tassist.address.model.person.StudentId.VALIDATION_REGEX;
 
-public class RepoCommandParser {
+public class RepoCommandParser implements Parser<RepoCommand> {
     public RepoCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_USERNAME, PREFIX_REPOSITORY_NAME);
         String trimmedArgs = argMultimap.getPreamble().trim();
-
-        if (trimmedArgs.isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RepoCommand.MESSAGE_USAGE));
-        }
-        if (!arePrefixesPresent(argMultimap, PREFIX_USERNAME, PREFIX_REPOSITORY_NAME)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RepoCommand.MESSAGE_USAGE));
-        }
 
         String username = argMultimap.getValue(PREFIX_USERNAME).orElse(null);
         String repositoryName = argMultimap.getValue(PREFIX_REPOSITORY_NAME).orElse(null);
