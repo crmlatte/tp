@@ -20,6 +20,7 @@ import tassist.address.model.person.Name;
 import tassist.address.model.person.Phone;
 import tassist.address.model.person.Progress;
 import tassist.address.model.person.ProjectTeam;
+import tassist.address.model.person.Repository;
 import tassist.address.model.person.StudentId;
 
 public class JsonAdaptedPersonTest {
@@ -181,7 +182,7 @@ public class JsonAdaptedPersonTest {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL,
                 VALID_CLASS, VALID_STUDENT_ID, VALID_GITHUB, VALID_PROJECT_TEAM, null,
                 VALID_TAGS, VALID_PROGRESS, VALID_TIMED_EVENTS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, ProjectTeam.class.getSimpleName());
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Repository.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 
