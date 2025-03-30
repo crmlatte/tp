@@ -15,7 +15,9 @@ public class Repository {
             + " - Made up of alphanumeric characters\n"
             + " - Can contain but cannot start with dashes (-), underscores (_), and dots (.)\n"
             + " - Cannot be empty\n"
-            + " - Must start and end with an alphanumeric character\n";
+            + " - Must start and end with an alphanumeric character\n"
+            + "Example:\n"
+            + "https://github.com/johnny-fargo/new.repo";
 
     private static final String GITHUB_URL_REGEX = "^https://github\\.com/";
     private static final String USERNAME_REGEX = "[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*";
