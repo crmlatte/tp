@@ -1,5 +1,12 @@
 package tassist.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static tassist.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+
 import tassist.address.commons.core.index.Index;
 import tassist.address.logic.Messages;
 import tassist.address.logic.commands.exceptions.CommandException;
@@ -8,13 +15,9 @@ import tassist.address.model.person.Person;
 import tassist.address.model.person.Repository;
 import tassist.address.model.person.StudentId;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-
-import static java.util.Objects.requireNonNull;
-import static tassist.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-
+/**
+ * Updates the Repository of an existing person in the address book.
+ */
 public class RepoCommand extends Command {
 
     public static final String COMMAND_WORD = "repo";
@@ -115,6 +118,13 @@ public class RepoCommand extends Command {
         return new CommandResult(MESSAGE_ADD_REPOSITORY_SUCCESS);
     }
 
+    /**
+     * Creates a {@link Repository} from the given GitHub username and repository name.
+     *
+     * @param username GitHub username
+     * @param repositoryName Repository name
+     * @return a valid {@link Repository}, or {@link Repository#NO_REPOSITORY} if invalid
+     */
     public static Repository createRepo(String username, String repositoryName) {
         String un;
         String rn;
