@@ -1,13 +1,12 @@
 package tassist.address.logic.commands;
 
-import tassist.address.model.person.Repository;
-
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.Test;
+
+import tassist.address.model.person.Repository;
 
 public class RepoCommandTest {
 
