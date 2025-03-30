@@ -25,7 +25,7 @@ import tassist.address.model.person.Person;
  */
 public class TypicalPersons {
 
-    private static final String DEFAULT_REPOSITORY = "Repository has not been initialised";
+    public static final String DEFAULT_REPOSITORY = "Repository has not been initialised";
 
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
             .withEmail("alice@example.com").withPhone("94351253").withClassNumber("T01")

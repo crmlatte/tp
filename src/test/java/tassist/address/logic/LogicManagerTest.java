@@ -34,7 +34,6 @@ import tassist.address.model.ModelManager;
 import tassist.address.model.ReadOnlyAddressBook;
 import tassist.address.model.UserPrefs;
 import tassist.address.model.person.Person;
-import tassist.address.model.person.ProjectTeam;
 import tassist.address.storage.JsonAddressBookStorage;
 import tassist.address.storage.JsonUserPrefsStorage;
 import tassist.address.storage.StorageManager;
@@ -242,7 +241,7 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + STUDENTID_DESC_AMY + PROGRESS_DESC_AMY;
+                + STUDENTID_DESC_AMY + PROJECT_TEAM_DESC_AMY + REPOSITORY_DESC_AMY + PROGRESS_DESC_AMY;
 
         Person expectedPerson = new PersonBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();

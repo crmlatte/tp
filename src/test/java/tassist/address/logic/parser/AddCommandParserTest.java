@@ -69,8 +69,8 @@ public class AddCommandParserTest {
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + STUDENTID_DESC_BOB+ PROJECT_TEAM_DESC_BOB + REPOSITORY_DESC_BOB
-                +  TAG_DESC_FRIEND + PROGRESS_DESC_BOB,
+                + STUDENTID_DESC_BOB + PROJECT_TEAM_DESC_BOB + REPOSITORY_DESC_BOB
+                + TAG_DESC_FRIEND + PROGRESS_DESC_BOB,
                 new AddCommand(expectedPerson));
 
 
@@ -121,7 +121,7 @@ public class AddCommandParserTest {
         // multiple fields repeated
         assertParseFailure(parser,
                 validExpectedPersonString + PHONE_DESC_AMY + EMAIL_DESC_AMY + NAME_DESC_AMY
-                + STUDENTID_DESC_AMY + PROJECT_TEAM_DESC_AMY  + REPOSITORY_DESC_AMY + PROGRESS_DESC_AMY
+                + STUDENTID_DESC_AMY + PROJECT_TEAM_DESC_AMY + REPOSITORY_DESC_AMY + PROGRESS_DESC_AMY
                         + validExpectedPersonString,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_NAME, PREFIX_EMAIL, PREFIX_PHONE,
                 PREFIX_STUDENT_ID, PREFIX_PROJECT_TEAM, PREFIX_REPOSITORY, PREFIX_PROGRESS));
@@ -190,7 +190,7 @@ public class AddCommandParserTest {
         // zero tags
         Person expectedPerson = new PersonBuilder(AMY).withTags().build();
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + STUDENTID_DESC_AMY + PROJECT_TEAM_DESC_AMY  + REPOSITORY_DESC_AMY
+                + STUDENTID_DESC_AMY + PROJECT_TEAM_DESC_AMY + REPOSITORY_DESC_AMY
                 + PROGRESS_DESC_AMY, new AddCommand(expectedPerson));
     }
 
