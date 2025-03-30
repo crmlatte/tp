@@ -9,6 +9,7 @@ import static tassist.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_PROGRESS;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_PROJECT_TEAM;
+import static tassist.address.logic.parser.CliSyntax.PREFIX_REPOSITORY;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_STUDENT_ID;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -33,6 +34,7 @@ public class AddCommand extends Command {
             + PREFIX_STUDENT_ID + "STUDENTID "
             + PREFIX_GITHUB + "GITHUB "
             + PREFIX_PROJECT_TEAM + "TEAM "
+            + PREFIX_REPOSITORY + "REPOSITORY "
             + PREFIX_CLASS + "CLASS "
             + "[" + PREFIX_TAG + "TAG]... "
             + PREFIX_PROGRESS + "PROGRESS\n"
@@ -46,7 +48,7 @@ public class AddCommand extends Command {
             + PREFIX_TAG + "owesMoney "
             + PREFIX_PROGRESS + "50\n"
             + "To add a person, minimally NAME, EMAIL, PHONE, STUDENTID must be present.\n"
-            + "GITHUB, TEAM, CLASS, TAG and PROGRESS are optional fields and can be omitted out";
+            + "GITHUB, TEAM, REPOSITORY, CLASS, TAG and PROGRESS are optional fields and can be omitted out";
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.\n"

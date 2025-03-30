@@ -33,7 +33,6 @@ public class AssignCommand extends Command {
             + " or: " + COMMAND_WORD + " 1 T01";
 
     public static final String MESSAGE_ASSIGN_SUCCESS = "Assigned timed event to student: %1$s";
-    public static final String MESSAGE_ASSIGN_FAILURE = "Failed to assign timed event to student: %1$s";
     public static final String MESSAGE_DUPLICATE_ASSIGNMENT = "This assignment is already assigned to the student";
     public static final String MESSAGE_NO_STUDENTS_IN_CLASS = "No students found in class: %1$s";
 

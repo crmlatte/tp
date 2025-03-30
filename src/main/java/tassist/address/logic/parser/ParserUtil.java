@@ -16,6 +16,7 @@ import tassist.address.model.person.Name;
 import tassist.address.model.person.Phone;
 import tassist.address.model.person.Progress;
 import tassist.address.model.person.ProjectTeam;
+import tassist.address.model.person.Repository;
 import tassist.address.model.person.StudentId;
 import tassist.address.model.tag.Tag;
 
@@ -170,6 +171,21 @@ public class ParserUtil {
             throw new ParseException(ProjectTeam.MESSAGE_CONSTRAINTS);
         }
         return new ProjectTeam(trimmedProjectTeam);
+    }
+
+    /**
+     * Parses a {@code String repository} into an {@code Repository}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code Repository Team} is invalid.
+     */
+    public static Repository parseRepository(String repository) throws ParseException {
+        requireNonNull(repository);
+        String trimmedRepository = repository.trim();
+        if (!Repository.isValidRepository(trimmedRepository)) {
+            throw new ParseException(Repository.MESSAGE_CONSTRAINTS);
+        }
+        return new Repository(trimmedRepository);
     }
 
     /**

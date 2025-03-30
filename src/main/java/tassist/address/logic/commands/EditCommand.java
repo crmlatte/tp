@@ -8,6 +8,7 @@ import static tassist.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_PROGRESS;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_PROJECT_TEAM;
+import static tassist.address.logic.parser.CliSyntax.PREFIX_REPOSITORY;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_STUDENT_ID;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static tassist.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
@@ -33,6 +34,7 @@ import tassist.address.model.person.Person;
 import tassist.address.model.person.Phone;
 import tassist.address.model.person.Progress;
 import tassist.address.model.person.ProjectTeam;
+import tassist.address.model.person.Repository;
 import tassist.address.model.person.StudentId;
 import tassist.address.model.tag.Tag;
 
@@ -54,6 +56,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_STUDENT_ID + "STUDENTID] "
             + "[" + PREFIX_GITHUB + "GITHUB]"
             + "[" + PREFIX_PROJECT_TEAM + "TEAM]"
+            + "[" + PREFIX_REPOSITORY + "REPOSITORY]"
             + "[" + PREFIX_TAG + "TAG]... "
             + "[" + PREFIX_PROGRESS + "PROGRESS]\n"
             + "Example: " + COMMAND_WORD + " 1 "
@@ -114,12 +117,13 @@ public class EditCommand extends Command {
         StudentId updatedStudentId = editPersonDescriptor.getStudentId().orElse(personToEdit.getStudentId());
         Github updatedGithub = editPersonDescriptor.getGithub().orElse(personToEdit.getGithub());
         ProjectTeam updatedTeam = editPersonDescriptor.getProjectTeam().orElse(personToEdit.getProjectTeam());
+        Repository updatedRepository = editPersonDescriptor.getRepository().orElse(personToEdit.getRepository());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
         Progress updatedProgress = editPersonDescriptor.getProgress().orElse(personToEdit.getProgress());
 
         // Create the edited person with the same timed events list
         Person editedPerson = new Person(updatedName, updatedPhone, updatedEmail, updatedClassNumber,
-                updatedStudentId, updatedGithub, updatedTeam, updatedTags, updatedProgress,
+                updatedStudentId, updatedGithub, updatedTeam, updatedRepository, updatedTags, updatedProgress,
                 personToEdit.getTimedEventsList());
 
         return editedPerson;
@@ -161,6 +165,7 @@ public class EditCommand extends Command {
         private StudentId studentId;
         private Github github;
         private ProjectTeam projectTeam;
+        private Repository repository;
         private Set<Tag> tags;
         private Progress progress;
 
@@ -178,6 +183,7 @@ public class EditCommand extends Command {
             setStudentId(toCopy.studentId);
             setGithub(toCopy.github);
             setProjectTeam(toCopy.projectTeam);
+            setRepository(toCopy.repository);
             setTags(toCopy.tags);
             setProgress(toCopy.progress);
         }
@@ -187,7 +193,7 @@ public class EditCommand extends Command {
          */
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(name, phone, email,
-                    classNumber, studentId, github, projectTeam, tags, progress);
+                    classNumber, studentId, github, projectTeam, repository, tags, progress);
         }
 
         public void setName(Name name) {
@@ -245,6 +251,13 @@ public class EditCommand extends Command {
         public Optional<ProjectTeam> getProjectTeam() {
             return Optional.ofNullable(projectTeam);
         }
+        public void setRepository(Repository repository) {
+            this.repository = repository;
+        }
+
+        public Optional<Repository> getRepository() {
+            return Optional.ofNullable(repository);
+        }
 
         /**
          * Sets {@code tags} to this object's {@code tags}.
@@ -290,6 +303,7 @@ public class EditCommand extends Command {
                     && Objects.equals(studentId, otherEditPersonDescriptor.studentId)
                     && Objects.equals(github, otherEditPersonDescriptor.github)
                     && Objects.equals(projectTeam, otherEditPersonDescriptor.projectTeam)
+                    && Objects.equals(repository, otherEditPersonDescriptor.repository)
                     && Objects.equals(tags, otherEditPersonDescriptor.tags)
                     && Objects.equals(progress, otherEditPersonDescriptor.progress);
         }
@@ -304,6 +318,7 @@ public class EditCommand extends Command {
                     .add("studentId", studentId)
                     .add("github", github)
                     .add("project_team", projectTeam)
+                    .add("repository", repository)
                     .add("tags", tags)
                     .add("progress", progress)
                     .toString();

@@ -8,6 +8,7 @@
     "studentId" : "A1111111B",
     "github": "No Github assigned",
     "projectTeam" : "WealthAssist",
+    "repository" : "Repository has not been initialised",
     "tags" : [ "friends" ],
     "progress" : "0"
   }, {
@@ -18,6 +19,7 @@
     "studentId" : "A0101011A",
     "github": "No Github assigned",
     "projectTeam" : "WealthAssist",
+    "repository" : "Repository has not been initialised",
     "tags" : [ "owesMoney", "friends" ],
     "progress" : "30"
   }, {
@@ -29,6 +31,7 @@
     "studentId" : "A0101010C",
     "github": "No Github assigned",
     "projectTeam" : "WealthAssist",
+    "repository" : "Repository has not been initialised",
     "tags" : [ ],
     "progress" : "50"
   }, {
@@ -39,6 +42,7 @@
     "studentId" : "A0001234X",
     "github": "No Github assigned",
     "projectTeam" : "Bim Bim Bap",
+    "repository" : "Repository has not been initialised",
     "tags" : [ "friends" ],
     "progress" : "0"
   }, {
@@ -49,6 +53,7 @@
     "studentId" : "A1928374M",
     "github": "No Github assigned",
     "projectTeam" : "Bim Bim Bap",
+    "repository" : "Repository has not been initialised",
     "tags" : [ ],
     "progress" : "60"
   }, {
@@ -59,6 +64,7 @@
     "studentId" : "A7654321J",
     "github": "No Github assigned",
     "projectTeam" : "Bim Bim Bap",
+    "repository" : "Repository has not been initialised",
     "tags" : [ ],
     "progress" : "40"
   }, {
@@ -69,6 +75,7 @@
     "studentId" : "A9182736L",
     "github": "No Github assigned",
     "projectTeam" : "Bim Bim Bap",
+    "repository" : "Repository has not been initialised",
     "tags" : [ ],
     "progress" : "5"
   } ]
