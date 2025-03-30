@@ -3,7 +3,6 @@ package tassist.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import static tassist.address.logic.commands.CommandTestUtil.VALID_GITHUB_AMY;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_GITHUB_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_STUDENTID_AMY;
