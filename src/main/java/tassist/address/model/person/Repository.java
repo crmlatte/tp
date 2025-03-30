@@ -27,7 +27,7 @@ public class Repository {
     public static final String REPOSITORY_REGEX = "[a-zA-Z0-9](?:[a-zA-Z0-9._-]*[a-zA-Z0-9])?";
 
     public static final String VALIDATION_REGEX = GITHUB_URL_REGEX + USERNAME_REGEX + "/" + REPOSITORY_REGEX + "$";
-    public static final String NO_REPOSITORY = "Repository has not been initialised";
+    public static final String NO_REPOSITORY = "No Repository";
 
     public final String value;
 

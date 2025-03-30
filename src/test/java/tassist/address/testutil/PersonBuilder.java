@@ -29,7 +29,7 @@ public class PersonBuilder {
     public static final String DEFAULT_GITHUB = "No Github assigned";
     public static final String DEFAULT_PROGRESS = "0";
     public static final String DEFAULT_PROJECT_TEAM = "No project team assigned";
-    public static final String DEFAULT_REPOSITORY = "Repository has not been initialised";
+    public static final String DEFAULT_REPOSITORY = "No Repository";
 
     private Name name;
     private Phone phone;

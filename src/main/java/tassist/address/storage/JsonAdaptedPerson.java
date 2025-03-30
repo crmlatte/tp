@@ -170,6 +170,7 @@ class JsonAdaptedPerson {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Repository.class.getSimpleName()));
         }
+
         if (!Repository.isValidRepository(repository)) {
             throw new IllegalValueException(Repository.MESSAGE_CONSTRAINTS);
         }

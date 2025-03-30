@@ -39,7 +39,7 @@ public class RepositoryTest {
         assertTrue(Repository.isValidRepository("https://github.com/jOhn-12/tp-io")); // with dash
         assertTrue(Repository.isValidRepository("https://github.com/jOhn-12/tp.io")); // with dot
         assertTrue(Repository.isValidRepository("https://github.com/jOhn-12/tp_io")); // with underscore
-        assertTrue((Repository.isValidRepository("Repository has not been initialised"))); // no_repository
+        assertTrue((Repository.isValidRepository("No Repository"))); // no_repository
     }
     @Test
     public void equals() {
