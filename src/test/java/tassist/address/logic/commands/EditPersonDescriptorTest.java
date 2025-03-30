@@ -10,7 +10,7 @@ import static tassist.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_PROGRESS_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_PROJECT_TEAM_BOB;
-import static tassist.address.logic.commands.CommandTestUtil.VALID_REPOSITORY_AMY;
+import static tassist.address.logic.commands.CommandTestUtil.VALID_REPOSITORY_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_STUDENTID_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
@@ -60,7 +60,7 @@ public class EditPersonDescriptorTest {
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different repositories -> return false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withRepository(VALID_REPOSITORY_AMY).build();
+        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withRepository(VALID_REPOSITORY_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different tags -> returns false

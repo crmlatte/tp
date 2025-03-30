@@ -130,6 +130,7 @@ public class CommandTestUtil {
                 .withRepository(VALID_REPOSITORY_AMY)
                 .withTags(VALID_TAG_FRIEND)
                 .withProgress(VALID_PROGRESS_AMY).build();
+
         DESC_BOB = new EditPersonDescriptorBuilder()
                 .withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB)
