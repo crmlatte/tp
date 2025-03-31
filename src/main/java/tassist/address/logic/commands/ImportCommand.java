@@ -1,7 +1,6 @@
 package tassist.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static tassist.address.logic.parser.CliSyntax.PREFIX_FILE_PATH;
 import static tassist.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.io.IOException;
@@ -28,7 +27,7 @@ public class ImportCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Imports a CSV file containing a list of students into the address book.\n"
             + "Parameters: FILE_PATH (must be a valid absolute path to the CSV file)\n"
-            + "Example (absolute path): " + COMMAND_WORD + " " + PREFIX_FILE_PATH + " /path/to/file.csv";
+            + "Example (absolute path): " + COMMAND_WORD + " /path/to/file.csv";
 
     public static final String MESSAGE_IMPORT_SUCCESS = "Successfully imported CSV file: %1$s";
     public static final String MESSAGE_IMPORT_FAILURE = "Failed to import CSV file: %1$s";

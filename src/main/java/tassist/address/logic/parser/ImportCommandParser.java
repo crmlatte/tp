@@ -1,7 +1,6 @@
 package tassist.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static tassist.address.logic.parser.CliSyntax.PREFIX_FILE_PATH;
 
 import java.nio.file.Path;
 
@@ -19,11 +18,9 @@ public class ImportCommandParser implements Parser<ImportCommand> {
     @Override
     public ImportCommand parse(String args) {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_FILE_PATH);
+        String trimmedArgs = args.trim();
 
-        Path filePath = ParserUtil.parseFilePath(argMultimap.getValue(PREFIX_FILE_PATH)
-                .filter(value -> !value.isEmpty())
-                .orElse(""));
+        Path filePath = ParserUtil.parseFilePath(trimmedArgs);
 
         return new ImportCommand(filePath);
     }
