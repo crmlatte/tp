@@ -139,7 +139,9 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_import() throws Exception {
-        assertTrue(parser.parseCommand(ImportCommand.COMMAND_WORD) instanceof ImportCommand);
+        String absolutePathString = "/path/to/sample.csv";
+        assertTrue(parser.parseCommand(ImportCommand.COMMAND_WORD
+                + " " + absolutePathString) instanceof ImportCommand);
     }
 
     @Test

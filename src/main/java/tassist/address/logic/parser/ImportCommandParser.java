@@ -25,7 +25,6 @@ public class ImportCommandParser implements Parser<ImportCommand> {
         String trimmedArgs = args.trim();
 
         if (trimmedArgs.isEmpty()) {
-            System.out.println("here");
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     ImportCommand.MESSAGE_USAGE));
         }
