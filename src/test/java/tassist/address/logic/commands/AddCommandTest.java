@@ -15,6 +15,7 @@ import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import tassist.address.commons.core.GuiSettings;
 import tassist.address.logic.Messages;
@@ -24,6 +25,7 @@ import tassist.address.model.Model;
 import tassist.address.model.ReadOnlyAddressBook;
 import tassist.address.model.ReadOnlyUserPrefs;
 import tassist.address.model.person.Person;
+import tassist.address.model.timedevents.TimedEvent;
 import tassist.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -56,8 +58,8 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
+        Person alice = new PersonBuilder().withStudentId("A1111111A").build();
+        Person bob = new PersonBuilder().withStudentId("A2222222B").build();
         AddCommand addAliceCommand = new AddCommand(alice);
         AddCommand addBobCommand = new AddCommand(bob);
 
@@ -163,6 +165,41 @@ public class AddCommandTest {
         public void updateSortedPersonList(Comparator<Person> comparator) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public boolean hasTimedEvent(TimedEvent timedEvent) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addTimedEvent(TimedEvent timedEvent) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteTimedEvent(TimedEvent timedEvent) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<TimedEvent> getTimedEventList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<TimedEvent> getFilteredTimedEventList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredTimedEventList(Predicate<TimedEvent> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateSortedTimedEventList(Comparator<TimedEvent> comparator) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
@@ -204,6 +241,26 @@ public class AddCommandTest {
         @Override
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
+        }
+
+        @Override
+        public ObservableList<TimedEvent> getTimedEventList() {
+            return FXCollections.observableArrayList();
+        }
+
+        @Override
+        public ObservableList<TimedEvent> getFilteredTimedEventList() {
+            return FXCollections.observableArrayList();
+        }
+
+        @Override
+        public void updateFilteredTimedEventList(Predicate<TimedEvent> predicate) {
+            // No-op for testing
+        }
+
+        @Override
+        public void updateSortedTimedEventList(Comparator<TimedEvent> comparator) {
+            // No-op for testing
         }
     }
 
