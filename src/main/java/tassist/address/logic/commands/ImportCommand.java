@@ -74,7 +74,7 @@ public class ImportCommand extends Command {
                 Path jsonFilePath = model.getAddressBookFilePath();
                 converter.convertCsvToJson(filePath, jsonFilePath);
             } else {
-                throw new CommandException(Messages.MESSAGE_INVALID_FILE_PATH); // Invalid file type (not CSV or JSON)
+                throw new CommandException(Messages.MESSAGE_INVALID_FILE_PATH); // Not CSV file type
             }
 
             newData = storage.readAddressBook().get();
