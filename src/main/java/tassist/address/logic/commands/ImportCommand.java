@@ -15,7 +15,6 @@ import tassist.address.logic.Messages;
 import tassist.address.logic.commands.exceptions.CommandException;
 import tassist.address.model.Model;
 import tassist.address.model.ReadOnlyAddressBook;
-import tassist.address.model.util.SampleDataUtil;
 import tassist.address.storage.CsvJsonConverter;
 import tassist.address.storage.Storage;
 
@@ -78,7 +77,7 @@ public class ImportCommand extends Command {
                 throw new CommandException(Messages.MESSAGE_INVALID_FILE_PATH); // Invalid file type (not CSV or JSON)
             }
 
-            newData = storage.readAddressBook().orElseGet(SampleDataUtil::getSampleAddressBook);
+            newData = storage.readAddressBook().get();
             model.setAddressBook(newData);
             model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 

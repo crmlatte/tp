@@ -38,15 +38,35 @@ public class CsvJsonConverter {
 
         List<String[]> rows = csvReader.readAll();
 
-        String[] headers = rows.get(0);
-        List<Map<String, Object>> data = retrieveData(headers, rows);
+        List<String[]> personRows = new ArrayList<>();
+        List<String[]> timedEventRows = new ArrayList<>();
+
+        boolean isTimedEventSection = false;
+
+        for (String[] row : rows) {
+            if (row.length > 0 && row[0].equalsIgnoreCase("timedEvents")) {
+                isTimedEventSection = true; // We reached the timedEvents section
+            } else {
+                if (isTimedEventSection) {
+                    timedEventRows.add(row);
+                } else {
+                    personRows.add(row);
+                }
+            }
+        }
+
+        String[] personHeaders = personRows.get(0);
+        List<Map<String, Object>> personsData = retrieveData(personHeaders, personRows);
+
+        String[] timedEventHeaders = timedEventRows.get(0);
+        List<Map<String, Object>> timedEventsData = retrieveData(timedEventHeaders, timedEventRows);
 
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
 
         Map<String, List<Map<String, Object>>> wrappedData = new LinkedHashMap<>();
-        wrappedData.put("persons", data);
-        wrappedData.put("timedEvents", new ArrayList<>());
+        wrappedData.put("persons", personsData);
+        wrappedData.put("timedEvents", timedEventsData);
         objectMapper.writeValue(new File(jsonFilePath.toString()), wrappedData);
 
         System.out.println("CSV has been successfully converted to JSON!");
@@ -63,17 +83,14 @@ public class CsvJsonConverter {
                 String value = row[j];
 
                 if (key.equalsIgnoreCase("tags")) {
-                    if (value == null || value.trim().isEmpty()) {
-                        personData.put(key, new String[0]);
-                    } else {
-                        personData.put(key, Arrays.asList(value.split(",")));
-                    }
+                    Object newValue = processTags(value);
+                    personData.put(key, newValue);
+                } else if (key.equalsIgnoreCase("timedEvents")) {
+                    List<Map<String, String>> timedEventsList = processPersonTimedEvents(value);
+                    personData.put(key, timedEventsList);
                 } else {
-                    if (value == null || value.trim().isEmpty()) {
-                        personData.put(key, "");
-                    } else {
-                        personData.put(key, value);
-                    }
+                    String newValue = processAttribute(value);
+                    personData.put(key, newValue);
                 }
             }
 
@@ -81,5 +98,38 @@ public class CsvJsonConverter {
         }
 
         return data;
+    }
+
+    private String processAttribute(String value) {
+        if (value == null || value.trim().isEmpty()) {
+            return "";
+        } else {
+            return value;
+        }
+    }
+
+    private Object processTags(String value) {
+        if (value == null || value.trim().isEmpty()) {
+            return new String[0];
+        } else {
+            return Arrays.asList(value.split(","));
+        }
+    }
+
+    private List<Map<String, String>> processPersonTimedEvents(String value) {
+        List<Map<String, String>> timedEventsList = new ArrayList<>();
+        String[] splitted = value.split(",");
+
+        for (int i = 0; i < splitted.length / 4; i++) {
+            Map<String, String> timedEvent = new LinkedHashMap<>();
+            timedEvent.put("name", splitted[(i * 4)].trim());
+            timedEvent.put("description", splitted[(i * 4) + 1].trim());
+            timedEvent.put("time", splitted[(i * 4) + 2].trim());
+            timedEvent.put("type", splitted[(i * 4) + 3].trim());
+
+            timedEventsList.add(timedEvent);
+        }
+
+        return timedEventsList;
     }
 }
