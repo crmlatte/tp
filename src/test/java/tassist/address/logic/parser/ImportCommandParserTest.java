@@ -1,6 +1,11 @@
 package tassist.address.logic.parser;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static tassist.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static tassist.address.logic.Messages.MESSAGE_INVALID_FILE_PATH;
+import static tassist.address.logic.commands.CommandTestUtil.ABSOLUTE_FILE_PATH;
+import static tassist.address.logic.commands.CommandTestUtil.RELATIVE_FILE_PATH;
+import static tassist.address.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static tassist.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -8,29 +13,23 @@ import java.nio.file.Paths;
 import org.junit.jupiter.api.Test;
 
 import tassist.address.logic.commands.ImportCommand;
+import tassist.address.logic.commands.OpenCommand;
 
 public class ImportCommandParserTest {
     private ImportCommandParser parser = new ImportCommandParser();
 
     @Test
-    public void parse_validAbsolutePath_success() {
-        String input = "import fp/ /stub/path/to/sample.csv";
-        Path expectedPath = Paths.get("/stub/path/to/sample.csv").toAbsolutePath();
-        ImportCommand expectedCommand = new ImportCommand(expectedPath);
-
-        ImportCommand command = parser.parse(input);
-
-        assertEquals(expectedCommand, command);
+    public void parse_emptyArg_throwsParseException() {
+        assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportCommand.MESSAGE_USAGE));
     }
 
     @Test
-    public void parse_validRelativePath_success() {
-        String input = "import fp/ data/sample.csv";
-        Path expectedPath = Paths.get("data/sample.csv").toAbsolutePath();
-        ImportCommand expectedCommand = new ImportCommand(expectedPath);
+    public void parse_relativePath_throwsParseException() {
+        assertParseFailure(parser, RELATIVE_FILE_PATH, String.format(MESSAGE_INVALID_FILE_PATH, ImportCommand.MESSAGE_USAGE));
+    }
 
-        ImportCommand command = parser.parse(input);
-
-        assertEquals(expectedCommand, command);
+    @Test
+    public void parse_absolutePath_returnsImportCommand() {
+        assertParseSuccess(parser, ABSOLUTE_FILE_PATH, new ImportCommand(Paths.get(ABSOLUTE_FILE_PATH)));
     }
 }
