@@ -38,6 +38,8 @@ public class ClassCommandParser implements Parser<ClassCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClassCommand.MESSAGE_USAGE));
         }
 
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CLASS);
+
         String classNumberString = argMultimap.getValue(PREFIX_CLASS)
                 .filter(value -> !value.isEmpty()).orElse(DEFAULT_CLASS);
         ClassNumber classNumber;
