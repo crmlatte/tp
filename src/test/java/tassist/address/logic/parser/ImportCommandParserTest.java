@@ -7,13 +7,11 @@ import static tassist.address.logic.commands.CommandTestUtil.RELATIVE_FILE_PATH;
 import static tassist.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static tassist.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
-import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import org.junit.jupiter.api.Test;
 
 import tassist.address.logic.commands.ImportCommand;
-import tassist.address.logic.commands.OpenCommand;
 
 public class ImportCommandParserTest {
     private ImportCommandParser parser = new ImportCommandParser();
