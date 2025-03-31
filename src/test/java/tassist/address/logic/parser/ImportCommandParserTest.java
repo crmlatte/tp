@@ -2,8 +2,10 @@ package tassist.address.logic.parser;
 
 import static tassist.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tassist.address.logic.Messages.MESSAGE_INVALID_FILE_PATH;
-import static tassist.address.logic.commands.CommandTestUtil.ABSOLUTE_FILE_PATH;
-import static tassist.address.logic.commands.CommandTestUtil.RELATIVE_FILE_PATH;
+import static tassist.address.logic.commands.CommandTestUtil.ABSOLUTE_FILE_PATH_UNIX;
+import static tassist.address.logic.commands.CommandTestUtil.ABSOLUTE_FILE_PATH_WINDOWS;
+import static tassist.address.logic.commands.CommandTestUtil.RELATIVE_FILE_PATH_UNIX;
+import static tassist.address.logic.commands.CommandTestUtil.RELATIVE_FILE_PATH_WINDOWS;
 import static tassist.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static tassist.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -23,12 +25,20 @@ public class ImportCommandParserTest {
 
     @Test
     public void parse_relativePath_throwsParseException() {
-        assertParseFailure(parser, RELATIVE_FILE_PATH,
+        final String relativeFilePath = System.getProperty("os.name").toLowerCase().contains("win")
+                ? RELATIVE_FILE_PATH_WINDOWS
+                : RELATIVE_FILE_PATH_UNIX;
+
+        assertParseFailure(parser, relativeFilePath,
                 String.format(MESSAGE_INVALID_FILE_PATH, ImportCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_absolutePath_returnsImportCommand() {
-        assertParseSuccess(parser, ABSOLUTE_FILE_PATH, new ImportCommand(Paths.get(ABSOLUTE_FILE_PATH)));
+        final String absoluteFilePath = System.getProperty("os.name").toLowerCase().contains("win")
+                ? ABSOLUTE_FILE_PATH_WINDOWS
+                : ABSOLUTE_FILE_PATH_UNIX;
+
+        assertParseSuccess(parser, absoluteFilePath, new ImportCommand(Paths.get(absoluteFilePath)));
     }
 }

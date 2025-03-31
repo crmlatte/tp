@@ -44,8 +44,10 @@ public class ParserUtilTest {
     private static final String VALID_PROGRESS_1 = "80";
     private static final String VALID_PROGRESS_2 = "20%";
 
-    private static final String ABSOLUTE_PATH_STRING = "/path/to/sample.csv";
-    private static final String RELATIVE_PATH_STRING = "data/sample.csv";
+    private static final String ABSOLUTE_PATH_STRING_UNIX = "/path/to/sample.csv";
+    private static final String ABSOLUTE_PATH_STRING_WINDOWS = "C:\\path\\to\\sample.csv";
+    private static final String RELATIVE_PATH_STRING_UNIX = "data/sample.csv";
+    private static final String RELATIVE_PATH_STRING_WINDOWS = "data\\sample.csv";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -272,19 +274,31 @@ public class ParserUtilTest {
 
     @Test
     public void parseFilePath_absolutePath_returnsSamePath() throws Exception {
-        Path expectedAbsolutePath = Paths.get(ABSOLUTE_PATH_STRING).toAbsolutePath();
-        assertEquals(expectedAbsolutePath, ParserUtil.parseFilePath(ABSOLUTE_PATH_STRING));
+        final String absoluteFilePath = System.getProperty("os.name").toLowerCase().contains("win")
+                ? ABSOLUTE_PATH_STRING_WINDOWS
+                : ABSOLUTE_PATH_STRING_UNIX;
+
+        Path expectedAbsolutePath = Paths.get(absoluteFilePath).toAbsolutePath();
+        assertEquals(expectedAbsolutePath, ParserUtil.parseFilePath(absoluteFilePath));
     }
 
     @Test
     public void parseFilePath_absolutePathWithWhitespace_returnsTrimmedAbsolutePath() throws Exception {
-        String absolutePathWithWhitespaceString = WHITESPACE + ABSOLUTE_PATH_STRING + WHITESPACE;
-        Path expectedAbsolutePath = Paths.get(ABSOLUTE_PATH_STRING).toAbsolutePath();
+        final String absoluteFilePath = System.getProperty("os.name").toLowerCase().contains("win")
+                ? ABSOLUTE_PATH_STRING_WINDOWS
+                : ABSOLUTE_PATH_STRING_UNIX;
+
+        String absolutePathWithWhitespaceString = WHITESPACE + absoluteFilePath + WHITESPACE;
+        Path expectedAbsolutePath = Paths.get(absoluteFilePath).toAbsolutePath();
         assertEquals(expectedAbsolutePath, ParserUtil.parseFilePath(absolutePathWithWhitespaceString));
     }
 
     @Test
     public void parseFilePath_relativePath_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseFilePath(RELATIVE_PATH_STRING));
+        final String relativeFilePath = System.getProperty("os.name").toLowerCase().contains("win")
+                ? RELATIVE_PATH_STRING_WINDOWS
+                : RELATIVE_PATH_STRING_UNIX;
+
+        assertThrows(ParseException.class, () -> ParserUtil.parseFilePath(relativeFilePath));
     }
 }

@@ -110,9 +110,10 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final String ABSOLUTE_FILE_PATH = "/path/to/sample.csv";
-    //  public static final String ABSOLUTE_FILE_PATH_WINDOWS = "";
-    public static final String RELATIVE_FILE_PATH = "data/sample.csv";
+    public static final String ABSOLUTE_FILE_PATH_UNIX = "/path/to/sample.csv";
+    public static final String ABSOLUTE_FILE_PATH_WINDOWS = "C:\\path\\to\\sample.csv";
+    public static final String RELATIVE_FILE_PATH_UNIX = "data/sample.csv";
+    public static final String RELATIVE_FILE_PATH_WINDOWS = "data\\sample.csv";
 
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
