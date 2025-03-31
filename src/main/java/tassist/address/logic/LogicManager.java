@@ -88,6 +88,7 @@ public class LogicManager implements Logic {
                 throw new CommandException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, OpenCommand.MESSAGE_USAGE));
             }
         } else if (command instanceof ImportCommand) {
+            // pass storage into import for reloading the new data later
             ImportCommand importCommand = (ImportCommand) command;
             command = new ImportCommand(importCommand.getFilePath(), storage);
         }
