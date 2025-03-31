@@ -17,7 +17,6 @@ import tassist.address.model.timedevents.Assignment;
 
 public class ViewCommandTest {
     private Model model = new ModelManager(new AddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(new AddressBook(), new UserPrefs());
 
     @Test
     public void execute_emptyTimedEventList_success() {

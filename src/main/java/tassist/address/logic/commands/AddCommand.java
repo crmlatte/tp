@@ -1,5 +1,6 @@
 package tassist.address.logic.commands;
 
+import static java.util.Objects.isNull;
 import static java.util.Objects.requireNonNull;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_CLASS;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -60,6 +61,7 @@ public class AddCommand extends Command {
     public AddCommand(Person person) {
         requireNonNull(person);
         toAdd = person;
+        assert(!isNull(person));
     }
 
     @Override

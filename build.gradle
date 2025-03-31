@@ -71,5 +71,8 @@ dependencies {
 shadowJar {
     archiveFileName = 'tassist.jar'
 }
+run {
+    enableAssertions = true
+}
 
 defaultTasks 'clean', 'test'

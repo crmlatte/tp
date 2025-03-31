@@ -41,6 +41,8 @@ public class AssignmentCommandParser implements Parser<AssignmentCommand> {
                     AssignmentCommand.MESSAGE_USAGE));
         }
 
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_DATE);
+
         String name = argMultimap.getValue(PREFIX_NAME).get();
         String dateStr = argMultimap.getValue(PREFIX_DATE).get();
 
