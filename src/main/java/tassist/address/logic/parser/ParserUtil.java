@@ -11,7 +11,6 @@ import java.util.Set;
 import tassist.address.commons.core.index.Index;
 import tassist.address.commons.util.StringUtil;
 import tassist.address.logic.Messages;
-import tassist.address.logic.commands.ImportCommand;
 import tassist.address.logic.parser.exceptions.ParseException;
 import tassist.address.model.person.ClassNumber;
 import tassist.address.model.person.Email;
