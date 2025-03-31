@@ -142,8 +142,9 @@ public class AddressBookParserTest {
         final String absolutePathStringUnix = "/path/to/sample.csv";
         final String absolutePathStringWindows = "C:\\path\\to\\sample.csv";
 
-        final String filePath = System.getProperty("os.name").toLowerCase().contains("win") ?
-                absolutePathStringWindows : absolutePathStringUnix;
+        final String filePath = System.getProperty("os.name").toLowerCase().contains("win")
+                ? absolutePathStringWindows
+                : absolutePathStringUnix;
 
         assertTrue(parser.parseCommand(ImportCommand.COMMAND_WORD
                 + " " + filePath) instanceof ImportCommand);
