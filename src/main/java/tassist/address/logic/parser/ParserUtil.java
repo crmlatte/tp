@@ -10,6 +10,8 @@ import java.util.Set;
 
 import tassist.address.commons.core.index.Index;
 import tassist.address.commons.util.StringUtil;
+import tassist.address.logic.Messages;
+import tassist.address.logic.commands.ImportCommand;
 import tassist.address.logic.parser.exceptions.ParseException;
 import tassist.address.model.person.ClassNumber;
 import tassist.address.model.person.Email;
@@ -194,15 +196,16 @@ public class ParserUtil {
      * Parses a {@code String filePath} into a {@code Path}.
      * Leading and trailing whitespaces will be trimmed.
      */
-    public static Path parseFilePath(String filePath) {
+    public static Path parseFilePath(String filePath) throws ParseException {
         requireNonNull(filePath);
         String trimmedFilePath = filePath.trim();
 
         Path path = Paths.get(trimmedFilePath);
-        if (path.isAbsolute()) {
-            return path;
-        } else {
-            return path.toAbsolutePath();
+
+        if (!path.isAbsolute()) {
+            throw new ParseException(Messages.MESSAGE_INVALID_FILE_PATH);
         }
+
+        return path;
     }
 }

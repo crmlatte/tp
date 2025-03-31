@@ -1,10 +1,14 @@
 package tassist.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static tassist.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static tassist.address.logic.Messages.MESSAGE_INVALID_FILE_PATH;
 
 import java.nio.file.Path;
 
+import tassist.address.commons.exceptions.IllegalValueException;
 import tassist.address.logic.commands.ImportCommand;
+import tassist.address.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new ImportCommand object
@@ -16,12 +20,22 @@ public class ImportCommandParser implements Parser<ImportCommand> {
      * and returns an ImportCommand object for execution.
      */
     @Override
-    public ImportCommand parse(String args) {
+    public ImportCommand parse(String args) throws ParseException {
         requireNonNull(args);
         String trimmedArgs = args.trim();
 
-        Path filePath = ParserUtil.parseFilePath(trimmedArgs);
+        if (trimmedArgs.isEmpty()) {
+            System.out.println("here");
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    ImportCommand.MESSAGE_USAGE));
+        }
 
-        return new ImportCommand(filePath);
+        try {
+            Path filePath = ParserUtil.parseFilePath(trimmedArgs);
+            return new ImportCommand(filePath);
+        } catch (IllegalValueException ive) {
+            throw new ParseException(String.format(MESSAGE_INVALID_FILE_PATH,
+                    ImportCommand.MESSAGE_USAGE));
+        }
     }
 }
