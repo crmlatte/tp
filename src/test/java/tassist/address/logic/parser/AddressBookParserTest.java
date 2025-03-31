@@ -139,9 +139,14 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_import() throws Exception {
-        String absolutePathString = "/path/to/sample.csv";
+        final String absolutePathStringUnix = "/path/to/sample.csv";
+        final String absolutePathStringWindows = "C:\\path\\to\\sample.csv";
+
+        final String filePath = System.getProperty("os.name").toLowerCase().contains("win") ?
+                absolutePathStringWindows : absolutePathStringUnix;
+
         assertTrue(parser.parseCommand(ImportCommand.COMMAND_WORD
-                + " " + absolutePathString) instanceof ImportCommand);
+                + " " + filePath) instanceof ImportCommand);
     }
 
     @Test
