@@ -23,7 +23,8 @@ public class ImportCommandParserTest {
 
     @Test
     public void parse_relativePath_throwsParseException() {
-        assertParseFailure(parser, RELATIVE_FILE_PATH, String.format(MESSAGE_INVALID_FILE_PATH, ImportCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, RELATIVE_FILE_PATH,
+                String.format(MESSAGE_INVALID_FILE_PATH, ImportCommand.MESSAGE_USAGE));
     }
 
     @Test

@@ -60,7 +60,8 @@
 //                String[] headers = rows.get(0);
 //                List<Map<String, Object>> data = retrieveData(headers, rows);
 //
-//                stubObjectMapper.writeValue(new File(jsonFilePath.toString()), Collections.singletonMap("persons", data));
+//                stubObjectMapper.writeValue(new File(jsonFilePath.toString()),
+//                Collections.singletonMap("persons", data));
 //            }
 //        };
 //
@@ -108,7 +109,8 @@
 //                String[] headers = rows.get(0);
 //                List<Map<String, Object>> data = retrieveData(headers, rows);
 //
-//                stubObjectMapper.writeValue(new File(jsonFilePath.toString()), Collections.singletonMap("persons", data));
+//                stubObjectMapper.writeValue(new File(jsonFilePath.toString()),
+//                Collections.singletonMap("persons", data));
 //            }
 //        };
 //
@@ -136,7 +138,8 @@
 //                String[] headers = rows.get(0);
 //                List<Map<String, Object>> data = retrieveData(headers, rows);
 //
-//                stubObjectMapper.writeValue(new File(jsonFilePath.toString()), Collections.singletonMap("persons", data));
+//                stubObjectMapper.writeValue(new File(jsonFilePath.toString()),
+//                Collections.singletonMap("persons", data));
 //            }
 //        };
 //
@@ -166,7 +169,8 @@
 //                String[] headers = rows.get(0);
 //                List<Map<String, Object>> data = retrieveData(headers, rows);
 //
-//                stubObjectMapper.writeValue(new File(jsonFilePath.toString()), Collections.singletonMap("persons", data));
+//                stubObjectMapper.writeValue(new File(jsonFilePath.toString()),
+//                Collections.singletonMap("persons", data));
 //            }
 //        };
 //
