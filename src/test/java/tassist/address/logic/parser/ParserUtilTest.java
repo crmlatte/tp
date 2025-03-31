@@ -44,7 +44,7 @@ public class ParserUtilTest {
     private static final String VALID_PROGRESS_1 = "80";
     private static final String VALID_PROGRESS_2 = "20%";
 
-    private static final String ABSOLUTE_PATH_STRING = "/path/to/data/sample.csv";
+    private static final String ABSOLUTE_PATH_STRING = "/path/to/sample.csv";
     private static final String RELATIVE_PATH_STRING = "data/sample.csv";
 
     private static final String WHITESPACE = " \t\r\n";
@@ -242,7 +242,7 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseProgress_invalidValue_throwsParserException() {
+    public void parseProgress_invalidValue_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseProgress(INVALID_PROGRESS));
     }
 
@@ -271,28 +271,20 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseFilePath_absolutePath_returnsSamePath() {
+    public void parseFilePath_absolutePath_returnsSamePath() throws Exception {
         Path expectedAbsolutePath = Paths.get(ABSOLUTE_PATH_STRING).toAbsolutePath();
         assertEquals(expectedAbsolutePath, ParserUtil.parseFilePath(ABSOLUTE_PATH_STRING));
     }
 
     @Test
-    public void parseFilePath_absolutePathWithWhitespace_returnsTrimmedAbsolutePath() {
+    public void parseFilePath_absolutePathWithWhitespace_returnsTrimmedAbsolutePath() throws Exception {
         String absolutePathWithWhitespaceString = WHITESPACE + ABSOLUTE_PATH_STRING + WHITESPACE;
         Path expectedAbsolutePath = Paths.get(ABSOLUTE_PATH_STRING).toAbsolutePath();
         assertEquals(expectedAbsolutePath, ParserUtil.parseFilePath(absolutePathWithWhitespaceString));
     }
 
     @Test
-    public void parseFilePath_relativePath_returnsAbsolutePath() {
-        Path expectedAbsolutePath = Paths.get(RELATIVE_PATH_STRING).toAbsolutePath();
-        assertEquals(expectedAbsolutePath, ParserUtil.parseFilePath(RELATIVE_PATH_STRING));
-    }
-
-    @Test
-    public void parseFilePath_relativePathWithWhitespace_returnsTrimmedAbsolutePath() {
-        String relativePathWithWhitespaceString = WHITESPACE + RELATIVE_PATH_STRING + WHITESPACE;
-        Path expectedAbsolutePath = Paths.get(RELATIVE_PATH_STRING).toAbsolutePath();
-        assertEquals(expectedAbsolutePath, ParserUtil.parseFilePath(relativePathWithWhitespaceString));
+    public void parseFilePath_relativePath_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseFilePath(RELATIVE_PATH_STRING));
     }
 }
