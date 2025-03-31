@@ -8,6 +8,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
+import java.util.logging.Logger;
 
 import tassist.address.logic.commands.exceptions.CommandException;
 import tassist.address.model.Model;
@@ -31,13 +32,14 @@ public class ListCommand extends Command {
             + "Allowed sort order: asc,des.";
     public static final String MESSAGE_INVALID_FILTER = "Invalid filter type. Allowed filter type: course, team, "
             + "progress";
-    public static final String MESSAGE_INVALID_FILTER_VALUE = "This filter value does not exists.";
+    public static final String MESSAGE_INVALID_FILTER_VALUE = "This filter value does not exist.";
     public static final String MESSAGE_MISSING_FILTER_VALUE = "Please enter filter value. list f/[FILTER TYPE] "
             + "fv/[FILTER VALUE]";
 
     public static final List<String> VALID_SORT_ORDERS = Arrays.asList("asc", "des");
     public static final List<String> VALID_SORT_TYPES = Arrays.asList("name", "progress", "github");
     public static final List<String> VALID_FILTER_TYPES = Arrays.asList("course", "team", "progress");
+    private static final Logger logger = Logger.getLogger(ListCommand.class.getName());
 
     public final String sortType;
     public final String sortOrder;
@@ -67,6 +69,7 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        logger.info("Executing ListCommand");
         isValidFilterAndSort();
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         List<Person> list = model.getFilteredPersonList();
@@ -75,15 +78,18 @@ public class ListCommand extends Command {
         boolean hasSort = sortType != null && sortOrder != null;
 
         if (hasFilter) {
+            logger.info(String.format("Applying filter: %s=%s", filterType, filterValue));
             Predicate<Person> filter = getFilter(model, filterType, filterValue);
             model.updateFilteredPersonList(filter);
         }
 
         if (hasSort) {
+            logger.info(String.format("Applying sort: %s, %s", sortType, sortOrder));
             Comparator<Person> comp = this.getComparator(sortType, sortOrder);
             model.updateSortedPersonList(comp);
         }
         if (list.isEmpty()) {
+            logger.warning("No students found after applying filter/sort.");
             return new CommandResult(MESSAGE_NO_STUDENTS);
         }
 
@@ -101,6 +107,7 @@ public class ListCommand extends Command {
     }
 
     private void isValidFilterAndSort() throws CommandException {
+        logger.fine("Validating filter and sort inputs.");
         if (sortType != null && !VALID_SORT_TYPES.contains(sortType)) {
             throw new CommandException(MESSAGE_INVALID_SORT);
         }
