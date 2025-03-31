@@ -111,7 +111,8 @@ public class ClassCommand extends Command {
                 personToEdit.getGithub(),
                 personToEdit.getProjectTeam(),
                 personToEdit.getTags(),
-                personToEdit.getProgress()
+                personToEdit.getProgress(),
+                personToEdit.getTimedEventsList()
         );
 
         model.setPerson(personToEdit, editedPerson);
