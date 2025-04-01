@@ -16,11 +16,13 @@ import java.nio.file.AccessDeniedException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import tassist.address.commons.exceptions.DataLoadingException;
 import tassist.address.logic.commands.AddCommand;
 import tassist.address.logic.commands.CommandResult;
 import tassist.address.logic.commands.DeleteCommand;
@@ -31,10 +33,12 @@ import tassist.address.logic.parser.exceptions.ParseException;
 import tassist.address.model.Model;
 import tassist.address.model.ModelManager;
 import tassist.address.model.ReadOnlyAddressBook;
+import tassist.address.model.ReadOnlyUserPrefs;
 import tassist.address.model.UserPrefs;
 import tassist.address.model.person.Person;
 import tassist.address.storage.JsonAddressBookStorage;
 import tassist.address.storage.JsonUserPrefsStorage;
+import tassist.address.storage.Storage;
 import tassist.address.storage.StorageManager;
 import tassist.address.testutil.PersonBuilder;
 
@@ -195,8 +199,21 @@ public class LogicManagerTest {
         assertEquals(personToOpen.getGithub().value, browserService.getLastUrlOpened());
     }
 
+    @Test
+    public void execute_importCommand_success() throws Exception {
+        //        Path filePath = temporaryFolder.resolve(FILE_PATH_1);
+        //        Files.createFile(filePath);
+        //        String input = "import " + filePath.toString();
+        //        CommandResult result = logic.execute(input);
+
+        //    assertEquals(String.format(ImportCommand.MESSAGE_IMPORT_SUCCESS, filePath.toString()),
+        //                result.getFeedbackToUser()
+        //        );
+        //        assertEquals(filePath.toString(), FILE_PATH_1);
+    }
+
     private void assertCommandSuccess(String inputCommand, String expectedMessage,
-            Model expectedModel) throws CommandException, ParseException {
+                                      Model expectedModel) throws CommandException, ParseException {
         CommandResult result = logic.execute(inputCommand);
         assertEquals(expectedMessage, result.getFeedbackToUser());
         assertEquals(expectedModel, model);
@@ -211,13 +228,13 @@ public class LogicManagerTest {
     }
 
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
-            String expectedMessage) {
+                                      String expectedMessage) {
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
-            String expectedMessage, Model expectedModel) {
+                                      String expectedMessage, Model expectedModel) {
         assertThrows(expectedException, expectedMessage, () -> logic.execute(inputCommand));
         assertEquals(expectedModel, model);
     }
@@ -278,6 +295,49 @@ public class LogicManagerTest {
          */
         public void clear() {
             urlsOpened.clear();
+        }
+    }
+
+    private static class TestStorage implements Storage {
+
+        @Override
+        public Path getUserPrefsFilePath() {
+            return null;
+        }
+
+        @Override
+        public Optional<UserPrefs> readUserPrefs() throws DataLoadingException {
+            return Optional.empty();
+        }
+
+        @Override
+        public void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException {
+
+        }
+
+        @Override
+        public Path getAddressBookFilePath() {
+            return null;
+        }
+
+        @Override
+        public Optional<ReadOnlyAddressBook> readAddressBook() throws DataLoadingException {
+            return Optional.empty();
+        }
+
+        @Override
+        public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataLoadingException {
+            return Optional.empty();
+        }
+
+        @Override
+        public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
+
+        }
+
+        @Override
+        public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+
         }
     }
 }
