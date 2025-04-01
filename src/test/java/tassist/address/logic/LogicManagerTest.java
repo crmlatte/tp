@@ -219,7 +219,7 @@ public class LogicManagerTest {
                 new ImportCommandTest.TestUserPrefs(temporaryFolder.resolve("addressBook.json")));
         Logic testLogic = new LogicManager(testModel, storage, browserService);
 
-        Path tempCsvFilePath = temporaryFolder.resolve(VALID_FILE_PATH);
+        Path tempCsvFilePath = temporaryFolder.resolve(VALID_FILE_PATH).normalize();
 
         if (!Files.exists(tempCsvFilePath)) {
             Files.createFile(tempCsvFilePath);
