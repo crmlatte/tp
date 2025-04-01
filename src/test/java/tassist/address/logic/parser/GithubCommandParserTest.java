@@ -1,5 +1,6 @@
 package tassist.address.logic.parser;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static tassist.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tassist.address.logic.Messages.getErrorMessageForDuplicatePrefixes;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_STUDENTID_BOB;
@@ -63,5 +64,16 @@ public class GithubCommandParserTest {
         // valid value followed by invalid value
         assertParseFailure(parser, validExpectedCommandString + " " + PREFIX_GITHUB + "invalid",
                 getErrorMessageForDuplicatePrefixes(PREFIX_GITHUB));
+    }
+
+    @Test
+    public void parse_emptyGithubField_returnsGithubCommandWithNoGithubAssigned() throws Exception {
+        String input = "1 g/";
+        Github expectedGithub = new Github(Github.NO_GITHUB);
+        GithubCommand expectedCommand = new GithubCommand(Index.fromOneBased(1), expectedGithub);
+
+        GithubCommand resultCommand = parser.parse(input);
+
+        assertEquals(expectedCommand, resultCommand);
     }
 }
