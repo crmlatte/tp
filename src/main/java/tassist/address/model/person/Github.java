@@ -17,7 +17,7 @@ public class Github {
             + "2. This is followed by a '/' and then a username.\n\n "
             + "The username must:\n"
             + "    - Be at least 2 characters long\n"
-            + "    - Made up of alphanumeric characters\n" 
+            + "    - Made up of alphanumeric characters\n"
             + "    - Separated only by dashes (-), if any\n"
             + "    - Start and end with alphanumeric characters.";
 
