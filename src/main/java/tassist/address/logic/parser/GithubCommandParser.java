@@ -3,6 +3,7 @@ package tassist.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static tassist.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_GITHUB;
+import static tassist.address.model.person.Github.MESSAGE_CONSTRAINTS;
 import static tassist.address.model.person.StudentId.VALIDATION_REGEX;
 
 import tassist.address.commons.core.index.Index;
@@ -40,7 +41,7 @@ public class GithubCommandParser implements Parser<GithubCommand> {
         try {
             Github githubUrl = new Github(github);
         } catch (IllegalArgumentException e) {
-            throw new ParseException(GithubCommand.MESSAGE_INVALID_GITHUB, e);
+            throw new ParseException(GithubCommand.MESSAGE_INVALID_GITHUB + " " + MESSAGE_CONSTRAINTS, e);
         }
 
         if (trimmedArgs.matches(VALIDATION_REGEX)) {
