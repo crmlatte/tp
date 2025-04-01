@@ -66,8 +66,12 @@ public class LogicManagerTest {
     private JsonUserPrefsStorage userPrefsStorage;
 
     @BeforeEach
-    public void setUp() {
-        addressBookStorage = new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
+    public void setUp() throws IOException {
+        Path addressBookFilePath = temporaryFolder.resolve("addressBook.json");
+        addressBookStorage = new JsonAddressBookStorage(addressBookFilePath);
+        if (!Files.exists(addressBookFilePath)) {
+            Files.createFile(addressBookFilePath);
+        }
         userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         storage = new StorageManager(addressBookStorage, userPrefsStorage);
         browserService = new TestBrowserService();
