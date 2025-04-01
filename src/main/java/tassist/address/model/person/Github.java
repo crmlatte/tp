@@ -16,9 +16,10 @@ public class Github {
             + "1. The base GitHub url must be 'https://github.com'\n"
             + "2. This is followed by a '/' and then a username.\n\n "
             + "The username must:\n"
-            + "    - be at least 2 characters long\n"
-            + "    - start and end with alphanumeric characters\n"
-            + "    - consist only alphanumeric characters, separated only by dashes (-), if any.";
+            + "    - Be at least 2 characters long\n"
+            + "    - Made up of alphanumeric characters\n" 
+            + "    - Separated only by dashes (-), if any\n"
+            + "    - Start and end with alphanumeric characters.";
 
     // alphanumeric and special characters
     private static final String GITHUB_URL_REGEX = "^https://github\\.com/";
