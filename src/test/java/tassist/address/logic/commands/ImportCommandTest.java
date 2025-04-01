@@ -94,7 +94,8 @@ public class ImportCommandTest {
 
     @Test
     public void execute_corruptedJsonFile_throwsCommandException() {
-        Model testModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        Model testModel = new ModelManager(getTypicalAddressBook(),
+                new TestUserPrefs(temporaryFolder.resolve("random.csv")));
         Path testCsvFilePath = Paths.get("src", "test", "data",
                 "CsvJsonConverterTest", "valid.csv");
         assertThrows(CommandException.class, () -> new ImportCommand(testCsvFilePath, storage).execute(testModel));
