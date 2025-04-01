@@ -2,18 +2,13 @@ package tassist.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static tassist.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static tassist.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static tassist.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static tassist.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_REPOSITORY_NAME;
-import static tassist.address.logic.parser.CliSyntax.PREFIX_STUDENT_ID;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_USERNAME;
 
 import java.util.stream.Stream;
 
 import tassist.address.commons.core.index.Index;
 import tassist.address.commons.exceptions.IllegalValueException;
-import tassist.address.logic.commands.AddCommand;
 import tassist.address.logic.commands.RepoCommand;
 import tassist.address.logic.parser.exceptions.ParseException;
 import tassist.address.model.person.StudentId;
