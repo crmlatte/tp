@@ -21,12 +21,12 @@ import com.opencsv.exceptions.CsvException;
 
 public class CsvJsonConverterTest {
 
-    private CsvJsonConverter csvJsonConverter;
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "CsvJsonConverterTest");
 
     @TempDir
     public Path testFolder;
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src","test", "data", "CsvJsonConverterTest");
+    private CsvJsonConverter csvJsonConverter;
 
     @BeforeEach
     public void setUp() {
@@ -67,7 +67,7 @@ public class CsvJsonConverterTest {
     }
 
     @Test
-    public void testConvertCsvToJson_nonExistentCsv_throwsIOException() {
+    public void testConvertCsvToJson_nonExistentCsv_throwsIoException() {
         Path inputCsv = TEST_DATA_FOLDER.resolve("non-existent.csv");
         Path outputJson = testFolder.resolve("TempOutput.json");
         assertThrows(IOException.class, () -> csvJsonConverter.convertCsvToJson(inputCsv, outputJson));
