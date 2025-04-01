@@ -15,6 +15,9 @@ import static tassist.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static tassist.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static tassist.address.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 import tassist.address.commons.core.index.Index;
@@ -26,6 +29,9 @@ import tassist.address.model.UserPrefs;
 import tassist.address.model.person.ClassNumber;
 import tassist.address.model.person.Person;
 import tassist.address.model.person.StudentId;
+import tassist.address.model.timedevents.TimedEvent;
+import tassist.address.testutil.PersonBuilder;
+import tassist.address.testutil.TimedEventBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ClassCommand.
@@ -153,5 +159,49 @@ public class ClassCommandTest {
 
         // different classNumber -> returns false
         assertFalse(standardCommand.equals(new ClassCommand(studentIdAmy, classBob)));
+    }
+
+    @Test
+    public void execute_preservesAssignments_success() throws Exception {
+        Model model = new ModelManager();
+
+        // Create a person with an assignment
+        Person originalPerson = new PersonBuilder()
+                .withName("Alice")
+                .withStudentId("A1239878D")
+                .build();
+        model.addPerson(originalPerson);
+
+        // Add an assignment to the person
+        TimedEvent assignment = new TimedEventBuilder()
+                .withName("Test Assignment")
+                .withDescription("Test Description")
+                .withTime(LocalDateTime.now().plusDays(7))
+                .build();
+        originalPerson.addTimedEvent(assignment);
+
+        // Update class
+        StudentId validStudentId = new StudentId("A1239878D");
+        ClassNumber validClass = new ClassNumber("T01");
+        ClassCommand classCommand = new ClassCommand(validStudentId, validClass);
+        CommandResult result = classCommand.execute(model);
+
+        // Get the edited person
+        Person editedPerson = model.getFilteredPersonList().stream()
+                .filter(person -> person.getStudentId().equals(validStudentId))
+                .findFirst()
+                .get();
+
+        // Verify class was updated
+        assertEquals(validClass, editedPerson.getClassNumber());
+
+        // Verify assignment was preserved
+        List<TimedEvent> assignments = editedPerson.getTimedEventsList().asUnmodifiableObservableList();
+        assertEquals(1, assignments.size());
+        assertEquals(assignment, assignments.get(0));
+
+        // Verify success message
+        assertEquals(String.format(ClassCommand.MESSAGE_ADD_CLASS_SUCCESS, Messages.format(editedPerson)),
+                result.getFeedbackToUser());
     }
 }

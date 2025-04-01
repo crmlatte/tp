@@ -26,16 +26,16 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a student to the student list.\n"
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
             + PREFIX_STUDENT_ID + "STUDENTID "
-            + PREFIX_GITHUB + "GITHUB "
-            + PREFIX_PROJECT_TEAM + "TEAM "
-            + PREFIX_REPOSITORY + "REPOSITORY "
-            + PREFIX_CLASS + "CLASS "
+            + "[" + PREFIX_GITHUB + "GITHUB] "
+            + "[" + PREFIX_PROJECT_TEAM + "TEAM] "
+            + "[" + PREFIX_REPOSITORY + "REPOSITORY] "
+            + "[" + PREFIX_CLASS + "CLASS_NUMBER] "
             + "[" + PREFIX_TAG + "TAG]... "
             + PREFIX_PROGRESS + "PROGRESS\n"
             + "Example: " + COMMAND_WORD + " "
@@ -47,10 +47,10 @@ public class AddCommand extends Command {
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney "
             + PREFIX_PROGRESS + "50\n"
-            + "To add a person, minimally NAME, EMAIL, PHONE, STUDENTID must be present.\n"
-            + "GITHUB, TEAM, REPOSITORY, CLASS, TAG and PROGRESS are optional fields and can be omitted out";
+            + "To add a student, minimally NAME, EMAIL, PHONE, STUDENTID must be present.\n"
+            + "GITHUB, TEAM, REPOSITORY, CLASS_NUMBER, TAG and PROGRESS are optional fields and can be omitted out";
 
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New student added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.\n"
             + "Error : Duplicate StudentId.\n"
             + "Please check if you have typed the StudentId correctly.";

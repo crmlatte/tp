@@ -99,6 +99,7 @@ public class GithubCommand extends Command {
                 personToEdit.getRepository(),
                 personToEdit.getTags(),
                 personToEdit.getProgress());
+                personToEdit.getTimedEventsList());
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
