@@ -9,6 +9,7 @@ import static tassist.address.logic.commands.CommandTestUtil.PROJECT_TEAM_DESC_A
 import static tassist.address.logic.commands.CommandTestUtil.STUDENTID_DESC_AMY;
 import static tassist.address.testutil.Assert.assertThrows;
 import static tassist.address.testutil.TypicalPersons.AMY;
+import static tassist.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -25,6 +26,8 @@ import org.junit.jupiter.api.io.TempDir;
 import tassist.address.logic.commands.AddCommand;
 import tassist.address.logic.commands.CommandResult;
 import tassist.address.logic.commands.DeleteCommand;
+import tassist.address.logic.commands.ImportCommand;
+import tassist.address.logic.commands.ImportCommandTest;
 import tassist.address.logic.commands.ListCommand;
 import tassist.address.logic.commands.OpenCommand;
 import tassist.address.logic.commands.exceptions.CommandException;
@@ -51,9 +54,6 @@ public class LogicManagerTest {
 
     @TempDir
     public Path temporaryFolder;
-
-    @TempDir
-    public Path temporaryFolderForImport;
 
     private final Model model = new ModelManager();
     private Storage storage;
@@ -207,23 +207,20 @@ public class LogicManagerTest {
 
     @Test
     public void execute_importCommand_success() throws Exception {
-        //        // set up environment
-        //        // this method deals with storage, requires a separate environment
-        //        Model testModel = new ModelManager(getTypicalAddressBook(),
-        //                new ImportCommandTest.TestUserPrefs(temporaryFolder.resolve("addressBook.json")));
-        //        Logic testLogic = new LogicManager(testModel, storage, browserService);
-        //
-        //        Path tempCsvFilePath = temporaryFolder.resolve(VALID_FILE_PATH);
-        //
-        //        Files.copy(TEST_CSV_PATH, tempCsvFilePath, StandardCopyOption.REPLACE_EXISTING);
-        //
-        //        String input = "import " + tempCsvFilePath;
-        //        CommandResult result = testLogic.execute(input);
-        //
-        //        assertEquals(
-        //                String.format(ImportCommand.MESSAGE_IMPORT_SUCCESS, tempCsvFilePath),
-        //                result.getFeedbackToUser()
-        //        );
+        // set up environment
+        // this method deals with storage, requires a separate environment
+        Model testModel = new ModelManager(getTypicalAddressBook(),
+                new ImportCommandTest.TestUserPrefs(temporaryFolder.resolve("addressBook.json")));
+        Logic testLogic = new LogicManager(testModel, storage, browserService);
+
+        Path testCsvFilePath = Paths.get("src", "test", "data",
+                "CsvJsonConverterTest", "valid.csv").toAbsolutePath();
+
+        String input = "import " + testCsvFilePath;
+        CommandResult result = testLogic.execute(input);
+
+        assertEquals(String.format(ImportCommand.MESSAGE_IMPORT_SUCCESS, testCsvFilePath),
+                result.getFeedbackToUser());
     }
 
     private void assertCommandSuccess(String inputCommand, String expectedMessage,
