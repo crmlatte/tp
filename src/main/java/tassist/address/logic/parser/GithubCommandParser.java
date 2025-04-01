@@ -32,6 +32,9 @@ public class GithubCommandParser implements Parser<GithubCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     GithubCommand.MESSAGE_USAGE));
         }
+
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_GITHUB);
+
         String github = argMultimap.getValue(PREFIX_GITHUB).orElse("");
         if (argMultimap.getValue(PREFIX_GITHUB).isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
