@@ -1,6 +1,8 @@
 package tassist.address.logic.parser;
 
 import static tassist.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static tassist.address.logic.commands.CommandTestUtil.INVALID_REPOSITORY_NAME;
+import static tassist.address.logic.commands.CommandTestUtil.INVALID_USERNAME;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_REPOSITORY_NAME;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_STUDENTID_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_USERNAME;
@@ -14,9 +16,9 @@ import tassist.address.logic.commands.RepoCommand;
 import tassist.address.model.person.StudentId;
 
 public class RepoCommandParserTest {
+
     private final RepoCommandParser parser = new RepoCommandParser();
 
-    // constants
     private final String usernamePrefix = " un/" + VALID_USERNAME;
     private final String repoPrefix = " rn/" + VALID_REPOSITORY_NAME;
 
@@ -38,7 +40,7 @@ public class RepoCommandParserTest {
     @Test
     public void parse_missingUsername_failure() {
         String userInput = INDEX_FIRST_PERSON.getOneBased() + " rn/" + VALID_REPOSITORY_NAME;
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RepoCommand.MESSAGE_MISSING_USERNAME);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RepoCommand.MESSAGE_USAGE);
         assertParseFailure(parser, userInput, expectedMessage);
     }
 
@@ -46,21 +48,38 @@ public class RepoCommandParserTest {
     public void parse_missingRepositoryName_failure() {
         String userInput = INDEX_FIRST_PERSON.getOneBased() + " un/" + VALID_USERNAME;
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                RepoCommand.MESSAGE_MISSING_REPOSITORY_NAME);
+                RepoCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, userInput, expectedMessage);
+    }
+
+    @Test
+    public void parse_invalidUsername_failure() {
+        String userInput = INDEX_FIRST_PERSON.getOneBased()
+                + " un/" + INVALID_USERNAME + " rn/" + VALID_REPOSITORY_NAME ;
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RepoCommand.MESSAGE_INVALID_USERNAME);
+        assertParseFailure(parser, userInput, expectedMessage);
+    }
+
+    @Test
+    public void parse_invalidRepositoryName_failure() {
+        String userInput = INDEX_FIRST_PERSON.getOneBased()
+                + " un/" + VALID_USERNAME + " rn/" + INVALID_REPOSITORY_NAME;
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                RepoCommand.MESSAGE_INVALID_REPOSITORY_NAME);
         assertParseFailure(parser, userInput, expectedMessage);
     }
 
     @Test
     public void parse_missingBothPrefixes_failure() {
         String userInput = INDEX_FIRST_PERSON.getOneBased() + " ";
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RepoCommand.MESSAGE_MISSING_USERNAME);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RepoCommand.MESSAGE_USAGE);
         assertParseFailure(parser, userInput, expectedMessage);
     }
 
     @Test
     public void parse_emptyArgs_failure() {
         String userInput = " ";
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RepoCommand.MESSAGE_MISSING_USERNAME);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RepoCommand.MESSAGE_USAGE);
         assertParseFailure(parser, userInput, expectedMessage);
     }
 

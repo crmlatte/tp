@@ -8,17 +8,21 @@ import static tassist.address.commons.util.AppUtil.checkArgument;
  */
 public class Repository {
 
-    public static final String MESSAGE_CONSTRAINTS =
-            "Repositories should be written in the format of https://github.com/{username}/{repository_name}\n"
-            + "{username}:\n"
+    public static final String MESSAGE_USERNAME_VALIDITY = "{username}:\n"
             + " - Made up of alphanumeric characters\n"
             + " - Separated by only dashes (-) between segments\n"
-            + " - Cannot start and end with a dash\n"
-            + "{repository_name}:\n"
+            + " - Cannot start and end with a dash\n";
+
+    public static final String MESSAGE_REPOSITORY_NAME_VALIDITY = "{repository_name}:\n"
             + " - Made up of alphanumeric characters\n"
             + " - Can contain but cannot start with dashes (-), underscores (_), and dots (.)\n"
             + " - Cannot be empty\n"
-            + " - Must start and end with an alphanumeric character\n"
+            + " - Must start and end with an alphanumeric character\n";
+
+    public static final String MESSAGE_CONSTRAINTS =
+            "Repositories should be written in the format of https://github.com/{username}/{repository_name}\n"
+            + MESSAGE_USERNAME_VALIDITY
+            + MESSAGE_REPOSITORY_NAME_VALIDITY
             + "Example:\n"
             + "https://github.com/johnny-fargo/new.repo";
 

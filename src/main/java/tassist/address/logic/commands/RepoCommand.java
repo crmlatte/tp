@@ -2,6 +2,8 @@ package tassist.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static tassist.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static tassist.address.model.person.Repository.MESSAGE_REPOSITORY_NAME_VALIDITY;
+import static tassist.address.model.person.Repository.MESSAGE_USERNAME_VALIDITY;
 
 import java.util.List;
 import java.util.Objects;
@@ -23,8 +25,8 @@ public class RepoCommand extends Command {
     public static final String COMMAND_WORD = "repo";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Edits the Repository of the person identified by the STUDENTID or INDEX."
-            + "Existing github will be overwritten by the input.\n"
+            + ": Edits the Repository of the person identified by the STUDENTID or INDEX. "
+            + "Existing URL will be overwritten by the input.\n"
             + "Parameters: STUDENTID or INDEX, un/{username}, rn/{repository name}\n"
             + "Example:\n"
             + " 1." + COMMAND_WORD + " 2 un/Group-4 rn/WealthVault\n"
@@ -34,13 +36,13 @@ public class RepoCommand extends Command {
     public static final String VALID_REPOSITORY_REGEX = "[a-zA-Z0-9](?:[a-zA-Z0-9._-]*[a-zA-Z0-9])?";
 
     public static final String MESSAGE_ADD_REPOSITORY_SUCCESS = "Added Repository to Person: %1$s";
-    public static final String MESSAGE_DELETE_GITHUB_SUCCESS = "Removed Repository from Person: %1$s";
+    public static final String MESSAGE_NO_INDEX_STUDENTID = "Please enter valid index or studentId";
 
     //allow multiple people to have the same repository (team repo)
-    public static final String MESSAGE_INVALID_USERNAME = "Invalid Username!";
-    public static final String MESSAGE_INVALID_REPOSITORY_NAME = "Invalid Repository Name!";
-    public static final String MESSAGE_MISSING_USERNAME = "Please enter Username after un/";
-    public static final String MESSAGE_MISSING_REPOSITORY_NAME = "Please enter Repository Name after rn/";
+    public static final String MESSAGE_INVALID_USERNAME = "Invalid Username!"
+            + MESSAGE_USERNAME_VALIDITY;
+    public static final String MESSAGE_INVALID_REPOSITORY_NAME = "Invalid Repository Name!"
+            + MESSAGE_REPOSITORY_NAME_VALIDITY;
 
     public final String username;
     public final String repositoryName;

@@ -105,7 +105,8 @@ public class CommandTestUtil {
     public static final String INVALID_CLASS_NUMBER = "T00";
     public static final String INVALID_STUDENT_INDEX = "a";
     public static final String TOO_MANY_ARGUMENTS = "1 2 3";
-
+    public static final String INVALID_USERNAME = "-username";
+    public static final String INVALID_REPOSITORY_NAME = ".repo";
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
