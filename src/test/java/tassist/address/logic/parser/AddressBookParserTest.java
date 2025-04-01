@@ -10,11 +10,14 @@ import static tassist.address.logic.parser.CliSyntax.PREFIX_GITHUB;
 import static tassist.address.testutil.Assert.assertThrows;
 import static tassist.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 import tassist.address.logic.commands.AddCommand;
 import tassist.address.logic.commands.ClassCommand;
@@ -40,6 +43,9 @@ import tassist.address.testutil.PersonBuilder;
 import tassist.address.testutil.PersonUtil;
 
 public class AddressBookParserTest {
+
+    @TempDir
+    public Path testRoot;
 
     private final AddressBookParser parser = new AddressBookParser();
 
@@ -139,15 +145,14 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_import() throws Exception {
-        final String absolutePathStringUnix = "/path/to/sample.csv";
-        final String absolutePathStringWindows = "C:\\path\\to\\sample.csv";
+        // mimics absolute path
+        final Path absoluteFilePath = testRoot.resolve("sample.csv");
 
-        final String filePath = System.getProperty("os.name").toLowerCase().contains("win")
-                ? absolutePathStringWindows
-                : absolutePathStringUnix;
+        // creates the file so it "exists"
+        Files.createFile(absoluteFilePath);
 
         assertTrue(parser.parseCommand(ImportCommand.COMMAND_WORD
-                + " " + filePath) instanceof ImportCommand);
+                + " " + absoluteFilePath.toString()) instanceof ImportCommand);
     }
 
     @Test

@@ -6,14 +6,15 @@ import static tassist.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static tassist.address.testutil.Assert.assertThrows;
 import static tassist.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
+import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 import tassist.address.logic.parser.exceptions.ParseException;
 import tassist.address.model.person.ClassNumber;
@@ -25,6 +26,7 @@ import tassist.address.model.person.StudentId;
 import tassist.address.model.tag.Tag;
 
 public class ParserUtilTest {
+
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_EMAIL = "example.com";
@@ -44,12 +46,14 @@ public class ParserUtilTest {
     private static final String VALID_PROGRESS_1 = "80";
     private static final String VALID_PROGRESS_2 = "20%";
 
-    private static final String ABSOLUTE_PATH_STRING_UNIX = "/path/to/sample.csv";
-    private static final String ABSOLUTE_PATH_STRING_WINDOWS = "C:\\path\\to\\sample.csv";
-    private static final String RELATIVE_PATH_STRING_UNIX = "data/sample.csv";
-    private static final String RELATIVE_PATH_STRING_WINDOWS = "data\\sample.csv";
-
     private static final String WHITESPACE = " \t\r\n";
+
+    private static final String FILE_PATH_1 = "sample-1.csv";
+    private static final String FILE_PATH_2 = "sample-2.csv";
+    private static final String FILE_PATH_3 = "sample-3.csv";
+
+    @TempDir
+    public Path testRoot;
 
     @Test
     public void parseIndex_invalidInput_throwsParseException() {
@@ -274,31 +278,42 @@ public class ParserUtilTest {
 
     @Test
     public void parseFilePath_absolutePath_returnsSamePath() throws Exception {
-        final String absoluteFilePath = System.getProperty("os.name").toLowerCase().contains("win")
-                ? ABSOLUTE_PATH_STRING_WINDOWS
-                : ABSOLUTE_PATH_STRING_UNIX;
+        // mimics absolute path
+        final Path absoluteFilePath = testRoot.resolve(FILE_PATH_1);
 
-        Path expectedAbsolutePath = Paths.get(absoluteFilePath).toAbsolutePath();
-        assertEquals(expectedAbsolutePath, ParserUtil.parseFilePath(absoluteFilePath));
+        // creates the file so it "exists"
+        Files.createFile(absoluteFilePath);
+
+        Path expectedAbsolutePath = absoluteFilePath.toAbsolutePath();
+        assertEquals(expectedAbsolutePath, ParserUtil.parseFilePath(absoluteFilePath.toString()));
     }
 
     @Test
     public void parseFilePath_absolutePathWithWhitespace_returnsTrimmedAbsolutePath() throws Exception {
-        final String absoluteFilePath = System.getProperty("os.name").toLowerCase().contains("win")
-                ? ABSOLUTE_PATH_STRING_WINDOWS
-                : ABSOLUTE_PATH_STRING_UNIX;
+        // mimics absolute path
+        final Path absoluteFilePath = testRoot.resolve(FILE_PATH_2);
 
-        String absolutePathWithWhitespaceString = WHITESPACE + absoluteFilePath + WHITESPACE;
-        Path expectedAbsolutePath = Paths.get(absoluteFilePath).toAbsolutePath();
+        // creates the file so it "exists"
+        Files.createFile(absoluteFilePath);
+
+        String absolutePathWithWhitespaceString = WHITESPACE + absoluteFilePath.toString() + WHITESPACE;
+        Path expectedAbsolutePath = absoluteFilePath.toAbsolutePath();
         assertEquals(expectedAbsolutePath, ParserUtil.parseFilePath(absolutePathWithWhitespaceString));
     }
 
     @Test
-    public void parseFilePath_relativePath_throwsParseException() {
-        final String relativeFilePath = System.getProperty("os.name").toLowerCase().contains("win")
-                ? RELATIVE_PATH_STRING_WINDOWS
-                : RELATIVE_PATH_STRING_UNIX;
+    public void parseFilePath_nonExistentAbsolutePath_throwsParseException() {
+        // mimics absolute path
+        final Path nonExistentAbsoluteFilePath = testRoot.resolve(FILE_PATH_3);
 
-        assertThrows(ParseException.class, () -> ParserUtil.parseFilePath(relativeFilePath));
+        // does not create the file so it "doesn't exist"
+
+        assertThrows(ParseException.class, () -> ParserUtil.parseFilePath(nonExistentAbsoluteFilePath.toString()));
+    }
+
+    @Test
+    public void parseFilePath_relativePath_throwsParseException() {
+        // FILE_PATH_1 is relative
+        assertThrows(ParseException.class, () -> ParserUtil.parseFilePath(FILE_PATH_1));
     }
 }
