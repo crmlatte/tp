@@ -98,7 +98,7 @@ public class GithubCommand extends Command {
                 personToEdit.getProjectTeam(),
                 personToEdit.getRepository(),
                 personToEdit.getTags(),
-                personToEdit.getProgress());
+                personToEdit.getProgress(),
                 personToEdit.getTimedEventsList());
 
         model.setPerson(personToEdit, editedPerson);
