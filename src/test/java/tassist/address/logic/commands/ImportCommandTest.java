@@ -44,14 +44,14 @@ public class ImportCommandTest {
     @BeforeEach
     public void setUp() throws IOException {
         // simulate the addressBook.json file
-        Path addressBookFile = temporaryFolder.resolve("addressBook.json");
-        if (!Files.exists(addressBookFile)) {
-            Files.createFile(addressBookFile);
+        Path addressBookFilePath = temporaryFolder.resolve("addressBook.json");
+        if (!Files.exists(addressBookFilePath)) {
+            Files.createFile(addressBookFilePath);
         }
-        addressBookStorage = new JsonAddressBookStorage(addressBookFile);
+        addressBookStorage = new JsonAddressBookStorage(addressBookFilePath);
         userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         storage = new TestStorageManager(addressBookStorage, userPrefsStorage);
-        model = new ModelManager(getTypicalAddressBook(), new TestUserPrefs());
+        model = new ModelManager(getTypicalAddressBook(), new TestUserPrefs(addressBookFilePath));
     }
 
     @Test
@@ -183,9 +183,13 @@ public class ImportCommandTest {
     /**
      * Test implementation of ReadOnlyUserPrefs that holds the temporary folder addressBookFilePath.
      */
-    private static class TestUserPrefs implements ReadOnlyUserPrefs {
+    public static class TestUserPrefs implements ReadOnlyUserPrefs {
         private GuiSettings guiSettings = new GuiSettings();
-        private Path addressBookFilePath = temporaryFolder.resolve("addressbook.json");
+        private Path addressBookFilePath;
+
+        public TestUserPrefs(Path addressBookFilePath) {
+            this.addressBookFilePath = addressBookFilePath;
+        }
 
         /**
          * Resets the existing data of this {@code UserPrefs} with {@code newUserPrefs}.

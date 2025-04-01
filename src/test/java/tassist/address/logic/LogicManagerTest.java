@@ -7,35 +7,44 @@ import static tassist.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static tassist.address.logic.commands.CommandTestUtil.PROGRESS_DESC_AMY;
 import static tassist.address.logic.commands.CommandTestUtil.PROJECT_TEAM_DESC_AMY;
 import static tassist.address.logic.commands.CommandTestUtil.STUDENTID_DESC_AMY;
+import static tassist.address.logic.commands.CommandTestUtil.VALID_FILE_PATH;
 import static tassist.address.testutil.Assert.assertThrows;
 import static tassist.address.testutil.TypicalPersons.AMY;
+import static tassist.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.AccessDeniedException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import tassist.address.commons.exceptions.DataLoadingException;
+import javafx.collections.ObservableList;
+import tassist.address.commons.core.GuiSettings;
 import tassist.address.logic.commands.AddCommand;
+import tassist.address.logic.commands.Command;
 import tassist.address.logic.commands.CommandResult;
 import tassist.address.logic.commands.DeleteCommand;
+import tassist.address.logic.commands.ImportCommand;
+import tassist.address.logic.commands.ImportCommandTest;
 import tassist.address.logic.commands.ListCommand;
 import tassist.address.logic.commands.OpenCommand;
 import tassist.address.logic.commands.exceptions.CommandException;
+import tassist.address.logic.parser.AddressBookParser;
 import tassist.address.logic.parser.exceptions.ParseException;
 import tassist.address.model.Model;
 import tassist.address.model.ModelManager;
 import tassist.address.model.ReadOnlyAddressBook;
-import tassist.address.model.ReadOnlyUserPrefs;
 import tassist.address.model.UserPrefs;
 import tassist.address.model.person.Person;
+import tassist.address.model.timedevents.TimedEvent;
 import tassist.address.storage.JsonAddressBookStorage;
 import tassist.address.storage.JsonUserPrefsStorage;
 import tassist.address.storage.Storage;
@@ -48,20 +57,24 @@ import tassist.address.testutil.PersonBuilder;
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy IO exception");
     private static final IOException DUMMY_AD_EXCEPTION = new AccessDeniedException("dummy access denied exception");
+    private static final Path TEST_CSV_PATH = Paths.get("src", "test", "data",
+            "CsvJsonConverterTest", "valid.csv");
 
     @TempDir
     public Path temporaryFolder;
 
     private final Model model = new ModelManager();
+    private Storage storage;
     private LogicManager logic;
     private TestBrowserService browserService;
+    private JsonAddressBookStorage addressBookStorage;
+    private JsonUserPrefsStorage userPrefsStorage;
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
-        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        addressBookStorage = new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
+        userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
+        storage = new StorageManager(addressBookStorage, userPrefsStorage);
         browserService = new TestBrowserService();
         logic = new LogicManager(model, storage, browserService);
     }
@@ -201,15 +214,28 @@ public class LogicManagerTest {
 
     @Test
     public void execute_importCommand_success() throws Exception {
-        //        Path filePath = temporaryFolder.resolve(FILE_PATH_1);
-        //        Files.createFile(filePath);
-        //        String input = "import " + filePath.toString();
-        //        CommandResult result = logic.execute(input);
+        // set up environment
+        // this method deals with storage, requires a separate environment
+        Model testModel = new ModelManager(getTypicalAddressBook(),
+                new ImportCommandTest.TestUserPrefs(temporaryFolder.resolve("addressBook.json")));
+        Logic testLogic = new LogicManager(testModel, storage, browserService);
 
-        //    assertEquals(String.format(ImportCommand.MESSAGE_IMPORT_SUCCESS, filePath.toString()),
-        //                result.getFeedbackToUser()
-        //        );
-        //        assertEquals(filePath.toString(), FILE_PATH_1);
+        Path tempCsvFilePath = temporaryFolder.resolve(VALID_FILE_PATH);
+
+        if (!Files.exists(tempCsvFilePath)) {
+            Files.createFile(tempCsvFilePath);
+        }
+
+        Files.copy(TEST_CSV_PATH, tempCsvFilePath, StandardCopyOption.REPLACE_EXISTING);
+        Files.lines(tempCsvFilePath).forEach(System.out::println);
+
+        String input = "import " + tempCsvFilePath;
+        CommandResult result = testLogic.execute(input);
+
+        assertEquals(
+                String.format(ImportCommand.MESSAGE_IMPORT_SUCCESS, tempCsvFilePath),
+                result.getFeedbackToUser()
+        );
     }
 
     private void assertCommandSuccess(String inputCommand, String expectedMessage,
@@ -295,49 +321,6 @@ public class LogicManagerTest {
          */
         public void clear() {
             urlsOpened.clear();
-        }
-    }
-
-    private static class TestStorage implements Storage {
-
-        @Override
-        public Path getUserPrefsFilePath() {
-            return null;
-        }
-
-        @Override
-        public Optional<UserPrefs> readUserPrefs() throws DataLoadingException {
-            return Optional.empty();
-        }
-
-        @Override
-        public void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException {
-
-        }
-
-        @Override
-        public Path getAddressBookFilePath() {
-            return null;
-        }
-
-        @Override
-        public Optional<ReadOnlyAddressBook> readAddressBook() throws DataLoadingException {
-            return Optional.empty();
-        }
-
-        @Override
-        public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataLoadingException {
-            return Optional.empty();
-        }
-
-        @Override
-        public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-
-        }
-
-        @Override
-        public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
-
         }
     }
 }
