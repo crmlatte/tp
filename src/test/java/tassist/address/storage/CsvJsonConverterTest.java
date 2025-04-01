@@ -1,183 +1,75 @@
-//package tassist.address.storage;
-//
-//import static org.junit.jupiter.api.Assertions.assertTrue;
-//import static tassist.address.testutil.Assert.assertThrows;
-//
-//import java.io.File;
-//import java.io.IOException;
-//import java.nio.file.Path;
-//import java.nio.file.Paths;
-//import java.util.ArrayList;
-//import java.util.Arrays;
-//import java.util.Collections;
-//import java.util.List;
-//import java.util.Map;
-//
-//import org.junit.jupiter.api.Test;
-//
-//import com.opencsv.exceptions.CsvException;
-//
-//public class CsvJsonConverterTest {
-//    private final Path validCsvFilePath = Paths.get("dummy/input.csv");
-//    private final Path validJsonFilePath = Paths.get("dummy/output.json");
-//    private final Path invalidCsvFilePath = Paths.get("invalid/path.csv");
-//
-//    // Custom stub class for CSVReader
-//    public static class StubCSVReader {
-//        private List<String[]> rows;
-//
-//        public StubCSVReader(List<String[]> rows) {
-//            this.rows = rows;
-//        }
-//
-//        public List<String[]> readAll() throws CsvException {
-//            return rows;
-//        }
-//    }
-//
-//    // Custom stub class for ObjectMapper
-//    public static class StubObjectMapper {
-//        public void writeValue(File file, Object value) {
-//            // do nothing
-//        }
-//    }
-//
-//    @Test
-//    public void convertCsvToJson_validInput_success() throws IOException, CsvException {
-//        List<String[]> rows = Arrays.asList(
-//                new String[]{"name", "email", "tags"},
-//                new String[]{"John", "john@example.com", "friend,developer"},
-//                new String[]{"Jane", "jane@example.com", ""}
-//        );
-//
-//        StubCSVReader stubCsvReader = new StubCSVReader(rows);
-//        StubObjectMapper stubObjectMapper = new StubObjectMapper();
-//
-//        CsvJsonConverter converter = new CsvJsonConverter() {
-//            @Override
-//            public void convertCsvToJson(Path csvFilePath, Path jsonFilePath) throws IOException, CsvException {
-//                List<String[]> rows = stubCsvReader.readAll();
-//                String[] headers = rows.get(0);
-//                List<Map<String, Object>> data = retrieveData(headers, rows);
-//
-//                stubObjectMapper.writeValue(new File(jsonFilePath.toString()),
-//                Collections.singletonMap("persons", data));
-//            }
-//        };
-//
-//        converter.convertCsvToJson(validCsvFilePath, validJsonFilePath);
-//
-//        assertTrue(true);
-//    }
-//
-//    @Test
-//    public void convertCsvToJson_invalidCsv_throwsIOException() throws IOException, CsvException {
-//        List<String[]> rows = new ArrayList<>();
-//        StubCSVReader stubCsvReader = new StubCSVReader(rows) {
-//            @Override
-//            public List<String[]> readAll() throws CsvException {
-//                throw new CsvException("CSV Read Error");
-//            }
-//        };
-//
-//        StubObjectMapper stubObjectMapper = new StubObjectMapper();
-//
-//        CsvJsonConverter converter = new CsvJsonConverter() {
-//            // Override to use stub objects
-//            @Override
-//            public void convertCsvToJson(Path csvFilePath, Path jsonFilePath) throws IOException, CsvException {
-//                stubCsvReader.readAll();  // This will throw CsvException
-//            }
-//        };
-//
-//        // Act & Assert: Ensure IOException is thrown
-//        assertThrows(IOException.class, () -> converter.convertCsvToJson(validCsvFilePath, validJsonFilePath));
-//    }
-//
-//    @Test
-//    public void convertCsvToJson_emptyFile_returnsEmptyJson() throws IOException, CsvException {
-//        // Arrange: Set up a stub for an empty CSV file (only headers)
-//        List<String[]> rows = (List<String[]>) Arrays.asList(new String[]{"name", "email", "tags"});
-//        StubCSVReader stubCsvReader = new StubCSVReader(rows);
-//        StubObjectMapper stubObjectMapper = new StubObjectMapper();
-//
-//        CsvJsonConverter converter = new CsvJsonConverter() {
-//            // Override to use stub objects
-//            @Override
-//            public void convertCsvToJson(Path csvFilePath, Path jsonFilePath) throws IOException, CsvException {
-//                List<String[]> rows = stubCsvReader.readAll();
-//                String[] headers = rows.get(0);
-//                List<Map<String, Object>> data = retrieveData(headers, rows);
-//
-//                stubObjectMapper.writeValue(new File(jsonFilePath.toString()),
-//                Collections.singletonMap("persons", data));
-//            }
-//        };
-//
-//        converter.convertCsvToJson(validCsvFilePath, validJsonFilePath);
-//        assertTrue(true);
-//    }
-//
-//    @Test
-//    public void convertCsvToJson_nullTags_throwsIOException() throws IOException, CsvException {
-//        // Arrange: Set up a CSV where tags field is null or empty
-//        List<String[]> rows = Arrays.asList(
-//                new String[]{"name", "email", "tags"},
-//                new String[]{"John", "john@example.com", null},
-//                new String[]{"Jane", "jane@example.com", ""}
-//        );
-//
-//        StubCSVReader stubCsvReader = new StubCSVReader(rows);
-//        StubObjectMapper stubObjectMapper = new StubObjectMapper();
-//
-//        CsvJsonConverter converter = new CsvJsonConverter() {
-//            // Override to use stub objects
-//            @Override
-//            public void convertCsvToJson(Path csvFilePath, Path jsonFilePath) throws IOException, CsvException {
-//                List<String[]> rows = stubCsvReader.readAll();
-//                String[] headers = rows.get(0);
-//                List<Map<String, Object>> data = retrieveData(headers, rows);
-//
-//                stubObjectMapper.writeValue(new File(jsonFilePath.toString()),
-//                Collections.singletonMap("persons", data));
-//            }
-//        };
-//
-//        // Act: Call the method under test
-//        converter.convertCsvToJson(validCsvFilePath, validJsonFilePath);
-//
-//        // Assert: Ensure the writeValue method is called with the expected data
-//        assertTrue(true);
-//    }
-//
-//    @Test
-//    public void convertCsvToJson_correctJsonStructure() throws IOException, CsvException {
-//        // Arrange: Set up the CSV content
-//        List<String[]> rows = Arrays.asList(
-//                new String[]{"name", "email", "tags"},
-//                new String[]{"John", "john@example.com", "friend,developer"},
-//                new String[]{"Jane", "jane@example.com", "developer"}
-//        );
-//
-//        StubCSVReader stubCsvReader = new StubCSVReader(rows);
-//        StubObjectMapper stubObjectMapper = new StubObjectMapper();
-//
-//        CsvJsonConverter converter = new CsvJsonConverter() {
-//            @Override
-//            public void convertCsvToJson(Path csvFilePath, Path jsonFilePath) throws IOException, CsvException {
-//                List<String[]> rows = stubCsvReader.readAll();
-//                String[] headers = rows.get(0);
-//                List<Map<String, Object>> data = retrieveData(headers, rows);
-//
-//                stubObjectMapper.writeValue(new File(jsonFilePath.toString()),
-//                Collections.singletonMap("persons", data));
-//            }
-//        };
-//
-//        // Act: Call the method under test
-//        converter.convertCsvToJson(validCsvFilePath, validJsonFilePath);
-//
-//        // Assert: If no exception occurs and writeValue is called, the test is successful
-//        assertTrue(true);
-//    }
-//}
+package tassist.address.storage;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static tassist.address.testutil.Assert.assertThrows;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+import java.util.Map;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.opencsv.exceptions.CsvException;
+
+public class CsvJsonConverterTest {
+
+    private CsvJsonConverter csvJsonConverter;
+
+    @TempDir
+    public Path testFolder;
+
+    private static final Path TEST_DATA_FOLDER = Paths.get("src","test", "data", "CsvJsonConverterTest");
+
+    @BeforeEach
+    public void setUp() {
+        csvJsonConverter = new CsvJsonConverter();
+    }
+
+    @Test
+    public void testConvertCsvToJson_validCsv_createsJson(@TempDir Path tempDir) throws IOException, CsvException {
+        Path inputCsv = TEST_DATA_FOLDER.resolve("valid.csv");
+        Path outputJson = tempDir.resolve("TempOutput.json");
+
+        csvJsonConverter.convertCsvToJson(inputCsv, outputJson);
+
+        assertTrue(Files.exists(outputJson), "The JSON file should be created");
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<String, List<Map<String, Object>>> jsonData = objectMapper.readValue(outputJson.toFile(), Map.class);
+
+        List<Map<String, Object>> personsData = jsonData.get("persons");
+        assertNotNull(personsData);
+        assertEquals(3, personsData.size(), "The number of persons should be 3");
+
+        List<Map<String, Object>> timedEventsData = jsonData.get("timedEvents");
+        assertNotNull(timedEventsData);
+        assertEquals(1, timedEventsData.size(), "There should be 1 global timed event");
+
+        List<Map<String, String>> timedEventsForAlex =
+                (List<Map<String, String>>) personsData.get(0).get("timedEvents");
+        assertNotNull(timedEventsForAlex);
+        assertEquals(1, timedEventsForAlex.size(), "There should be 1 timed event for Alex");
+    }
+
+    @Test
+    public void testConvertCsvToJson_emptyCsv_throwsCsvException() {
+        Path inputCsv = TEST_DATA_FOLDER.resolve("empty.csv");
+        Path outputJson = testFolder.resolve("TempOutput.json");
+        assertThrows(CsvException.class, () -> csvJsonConverter.convertCsvToJson(inputCsv, outputJson));
+    }
+
+    @Test
+    public void testConvertCsvToJson_nonExistentCsv_throwsIOException() {
+        Path inputCsv = TEST_DATA_FOLDER.resolve("non-existent.csv");
+        Path outputJson = testFolder.resolve("TempOutput.json");
+        assertThrows(IOException.class, () -> csvJsonConverter.convertCsvToJson(inputCsv, outputJson));
+    }
+}

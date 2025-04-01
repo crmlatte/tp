@@ -38,6 +38,10 @@ public class CsvJsonConverter {
 
         List<String[]> rows = csvReader.readAll();
 
+        if (rows.isEmpty()) {
+            throw new CsvException("No data");
+        }
+
         List<String[]> personRows = new ArrayList<>();
         List<String[]> timedEventRows = new ArrayList<>();
 
