@@ -156,7 +156,7 @@ public class UnassignCommandTest {
     @Test
     public void toString_returnsExpectedString() {
         UnassignCommand command = new UnassignCommand(INDEX_FIRST_PERSON);
-        assertEquals(String.format("UnassignCommand{targetIndex=%s}", INDEX_FIRST_PERSON), 
+        assertEquals(String.format("UnassignCommand{targetIndex=%s}", INDEX_FIRST_PERSON),
                 command.toString());
     }
 }

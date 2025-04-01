@@ -168,7 +168,7 @@ public class GithubCommandTest {
         Index index = Index.fromZeroBased(0);
         Github github = new Github(VALID_GITHUB_AMY);
         GithubCommand command = new GithubCommand(index, github);
-        String expected = String.format("GithubCommand{index=%s, github=%s}", 
+        String expected = String.format("GithubCommand{index=%s, github=%s}",
                 index, github);
         assertEquals(expected, command.toString());
     }
@@ -178,7 +178,7 @@ public class GithubCommandTest {
         StudentId studentId = new StudentId(VALID_STUDENTID_AMY);
         Github github = new Github(VALID_GITHUB_AMY);
         GithubCommand command = new GithubCommand(studentId, github);
-        String expected = String.format("GithubCommand{studentId=%s, github=%s}", 
+        String expected = String.format("GithubCommand{studentId=%s, github=%s}",
                 studentId, github);
         assertEquals(expected, command.toString());
     }

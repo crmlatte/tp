@@ -1,5 +1,6 @@
 package tassist.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static tassist.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static tassist.address.testutil.TypicalPersons.getTypicalAddressBook;
 
@@ -9,8 +10,6 @@ import tassist.address.model.AddressBook;
 import tassist.address.model.Model;
 import tassist.address.model.ModelManager;
 import tassist.address.model.UserPrefs;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ClearCommandTest {
 
