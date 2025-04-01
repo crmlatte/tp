@@ -10,6 +10,8 @@ import tassist.address.model.Model;
 import tassist.address.model.ModelManager;
 import tassist.address.model.UserPrefs;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class ClearCommandTest {
 
     @Test
@@ -27,6 +29,12 @@ public class ClearCommandTest {
         expectedModel.setAddressBook(new AddressBook());
 
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void toString_returnsExpectedString() {
+        ClearCommand command = new ClearCommand();
+        assertEquals("ClearCommand{}", command.toString());
     }
 
 }

@@ -162,6 +162,23 @@ public class ClassCommandTest {
     }
 
     @Test
+    public void toString_withIndex() {
+        ClassCommand command = new ClassCommand(INDEX_FIRST_PERSON, VALID_CLASS);
+        String expected = String.format("ClassCommand{index=%s, classNumber=%s}", 
+                INDEX_FIRST_PERSON, VALID_CLASS);
+        assertEquals(expected, command.toString());
+    }
+
+    @Test
+    public void toString_withStudentId() {
+        StudentId studentId = new StudentId(VALID_STUDENTID_AMY);
+        ClassCommand command = new ClassCommand(studentId, VALID_CLASS);
+        String expected = String.format("ClassCommand{studentId=%s, classNumber=%s}", 
+                studentId, VALID_CLASS);
+        assertEquals(expected, command.toString());
+    }
+
+    @Test
     public void execute_preservesAssignments_success() throws Exception {
         Model model = new ModelManager();
 

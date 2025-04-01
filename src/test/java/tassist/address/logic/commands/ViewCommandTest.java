@@ -70,4 +70,10 @@ public class ViewCommandTest {
         // null -> returns false
         assertFalse(viewCommand.equals(null));
     }
+
+    @Test
+    public void toString_returnsExpectedString() {
+        ViewCommand command = new ViewCommand();
+        assertEquals("ViewCommand{}", command.toString());
+    }
 }
