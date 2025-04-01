@@ -1,22 +1,33 @@
 package tassist.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static tassist.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static tassist.address.testutil.TypicalPersons.getTypicalAddressBook;
+
+import java.nio.file.Path;
+import java.util.*;
+import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import tassist.address.commons.core.GuiSettings;
 import tassist.address.commons.core.index.Index;
 import tassist.address.logic.commands.exceptions.CommandException;
 import tassist.address.model.Model;
 import tassist.address.model.ModelManager;
+import tassist.address.model.ReadOnlyAddressBook;
+import tassist.address.model.ReadOnlyUserPrefs;
 import tassist.address.model.UserPrefs;
 import tassist.address.model.person.Person;
 import tassist.address.model.person.Repository;
 import tassist.address.model.person.StudentId;
+import tassist.address.model.timedevents.TimedEvent;
+import tassist.address.testutil.PersonBuilder;
 
 public class RepoCommandTest {
 
@@ -90,28 +101,26 @@ public class RepoCommandTest {
 
     @Test
     public void execute_validIndex_success() throws Exception {
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        Person person = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Person person = new PersonBuilder().withStudentId("A1234567Z").build();
+        ModelStubWithPersonList model = new ModelStubWithPersonList(person);
+        RepoCommand command = new RepoCommand(Index.fromZeroBased(0), "ValidUser", "cool-project");
 
-        RepoCommand command = new RepoCommand(INDEX_FIRST_PERSON, "ValidUser", "valid-repo");
         command.execute(model);
 
-        Person updatedPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        assertEquals("https://github.com/ValidUser/valid-repo", updatedPerson.getRepository().toString());
+        Person updated = model.getLastEditedPerson();
+        assertEquals("https://github.com/ValidUser/cool-project", updated.getRepository().toString());
     }
 
     @Test
     public void execute_validStudentId_success() throws Exception {
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        Person person = model.getFilteredPersonList().get(0); // assume student ID exists
-        String studentId = person.getStudentId().value;
+        Person person = new PersonBuilder().withStudentId("A7654321Z").build();
+        ModelStubWithPersonList model = new ModelStubWithPersonList(person);
+        RepoCommand command = new RepoCommand(new StudentId("A7654321Z"), "team42", "assignment");
 
-        RepoCommand command = new RepoCommand(new StudentId(studentId), "ValidUser",
-                "valid-repo");
         command.execute(model);
 
-        Person updatedPerson = model.getFilteredPersonList().get(0);
-        assertEquals("https://github.com/ValidUser/valid-repo", updatedPerson.getRepository().toString());
+        Person updated = model.getLastEditedPerson();
+        assertEquals("https://github.com/team42/assignment", updated.getRepository().toString());
     }
 
     @Test
@@ -179,5 +188,155 @@ public class RepoCommandTest {
         // different constructor path: compare index-based vs studentId-based -> returns false
         RepoCommand studentIdCommand = new RepoCommand(new StudentId("A1234567Z"), username, repositoryName);
         assertFalse(commandA.equals(studentIdCommand));
+    }
+
+    private class ModelStub implements Model {
+        @Override
+        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyUserPrefs getUserPrefs() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public GuiSettings getGuiSettings() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setGuiSettings(GuiSettings guiSettings) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Path getAddressBookFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setAddressBookFilePath(Path addressBookFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setAddressBook(ReadOnlyAddressBook newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyAddressBook getAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deletePerson(Person target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setPerson(Person target, Person editedPerson) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Person> getFilteredPersonList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateSortedPersonList(Comparator<Person> comparator) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasTimedEvent(TimedEvent timedEvent) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addTimedEvent(TimedEvent timedEvent) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteTimedEvent(TimedEvent timedEvent) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<TimedEvent> getTimedEventList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<TimedEvent> getFilteredTimedEventList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredTimedEventList(Predicate<TimedEvent> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateSortedTimedEventList(Comparator<TimedEvent> comparator) {
+            throw new AssertionError("This method should not be called.");
+        }
+    }
+
+    private class ModelStubWithPersonList extends ModelStub {
+        private final ObservableList<Person> internalList = FXCollections.observableArrayList();
+        private Person lastSetTarget;
+        private Person lastSetEdited;
+
+        ModelStubWithPersonList(Person... persons) {
+            internalList.addAll(Arrays.asList(persons));
+        }
+
+        @Override
+        public ObservableList<Person> getFilteredPersonList() {
+            return internalList;
+        }
+
+        @Override
+        public void setPerson(Person target, Person editedPerson) {
+            requireNonNull(target);
+            requireNonNull(editedPerson);
+            this.lastSetTarget = target;
+            this.lastSetEdited = editedPerson;
+
+            int index = internalList.indexOf(target);
+            if (index == -1) {
+                throw new AssertionError("Person not found in list");
+            }
+            internalList.set(index, editedPerson);
+        }
+
+        @Override
+        public void updateFilteredPersonList(Predicate<Person> predicate) {
+            // no filtering logic for test
+        }
+
+        public Person getLastEditedPerson() {
+            return lastSetEdited;
+        }
     }
 }

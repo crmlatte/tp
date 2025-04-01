@@ -25,14 +25,14 @@ import tassist.address.model.tag.Tag;
  */
 public class SampleDataUtil {
 
-    public static final Github DEFAULT_GITHUB = new Github("https://github.com/default");
+    public static final Github DEFAULT_GITHUB = new Github(Github.NO_GITHUB);
     public static final Repository DEFAULT_REPOSITORY = new Repository(Repository.NO_REPOSITORY);
 
     public static Person[] getSamplePersons() {
         return new Person[]{
             new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
                     new ClassNumber("T01"), new StudentId("A0000001B"),
-                    DEFAULT_GITHUB, new ProjectTeam("WealthVault"), DEFAULT_REPOSITORY,
+                    DEFAULT_GITHUB, new ProjectTeam("WealthVault"), new Repository("https://github.com/alex/new.repo"),
                     getTagSet("friends"), new Progress("20")),
             new Person(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
                     new ClassNumber("T04"), new StudentId("A0000002B"),
@@ -53,7 +53,7 @@ public class SampleDataUtil {
                     new Progress("60")),
             new Person(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
                     new ClassNumber("T04"), new StudentId("A0000006B"),
-                    DEFAULT_GITHUB, new ProjectTeam("WealthVault"), DEFAULT_REPOSITORY,
+                    DEFAULT_GITHUB, new ProjectTeam("WealthVault"), new Repository("https://github.com/roy/first1"),
                     getTagSet("colleagues"),
                     new Progress("77"))
         };

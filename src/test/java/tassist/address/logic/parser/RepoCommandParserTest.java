@@ -6,12 +6,15 @@ import static tassist.address.logic.commands.CommandTestUtil.INVALID_USERNAME;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_REPOSITORY_NAME;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_STUDENTID_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_USERNAME;
+import static tassist.address.logic.parser.CliSyntax.PREFIX_REPOSITORY_NAME;
+import static tassist.address.logic.parser.CliSyntax.PREFIX_USERNAME;
 import static tassist.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static tassist.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static tassist.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import org.junit.jupiter.api.Test;
 
+import tassist.address.logic.Messages;
 import tassist.address.logic.commands.RepoCommand;
 import tassist.address.model.person.StudentId;
 
@@ -94,6 +97,20 @@ public class RepoCommandParserTest {
     public void parse_invalidStudentId_failure() {
         String userInput = "notAnId un/" + VALID_USERNAME + " rn/" + VALID_REPOSITORY_NAME;
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RepoCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, userInput, expectedMessage);
+    }
+
+    @Test
+    public void parse_duplicateUsernamePrefix_failure() {
+        String userInput = "1 un/ValidUser un/AnotherUser rn/valid-repo";
+        String expectedMessage = Messages.getErrorMessageForDuplicatePrefixes(PREFIX_USERNAME);
+        assertParseFailure(parser, userInput, expectedMessage);
+    }
+
+    @Test
+    public void parse_duplicateRepositoryPrefix_failure() {
+        String userInput = "1 un/ValidUser rn/valid-repo rn/another-repo";
+        String expectedMessage = Messages.getErrorMessageForDuplicatePrefixes(PREFIX_REPOSITORY_NAME);
         assertParseFailure(parser, userInput, expectedMessage);
     }
 }
