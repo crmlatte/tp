@@ -58,7 +58,7 @@ public class RepoCommandParserTest {
     @Test
     public void parse_invalidUsername_failure() {
         String userInput = INDEX_FIRST_PERSON.getOneBased()
-                + " un/" + INVALID_USERNAME + " rn/" + VALID_REPOSITORY_NAME ;
+                + " un/" + INVALID_USERNAME + " rn/" + VALID_REPOSITORY_NAME;
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RepoCommand.MESSAGE_INVALID_USERNAME);
         assertParseFailure(parser, userInput, expectedMessage);
     }
