@@ -8,9 +8,11 @@ import static tassist.address.logic.commands.CommandTestUtil.VALID_STUDENTID_AMY
 import static tassist.address.logic.commands.CommandTestUtil.VALID_STUDENTID_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static tassist.address.testutil.TypicalPersons.ALICE;
+import static tassist.address.testutil.TypicalPersons.BENSON;
 import static tassist.address.testutil.TypicalPersons.CARL;
 import static tassist.address.testutil.TypicalPersons.ELLE;
 import static tassist.address.testutil.TypicalPersons.FIONA;
+import static tassist.address.testutil.TypicalPersons.GEORGE;
 import static tassist.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.Arrays;
@@ -45,20 +47,28 @@ public class FindCommandTest {
         Predicate<Person> firstStudentIdPredicate = person -> person.getStudentId().equals(firstStudentId);
         Predicate<Person> secondStudentIdPredicate = person -> person.getStudentId().equals(secondStudentId);
 
+        Predicate<Person> firstClassNumberPredicate = person -> person.getClassNumber().value.equals("T01");
+        Predicate<Person> secondClassNumberPredicate = person -> person.getClassNumber().value.equals("T02");
+
         FindCommand findFirstNameCommand = new FindCommand(firstNamePredicate);
         FindCommand findSecondNameCommand = new FindCommand(secondNamePredicate);
         FindCommand findFirstStudentIdCommand = new FindCommand(firstStudentIdPredicate);
         FindCommand findSecondStudentIdCommand = new FindCommand(secondStudentIdPredicate);
+        FindCommand findFirstClassNumberCommand = new FindCommand(firstClassNumberPredicate, true);
+        FindCommand findSecondClassNumberCommand = new FindCommand(secondClassNumberPredicate, true);
 
         // same object -> returns true
         assertTrue(findFirstNameCommand.equals(findFirstNameCommand));
         assertTrue(findFirstStudentIdCommand.equals(findFirstStudentIdCommand));
+        assertTrue(findFirstClassNumberCommand.equals(findFirstClassNumberCommand));
 
         // same values -> returns true
         FindCommand findFirstCommandCopy = new FindCommand(firstNamePredicate);
         assertTrue(findFirstNameCommand.equals(findFirstCommandCopy));
         FindCommand findFirstStudentIdCommandCopy = new FindCommand(firstStudentIdPredicate);
         assertTrue(findFirstStudentIdCommand.equals(findFirstStudentIdCommandCopy));
+        FindCommand findFirstClassNumberCommandCopy = new FindCommand(firstClassNumberPredicate, true);
+        assertTrue(findFirstClassNumberCommand.equals(findFirstClassNumberCommandCopy));
 
         // different types -> returns false
         assertFalse(findFirstNameCommand.equals(1));
@@ -69,7 +79,9 @@ public class FindCommandTest {
         // different person -> returns false
         assertFalse(findFirstNameCommand.equals(findSecondNameCommand));
         assertFalse(findFirstStudentIdCommand.equals(findSecondStudentIdCommand));
+        assertFalse(findFirstClassNumberCommand.equals(findSecondClassNumberCommand));
         assertFalse(findFirstNameCommand.equals(findFirstStudentIdCommand));
+        assertFalse(findFirstNameCommand.equals(findFirstClassNumberCommand));
     }
 
     @Test
@@ -145,6 +157,36 @@ public class FindCommandTest {
     }
 
     @Test
+    public void execute_classNumberMatch_personFound() {
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 2);
+        Predicate<Person> predicate = person -> person.getClassNumber().value.equals("T01");
+        FindCommand command = new FindCommand(predicate, true);
+        expectedModel.updateFilteredPersonList(predicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(ALICE, BENSON), model.getFilteredPersonList());
+    }
+
+    @Test
+    public void execute_classNumberMatch_noPersonFound() {
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
+        Predicate<Person> predicate = person -> person.getClassNumber().value.equals("T99");
+        FindCommand command = new FindCommand(predicate, true);
+        expectedModel.updateFilteredPersonList(predicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Collections.emptyList(), model.getFilteredPersonList());
+    }
+
+    @Test
+    public void execute_classNumberMatch_defaultClass() {
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 4);
+        Predicate<Person> predicate = person -> person.getClassNumber().value.equals("No tutorial assigned");
+        FindCommand command = new FindCommand(predicate, true);
+        expectedModel.updateFilteredPersonList(predicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(CARL, ELLE, FIONA, GEORGE), model.getFilteredPersonList());
+    }
+
+    @Test
     public void toString_withNamePredicate_returnsCorrectFormat() {
         NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Arrays.asList("keyword"));
         FindCommand findCommand = new FindCommand(predicate);
@@ -160,11 +202,18 @@ public class FindCommandTest {
         assertEquals(expected, findCommand.toString());
     }
 
+    @Test
+    public void toString_withClassNumberPredicate_returnsCorrectFormat() {
+        Predicate<Person> classNumberPredicate = person -> person.getClassNumber().value.equals("T01");
+        FindCommand findCommand = new FindCommand(classNumberPredicate, true);
+        String expected = FindCommand.class.getCanonicalName() + "{classNumberPredicate=" + classNumberPredicate + "}";
+        assertEquals(expected, findCommand.toString());
+    }
+
     /**
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
      */
     private NameContainsKeywordsPredicate prepareNameKeywordsPredicate(String userInput) {
         return new NameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
-
 }
