@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static tassist.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_GITHUB;
 import static tassist.address.model.person.Github.MESSAGE_CONSTRAINTS;
+import static tassist.address.model.person.Github.NO_GITHUB;
 import static tassist.address.model.person.StudentId.VALIDATION_REGEX;
 
 import tassist.address.commons.core.index.Index;
@@ -36,11 +37,9 @@ public class GithubCommandParser implements Parser<GithubCommand> {
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_GITHUB);
 
-        String github = argMultimap.getValue(PREFIX_GITHUB).orElse("");
-        if (argMultimap.getValue(PREFIX_GITHUB).isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    GithubCommand.MESSAGE_USAGE));
-        }
+        String github = argMultimap.getValue(PREFIX_GITHUB)
+                .filter(value -> !value.isEmpty()).orElse(NO_GITHUB);
+
         try {
             Github githubUrl = new Github(github);
         } catch (IllegalArgumentException e) {
