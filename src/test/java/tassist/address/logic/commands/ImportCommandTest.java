@@ -1,170 +1,230 @@
-//package tassist.address.logic.commands;
-//
-//import static org.junit.jupiter.api.Assertions.assertEquals;
-//import static org.junit.jupiter.api.Assertions.assertFalse;
-//import static org.junit.jupiter.api.Assertions.assertThrows;
-//import static org.junit.jupiter.api.Assertions.assertTrue;
-//
-//import java.io.IOException;
-//import java.nio.file.Path;
-//import java.nio.file.Paths;
-//import java.util.Optional;
-//
-//import org.junit.jupiter.api.Test;
-//
-//import com.opencsv.exceptions.CsvException;
-//
-//import tassist.address.commons.exceptions.DataLoadingException;
-//import tassist.address.logic.commands.exceptions.CommandException;
-//import tassist.address.model.AddressBook;
-//import tassist.address.model.ModelManager;
-//import tassist.address.model.ReadOnlyAddressBook;
-//import tassist.address.model.ReadOnlyUserPrefs;
-//import tassist.address.model.UserPrefs;
-//import tassist.address.storage.CsvJsonConverter;
-//import tassist.address.storage.Storage;
-//import tassist.address.storage.StorageManager;
-//
-//public class ImportCommandTest {
-//
-//    private static final Path validCsvFilePath = Paths.get("dummy/input.csv");
-//    private static final Path validJsonFilePath = Paths.get("dummy/output.json");
-//    private static final Path invalidCsvFilePath = Paths.get("invalid/path.csv");
-//
-//    private class StorageStub implements Storage {
-//
-//        @Override
-//        public Path getUserPrefsFilePath() {
-//            return null;
-//        }
-//
-//        @Override
-//        public Optional<UserPrefs> readUserPrefs() throws DataLoadingException {
-//            return Optional.empty();
-//        }
-//
-//        @Override
-//        public void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException {
-//
-//        }
-//
-//        @Override
-//        public Path getAddressBookFilePath() {
-//            return null;
-//        }
-//
-//        @Override
-//        public Optional<ReadOnlyAddressBook> readAddressBook() throws DataLoadingException {
-//            return Optional.empty();
-//        }
-//
-//        @Override
-//        public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataLoadingException {
-//            return Optional.empty();
-//        }
-//
-//        @Override
-//        public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-//
-//        }
-//
-//        @Override
-//        public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
-//
-//        }
-//    }
-//
-//    public static class StubCsvJsonConverter extends CsvJsonConverter {
-//        @Override
-//        public void convertCsvToJson(Path csvFilePath, Path jsonFilePath) throws IOException, CsvException {
-//            // Simulate successful CSV to JSON conversion without performing actual I/O
-//            System.out.println("CSV converted to JSON (stubbed)");
-//        }
-//    }
-//
-//    // Test for the ImportCommand constructor
-//    @Test
-//    public void testImportCommandConstructor_validFilePath() {
-//        Path testFilePath = Paths.get("dummy/file.csv");
-//        StorageStub testStorage = new StorageStub();
-//
-//        ImportCommand importCommand = new ImportCommand(testFilePath);
-//        assertEquals(testFilePath, importCommand.getFilePath());
-//
-//        ImportCommand importCommandWithStorage = new ImportCommand(testFilePath, );
-//        assertEquals(testFilePath, importCommandWithStorage);
-//        assertEquals();
-//    }
-//
-//    @Test
-//    public void execute_validCsvFile_success() throws Exception {
-//        StubStorage storage = new StubStorage();
-//
-//        StubCsvJsonConverter converter = new StubCsvJsonConverter();
-//
-//        Path validCsvFilePath = Paths.get("data/sample.csv");
-//
-//        ImportCommand command = new ImportCommand(validCsvFilePath, storage);
-//
-//        ModelManager model = new ModelManager();
-//
-//        CommandResult result = command.execute(model);
-//
-//        assertEquals(ImportCommand.MESSAGE_IMPORT_SUCCESS, result.getFeedbackToUser());
-//    }
-//
-//    @Test
-//    public void execute_invalidCsvFile_throwsCommandException() {
-//        ImportCommand command = new ImportCommand(invalidCsvFilePath, new StubStorage());
-//
-//        assertThrows(CommandException.class, () -> command.execute(new ModelManager()));
-//    }
-//
-//    // Test for the execute method when file conversion throws CsvException
-//    @Test
-//    public void execute_CsvException_throwsCommandException() throws IOException {
-//        CsvJsonConverter faultyConverter = new CsvJsonConverter() {
-//            @Override
-//            public void convertCsvToJson(Path csvFilePath, Path jsonFilePath) throws IOException, CsvException {
-//                throw new CsvException("Error during CSV parsing");
-//            }
-//        };
-//
-//        // Create an ImportCommand with a valid file path and storage
-//        ImportCommand command = new ImportCommand(validCsvFilePath, new StubStorage());
-//
-//        // Assert that CommandException is thrown due to the CSV parsing error
-//        assertThrows(CommandException.class, () -> command.execute(new ModelManager()));
-//    }
-//
-//    // Test for the execute method with missing file path
-//    @Test
-//    public void execute_missingFilePath_throwsCommandException() {
-//        // Create an ImportCommand with a null file path
-//        ImportCommand command = new ImportCommand(null, new StubStorage());
-//
-//        // Assert that CommandException is thrown due to missing file path
-//        assertThrows(CommandException.class, () -> command.execute(new ModelManager()));
-//    }
-//
-//    // Test for the equals method
-//    @Test
-//    public void equals_sameFilePath_returnsTrue() {
-//        Path testFilePath = Paths.get("dummy/file.csv");
-//        ImportCommand command1 = new ImportCommand(testFilePath, new StubStorage());
-//        ImportCommand command2 = new ImportCommand(testFilePath, new StubStorage());
-//
-//        assertTrue(command1.equals(command2)); // Same file path and storage should be equal
-//    }
-//
-//    @Test
-//    public void equals_differentFilePath_returnsFalse() {
-//        Path filePath1 = Paths.get("dummy/file1.csv");
-//        Path filePath2 = Paths.get("dummy/file2.csv");
-//
-//        ImportCommand command1 = new ImportCommand(filePath1, new StubStorage());
-//        ImportCommand command2 = new ImportCommand(filePath2, new StubStorage());
-//
-//        assertFalse(command1.equals(command2)); // Different file paths should not be equal
-//    }
-//}
+package tassist.address.logic.commands;
+
+import static java.util.Objects.requireNonNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static tassist.address.testutil.TypicalPersons.getTypicalAddressBook;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Optional;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
+import tassist.address.commons.core.GuiSettings;
+import tassist.address.commons.exceptions.DataLoadingException;
+import tassist.address.logic.commands.exceptions.CommandException;
+import tassist.address.model.Model;
+import tassist.address.model.ModelManager;
+import tassist.address.model.ReadOnlyAddressBook;
+import tassist.address.model.ReadOnlyUserPrefs;
+import tassist.address.model.UserPrefs;
+import tassist.address.storage.AddressBookStorage;
+import tassist.address.storage.JsonAddressBookStorage;
+import tassist.address.storage.JsonUserPrefsStorage;
+import tassist.address.storage.Storage;
+import tassist.address.storage.UserPrefsStorage;
+
+public class ImportCommandTest {
+
+    @TempDir
+    public static Path temporaryFolder;
+
+    private Model model;
+    private Storage storage;
+    private JsonAddressBookStorage addressBookStorage;
+    private JsonUserPrefsStorage userPrefsStorage;
+
+    @BeforeEach
+    public void setUp() throws IOException {
+        // simulate the addressBook.json file
+        Path addressBookFile = temporaryFolder.resolve("addressBook.json");
+        if (!Files.exists(addressBookFile)) {
+            Files.createFile(addressBookFile);
+        }
+        addressBookStorage = new JsonAddressBookStorage(addressBookFile);
+        userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
+        storage = new TestStorageManager(addressBookStorage, userPrefsStorage);
+        model = new ModelManager(getTypicalAddressBook(), new TestUserPrefs());
+    }
+
+    @Test
+    public void execute_validAbsolutePath_success() throws CommandException {
+        Path testCsvFilePath = Paths.get("src", "test", "data",
+                "CsvJsonConverterTest", "valid.csv");
+        ImportCommand importCommand = new ImportCommand(testCsvFilePath, storage);
+
+        CommandResult result = importCommand.execute(model);
+        assertEquals(testCsvFilePath, importCommand.getFilePath());
+        assertEquals(String.format(ImportCommand.MESSAGE_IMPORT_SUCCESS, testCsvFilePath),
+                result.getFeedbackToUser());
+    }
+
+    @Test
+    public void execute_nullFilePath_throwsCommandException() {
+        assertThrows(CommandException.class, () -> new ImportCommand(null, storage).execute(model));
+    }
+
+    @Test
+    public void execute_nonCsvFileType_throwsCommandException() {
+        Path nonCsvFilePath = Paths.get("src", "test", "data",
+                "CsvJsonConverterTest", "nonCsv.txt");
+        assertThrows(CommandException.class, () -> new ImportCommand(nonCsvFilePath, storage).execute(model));
+    }
+
+    @Test
+    public void execute_invalidValueCsv_throwsCommandException() {
+        Path invalidValueCsvFilePath = Paths.get("src", "test", "data",
+                "CsvJsonConverterTest", "invalidValue.csv");
+        assertThrows(CommandException.class, () -> new ImportCommand(invalidValueCsvFilePath, storage).execute(model));
+    }
+
+    @Test
+    public void execute_nonExistentFilePath_throwsCommandException() {
+        Path nonExistentFilePath = Paths.get("src", "test", "data",
+                "CsvJsonConverterTest", "nonExistent.csv");
+        assertThrows(CommandException.class, () -> new ImportCommand(nonExistentFilePath, storage).execute(model));
+    }
+
+    @Test
+    public void execute_corruptedJsonFile_throwsCommandException() {
+        Model testModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        Path testCsvFilePath = Paths.get("src", "test", "data",
+                "CsvJsonConverterTest", "valid.csv");
+        assertThrows(CommandException.class, () -> new ImportCommand(testCsvFilePath, storage).execute(testModel));
+    }
+
+    @Test
+    public void equals() {
+        Path filePath = temporaryFolder.resolve("test1.csv");
+        final ImportCommand standardCommand = new ImportCommand(filePath, storage);
+
+        // same values -> returns true
+        ImportCommand commandWithSameValues = new ImportCommand(
+                temporaryFolder.resolve("test1.csv"), storage);
+        assertTrue(standardCommand.equals(commandWithSameValues));
+
+        // same object -> returns true
+        assertTrue(standardCommand.equals(standardCommand));
+
+        // null -> returns false
+        assertFalse(standardCommand.equals(null));
+
+        // different types -> returns false
+        assertFalse(standardCommand.equals(new ClearCommand()));
+
+        // different filePath -> returns false
+        assertFalse(standardCommand.equals(new ImportCommand(
+                temporaryFolder.resolve("test2.csv"), storage)));
+    }
+
+    /**
+     * Test implementation of StorageManager that uses the temporary folder.
+     */
+    public static class TestStorageManager implements Storage {
+        private AddressBookStorage addressBookStorage;
+        private UserPrefsStorage userPrefsStorage;
+
+        /**
+         * Creates a {@code StorageManager} with the given {@code AddressBookStorage} and {@code UserPrefStorage}.
+         */
+        public TestStorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+            this.addressBookStorage = addressBookStorage;
+            this.userPrefsStorage = userPrefsStorage;
+        }
+
+        @Override
+        public Path getUserPrefsFilePath() {
+            return null;
+        }
+
+        @Override
+        public Optional<UserPrefs> readUserPrefs() throws DataLoadingException {
+            return Optional.empty();
+        }
+
+        @Override
+        public void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException {
+            // do nothing
+        }
+
+        @Override
+        public Path getAddressBookFilePath() {
+            return null;
+        }
+
+        @Override
+        public Optional<ReadOnlyAddressBook> readAddressBook() throws DataLoadingException {
+            return readAddressBook(addressBookStorage.getAddressBookFilePath());
+        }
+
+        @Override
+        public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataLoadingException {
+            return addressBookStorage.readAddressBook(filePath);
+        }
+
+        @Override
+        public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
+            // do nothing
+        }
+
+        @Override
+        public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+            // do nothing
+        }
+    }
+
+    /**
+     * Test implementation of ReadOnlyUserPrefs that holds the temporary folder addressBookFilePath.
+     */
+    private static class TestUserPrefs implements ReadOnlyUserPrefs {
+        private GuiSettings guiSettings = new GuiSettings();
+        private Path addressBookFilePath = temporaryFolder.resolve("addressbook.json");
+
+        /**
+         * Resets the existing data of this {@code UserPrefs} with {@code newUserPrefs}.
+         */
+        public void resetData(ReadOnlyUserPrefs newUserPrefs) {
+            requireNonNull(newUserPrefs);
+            setGuiSettings(newUserPrefs.getGuiSettings());
+            setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
+        }
+
+        public GuiSettings getGuiSettings() {
+            return guiSettings;
+        }
+
+        public void setGuiSettings(GuiSettings guiSettings) {
+            // do nothing
+        }
+
+        public Path getAddressBookFilePath() {
+            return addressBookFilePath;
+        }
+
+        public void setAddressBookFilePath(Path addressBookFilePath) {
+            // do nothing
+        }
+
+        @Override
+        public boolean equals(Object other) {
+            return true;
+        }
+
+        @Override
+        public int hashCode() {
+            return 0;
+        }
+
+        @Override
+        public String toString() {
+            return null;
+        }
+    }
+}

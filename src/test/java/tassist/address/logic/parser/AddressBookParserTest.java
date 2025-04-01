@@ -149,7 +149,9 @@ public class AddressBookParserTest {
         final Path absoluteFilePath = testRoot.resolve("sample.csv");
 
         // creates the file so it "exists"
-        Files.createFile(absoluteFilePath);
+        if (!Files.exists(absoluteFilePath)) {
+            Files.createFile(absoluteFilePath);
+        }
 
         assertTrue(parser.parseCommand(ImportCommand.COMMAND_WORD
                 + " " + absoluteFilePath.toString()) instanceof ImportCommand);

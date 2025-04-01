@@ -1,7 +1,7 @@
 name,phone,email,classNumber,studentId,github,projectTeam,tags,progress,timedEvents
 Alex Yeoh,87438807,alexyeoh@example.com,T01,A0000001B,https://github.com/default,WealthVault,"friends",20,"cs2103t,,2025-04-30T23:59,Assignment"
 Bernice Yu,99272758,berniceyu@example.com,T04,A0000002B,https://github.com/default,Rawrness,"colleagues,friends",35,""
-Charlotte Oliveiro,93210283,charlotte@example.com,R01,A0000003B,https://github.com/default,Rawrness,"neighbours",80,""
+Charlotte Oliveiro,93210283,charlotte@example.com,R01,A0000003B,https://github.com/default,Rawrness,"",80,""
 timedEvents
 name,description,time,type
 new,,2066-01-30T23:59,Assignment

@@ -282,7 +282,9 @@ public class ParserUtilTest {
         final Path absoluteFilePath = testRoot.resolve(FILE_PATH_1);
 
         // creates the file so it "exists"
-        Files.createFile(absoluteFilePath);
+        if (!Files.exists(absoluteFilePath)) {
+            Files.createFile(absoluteFilePath);
+        }
 
         Path expectedAbsolutePath = absoluteFilePath.toAbsolutePath();
         assertEquals(expectedAbsolutePath, ParserUtil.parseFilePath(absoluteFilePath.toString()));
@@ -294,7 +296,9 @@ public class ParserUtilTest {
         final Path absoluteFilePath = testRoot.resolve(FILE_PATH_2);
 
         // creates the file so it "exists"
-        Files.createFile(absoluteFilePath);
+        if (!Files.exists(absoluteFilePath)) {
+            Files.createFile(absoluteFilePath);
+        }
 
         String absolutePathWithWhitespaceString = WHITESPACE + absoluteFilePath.toString() + WHITESPACE;
         Path expectedAbsolutePath = absoluteFilePath.toAbsolutePath();
@@ -313,7 +317,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseFilePath_relativePath_throwsParseException() {
-        // FILE_PATH_1 is relative
+        // VALID_FILE_PATH is relative
         assertThrows(ParseException.class, () -> ParserUtil.parseFilePath(FILE_PATH_1));
     }
 }

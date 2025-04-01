@@ -9,7 +9,6 @@ import java.nio.file.Path;
 import com.opencsv.exceptions.CsvException;
 
 import tassist.address.commons.exceptions.DataLoadingException;
-import tassist.address.commons.util.ToStringBuilder;
 import tassist.address.logic.Messages;
 import tassist.address.logic.commands.exceptions.CommandException;
 import tassist.address.model.Model;
@@ -101,7 +100,7 @@ public class ImportCommand extends Command {
      */
     private String generateSuccessMessage() {
         String message = filePath != null ? MESSAGE_IMPORT_SUCCESS : MESSAGE_IMPORT_FAILURE;
-        return message;
+        return String.format(message, filePath);
     }
 
     @Override
@@ -117,13 +116,6 @@ public class ImportCommand extends Command {
 
         ImportCommand otherImportCommand = (ImportCommand) other;
         return filePath.equals(otherImportCommand.filePath);
-    }
-
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this)
-                .add("filePath", filePath)
-                .toString();
     }
 
     public Path getFilePath() {
