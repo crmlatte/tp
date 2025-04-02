@@ -217,7 +217,7 @@ public class ListCommandTest {
     @Test
     public void listCommand_toString() {
         ListCommand command = new ListCommand("name", "asc", "class", "T01");
-        String expectedOutput = "ListCommand{sortType='name', sortOrder='asc', filterType='class', filterValue='T01'}";
+        String expectedOutput = "ListCommand{sortType='name', sortOrder='asc', filterType='class', filterValue='t01'}";
         assertEquals(expectedOutput, command.toString());
 
         ListCommand emptyCommand = new ListCommand(null, null, null, null);
