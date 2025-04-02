@@ -144,20 +144,4 @@ public class CsvJsonConverterTest {
         csvReader.close();
         fileReader.close();
     }
-
-//    @Test
-//    public void testConvertJsonToCsv_validCsv_createsCsv() throws IOException, CsvException {
-//        ReadOnlyAddressBook addressBook = model.getAddressBook();
-//        Path outputCsv = testFolder.resolve("TestOutput.csv");
-//
-//        csvJsonConverter.convertJsonToCsv(outputCsv, addressBook);
-//
-//        assertTrue(Files.exists(outputCsv), "The CSV file should be created");
-//
-//        FileReader fileReader = new FileReader(outputCsv.toString());
-//        CSVReader csvReader = new CSVReader(fileReader);
-//
-//        List<String[]> csvContent = csvReader.readAll().stream()
-//                .collect(Collectors.toUnmodifiableList());
-//    }
 }
