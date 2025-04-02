@@ -26,7 +26,8 @@ public class ImportCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Imports a CSV file containing a list of students into the address book.\n"
             + "Parameters: FILE_PATH (must be a valid absolute path to the CSV file)\n"
-            + "Example (absolute path): " + COMMAND_WORD + " /path/to/file.csv";
+            + "Example (absolute path on Unix/mac): " + COMMAND_WORD + " /Users/Name/Downloads/file.csv "
+            + "or (Windows): " + COMMAND_WORD + " C:\\Users\\Name\\Downloads\\file.csv";
 
     public static final String MESSAGE_IMPORT_SUCCESS = "Successfully imported CSV file: %1$s";
     public static final String MESSAGE_IMPORT_FAILURE = "Failed to import CSV file: %1$s";
