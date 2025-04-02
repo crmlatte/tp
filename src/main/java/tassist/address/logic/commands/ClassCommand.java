@@ -111,7 +111,8 @@ public class ClassCommand extends Command {
                 personToEdit.getGithub(),
                 personToEdit.getProjectTeam(),
                 personToEdit.getTags(),
-                personToEdit.getProgress()
+                personToEdit.getProgress(),
+                personToEdit.getTimedEventsList()
         );
 
         model.setPerson(personToEdit, editedPerson);
@@ -147,5 +148,19 @@ public class ClassCommand extends Command {
         return Objects.equals(index, otherClassCommand.index)
                 && Objects.equals(studentId, otherClassCommand.studentId)
                 && Objects.equals(classNumber, otherClassCommand.classNumber);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder()
+                .append("ClassCommand{");
+        if (index != null) {
+            builder.append("index=").append(index);
+        } else if (studentId != null) {
+            builder.append("studentId=").append(studentId);
+        }
+        builder.append(", classNumber=").append(classNumber)
+                .append("}");
+        return builder.toString();
     }
 }

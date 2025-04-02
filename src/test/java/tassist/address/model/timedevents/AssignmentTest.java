@@ -138,6 +138,14 @@ public class AssignmentTest {
     }
 
     @Test
+    public void isSameTimedEvent_differentCaseName_returnsTrue() {
+        LocalDateTime time = LocalDateTime.now();
+        Assignment assignment1 = new Assignment("Test Assignment", "Description 1", time);
+        Assignment assignment2 = new Assignment("TEST ASSIGNMENT", "Description 2", time);
+        assertTrue(assignment1.isSameTimedEvent(assignment2));
+    }
+
+    @Test
     public void equals_sameAssignment_returnsTrue() {
         Assignment assignment = new Assignment(
                 "Test Assignment",

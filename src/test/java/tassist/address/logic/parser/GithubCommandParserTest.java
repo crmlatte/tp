@@ -1,6 +1,7 @@
 package tassist.address.logic.parser;
 
 import static tassist.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static tassist.address.logic.Messages.getErrorMessageForDuplicatePrefixes;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_STUDENTID_BOB;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_GITHUB;
 import static tassist.address.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -44,5 +45,23 @@ public class GithubCommandParserTest {
 
         // no index/studentid
         assertParseFailure(parser, GithubCommand.COMMAND_WORD + " " + nonEmptyGithub, expectedMessage);
+    }
+
+    @Test
+    public void parse_repeatedGithubValue_failure() {
+        String validExpectedCommandString = VALID_STUDENTID_BOB + " " + PREFIX_GITHUB + nonEmptyGithub;
+
+        // multiple github values
+        assertParseFailure(parser, validExpectedCommandString + " " + PREFIX_GITHUB + "https://github.com/another",
+                getErrorMessageForDuplicatePrefixes(PREFIX_GITHUB));
+
+        // invalid value followed by valid value
+        assertParseFailure(parser, VALID_STUDENTID_BOB + " " + PREFIX_GITHUB + "invalid "
+                        + PREFIX_GITHUB + nonEmptyGithub,
+                getErrorMessageForDuplicatePrefixes(PREFIX_GITHUB));
+
+        // valid value followed by invalid value
+        assertParseFailure(parser, validExpectedCommandString + " " + PREFIX_GITHUB + "invalid",
+                getErrorMessageForDuplicatePrefixes(PREFIX_GITHUB));
     }
 }

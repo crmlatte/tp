@@ -11,6 +11,9 @@ import static tassist.address.logic.commands.CommandTestUtil.assertCommandFailur
 import static tassist.address.logic.commands.GithubCommand.MESSAGE_DUPLICATE_GITHUB;
 import static tassist.address.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 import tassist.address.commons.core.index.Index;
@@ -21,7 +24,9 @@ import tassist.address.model.UserPrefs;
 import tassist.address.model.person.Github;
 import tassist.address.model.person.Person;
 import tassist.address.model.person.StudentId;
+import tassist.address.model.timedevents.TimedEvent;
 import tassist.address.testutil.PersonBuilder;
+import tassist.address.testutil.TimedEventBuilder;
 
 
 /**
@@ -156,5 +161,69 @@ public class GithubCommandTest {
         // different github -> returns false
         assertFalse(standardCommand.equals(
                 new GithubCommand(new StudentId(VALID_STUDENTID_AMY), new Github(VALID_GITHUB_BOB))));
+    }
+
+    @Test
+    public void toString_withIndex() {
+        Index index = Index.fromZeroBased(0);
+        Github github = new Github(VALID_GITHUB_AMY);
+        GithubCommand command = new GithubCommand(index, github);
+        String expected = String.format("GithubCommand{index=%s, github=%s}",
+                index, github);
+        assertEquals(expected, command.toString());
+    }
+
+    @Test
+    public void toString_withStudentId() {
+        StudentId studentId = new StudentId(VALID_STUDENTID_AMY);
+        Github github = new Github(VALID_GITHUB_AMY);
+        GithubCommand command = new GithubCommand(studentId, github);
+        String expected = String.format("GithubCommand{studentId=%s, github=%s}",
+                studentId, github);
+        assertEquals(expected, command.toString());
+    }
+
+    @Test
+    public void execute_preservesAssignments_success() throws Exception {
+        Model model = new ModelManager();
+
+        // Create a person with an assignment
+        Person originalPerson = new PersonBuilder()
+                .withName("Alice")
+                .withStudentId("A1239878D")
+                .build();
+        model.addPerson(originalPerson);
+
+        // Add an assignment to the person
+        TimedEvent assignment = new TimedEventBuilder()
+                .withName("Test Assignment")
+                .withDescription("Test Description")
+                .withTime(LocalDateTime.now().plusDays(7))
+                .build();
+        originalPerson.addTimedEvent(assignment);
+
+        // Update GitHub
+        StudentId validStudentId = new StudentId("A1239878D");
+        Github validGithub = new Github("https://github.com/alice123");
+        GithubCommand githubCommand = new GithubCommand(validStudentId, validGithub);
+        CommandResult result = githubCommand.execute(model);
+
+        // Get the edited person
+        Person editedPerson = model.getFilteredPersonList().stream()
+                .filter(person -> person.getStudentId().equals(validStudentId))
+                .findFirst()
+                .get();
+
+        // Verify GitHub was updated
+        assertEquals(validGithub, editedPerson.getGithub());
+
+        // Verify assignment was preserved
+        List<TimedEvent> assignments = editedPerson.getTimedEventsList().asUnmodifiableObservableList();
+        assertEquals(1, assignments.size());
+        assertEquals(assignment, assignments.get(0));
+
+        // Verify success message
+        assertEquals(String.format(GithubCommand.MESSAGE_ADD_GITHUB_SUCCESS, Messages.format(editedPerson)),
+                result.getFeedbackToUser());
     }
 }
