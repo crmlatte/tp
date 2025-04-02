@@ -51,8 +51,8 @@ public class RepoCommand extends Command {
     public static final String MESSAGE_INVALID_URL = "Please enter a valid URL!"
             + MESSAGE_CONSTRAINTS;
 
-    public static final String MESSAGE_VALID_COMMAND = "Either provide a full repository URL (r/) or both username (un/) "
-            + "and repository name (rn/).\n"
+    public static final String MESSAGE_VALID_COMMAND = "Either provide a full repository URL (r/) "
+            + "or both username (un/) and repository name (rn/).\n"
             + MESSAGE_USAGE;
     public final String username;
     public final String repositoryName;
