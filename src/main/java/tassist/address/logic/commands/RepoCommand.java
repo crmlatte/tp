@@ -1,7 +1,9 @@
 package tassist.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static tassist.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tassist.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static tassist.address.model.person.Repository.MESSAGE_CONSTRAINTS;
 import static tassist.address.model.person.Repository.MESSAGE_REPOSITORY_NAME_VALIDITY;
 import static tassist.address.model.person.Repository.MESSAGE_USERNAME_VALIDITY;
 
@@ -27,23 +29,32 @@ public class RepoCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits the Repository of the person identified by the STUDENTID or INDEX. "
             + "Existing URL will be overwritten by the input.\n"
-            + "Parameters: STUDENTID or INDEX, un/{username}, rn/{repository name}\n"
+            + "Parameters: STUDENTID or INDEX, un/{username}, rn/{repository name} or\n"
+            + "Parameters: STUDENTID or INDEX, r/{repository_URL}\n"
             + "Example:\n"
             + " 1." + COMMAND_WORD + " 2 un/Group-4 rn/WealthVault\n"
-            + " 2." + COMMAND_WORD + " AxxxxxxxN un/Tutorial-G08 rn/BestApp";
+            + " 2." + COMMAND_WORD + " AxxxxxxxN un/Tutorial-G08 rn/BestApp or\n"
+            + " 3." + COMMAND_WORD + " 3 r/https://github.com/team4/new.repo\n"
+            + " 4." + COMMAND_WORD + " AxxxxxxxN r/https://github.com/AY2425S2-CS2103T-W12-4/tp";
 
     public static final String VALID_USERNAME_REGEX = "[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*";
     public static final String VALID_REPOSITORY_REGEX = "[a-zA-Z0-9](?:[a-zA-Z0-9._-]*[a-zA-Z0-9])?";
 
     public static final String MESSAGE_ADD_REPOSITORY_SUCCESS = "Added Repository to Person: %1$s";
-    public static final String MESSAGE_NO_INDEX_STUDENTID = "Please enter valid index or studentId";
+    public static final String MESSAGE_NO_INDEX_STUDENTID = "Please enter valid index or student Id!";
 
     //allow multiple people to have the same repository (team repo)
-    public static final String MESSAGE_INVALID_USERNAME = "Invalid Username!"
+    public static final String MESSAGE_INVALID_USERNAME = "Please enter a valid Username!"
             + MESSAGE_USERNAME_VALIDITY;
-    public static final String MESSAGE_INVALID_REPOSITORY_NAME = "Invalid Repository Name!"
+    public static final String MESSAGE_INVALID_REPOSITORY_NAME = "Please enter a valid Repository Name!"
             + MESSAGE_REPOSITORY_NAME_VALIDITY;
 
+    public static final String MESSAGE_INVALID_URL = "Please enter a valid URL!"
+            + MESSAGE_CONSTRAINTS;
+
+    public static String MESSAGE_VALID_COMMAND = "Either provide a full repository URL (r/) or both username (un/) "
+            + "and repository name (rn/).\n"
+            + MESSAGE_USAGE;
     public final String username;
     public final String repositoryName;
 
@@ -101,6 +112,13 @@ public class RepoCommand extends Command {
             personToEdit = personOptional.get();
         }
 
+        // Defensive check: ensure either full URL or both username and repo name are provided
+        if (repositoryUrl == null && (username == null || repositoryName == null)) {
+            throw new CommandException(MESSAGE_VALID_COMMAND);
+        }
+
+        Repository repo = repositoryUrl != null ? repositoryUrl : createRepo(username, repositoryName);
+
         Person editedPerson = new Person(
                 personToEdit.getName(),
                 personToEdit.getPhone(),
@@ -109,14 +127,14 @@ public class RepoCommand extends Command {
                 personToEdit.getStudentId(),
                 personToEdit.getGithub(),
                 personToEdit.getProjectTeam(),
-                createRepo(username, repositoryName, repositoryUrl),
+                repo,
                 personToEdit.getTags(),
                 personToEdit.getProgress());
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
-        return new CommandResult(MESSAGE_ADD_REPOSITORY_SUCCESS);
+        return new CommandResult(String.format(MESSAGE_ADD_REPOSITORY_SUCCESS, Messages.format(editedPerson)));
     }
 
     /**
@@ -166,6 +184,7 @@ public class RepoCommand extends Command {
         return Objects.equals(studentId, e.studentId)
                 && Objects.equals(index, e.index)
                 && Objects.equals(username, e.username)
-                && Objects.equals(repositoryName, e.repositoryName);
+                && Objects.equals(repositoryName, e.repositoryName)
+                && Objects.equals(repositoryUrl, e.repositoryUrl);
     }
 }

@@ -104,7 +104,7 @@ public class RepoCommandTest {
     public void execute_validIndex_success() throws Exception {
         Person person = new PersonBuilder().withStudentId("A1234567Z").build();
         ModelStubWithPersonList model = new ModelStubWithPersonList(person);
-        RepoCommand command = new RepoCommand(Index.fromZeroBased(0), "ValidUser", "cool-project");
+        RepoCommand command = new RepoCommand(Index.fromZeroBased(0), "ValidUser", "cool-project", null);
 
         command.execute(model);
 
@@ -116,7 +116,7 @@ public class RepoCommandTest {
     public void execute_validStudentId_success() throws Exception {
         Person person = new PersonBuilder().withStudentId("A7654321Z").build();
         ModelStubWithPersonList model = new ModelStubWithPersonList(person);
-        RepoCommand command = new RepoCommand(new StudentId("A7654321Z"), "team42", "assignment");
+        RepoCommand command = new RepoCommand(new StudentId("A7654321Z"), "team42", "assignment", null);
 
         command.execute(model);
 
@@ -126,43 +126,48 @@ public class RepoCommandTest {
 
     @Test
     public void execute_invalidIndex_throwsCommandException() {
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        RepoCommand command = new RepoCommand(Index.fromOneBased(999), "user",
-                "repo");
+        Person person = new PersonBuilder().withStudentId("A1234567Z").build();
+        ModelStubWithPersonList modelStub = new ModelStubWithPersonList(person);
+        Index invalidIndex = Index.fromOneBased(999); // out of bounds
+        RepoCommand command = new RepoCommand(invalidIndex, "user", "repo", null);
 
-        assertThrows(CommandException.class, () -> command.execute(model));
+        assertThrows(CommandException.class, () -> command.execute(modelStub));
     }
 
     @Test
     public void execute_invalidStudentId_throwsCommandException() {
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        RepoCommand command = new RepoCommand(new StudentId("A0000000Z"), "user", "repo");
+        Person person = new PersonBuilder().withStudentId("A7654321Z").build();
+        ModelStubWithPersonList modelStub = new ModelStubWithPersonList(person);
+        StudentId invalidStudentId = new StudentId("A0000000Z"); // not matching any in list
+        RepoCommand command = new RepoCommand(invalidStudentId, "user", "repo", null);
 
-        assertThrows(CommandException.class, () -> command.execute(model));
+        assertThrows(CommandException.class, () -> command.execute(modelStub));
     }
 
     @Test
     public void execute_invalidUsernameOrRepo_setsNoRepository() throws Exception {
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        Person person = model.getFilteredPersonList().get(0);
+        Person person = new PersonBuilder().withStudentId("A3333333Z").build();
+        ModelStubWithPersonList modelStub = new ModelStubWithPersonList(person);
         String studentId = person.getStudentId().value;
 
-        RepoCommand command = new RepoCommand(new StudentId(studentId), "bad_user!", "repo");
-        command.execute(model);
+        RepoCommand command = new RepoCommand(new StudentId(studentId), "bad_user!", "repo", null);
+        command.execute(modelStub);
 
-        Person updated = model.getFilteredPersonList().get(0);
+        Person updated = modelStub.getLastEditedPerson();
         assertEquals(Repository.NO_REPOSITORY, updated.getRepository().toString());
     }
 
     @Test
     public void equals() {
         Index index = Index.fromOneBased(1);
+        StudentId studentId = new StudentId("A1234567Z");
         String username = "ValidUser";
         String repositoryName = "valid-repo";
+        Repository repo = new Repository("https://github.com/ValidUser/valid-repo");
 
         // same values -> returns true
-        RepoCommand commandA = new RepoCommand(index, username, repositoryName);
-        RepoCommand commandACopy = new RepoCommand(index, username, repositoryName);
+        RepoCommand commandA = new RepoCommand(index, username, repositoryName, repo);
+        RepoCommand commandACopy = new RepoCommand(index, username, repositoryName, repo);
         assertTrue(commandA.equals(commandACopy));
 
         // same object -> returns true
@@ -175,21 +180,22 @@ public class RepoCommandTest {
         assertFalse(commandA.equals(new ClearCommand()));
 
         // different index -> returns false
-        RepoCommand differentIndex = new RepoCommand(Index.fromOneBased(2), username, repositoryName);
+        RepoCommand differentIndex = new RepoCommand(Index.fromOneBased(2), username, repositoryName, repo);
         assertFalse(commandA.equals(differentIndex));
 
         // different username -> returns false
-        RepoCommand differentUsername = new RepoCommand(index, "OtherUser", repositoryName);
+        RepoCommand differentUsername = new RepoCommand(index, "OtherUser", repositoryName, repo);
         assertFalse(commandA.equals(differentUsername));
 
         // different repository name -> returns false
-        RepoCommand differentRepoName = new RepoCommand(index, username, "other-repo");
+        RepoCommand differentRepoName = new RepoCommand(index, username, "other-repo", repo);
         assertFalse(commandA.equals(differentRepoName));
 
-        // different constructor path: compare index-based vs studentId-based -> returns false
-        RepoCommand studentIdCommand = new RepoCommand(new StudentId("A1234567Z"), username, repositoryName);
+        // different constructor path: studentId instead of index -> returns false
+        RepoCommand studentIdCommand = new RepoCommand(studentId, username, repositoryName, repo);
         assertFalse(commandA.equals(studentIdCommand));
     }
+
 
     private class ModelStub implements Model {
         @Override
