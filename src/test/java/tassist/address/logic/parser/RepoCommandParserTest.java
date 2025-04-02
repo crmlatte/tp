@@ -7,6 +7,9 @@ import static tassist.address.logic.commands.CommandTestUtil.VALID_REPOSITORY_AM
 import static tassist.address.logic.commands.CommandTestUtil.VALID_REPOSITORY_NAME;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_STUDENTID_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_USERNAME;
+import static tassist.address.logic.commands.RepoCommand.MESSAGE_INVALID_REPOSITORY_NAME;
+import static tassist.address.logic.commands.RepoCommand.MESSAGE_INVALID_USERNAME;
+import static tassist.address.logic.commands.RepoCommand.MESSAGE_NO_INDEX_STUDENTID;
 import static tassist.address.logic.commands.RepoCommand.MESSAGE_USAGE;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_REPOSITORY_NAME;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_USERNAME;
@@ -46,7 +49,7 @@ public class RepoCommandParserTest {
     @Test
     public void parse_missingUsername_failure() {
         String userInput = INDEX_FIRST_PERSON.getOneBased() + " rn/" + VALID_REPOSITORY_NAME;
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RepoCommand.MESSAGE_INVALID_USERNAME);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_INVALID_USERNAME);
         assertParseFailure(parser, userInput, expectedMessage);
     }
 
@@ -54,7 +57,7 @@ public class RepoCommandParserTest {
     public void parse_missingRepositoryName_failure() {
         String userInput = INDEX_FIRST_PERSON.getOneBased() + " un/" + VALID_USERNAME;
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                RepoCommand.MESSAGE_INVALID_REPOSITORY_NAME);
+                MESSAGE_INVALID_REPOSITORY_NAME);
         assertParseFailure(parser, userInput, expectedMessage);
     }
 
@@ -62,7 +65,7 @@ public class RepoCommandParserTest {
     public void parse_invalidUsername_failure() {
         String userInput = INDEX_FIRST_PERSON.getOneBased()
                 + " un/" + INVALID_USERNAME + " rn/" + VALID_REPOSITORY_NAME;
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RepoCommand.MESSAGE_INVALID_USERNAME);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_INVALID_USERNAME);
         assertParseFailure(parser, userInput, expectedMessage);
     }
 
@@ -71,28 +74,28 @@ public class RepoCommandParserTest {
         String userInput = INDEX_FIRST_PERSON.getOneBased()
                 + " un/" + VALID_USERNAME + " rn/" + INVALID_REPOSITORY_NAME;
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                RepoCommand.MESSAGE_INVALID_REPOSITORY_NAME);
+                MESSAGE_INVALID_REPOSITORY_NAME);
         assertParseFailure(parser, userInput, expectedMessage);
     }
 
     @Test
     public void parse_emptyArgs_failure() {
         String userInput = " ";
-        String expectedMessage = RepoCommand.MESSAGE_NO_INDEX_STUDENTID + "\n" + MESSAGE_USAGE;
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE);
         assertParseFailure(parser, userInput, expectedMessage);
     }
 
     @Test
     public void parse_invalidIndex_failure() {
         String userInput = "zero un/" + VALID_USERNAME + " rn/" + VALID_REPOSITORY_NAME;
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RepoCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_NO_INDEX_STUDENTID);
         assertParseFailure(parser, userInput, expectedMessage);
     }
 
     @Test
     public void parse_invalidStudentId_failure() {
         String userInput = "notAnId un/" + VALID_USERNAME + " rn/" + VALID_REPOSITORY_NAME;
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RepoCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_NO_INDEX_STUDENTID);
         assertParseFailure(parser, userInput, expectedMessage);
     }
 
