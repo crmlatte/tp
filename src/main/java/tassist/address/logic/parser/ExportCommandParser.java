@@ -44,6 +44,7 @@ public class ExportCommandParser implements Parser<ExportCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_FILE_PATH,
                     ExportCommand.MESSAGE_USAGE));
         } catch (IOException e) {
+            // should not reach, check is done above, throwing an exception just in case
             throw new ParseException(String.format(MESSAGE_EXPORT_FAILURE,
                     ExportCommand.MESSAGE_USAGE));
         }

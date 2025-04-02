@@ -112,6 +112,7 @@ public class CommandTestUtil {
 
     public static final String VALID_FILE_PATH_1 = "sample-1.csv";
     public static final String VALID_FILE_PATH_2 = "sample-2.csv";
+    public static final String VALID_FILE_PATH_3 = "sample-3.csv";
 
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
