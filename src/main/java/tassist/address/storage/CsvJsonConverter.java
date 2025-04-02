@@ -68,10 +68,10 @@ public class CsvJsonConverter {
             }
         }
 
-        String[] personHeaders = personRows.get(0);
+        String[] personHeaders = Person.getAttributes().toArray(new String[0]);
         List<Map<String, Object>> personsData = retrieveData(personHeaders, personRows);
 
-        String[] timedEventHeaders = timedEventRows.get(0);
+        String[] timedEventHeaders = TimedEvent.getAttributes().toArray(new String[0]);
         List<Map<String, Object>> timedEventsData = retrieveData(timedEventHeaders, timedEventRows);
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -131,15 +131,16 @@ public class CsvJsonConverter {
     }
 
     private List<Map<String, String>> processPersonTimedEvents(String value) {
+        String[] timedEventHeaders = TimedEvent.getAttributes().toArray(new String[0]);
         List<Map<String, String>> timedEventsList = new ArrayList<>();
         String[] splitted = value.split(",");
 
         for (int i = 0; i < splitted.length / 4; i++) {
             Map<String, String> timedEvent = new LinkedHashMap<>();
-            timedEvent.put("name", splitted[(i * 4)].trim());
-            timedEvent.put("description", splitted[(i * 4) + 1].trim());
-            timedEvent.put("time", splitted[(i * 4) + 2].trim());
-            timedEvent.put("type", splitted[(i * 4) + 3].trim());
+            timedEvent.put(timedEventHeaders[0], splitted[(i * 4)].trim());
+            timedEvent.put(timedEventHeaders[1], splitted[(i * 4) + 1].trim());
+            timedEvent.put(timedEventHeaders[2], splitted[(i * 4) + 2].trim());
+            timedEvent.put(timedEventHeaders[3], splitted[(i * 4) + 3].trim());
 
             timedEventsList.add(timedEvent);
         }
