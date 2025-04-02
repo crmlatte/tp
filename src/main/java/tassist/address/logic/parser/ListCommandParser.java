@@ -1,12 +1,13 @@
 package tassist.address.logic.parser;
 
+import static tassist.address.logic.commands.ListCommand.MESSAGE_USAGE;
+import static tassist.address.logic.commands.ListCommand.VALID_FILTER_TYPES;
+import static tassist.address.logic.commands.ListCommand.VALID_SORT_ORDERS;
+import static tassist.address.logic.commands.ListCommand.VALID_SORT_TYPES;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_FILTER;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_FILTER_VALUE;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_ORDER;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_SORT;
-
-import java.util.Arrays;
-import java.util.List;
 
 import tassist.address.logic.commands.ListCommand;
 import tassist.address.logic.parser.exceptions.ParseException;
@@ -17,14 +18,14 @@ import tassist.address.model.person.Progress;
  */
 public class ListCommandParser implements Parser<ListCommand> {
 
-    private static final List<String> VALID_SORT_TYPES = Arrays.asList("name", "progress", "github");
-    private static final List<String> VALID_SORT_ORDERS = Arrays.asList("asc", "des");
-    private static final List<String> VALID_FILTER_TYPES = Arrays.asList("course", "team", "progress");
-
     @Override
     public ListCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_SORT, PREFIX_ORDER, PREFIX_FILTER,
                 PREFIX_FILTER_VALUE);
+
+        if (!argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException("Invalid command format. Please use: \n" + MESSAGE_USAGE);
+        }
 
         String sortType = argMultimap.getValue(PREFIX_SORT).orElse(null);
         String sortOrder = argMultimap.getValue(PREFIX_ORDER).orElse(null);
