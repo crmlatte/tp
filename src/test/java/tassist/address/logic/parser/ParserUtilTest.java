@@ -310,4 +310,10 @@ public class ParserUtilTest {
         // VALID_FILE_PATH is relative
         assertThrows(ParseException.class, () -> ParserUtil.parseFilePath(FILE_PATH_1));
     }
+
+    @Test
+    public void parseFilePath_rootDirectory_throwsParseException() {
+        // cannot be root directory
+        assertThrows(ParseException.class, () -> ParserUtil.parseFilePath("/"));
+    }
 }
