@@ -42,4 +42,9 @@ public class ViewCommand extends Command {
 
         return new CommandResult(result.toString());
     }
+
+    @Override
+    public String toString() {
+        return "ViewCommand{}";
+    }
 }
