@@ -29,6 +29,7 @@ import tassist.address.storage.AddressBookStorage;
 import tassist.address.storage.JsonAddressBookStorage;
 import tassist.address.storage.JsonUserPrefsStorage;
 import tassist.address.storage.Storage;
+import tassist.address.storage.StorageManager;
 import tassist.address.storage.UserPrefsStorage;
 
 public class ImportCommandTest {
@@ -50,15 +51,16 @@ public class ImportCommandTest {
         }
         addressBookStorage = new JsonAddressBookStorage(addressBookFilePath);
         userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        storage = new TestStorageManager(addressBookStorage, userPrefsStorage);
+        storage = new StorageManager(addressBookStorage, userPrefsStorage);
         model = new ModelManager(getTypicalAddressBook(), new TestUserPrefs(addressBookFilePath));
+        ImportCommand.setStorage(storage);
     }
 
     @Test
     public void execute_validAbsolutePath_success() throws CommandException {
         Path testCsvFilePath = Paths.get("src", "test", "data",
                 "CsvJsonConverterTest", "valid.csv");
-        ImportCommand importCommand = new ImportCommand(testCsvFilePath, storage);
+        ImportCommand importCommand = new ImportCommand(testCsvFilePath);
 
         CommandResult result = importCommand.execute(model);
         assertEquals(testCsvFilePath, importCommand.getFilePath());
@@ -68,28 +70,28 @@ public class ImportCommandTest {
 
     @Test
     public void execute_nullFilePath_throwsCommandException() {
-        assertThrows(CommandException.class, () -> new ImportCommand(null, storage).execute(model));
+        assertThrows(CommandException.class, () -> new ImportCommand(null).execute(model));
     }
 
     @Test
     public void execute_nonCsvFileType_throwsCommandException() {
         Path nonCsvFilePath = Paths.get("src", "test", "data",
                 "CsvJsonConverterTest", "nonCsv.txt");
-        assertThrows(CommandException.class, () -> new ImportCommand(nonCsvFilePath, storage).execute(model));
+        assertThrows(CommandException.class, () -> new ImportCommand(nonCsvFilePath).execute(model));
     }
 
     @Test
     public void execute_invalidValueCsv_throwsCommandException() {
         Path invalidValueCsvFilePath = Paths.get("src", "test", "data",
                 "CsvJsonConverterTest", "invalidValue.csv");
-        assertThrows(CommandException.class, () -> new ImportCommand(invalidValueCsvFilePath, storage).execute(model));
+        assertThrows(CommandException.class, () -> new ImportCommand(invalidValueCsvFilePath).execute(model));
     }
 
     @Test
     public void execute_nonExistentFilePath_throwsCommandException() {
         Path nonExistentFilePath = Paths.get("src", "test", "data",
                 "CsvJsonConverterTest", "nonExistent.csv");
-        assertThrows(CommandException.class, () -> new ImportCommand(nonExistentFilePath, storage).execute(model));
+        assertThrows(CommandException.class, () -> new ImportCommand(nonExistentFilePath).execute(model));
     }
 
     @Test
@@ -98,17 +100,16 @@ public class ImportCommandTest {
                 new TestUserPrefs(temporaryFolder.resolve("random.csv")));
         Path testCsvFilePath = Paths.get("src", "test", "data",
                 "CsvJsonConverterTest", "valid.csv");
-        assertThrows(CommandException.class, () -> new ImportCommand(testCsvFilePath, storage).execute(testModel));
+        assertThrows(CommandException.class, () -> new ImportCommand(testCsvFilePath).execute(testModel));
     }
 
     @Test
     public void equals() {
         Path filePath = temporaryFolder.resolve("test1.csv");
-        final ImportCommand standardCommand = new ImportCommand(filePath, storage);
+        final ImportCommand standardCommand = new ImportCommand(filePath);
 
         // same values -> returns true
-        ImportCommand commandWithSameValues = new ImportCommand(
-                temporaryFolder.resolve("test1.csv"), storage);
+        ImportCommand commandWithSameValues = new ImportCommand(temporaryFolder.resolve("test1.csv"));
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -121,8 +122,7 @@ public class ImportCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different filePath -> returns false
-        assertFalse(standardCommand.equals(new ImportCommand(
-                temporaryFolder.resolve("test2.csv"), storage)));
+        assertFalse(standardCommand.equals(new ImportCommand(temporaryFolder.resolve("test2.csv"))));
     }
 
     /**
