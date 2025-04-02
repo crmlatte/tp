@@ -53,8 +53,9 @@ public class ExportCommand extends Command {
             CsvJsonConverter converter = new CsvJsonConverter();
             converter.convertJsonToCsv(filePath, model.getAddressBook());
 
-            return new CommandResult(String.format(MESSAGE_EXPORT_SUCCESS, filePath));
+            return new CommandResult(generateSuccessMessage());
         } catch (IOException e) {
+            // should not reach here, throwing an exception just in case
             throw new CommandException("Invalid File Path", e);
         }
     }
