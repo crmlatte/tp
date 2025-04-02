@@ -125,8 +125,21 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_list() throws Exception {
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+        // Simple list command
+        ListCommand expectedCommand = new ListCommand(null, null, null, null);
+        assertEquals(expectedCommand, parser.parseCommand("list"));
+
+        // List with sort only
+        expectedCommand = new ListCommand("name", "asc", null, null);
+        assertEquals(expectedCommand, parser.parseCommand("list s/name o/asc"));
+
+        // List with filter only
+        expectedCommand = new ListCommand(null, null, "class", "T01");
+        assertEquals(expectedCommand, parser.parseCommand("list f/class fv/T01"));
+
+        // List with sort and filter
+        expectedCommand = new ListCommand("progress", "des", "progress", "50");
+        assertEquals(expectedCommand, parser.parseCommand("list s/progress o/des f/progress fv/50"));
     }
 
     @Test

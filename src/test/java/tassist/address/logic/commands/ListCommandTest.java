@@ -140,18 +140,8 @@ public class ListCommandTest {
     }
 
     @Test
-    public void execute_filterByCourseNoMatch_returnsNoStudents() {
-        ListCommand command = new ListCommand(null, null, "course", "placeholder");
-        Predicate<Person> expectedPredicate = person -> "placeholder".equals("placeholder");
-        //true for placeholder
-        expectedModel.updateFilteredPersonList(expectedPredicate);
-
-        assertCommandSuccess(command, model, ListCommand.MESSAGE_LIST_FILTERED, expectedModel);
-    }
-
-    @Test
     public void execute_filteredByCourseInvalidValue_throwsCommandException() {
-        ListCommand command = new ListCommand(null, null, "course", "invalidValue");
+        ListCommand command = new ListCommand(null, null, "class", "invalidValue");
         CommandException thrown = assertThrows(CommandException.class, () -> command.execute(model));
         String message = String.format(ListCommand.MESSAGE_NONEXISTENT_FILTER_VALUE, command.filterValue);
         assertEquals(message, thrown.getMessage());
