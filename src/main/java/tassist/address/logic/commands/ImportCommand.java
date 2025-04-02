@@ -1,6 +1,7 @@
 package tassist.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static tassist.address.logic.Messages.MESSAGE_INVALID_FILE_PATH;
 import static tassist.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.io.IOException;
@@ -9,7 +10,6 @@ import java.nio.file.Path;
 import com.opencsv.exceptions.CsvException;
 
 import tassist.address.commons.exceptions.DataLoadingException;
-import tassist.address.logic.Messages;
 import tassist.address.logic.commands.exceptions.CommandException;
 import tassist.address.model.Model;
 import tassist.address.model.ReadOnlyAddressBook;
@@ -31,9 +31,12 @@ public class ImportCommand extends Command {
 
     public static final String MESSAGE_IMPORT_SUCCESS = "Successfully imported CSV file: %1$s";
     public static final String MESSAGE_IMPORT_FAILURE = "Failed to import CSV file: %1$s";
+    public static final String MESSAGE_INVALID_VALUE_IN_FILE = "Error during file conversion: invalid value";
+    public static final String MESSAGE_UNABLE_TO_ACCESS_FILE = "Unable to access file";
+    public static final String MESSAGE_CORRUPTED_FILE = "File is corrupted";
+    private static Storage storage = null;
 
     private final Path filePath;
-    private final Storage storage;
 
     /**
      * Constructs an ImportCommand with a specified file path.
@@ -42,18 +45,6 @@ public class ImportCommand extends Command {
      */
     public ImportCommand(Path filePath) {
         this.filePath = filePath;
-        this.storage = null;
-    }
-
-    /**
-     * Constructs an ImportCommand with a specified file path and storage.
-     *
-     * @param filePath The file path of the CSV file to be imported.
-     * @param storage  The storage object used for handling the address book data.
-     */
-    public ImportCommand(Path filePath, Storage storage) {
-        this.filePath = filePath;
-        this.storage = storage;
     }
 
     @Override
@@ -61,7 +52,7 @@ public class ImportCommand extends Command {
         requireNonNull(model);
 
         if (filePath == null) {
-            throw new CommandException(Messages.MESSAGE_INVALID_FILE_PATH);
+            throw new CommandException(MESSAGE_INVALID_FILE_PATH);
         }
 
         ReadOnlyAddressBook newData;
@@ -73,7 +64,7 @@ public class ImportCommand extends Command {
                 Path jsonFilePath = model.getAddressBookFilePath();
                 converter.convertCsvToJson(filePath, jsonFilePath);
             } else {
-                throw new CommandException(Messages.MESSAGE_INVALID_FILE_PATH); // Not CSV file type
+                throw new CommandException(MESSAGE_INVALID_FILE_PATH); // Not CSV file type
             }
 
             newData = storage.readAddressBook().get();
@@ -82,11 +73,11 @@ public class ImportCommand extends Command {
 
             return new CommandResult(generateSuccessMessage());
         } catch (CsvException e) {
-            throw new CommandException("Error during file conversion: invalid value", e);
+            throw new CommandException(MESSAGE_INVALID_VALUE_IN_FILE);
         } catch (IOException e) {
-            throw new CommandException("Invalid File Path", e);
+            throw new CommandException(MESSAGE_UNABLE_TO_ACCESS_FILE);
         } catch (DataLoadingException e) {
-            throw new CommandException("File is corrupted");
+            throw new CommandException(MESSAGE_CORRUPTED_FILE);
         }
     }
 
@@ -120,5 +111,9 @@ public class ImportCommand extends Command {
 
     public Path getFilePath() {
         return filePath;
+    }
+
+    public static void setStorage(Storage storage) {
+        ImportCommand.storage = storage;
     }
 }
