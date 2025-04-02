@@ -49,6 +49,18 @@ public class ProgressTest {
     }
 
     @Test
+    public void equals_sameObject_returnsTrue() {
+        Progress progress1 = new Progress("50");
+        assertEquals(progress1, progress1);
+    }
+
+    @Test
+    public void equals_differentObject_returnsTrue() {
+        Progress progress1 = new Progress("50");
+        assertNotEquals(5, progress1);
+    }
+
+    @Test
     public void equals_sameValue_returnsTrue() {
         Progress progress1 = new Progress("50");
         Progress progress2 = new Progress("50%");
