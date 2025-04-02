@@ -29,7 +29,8 @@ import tassist.address.model.ReadOnlyAddressBook;
 
 public class CsvJsonConverterTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "CsvJsonConverterTest");
+    private static final Path TEST_DATA_FOLDER =
+            Paths.get("src", "test", "data", "CsvJsonConverterTest");
 
     @TempDir
     public Path testFolder;
@@ -40,8 +41,7 @@ public class CsvJsonConverterTest {
     @BeforeEach
     public void setUp() throws DataLoadingException {
         csvJsonConverter = new CsvJsonConverter();
-        Path addressBookFilePath = Paths.get("src", "test", "data",
-                "CsvJsonConverterTest", "TestJson.json");
+        Path addressBookFilePath = TEST_DATA_FOLDER.resolve("testConverterFromJson.json");
         JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(addressBookFilePath);
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(testFolder.resolve("userPrefs.json"));
         Storage storage = new ImportCommandTest.TestStorageManager(addressBookStorage, userPrefsStorage);
@@ -51,7 +51,7 @@ public class CsvJsonConverterTest {
 
     @Test
     public void testConvertCsvToJson_validCsv_createsJson(@TempDir Path tempDir) throws IOException, CsvException {
-        Path inputCsv = TEST_DATA_FOLDER.resolve("valid.csv");
+        Path inputCsv = TEST_DATA_FOLDER.resolve("testConverterFromJson.csv");
         Path outputJson = tempDir.resolve("TempOutput.json");
 
         csvJsonConverter.convertCsvToJson(inputCsv, outputJson);
