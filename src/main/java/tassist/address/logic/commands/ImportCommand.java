@@ -97,7 +97,6 @@ public class ImportCommand extends Command {
     /**
      * Generates a command execution success message based on whether
      * the CSV file is imported
-     * {@code personToEdit}.
      */
     private String generateSuccessMessage() {
         String message = filePath != null ? MESSAGE_IMPORT_SUCCESS : MESSAGE_IMPORT_FAILURE;
