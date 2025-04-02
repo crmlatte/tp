@@ -7,6 +7,7 @@ import static tassist.address.logic.commands.CommandTestUtil.VALID_REPOSITORY_AM
 import static tassist.address.logic.commands.CommandTestUtil.VALID_REPOSITORY_NAME;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_STUDENTID_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_USERNAME;
+import static tassist.address.logic.commands.RepoCommand.MESSAGE_USAGE;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_REPOSITORY_NAME;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_USERNAME;
 import static tassist.address.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -17,7 +18,6 @@ import org.junit.jupiter.api.Test;
 
 import tassist.address.logic.Messages;
 import tassist.address.logic.commands.RepoCommand;
-import tassist.address.model.person.Repository;
 import tassist.address.model.person.StudentId;
 
 public class RepoCommandParserTest {
@@ -78,7 +78,7 @@ public class RepoCommandParserTest {
     @Test
     public void parse_emptyArgs_failure() {
         String userInput = " ";
-        String expectedMessage = RepoCommand.MESSAGE_NO_INDEX_STUDENTID;
+        String expectedMessage = RepoCommand.MESSAGE_NO_INDEX_STUDENTID + "\n" + MESSAGE_USAGE;
         assertParseFailure(parser, userInput, expectedMessage);
     }
 

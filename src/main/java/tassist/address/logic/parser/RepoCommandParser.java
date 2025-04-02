@@ -2,6 +2,7 @@ package tassist.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static tassist.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static tassist.address.logic.commands.RepoCommand.MESSAGE_USAGE;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_REPOSITORY;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_REPOSITORY_NAME;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_USERNAME;
@@ -35,7 +36,7 @@ public class RepoCommandParser implements Parser<RepoCommand> {
         String trimmedArgs = argMultimap.getPreamble().trim();
 
         if (trimmedArgs.isEmpty()) {
-            throw new ParseException(RepoCommand.MESSAGE_NO_INDEX_STUDENTID);
+            throw new ParseException(RepoCommand.MESSAGE_NO_INDEX_STUDENTID + "\n" + MESSAGE_USAGE);
         }
 
         String username = argMultimap.getValue(PREFIX_USERNAME).orElse(null);
@@ -69,7 +70,7 @@ public class RepoCommandParser implements Parser<RepoCommand> {
                 return new RepoCommand(studentId, username, repositoryName, repository);
             } catch (IllegalValueException ive) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        RepoCommand.MESSAGE_USAGE), ive);
+                        MESSAGE_USAGE), ive);
             }
         }
 
@@ -78,7 +79,7 @@ public class RepoCommandParser implements Parser<RepoCommand> {
             return new RepoCommand(index, username, repositoryName, repository);
         } catch (IllegalValueException ive) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    RepoCommand.MESSAGE_USAGE), ive);
+                    MESSAGE_USAGE), ive);
         }
     }
 
