@@ -104,6 +104,24 @@ public class ListCommandTest {
     }
 
     @Test
+    public void execute_filterByClass_success() {
+        ListCommand command = new ListCommand(null, null, "class", "T01");
+        Predicate<Person> expectedPredicate = person -> person.getClassNumber().value.equalsIgnoreCase("T01");
+        expectedModel.updateFilteredPersonList(expectedPredicate);
+
+        assertCommandSuccess(command, model, ListCommand.MESSAGE_LIST_FILTERED, expectedModel);
+    }
+
+    @Test
+    public void execute_filterByProjectTeam_success() {
+        ListCommand command = new ListCommand(null, null, "team", "WealthAssist");
+        Predicate<Person> expectedPredicate = person -> person.getProjectTeam().value.equalsIgnoreCase("WealthAssist");
+        expectedModel.updateFilteredPersonList(expectedPredicate);
+
+        assertCommandSuccess(command, model, ListCommand.MESSAGE_LIST_FILTERED, expectedModel);
+    }
+
+    @Test
     public void execute_filterProgressAndSortNameDesc_success() {
         ListCommand command = new ListCommand("name", "des", "progress", "30");
         Predicate<Person> expectedPredicate = person -> person.getProgress().value <= 30;
@@ -194,6 +212,16 @@ public class ListCommandTest {
 
         // different type -> returns false
         assertNotEquals(5, command1);
+    }
 
+    @Test
+    public void listCommand_toString() {
+        ListCommand command = new ListCommand("name", "asc", "class", "T01");
+        String expectedOutput = "ListCommand{sortType='name', sortOrder='asc', filterType='class', filterValue='T01'}";
+        assertEquals(expectedOutput, command.toString());
+
+        ListCommand emptyCommand = new ListCommand(null, null, null, null);
+        String expectedEmpty = "ListCommand{sortType='null', sortOrder='null', filterType='null', filterValue='null'}";
+        assertEquals(expectedEmpty, emptyCommand.toString());
     }
 }

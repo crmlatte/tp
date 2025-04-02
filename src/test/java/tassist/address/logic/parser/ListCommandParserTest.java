@@ -36,6 +36,8 @@ public class ListCommandParserTest {
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
+        // Invalid argument
+        assertThrows(ParseException.class, () -> parser.parse(" abcdefg"));
         // Invalid sort type
         assertThrows(ParseException.class, () -> parser.parse(" s/invalid o/asc"));
 

@@ -62,6 +62,7 @@ public class ListCommand extends Command {
     public final String sortOrder;
     public final String filterType;
     public final String filterValue;
+    public final String originalCaseFilterValue; //for use in toString() only
 
     /**
      * Constructor for ListCommand with sorting and filtering.
@@ -71,6 +72,7 @@ public class ListCommand extends Command {
         this.sortOrder = sortOrder != null ? sortOrder.toLowerCase() : null;
         this.filterType = filterType != null ? filterType.toLowerCase() : null;
         this.filterValue = filterValue != null ? filterValue.toLowerCase() : null;
+        this.originalCaseFilterValue = filterValue;
     }
 
     /**
@@ -81,6 +83,7 @@ public class ListCommand extends Command {
         this.sortOrder = null;
         this.filterType = null;
         this.filterValue = null;
+        this.originalCaseFilterValue = null;
     }
 
     @Override
@@ -203,7 +206,7 @@ public class ListCommand extends Command {
                 + "sortType='" + sortType + '\''
                 + ", sortOrder='" + sortOrder + '\''
                 + ", filterType='" + filterType + '\''
-                + ", filterValue='" + filterValue + '\''
+                + ", filterValue='" + originalCaseFilterValue + '\''
                 + '}';
     }
 }
