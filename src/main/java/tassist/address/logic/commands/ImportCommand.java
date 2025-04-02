@@ -64,17 +64,16 @@ public class ImportCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_FILE_PATH);
         }
 
+        if (!isCsvFile(filePath.toString())) {
+            throw new CommandException(Messages.MESSAGE_INVALID_FILE_PATH); // Not CSV file type
+        }
+
         ReadOnlyAddressBook newData;
 
         try {
+            Path jsonFilePath = model.getAddressBookFilePath();
             CsvJsonConverter converter = new CsvJsonConverter();
-
-            if (isCsvFile(filePath.toString())) {
-                Path jsonFilePath = model.getAddressBookFilePath();
-                converter.convertCsvToJson(filePath, jsonFilePath);
-            } else {
-                throw new CommandException(Messages.MESSAGE_INVALID_FILE_PATH); // Not CSV file type
-            }
+            converter.convertCsvToJson(filePath, jsonFilePath);
 
             newData = storage.readAddressBook().get();
             model.setAddressBook(newData);

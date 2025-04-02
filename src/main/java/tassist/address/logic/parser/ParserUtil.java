@@ -204,8 +204,6 @@ public class ParserUtil {
 
         if (!path.isAbsolute()) {
             throw new ParseException(Messages.MESSAGE_INVALID_FILE_PATH);
-        } else if (!Files.exists(path)) {
-            throw new ParseException(Messages.MESSAGE_INVALID_FILE_PATH);
         }
 
         return path;

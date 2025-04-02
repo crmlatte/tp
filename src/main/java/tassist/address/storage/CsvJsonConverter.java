@@ -2,6 +2,7 @@ package tassist.address.storage;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -9,11 +10,21 @@ import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvException;
+
+import javafx.beans.Observable;
+import javafx.collections.ObservableList;
+import tassist.address.model.ReadOnlyAddressBook;
+import tassist.address.model.person.Person;
+import tassist.address.model.tag.Tag;
+import tassist.address.model.timedevents.TimedEvent;
 
 /**
  * A utility class that handles the conversion between CSV and JSON formats.
@@ -72,6 +83,9 @@ public class CsvJsonConverter {
         wrappedData.put("persons", personsData);
         wrappedData.put("timedEvents", timedEventsData);
         objectMapper.writeValue(new File(jsonFilePath.toString()), wrappedData);
+
+        csvReader.close();
+        fileReader.close();
     }
 
     private List<Map<String, Object>> retrieveData(String[] headers, List<String[]> rows) {
@@ -133,5 +147,102 @@ public class CsvJsonConverter {
         }
 
         return timedEventsList;
+    }
+
+    public void convertJsonToCsv(Path csvFilePath, ReadOnlyAddressBook addressBook) throws IOException {
+        FileWriter fileWriter = new FileWriter(csvFilePath.toString());
+        CSVWriter csvWriter = new CSVWriter(fileWriter);
+
+        ObservableList<Person> persons = addressBook.getPersonList();
+        ObservableList<TimedEvent> timedEvents = addressBook.getTimedEventList();
+
+        writePersons(csvWriter, persons);
+
+        csvWriter.writeNext(new String[]{"timedEvents"});
+
+        writeTimedEvents(csvWriter, timedEvents);
+
+        csvWriter.close();
+        fileWriter.close();
+    }
+
+    private void writePersons(CSVWriter csvWriter, ObservableList<Person> persons) {
+        String[] personHeader = Person.getAttributes().toArray(new String[0]);
+        csvWriter.writeNext(personHeader);
+
+        for (Person person : persons) {
+            String[] personData = {
+                    person.getName().toString(),
+                    person.getPhone().toString(),
+                    person.getEmail().toString(),
+                    person.getClassNumber().toString(),
+                    person.getStudentId().toString(),
+                    person.getGithub().toString(),
+                    person.getProjectTeam().toString(),
+                    convertTagsToCsvString(person.getTags()),
+                    person.getProgress().toString(),
+                    convertTimedEventsToCsvString(person.getTimedEvents())
+            };
+
+            csvWriter.writeNext(personData);
+        }
+    }
+
+    private void writeTimedEvents(CSVWriter csvWriter, ObservableList<TimedEvent> timedEvents) {
+        String[] timedEventHeader = TimedEvent.getAttributes().toArray(new String[0]);
+        csvWriter.writeNext(timedEventHeader);
+
+        for (TimedEvent timedEvent : timedEvents) {
+            String[] timedEventData = {
+                    timedEvent.getName(),
+                    timedEvent.getDescription(),
+                    timedEvent.getTime().toString(),
+                    timedEvent.getClass().getSimpleName()
+            };
+
+            csvWriter.writeNext(timedEventData);
+        }
+    }
+
+    private String convertTagsToCsvString(Set<Tag> tags) {
+        if (tags == null || tags.isEmpty()) {
+            return "";
+        }
+
+        StringBuilder tagsData = new StringBuilder();
+        for (Tag tag : tags) {
+            tagsData.append(tag.toString().replaceAll("[\\[\\]]", ""))
+                    .append(",");
+        }
+
+        if (tagsData.length() > 0) {
+            tagsData.setLength(tagsData.length() - 1);  // Remove the last comma
+        }
+
+        return tagsData.toString();
+    }
+
+    private String convertTimedEventsToCsvString(ObservableList<TimedEvent> timedEvents) {
+        if (timedEvents.isEmpty()) {
+            return "";
+        }
+
+        StringBuilder timedEventData = new StringBuilder();
+        for (TimedEvent timedEvent : timedEvents) {
+            timedEventData.append(timedEvent.getName())
+                    .append(",")
+                    .append(timedEvent.getDescription())
+                    .append(",")
+                    .append(timedEvent.getTime())
+                    .append(",")
+                    .append(timedEvent.getClass().getSimpleName())
+                    .append(",");
+        };
+
+        if (timedEventData.length() > 0) {
+            timedEventData.setLength(timedEventData.length() - 1);  // Remove the last comma
+        }
+
+        return timedEventData.toString();
     }
 }

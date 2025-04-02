@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 
 import tassist.address.commons.util.ToStringBuilder;
 
@@ -47,6 +49,15 @@ public abstract class TimedEvent {
 
     public LocalDateTime getTime() {
         return time;
+    }
+
+    public static List<String> getAttributes() {
+        List<String> attributes = new ArrayList<>();
+        attributes.add("name");
+        attributes.add("description");
+        attributes.add("time");
+        attributes.add("type");
+        return attributes;
     }
 
     /**

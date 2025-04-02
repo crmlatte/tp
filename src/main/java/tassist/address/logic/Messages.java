@@ -22,6 +22,7 @@ public class Messages {
                 "Multiple values specified for the following single-valued field(s): ";
     public static final String MESSAGE_PERSON_NOT_FOUND = "No student found with StudentId: ";
     public static final String MESSAGE_INVALID_FILE_PATH = "Invalid file path! \n%1$s";
+    public static final String MESSAGE_INVALID_FILE_FORMAT = "Invalid file format! \n%1$s";
 
     /**
      * Returns an error message indicating the duplicate prefixes.
