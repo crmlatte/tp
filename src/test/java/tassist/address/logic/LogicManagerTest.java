@@ -9,7 +9,6 @@ import static tassist.address.logic.commands.CommandTestUtil.PROJECT_TEAM_DESC_A
 import static tassist.address.logic.commands.CommandTestUtil.STUDENTID_DESC_AMY;
 import static tassist.address.testutil.Assert.assertThrows;
 import static tassist.address.testutil.TypicalPersons.AMY;
-import static tassist.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -26,8 +25,6 @@ import org.junit.jupiter.api.io.TempDir;
 import tassist.address.logic.commands.AddCommand;
 import tassist.address.logic.commands.CommandResult;
 import tassist.address.logic.commands.DeleteCommand;
-import tassist.address.logic.commands.ImportCommand;
-import tassist.address.logic.commands.ImportCommandTest;
 import tassist.address.logic.commands.ListCommand;
 import tassist.address.logic.commands.OpenCommand;
 import tassist.address.logic.commands.exceptions.CommandException;
