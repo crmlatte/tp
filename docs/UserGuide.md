@@ -20,12 +20,12 @@ TAssist is a **desktop application** for Teaching Assistants (TAs) from School o
 
 4. Open the Command Prompt (Windows) or Terminal (Mac/Linux)
 
-5. Navigate to the folder where you saved the TAssist1.3.jar file using `cd` command<br>
+5. Navigate to the folder where you saved the TAssist1.5.jar file using `cd` command<br>
    Example (Windows): `cd C:\Users\YourName\Downloads`. <br>
    Example (Mac/Linux): `cd /Users/YourName/Downloads`.
 
 6. Type this command and press enter to run the application.<br>
-    ```java -jar TAssist1.3jar```
+    ```java -jar TAssist1.5jar```
 
 7. A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
@@ -345,7 +345,7 @@ If your changes to the data file makes its format invalid, TAssist will discard 
 Furthermore, certain edits can cause TAssist to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
 
-### Archiving data files `[coming in v1.5]`
+### Archiving data files `[coming in v1.6]`
 
 _Details coming soon ..._
 
@@ -374,12 +374,12 @@ Action | Format, Examples
 **Delete** | `delete INDEX` or `delete STUDENT_ID` <br> e.g. `delete 3`, `delete A1234567M`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [s/STUDENTID] [g/GITHUB_URL] [pt/TEAM] [c/CLASS_NUMBER] [t/TAG]…​ [pr/PROGRESS]`<br> e.g. `edit 2 n/James Lee e/jameslee@example.com`
 **Find** | `find KEYWORD [MORE_KEYWORDS]` or `find STUDENT_ID` or `find CLASS_NUMBER` <br> e.g. `find James Jake`, `find A1234567B`, `find R22`
-**List** | `list [f/FILTER_TYPE fv/FILTER_VALUE] [s/SORT_TYPE o/SORT_ORDER]`<br> e.g.,`list f/progress fv/50 s/name o/des`
-**Class** | `class INDEX c/CLASS_NUMBER` or `class STUDENT_ID c/CLASS_NUMBER` <br> e.g.,`class 1 c/T01`, `class A7654321B c/T02`
-**Github** | `github INDEX g/GITHUB_URL` or `github STUDENT_ID g/GITHUB_URL` <br> e.g.,`github 2 g/https://github.com/alice`, `github A1234567B g/https://github.com/alice`
-**Open** | `open INDEX` or `open STUDENT_ID` <br> e.g., `open 3`, `open A7654321B`
-**Assignment** | `assignment n/NAME d/DATE` <br> e.g.,`assignment n/CS2103T Project d/30-01-2025`
+**List** | `list [f/FILTER_TYPE fv/FILTER_VALUE] [s/SORT_TYPE o/SORT_ORDER]`<br> e.g.`list f/progress fv/50 s/name o/des`
+**Class** | `class INDEX c/CLASS_NUMBER` or `class STUDENT_ID c/CLASS_NUMBER` <br> e.g.`class 1 c/T01`, `class A7654321B c/T02`
+**Github** | `github INDEX g/GITHUB_URL` or `github STUDENT_ID g/GITHUB_URL` <br> e.g.`github 2 g/https://github.com/alice`, `github A1234567B g/https://github.com/alice`
+**Open** | `open INDEX` or `open STUDENT_ID` <br> e.g. `open 3`, `open A7654321B`
+**Assignment** | `assignment n/NAME d/DATE` <br> e.g.`assignment n/CS2103T Project d/30-01-2025`
 **View** | `view`
-**Assign** | `assign TIMED_EVENT_INDEX STUDENT_INDEX` or `assign TIMED_EVENT_INDEX STUDENT_ID` or `assign TIMED_EVENT_INDEX CLASS_NUMBER` <br> e.g., `assign 1 2`, `assign 2 A1234567B`,`assign 2 T03`
-**Unassign** | `unassign TIMED_EVENT_INDEX` <br> e.g., `unassign 1`
+**Assign** | `assign TIMED_EVENT_INDEX STUDENT_INDEX` or `assign TIMED_EVENT_INDEX STUDENT_ID` or `assign TIMED_EVENT_INDEX CLASS_NUMBER` <br> e.g. `assign 1 2`, `assign 2 A1234567B`,`assign 2 T03`
+**Unassign** | `unassign TIMED_EVENT_INDEX` <br> e.g. `unassign 1`
 **Help** | `help`
