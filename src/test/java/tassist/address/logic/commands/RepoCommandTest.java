@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static tassist.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.nio.file.Path;
 import java.util.Arrays;
@@ -20,10 +19,8 @@ import tassist.address.commons.core.GuiSettings;
 import tassist.address.commons.core.index.Index;
 import tassist.address.logic.commands.exceptions.CommandException;
 import tassist.address.model.Model;
-import tassist.address.model.ModelManager;
 import tassist.address.model.ReadOnlyAddressBook;
 import tassist.address.model.ReadOnlyUserPrefs;
-import tassist.address.model.UserPrefs;
 import tassist.address.model.person.Person;
 import tassist.address.model.person.Repository;
 import tassist.address.model.person.StudentId;
