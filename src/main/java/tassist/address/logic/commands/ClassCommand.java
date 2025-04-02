@@ -26,12 +26,13 @@ public class ClassCommand extends Command {
     public static final String COMMAND_WORD = "class";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Assign a tutorial class to the student identified"
+            + ": Assign a tutorial class to the student identified "
             + "by the index in the displayed list or student ID.\n"
             + "Existing tutorial class will be overwritten by the input.\n"
             + "Parameters: INDEX (must be a positive integer) or STUDENTID\n"
-            + " + " + PREFIX_CLASS + " T or R + [Tutorial Class Number xx (xx = 01-99)]\n"
-            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_CLASS + "T01\n"
+            + " + " + PREFIX_CLASS + " + T or R + [Tutorial Class Number xx (xx = 01-99)]\n"
+            + "Example:\n"
+            + COMMAND_WORD + " 1 " + PREFIX_CLASS + "T01 "
             + "or " + COMMAND_WORD + " A0123456B " + PREFIX_CLASS + "T01";
 
     public static final String MESSAGE_ADD_CLASS_SUCCESS = "Assigned tutorial class to student: %1$s";
