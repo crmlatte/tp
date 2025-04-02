@@ -11,7 +11,7 @@ public class Github {
     public static final String NO_GITHUB = "No Github assigned";
     public static final String MESSAGE_CONSTRAINTS =
             "GitHub links should be in the format: https://github.com/USERNAME\n "
-            + "Alternatively, you may enter 'No Github assigned'.\n\n "
+            + "Alternatively, you may leave the github field blank to remove the GitHub link from a student.\n\n "
             + "The URL must follow these rules:\n"
             + "1. The base GitHub url must be 'https://github.com'\n"
             + "2. This is followed by a '/' and then a username.\n\n "

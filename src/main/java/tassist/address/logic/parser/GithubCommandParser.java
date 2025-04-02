@@ -19,6 +19,8 @@ import tassist.address.model.person.StudentId;
  */
 public class GithubCommandParser implements Parser<GithubCommand> {
 
+    public static final String MESSAGE_REMOVE_GITHUB = "Please use `g/` to remove a GitHub link. e.g., github 1 g/";
+
     /**
      * Parses the given {@code String} of arguments in the context of the {@code GithubCommand}
      * and returns a {@code GithubCommand} object for execution.
@@ -37,8 +39,15 @@ public class GithubCommandParser implements Parser<GithubCommand> {
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_GITHUB);
 
-        String github = argMultimap.getValue(PREFIX_GITHUB)
-                .filter(value -> !value.isEmpty()).orElse(NO_GITHUB);
+        String github = argMultimap.getValue(PREFIX_GITHUB).orElse("");
+
+        if ("No Github assigned".equalsIgnoreCase(github)) {
+            throw new ParseException(MESSAGE_REMOVE_GITHUB);
+        }
+
+        if (github.isEmpty()) {
+            github = NO_GITHUB;
+        }
 
         try {
             Github githubUrl = new Github(github);
