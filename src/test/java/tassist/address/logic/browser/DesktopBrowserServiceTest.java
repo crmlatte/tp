@@ -10,8 +10,6 @@ import java.net.URISyntaxException;
 
 import org.junit.jupiter.api.Test;
 
-import tassist.address.logic.commands.OpenCommand.BrowserService;
-
 public class DesktopBrowserServiceTest {
 
     @Test

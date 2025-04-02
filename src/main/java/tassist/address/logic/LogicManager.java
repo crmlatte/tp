@@ -10,6 +10,8 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import tassist.address.commons.core.GuiSettings;
 import tassist.address.commons.core.LogsCenter;
+import tassist.address.logic.browser.BrowserService;
+import tassist.address.logic.browser.DesktopBrowserService;
 import tassist.address.logic.commands.Command;
 import tassist.address.logic.commands.CommandResult;
 import tassist.address.logic.commands.ConfirmableCommand;
@@ -36,20 +38,20 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final AddressBookParser addressBookParser;
-    private final OpenCommand.BrowserService browserService;
+    private final BrowserService browserService;
     private ConfirmableCommand pendingConfirmation = null;
 
     /**
      * Constructs a {@code LogicManager} with the given {@code Model} and {@code Storage}.
      */
     public LogicManager(Model model, Storage storage) {
-        this(model, storage, new OpenCommand.DesktopBrowserService());
+        this(model, storage, new DesktopBrowserService());
     }
 
     /**
      * Constructs a {@code LogicManager} with the given {@code Model}, {@code Storage}, and {@code BrowserService}.
      */
-    public LogicManager(Model model, Storage storage, OpenCommand.BrowserService browserService) {
+    public LogicManager(Model model, Storage storage, BrowserService browserService) {
         this.model = model;
         this.storage = storage;
         this.addressBookParser = new AddressBookParser();
