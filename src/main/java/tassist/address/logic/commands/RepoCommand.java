@@ -50,19 +50,19 @@ public class RepoCommand extends Command {
     public final Index index;
 
     public final StudentId studentId;
+    public final Repository repositoryUrl;
 
     /**
      * @param studentId of the person in the list to edit the repository of
      * @param username used to update username
      * @param repositoryName used to update repositoryName
      */
-    public RepoCommand(StudentId studentId, String username, String repositoryName) {
+    public RepoCommand(StudentId studentId, String username, String repositoryName, Repository repositoryUrl) {
         requireNonNull(studentId);
-        requireNonNull(username);
-        requireNonNull(repositoryName);
         this.studentId = studentId;
-        this.username = username;
-        this.repositoryName = repositoryName;
+        this.username = username != null ? username : null;
+        this.repositoryName = repositoryName != null ? repositoryName : null;
+        this.repositoryUrl = repositoryUrl != null ? repositoryUrl : null;
         this.index = null;
     }
 
@@ -71,13 +71,12 @@ public class RepoCommand extends Command {
      * @param username used to update username
      * @param repositoryName used to update repositoryName
      */
-    public RepoCommand( Index index, String username, String repositoryName) {
+    public RepoCommand( Index index, String username, String repositoryName, Repository repositoryUrl) {
         requireNonNull(index);
-        requireNonNull(username);
-        requireNonNull(repositoryName);
         this.studentId = null;
-        this.username = username;
-        this.repositoryName = repositoryName;
+        this.username = username != null ? username : null;
+        this.repositoryName = repositoryName != null ? repositoryName : null;
+        this.repositoryUrl = repositoryUrl != null ? repositoryUrl : null;
         this.index = index;
     }
 
@@ -110,7 +109,7 @@ public class RepoCommand extends Command {
                 personToEdit.getStudentId(),
                 personToEdit.getGithub(),
                 personToEdit.getProjectTeam(),
-                createRepo(username, repositoryName),
+                createRepo(username, repositoryName, repositoryUrl),
                 personToEdit.getTags(),
                 personToEdit.getProgress());
 
