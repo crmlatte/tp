@@ -13,6 +13,7 @@ import tassist.address.commons.core.LogsCenter;
 import tassist.address.logic.commands.Command;
 import tassist.address.logic.commands.CommandResult;
 import tassist.address.logic.commands.ConfirmableCommand;
+import tassist.address.logic.commands.ImportCommand;
 import tassist.address.logic.commands.OpenCommand;
 import tassist.address.logic.commands.exceptions.CommandException;
 import tassist.address.logic.parser.AddressBookParser;
@@ -54,6 +55,7 @@ public class LogicManager implements Logic {
         this.storage = storage;
         this.addressBookParser = new AddressBookParser();
         this.browserService = browserService;
+        ImportCommand.setStorage(storage);
     }
 
     @Override
@@ -83,7 +85,7 @@ public class LogicManager implements Logic {
             } else if (openCommand.getTargetIndex() != null) {
                 command = new OpenCommand(openCommand.getTargetIndex(), browserService);
             } else {
-                //won't reach here, throwing an exception just in case
+                // won't reach here, throwing an exception just in case
                 throw new CommandException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, OpenCommand.MESSAGE_USAGE));
             }
         }
