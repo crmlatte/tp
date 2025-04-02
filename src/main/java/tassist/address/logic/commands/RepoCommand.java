@@ -1,7 +1,6 @@
 package tassist.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static tassist.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tassist.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static tassist.address.model.person.Repository.MESSAGE_CONSTRAINTS;
 import static tassist.address.model.person.Repository.MESSAGE_REPOSITORY_NAME_VALIDITY;
@@ -52,7 +51,7 @@ public class RepoCommand extends Command {
     public static final String MESSAGE_INVALID_URL = "Please enter a valid URL!"
             + MESSAGE_CONSTRAINTS;
 
-    public static String MESSAGE_VALID_COMMAND = "Either provide a full repository URL (r/) or both username (un/) "
+    public static final String MESSAGE_VALID_COMMAND = "Either provide a full repository URL (r/) or both username (un/) "
             + "and repository name (rn/).\n"
             + MESSAGE_USAGE;
     public final String username;
@@ -82,7 +81,7 @@ public class RepoCommand extends Command {
      * @param username used to update username
      * @param repositoryName used to update repositoryName
      */
-    public RepoCommand( Index index, String username, String repositoryName, Repository repositoryUrl) {
+    public RepoCommand(Index index, String username, String repositoryName, Repository repositoryUrl) {
         requireNonNull(index);
         this.studentId = null;
         this.username = username != null ? username : null;

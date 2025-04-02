@@ -9,8 +9,6 @@ import static tassist.address.logic.parser.CliSyntax.PREFIX_REPOSITORY;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_REPOSITORY_NAME;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_USERNAME;
 
-import java.util.stream.Stream;
-
 import tassist.address.commons.core.index.Index;
 import tassist.address.commons.exceptions.IllegalValueException;
 import tassist.address.logic.commands.RepoCommand;
