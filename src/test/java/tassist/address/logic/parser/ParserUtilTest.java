@@ -6,12 +6,15 @@ import static tassist.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static tassist.address.testutil.Assert.assertThrows;
 import static tassist.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 import tassist.address.logic.parser.exceptions.ParseException;
 import tassist.address.model.person.ClassNumber;
@@ -23,6 +26,7 @@ import tassist.address.model.person.StudentId;
 import tassist.address.model.tag.Tag;
 
 public class ParserUtilTest {
+
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_EMAIL = "example.com";
@@ -43,6 +47,13 @@ public class ParserUtilTest {
     private static final String VALID_PROGRESS_2 = "20%";
 
     private static final String WHITESPACE = " \t\r\n";
+
+    private static final String FILE_PATH_1 = "sample-1.csv";
+    private static final String FILE_PATH_2 = "sample-2.csv";
+    private static final String FILE_PATH_3 = "sample-3.csv";
+
+    @TempDir
+    public Path testRoot;
 
     @Test
     public void parseIndex_invalidInput_throwsParseException() {
@@ -237,7 +248,7 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseProgress_invalidValue_throwsParserException() {
+    public void parseProgress_invalidValue_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseProgress(INVALID_PROGRESS));
     }
 
@@ -258,5 +269,55 @@ public class ParserUtilTest {
         String progressWithoutWhiteSpace = VALID_PROGRESS_1;
         Progress expectedProgress = new Progress(VALID_PROGRESS_1);
         assertEquals(expectedProgress, ParserUtil.parseProgress(progressWithoutWhiteSpace));
+    }
+
+    @Test
+    public void parseFilePath_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseFilePath(null));
+    }
+
+    @Test
+    public void parseFilePath_absolutePath_returnsSamePath() throws Exception {
+        // mimics absolute path
+        final Path absoluteFilePath = testRoot.resolve(FILE_PATH_1);
+
+        // creates the file so it "exists"
+        if (!Files.exists(absoluteFilePath)) {
+            Files.createFile(absoluteFilePath);
+        }
+
+        Path expectedAbsolutePath = absoluteFilePath.toAbsolutePath();
+        assertEquals(expectedAbsolutePath, ParserUtil.parseFilePath(absoluteFilePath.toString()));
+    }
+
+    @Test
+    public void parseFilePath_absolutePathWithWhitespace_returnsTrimmedAbsolutePath() throws Exception {
+        // mimics absolute path
+        final Path absoluteFilePath = testRoot.resolve(FILE_PATH_2);
+
+        // creates the file so it "exists"
+        if (!Files.exists(absoluteFilePath)) {
+            Files.createFile(absoluteFilePath);
+        }
+
+        String absolutePathWithWhitespaceString = WHITESPACE + absoluteFilePath.toString() + WHITESPACE;
+        Path expectedAbsolutePath = absoluteFilePath.toAbsolutePath();
+        assertEquals(expectedAbsolutePath, ParserUtil.parseFilePath(absolutePathWithWhitespaceString));
+    }
+
+    @Test
+    public void parseFilePath_nonExistentAbsolutePath_throwsParseException() {
+        // mimics absolute path
+        final Path nonExistentAbsoluteFilePath = testRoot.resolve(FILE_PATH_3);
+
+        // does not create the file so it "doesn't exist"
+
+        assertThrows(ParseException.class, () -> ParserUtil.parseFilePath(nonExistentAbsoluteFilePath.toString()));
+    }
+
+    @Test
+    public void parseFilePath_relativePath_throwsParseException() {
+        // VALID_FILE_PATH is relative
+        assertThrows(ParseException.class, () -> ParserUtil.parseFilePath(FILE_PATH_1));
     }
 }
