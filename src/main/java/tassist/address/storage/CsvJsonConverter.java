@@ -11,7 +11,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -19,7 +18,6 @@ import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvException;
 
-import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import tassist.address.model.ReadOnlyAddressBook;
 import tassist.address.model.person.Person;
@@ -149,6 +147,19 @@ public class CsvJsonConverter {
         return timedEventsList;
     }
 
+    /**
+     * Converts the data from a {@link ReadOnlyAddressBook} into a CSV file format.
+     * <p>
+     * This method writes the person and timed event information from the given {@code addressBook}
+     * into the specified {@code csvFilePath}. It first writes the headers for persons and timed events,
+     * followed by their respective data. It ensures that all person-related data (like name, email, tags, etc.)
+     * and timed event-related data (like name, description, time, etc.) are properly formatted in the CSV.
+     * </p>
+     *
+     * @param csvFilePath The path where the CSV file should be saved. This path must be valid and writable.
+     * @param addressBook The address book containing persons and timed events that will be converted to CSV.
+     * @throws IOException If an error occurs during file writing, such as file access issues or invalid paths.
+     */
     public void convertJsonToCsv(Path csvFilePath, ReadOnlyAddressBook addressBook) throws IOException {
         FileWriter fileWriter = new FileWriter(csvFilePath.toString());
         CSVWriter csvWriter = new CSVWriter(fileWriter);
@@ -216,7 +227,7 @@ public class CsvJsonConverter {
         }
 
         if (tagsData.length() > 0) {
-            tagsData.setLength(tagsData.length() - 1);  // Remove the last comma
+            tagsData.setLength(tagsData.length() - 1); // Remove the last comma
         }
 
         return tagsData.toString();
@@ -240,7 +251,7 @@ public class CsvJsonConverter {
         };
 
         if (timedEventData.length() > 0) {
-            timedEventData.setLength(timedEventData.length() - 1);  // Remove the last comma
+            timedEventData.setLength(timedEventData.length() - 1); // Remove the last comma
         }
 
         return timedEventData.toString();
