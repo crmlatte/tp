@@ -82,4 +82,13 @@ public class UnassignCommand extends Command implements ConfirmableCommand {
                 || (other instanceof UnassignCommand // instanceof handles nulls
                 && targetIndex.equals(((UnassignCommand) other).targetIndex)); // state check
     }
+
+    @Override
+    public String toString() {
+        return new StringBuilder()
+                .append("UnassignCommand{")
+                .append("targetIndex=").append(targetIndex)
+                .append("}")
+                .toString();
+    }
 }
