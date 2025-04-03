@@ -55,6 +55,14 @@ public class Repository {
         return test.matches(VALIDATION_REGEX) || test.matches(NO_REPOSITORY);
     }
 
+    public static boolean isValidUsername(String test) {
+        return test.matches(VALID_USERNAME_REGEX);
+    }
+
+    public static boolean isValidRepositoryName(String test) {
+        return test.matches(VALID_REPOSITORY_REGEX);
+    }
+
     @Override
     public String toString() {
         return value;

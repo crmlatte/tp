@@ -45,7 +45,6 @@ public class RepoCommandParser implements Parser<RepoCommand> {
 
         Repository repository;
 
-        // Build full repo from URL
         if (fullRepoUrl != null) {
             try {
                 repository = new Repository(fullRepoUrl);
@@ -53,8 +52,6 @@ public class RepoCommandParser implements Parser<RepoCommand> {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         RepoCommand.MESSAGE_INVALID_URL), e);
             }
-
-            // Build repo from username + repo name
         } else if (username != null && repositoryName != null) {
             try {
                 repository = RepoCommand.createRepo(username, repositoryName);

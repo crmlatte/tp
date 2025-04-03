@@ -5,8 +5,6 @@ import static tassist.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static tassist.address.model.person.Repository.MESSAGE_CONSTRAINTS;
 import static tassist.address.model.person.Repository.MESSAGE_REPOSITORY_NAME_VALIDITY;
 import static tassist.address.model.person.Repository.MESSAGE_USERNAME_VALIDITY;
-import static tassist.address.model.person.Repository.VALID_REPOSITORY_REGEX;
-import static tassist.address.model.person.Repository.VALID_USERNAME_REGEX;
 
 import java.util.List;
 import java.util.Objects;
@@ -143,11 +141,11 @@ public class RepoCommand extends Command {
      * @return a valid {@link Repository}, or {@link Repository#NO_REPOSITORY} if invalid
      */
     public static Repository createRepo(String username, String repositoryName) {
-        if (username == null || !username.matches(VALID_USERNAME_REGEX)) {
+        if (username == null || Repository.isValidUsername(username)) {
             throw new IllegalArgumentException(MESSAGE_INVALID_USERNAME);
         }
 
-        if (repositoryName == null || !repositoryName.matches(VALID_REPOSITORY_REGEX)) {
+        if (repositoryName == null || Repository.isValidRepositoryName(repositoryName)) {
             throw new IllegalArgumentException(MESSAGE_INVALID_REPOSITORY_NAME);
         }
 
