@@ -1,6 +1,7 @@
 package tassist.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -55,7 +56,7 @@ public class ImportCommandTest {
         ImportCommand.setStorage(storage);
     }
 
-    /*@Test
+    @Test
     public void execute_validAbsolutePath_success() throws CommandException {
         Path testCsvFilePath = Paths.get("src", "test", "data",
                 "CsvJsonConverterTest", "valid.csv");
@@ -65,7 +66,7 @@ public class ImportCommandTest {
         assertEquals(testCsvFilePath, importCommand.getFilePath());
         assertEquals(String.format(ImportCommand.MESSAGE_IMPORT_SUCCESS, testCsvFilePath),
                 result.getFeedbackToUser());
-    }*/
+    }
 
     @Test
     public void execute_nullFilePath_throwsCommandException() {

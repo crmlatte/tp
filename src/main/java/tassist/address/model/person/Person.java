@@ -151,6 +151,7 @@ public class Person {
         attributes.add("studentId");
         attributes.add("github");
         attributes.add("projectTeam");
+        attributes.add("repository");
         attributes.add("tags");
         attributes.add("progress");
         attributes.add("timedEvents");

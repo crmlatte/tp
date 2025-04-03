@@ -187,6 +187,7 @@ public class CsvJsonConverter {
                     person.getStudentId().toString(),
                     person.getGithub().toString(),
                     person.getProjectTeam().toString(),
+                    person.getRepository().toString(),
                     convertTagsToCsvString(person.getTags()),
                     person.getProgress().toString(),
                     convertTimedEventsToCsvString(person.getTimedEvents())
