@@ -24,6 +24,8 @@ import tassist.address.logic.commands.HelpCommand;
 import tassist.address.logic.commands.ImportCommand;
 import tassist.address.logic.commands.ListCommand;
 import tassist.address.logic.commands.OpenCommand;
+import tassist.address.logic.commands.ProgressCommand;
+import tassist.address.logic.commands.RepoCommand;
 import tassist.address.logic.commands.UnassignCommand;
 import tassist.address.logic.commands.ViewCommand;
 import tassist.address.logic.parser.exceptions.ParseException;
@@ -93,6 +95,9 @@ public class AddressBookParser {
         case GithubCommand.COMMAND_WORD:
             return new GithubCommandParser().parse(arguments);
 
+        case RepoCommand.COMMAND_WORD:
+            return new RepoCommandParser().parse(arguments);
+
         case AssignmentCommand.COMMAND_WORD:
             return new AssignmentCommandParser().parse(arguments);
 
@@ -107,6 +112,9 @@ public class AddressBookParser {
 
         case OpenCommand.COMMAND_WORD:
             return new OpenCommandParser().parse(arguments);
+
+        case ProgressCommand.COMMAND_WORD:
+            return new ProgressCommandParser().parse(arguments);
 
         case ImportCommand.COMMAND_WORD:
             return new ImportCommandParser().parse(arguments);

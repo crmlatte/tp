@@ -1,6 +1,10 @@
 package tassist.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static tassist.address.logic.parser.CliSyntax.PREFIX_FILTER;
+import static tassist.address.logic.parser.CliSyntax.PREFIX_FILTER_VALUE;
+import static tassist.address.logic.parser.CliSyntax.PREFIX_ORDER;
+import static tassist.address.logic.parser.CliSyntax.PREFIX_SORT;
 import static tassist.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Arrays;
@@ -20,6 +24,18 @@ import tassist.address.model.person.Person;
 public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists students with optional sorting and filtering.\n"
+            + "Parameters:\n"
+            + "  [Optional] " + PREFIX_FILTER + "FILTER_TYPE " + PREFIX_FILTER_VALUE + "FILTER_VALUE\n"
+            + "  [Optional] " + PREFIX_SORT + "SORT_TYPE " + PREFIX_ORDER + "SORT_ORDER\n"
+            + "Supported SORT_TYPE: name, progress, github\n"
+            + "Supported SORT_ORDER: asc (ascending), des (descending)\n"
+            + "Supported FILTER_TYPE: class, team, progress\n"
+            + "Example: \n"
+            + "1. list s/name o/asc\n"
+            + "2. list f/class fv/T01\n"
+            + "3. list f/class fv/T01 s/name o/asc";
+
     public static final String MESSAGE_SUCCESS = "Listed all students";
     public static final String MESSAGE_LIST_ALL = "Listed all students.";
     public static final String MESSAGE_LIST_FILTERED = "Listed students with filter applied.";
@@ -30,7 +46,7 @@ public class ListCommand extends Command {
     public static final String MESSAGE_INVALID_SORT_ORDER = "Invalid sort order. Allowed sort order: asc, des.";
     public static final String MESSAGE_MISSING_SORT_ORDER = "Please enter sort order. list s/[SORT TYPE] o/[SORT ORDER]"
             + "Allowed sort order: asc,des.";
-    public static final String MESSAGE_INVALID_FILTER = "Invalid filter type. Allowed filter type: course, team, "
+    public static final String MESSAGE_INVALID_FILTER = "Invalid filter type. Allowed filter type: class, team, "
             + "progress";
     public static final String MESSAGE_INVALID_FILTER_VALUE = "This filter value does not exist.";
     public static final String MESSAGE_NONEXISTENT_FILTER_VALUE = "The '%s' filter value does not exist.";
@@ -39,7 +55,7 @@ public class ListCommand extends Command {
 
     public static final List<String> VALID_SORT_ORDERS = Arrays.asList("asc", "des");
     public static final List<String> VALID_SORT_TYPES = Arrays.asList("name", "progress", "github");
-    public static final List<String> VALID_FILTER_TYPES = Arrays.asList("course", "team", "progress");
+    public static final List<String> VALID_FILTER_TYPES = Arrays.asList("class", "team", "progress");
     private static final Logger logger = Logger.getLogger(ListCommand.class.getName());
 
     public final String sortType;
@@ -125,13 +141,13 @@ public class ListCommand extends Command {
 
     private Predicate<Person> getFilter(Model model, String filterType, String filterValue) throws CommandException {
         return switch (filterType) {
-        case "course" -> {
-            boolean hasCourse = model.getFilteredPersonList().stream().anyMatch(p ->
-                    p.getCourse().equalsIgnoreCase(filterValue));
-            if (!hasCourse) {
+        case "class" -> {
+            boolean hasClass = model.getFilteredPersonList().stream().anyMatch(p ->
+                    p.getClassNumber().value.equalsIgnoreCase(filterValue));
+            if (!hasClass) {
                 throw new CommandException(String.format(MESSAGE_NONEXISTENT_FILTER_VALUE, filterValue));
             }
-            yield p -> p.getCourse().equalsIgnoreCase(filterValue);
+            yield p -> p.getClassNumber().value.equalsIgnoreCase(filterValue);
         }
         case "team" -> {
             boolean hasTeam = model.getFilteredPersonList().stream()

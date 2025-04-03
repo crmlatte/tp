@@ -2,11 +2,12 @@
   "persons": [ {
     "name": "Person with invalid name field: Ha!ns Mu@ster",
     "phone": "9482424",
-    "email": "hans@example.com",
+    "email": "hans@u.nus.edu",
     "address": "4th street",
     "studentId" : "A0001114B",
     "github": "https://github.com/default",
     "projectTeam" : "WealthAssist",
+    "repository" : "https://github.com/example/WealthAssist",
     "progress": "50"
   } ]
 }

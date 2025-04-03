@@ -8,7 +8,10 @@ import static tassist.address.logic.commands.CommandTestUtil.VALID_GITHUB_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_STUDENTID_AMY;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_STUDENTID_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static tassist.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static tassist.address.logic.commands.GithubCommand.MESSAGE_DELETE_GITHUB_SUCCESS;
 import static tassist.address.logic.commands.GithubCommand.MESSAGE_DUPLICATE_GITHUB;
+import static tassist.address.model.person.Github.NO_GITHUB;
 import static tassist.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.time.LocalDateTime;
@@ -225,5 +228,30 @@ public class GithubCommandTest {
         // Verify success message
         assertEquals(String.format(GithubCommand.MESSAGE_ADD_GITHUB_SUCCESS, Messages.format(editedPerson)),
                 result.getFeedbackToUser());
+    }
+
+    @Test
+    public void execute_assignNoGithubToMultipleStudents_success() {
+        Person alice = new PersonBuilder()
+                .withName("Alice")
+                .withStudentId("A1112222B")
+                .withGithub("https://github.com/alice").build();
+        Person bob = new PersonBuilder()
+                .withName("Bob")
+                .withStudentId("A2221111B")
+                .withGithub(NO_GITHUB).build();
+
+        Model model = new ModelManager();
+        model.addPerson(alice);
+        model.addPerson(bob);
+
+        GithubCommand command = new GithubCommand(alice.getStudentId(), new Github("No Github assigned"));
+        Person updatedPerson = new PersonBuilder(alice).withGithub(NO_GITHUB).build();
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.setPerson(alice, updatedPerson);
+
+        assertCommandSuccess(command, model,
+                String.format(MESSAGE_DELETE_GITHUB_SUCCESS, Messages.format(updatedPerson)),
+                expectedModel);
     }
 }

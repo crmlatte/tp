@@ -40,6 +40,7 @@ public class PersonTest {
         expectedAttributes.add("studentId");
         expectedAttributes.add("github");
         expectedAttributes.add("projectTeam");
+        expectedAttributes.add("repository");
         expectedAttributes.add("tags");
         expectedAttributes.add("progress");
         expectedAttributes.add("timedEvents");
@@ -118,7 +119,9 @@ public class PersonTest {
                 + ", classNumber=" + ALICE.getClassNumber() + ", studentId=" + ALICE.getStudentId()
                 + ", github=" + ALICE.getGithub()
                 + ", project team=" + ALICE.getProjectTeam()
-                + ", tags=" + ALICE.getTags() + ", progress=" + ALICE.getProgress()
+                + ", repository=" + ALICE.getRepository()
+                + ", tags=" + ALICE.getTags()
+                + ", progress=" + ALICE.getProgress()
                 + ", timedEvents=" + ALICE.getTimedEvents() + "}";
 
         assertEquals(expected, ALICE.toString());
