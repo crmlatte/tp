@@ -1,0 +1,50 @@
+{
+  "persons" : [ {
+    "name" : "Alex Yeoh",
+    "phone" : "87438807",
+    "email" : "alexyeoh@u.nus.edu",
+    "classNumber" : "T01",
+    "studentId" : "A0000001B",
+    "github" : "No Github assigned",
+    "projectTeam" : "WealthVault",
+    "repository" : "https://github.com/alex/new.repo",
+    "tags" : [ "friends" ],
+    "progress" : "20",
+    "timedEvents" : [ {
+      "name" : "CS2103T tp",
+      "description" : "",
+      "time" : "2030-01-01T23:59",
+      "type" : "Assignment"
+    } ]
+  }, {
+    "name" : "Bernice Yu",
+    "phone" : "99272758",
+    "email" : "berniceyu@u.nus.edu",
+    "classNumber" : "T04",
+    "studentId" : "A0000002B",
+    "github" : "No Github assigned",
+    "projectTeam" : "Rawrness",
+    "repository" : "No Repository",
+    "tags" : [ "colleagues", "friends" ],
+    "progress" : "35",
+    "timedEvents" : [ ]
+  }, {
+    "name" : "Charlotte Oliveiro",
+    "phone" : "93210283",
+    "email" : "charlotte@u.nus.edu",
+    "classNumber" : "R01",
+    "studentId" : "A0000003B",
+    "github" : "No Github assigned",
+    "projectTeam" : "Rawrness",
+    "repository" : "No Repository",
+    "tags" : [ "neighbours" ],
+    "progress" : "80",
+    "timedEvents" : [ ]
+  } ],
+  "timedEvents" : [ {
+    "name" : "CS2103T tp",
+    "description" : "",
+    "time" : "2030-01-01T23:59",
+    "type" : "Assignment"
+  } ]
+}

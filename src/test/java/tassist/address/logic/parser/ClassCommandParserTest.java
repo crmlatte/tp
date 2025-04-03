@@ -1,14 +1,15 @@
 package tassist.address.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static tassist.address.logic.Messages.getErrorMessageForDuplicatePrefixes;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_CLASS_AMY;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_CLASS_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_STUDENTID_AMY;
+import static tassist.address.logic.parser.ClassCommandParser.MESSAGE_REMOVE_CLASS;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_CLASS;
 import static tassist.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static tassist.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static tassist.address.testutil.Assert.assertThrows;
 import static tassist.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import org.junit.jupiter.api.Test;
@@ -86,5 +87,13 @@ public class ClassCommandParserTest {
         // valid value followed by invalid value
         assertParseFailure(parser, validExpectedCommandString + " " + PREFIX_CLASS + "S200",
                 getErrorMessageForDuplicatePrefixes(PREFIX_CLASS));
+    }
+
+    @Test
+    public void parse_inputNoClassAssigned_throwsParseException() {
+        String input = "1 c/No tutorial assigned";
+
+        ParseException thrown = assertThrows(ParseException.class, () -> parser.parse(input));
+        assertEquals(MESSAGE_REMOVE_CLASS, thrown.getMessage());
     }
 }

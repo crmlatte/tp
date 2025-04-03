@@ -1,17 +1,21 @@
 package tassist.address.logic.parser;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static tassist.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tassist.address.logic.Messages.getErrorMessageForDuplicatePrefixes;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_STUDENTID_BOB;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_GITHUB;
 import static tassist.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static tassist.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static tassist.address.logic.parser.GithubCommandParser.MESSAGE_REMOVE_GITHUB;
 import static tassist.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import org.junit.jupiter.api.Test;
 
 import tassist.address.commons.core.index.Index;
 import tassist.address.logic.commands.GithubCommand;
+import tassist.address.logic.parser.exceptions.ParseException;
 import tassist.address.model.person.Github;
 import tassist.address.model.person.StudentId;
 
@@ -63,5 +67,24 @@ public class GithubCommandParserTest {
         // valid value followed by invalid value
         assertParseFailure(parser, validExpectedCommandString + " " + PREFIX_GITHUB + "invalid",
                 getErrorMessageForDuplicatePrefixes(PREFIX_GITHUB));
+    }
+
+    @Test
+    public void parse_emptyGithubField_returnsGithubCommandWithNoGithubAssigned() throws Exception {
+        String input = "1 g/";
+        Github expectedGithub = new Github(Github.NO_GITHUB);
+        GithubCommand expectedCommand = new GithubCommand(Index.fromOneBased(1), expectedGithub);
+
+        GithubCommand resultCommand = parser.parse(input);
+
+        assertEquals(expectedCommand, resultCommand);
+    }
+
+    @Test
+    public void parse_inputNoGithubAssigned_throwsParseException() {
+        String input = "1 g/No Github assigned";
+
+        ParseException thrown = assertThrows(ParseException.class, () -> parser.parse(input));
+        assertEquals(MESSAGE_REMOVE_GITHUB, thrown.getMessage());
     }
 }

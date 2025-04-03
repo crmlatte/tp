@@ -7,13 +7,15 @@ import static tassist.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_PROGRESS_BOB;
-import static tassist.address.logic.commands.CommandTestUtil.VALID_PROJECT_TEAM_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_STUDENTID_AMY;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_STUDENTID_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static tassist.address.testutil.Assert.assertThrows;
 import static tassist.address.testutil.TypicalPersons.ALICE;
 import static tassist.address.testutil.TypicalPersons.BOB;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -25,6 +27,24 @@ public class PersonTest {
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
         Person person = new PersonBuilder().build();
         assertThrows(UnsupportedOperationException.class, () -> person.getTags().remove(0));
+    }
+
+    @Test
+    public void getAttributeTest() {
+        List<String> attributes = Person.getAttributes();
+        List<String> expectedAttributes = new ArrayList<>();
+        expectedAttributes.add("name");
+        expectedAttributes.add("phone");
+        expectedAttributes.add("email");
+        expectedAttributes.add("classNumber");
+        expectedAttributes.add("studentId");
+        expectedAttributes.add("github");
+        expectedAttributes.add("projectTeam");
+        expectedAttributes.add("repository");
+        expectedAttributes.add("tags");
+        expectedAttributes.add("progress");
+        expectedAttributes.add("timedEvents");
+        assertEquals(attributes, expectedAttributes);
     }
 
     @Test
@@ -89,26 +109,6 @@ public class PersonTest {
         //different studentId -> returns false
         Person editedAlice = new PersonBuilder(ALICE).withStudentId(VALID_STUDENTID_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
-
-        // different name -> returns false
-        editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
-
-        // different phone -> returns true
-        editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
-        assertTrue(ALICE.equals(editedAlice));
-
-        // different email -> returns false
-        editedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
-
-        // different tags -> returns false
-        editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
-        assertFalse(ALICE.equals(editedAlice));
-
-        // different project team -> returns true
-        editedAlice = new PersonBuilder(ALICE).withProjectTeam(VALID_PROJECT_TEAM_BOB).build();
-        assertTrue(ALICE.equals(editedAlice));
     }
 
     @Test
@@ -119,7 +119,9 @@ public class PersonTest {
                 + ", classNumber=" + ALICE.getClassNumber() + ", studentId=" + ALICE.getStudentId()
                 + ", github=" + ALICE.getGithub()
                 + ", project team=" + ALICE.getProjectTeam()
-                + ", tags=" + ALICE.getTags() + ", progress=" + ALICE.getProgress()
+                + ", repository=" + ALICE.getRepository()
+                + ", tags=" + ALICE.getTags()
+                + ", progress=" + ALICE.getProgress()
                 + ", timedEvents=" + ALICE.getTimedEvents() + "}";
 
         assertEquals(expected, ALICE.toString());

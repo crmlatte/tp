@@ -3,9 +3,7 @@ package tassist.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static tassist.address.logic.Messages.MESSAGE_PERSON_NOT_FOUND;
 
-import java.awt.Desktop;
 import java.io.IOException;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
@@ -15,6 +13,8 @@ import java.util.logging.Logger;
 import tassist.address.commons.core.index.Index;
 import tassist.address.commons.util.ToStringBuilder;
 import tassist.address.logic.Messages;
+import tassist.address.logic.browser.BrowserService;
+import tassist.address.logic.browser.DesktopBrowserService;
 import tassist.address.logic.commands.exceptions.CommandException;
 import tassist.address.model.Model;
 import tassist.address.model.person.Person;
@@ -41,7 +41,6 @@ public class OpenCommand extends Command {
     private final Index targetIndex;
     private final StudentId targetStudentId;
     private final BrowserService browserService;
-
 
     /**
      * Constructs an OpenCommand with a target index.
@@ -146,7 +145,7 @@ public class OpenCommand extends Command {
             return true;
         }
 
-        if (!(other instanceof OpenCommand)) { // Removed space after `!`
+        if (!(other instanceof OpenCommand)) {
             return false;
         }
 
@@ -164,43 +163,5 @@ public class OpenCommand extends Command {
             builder.add("targetStudentId", targetStudentId);
         }
         return builder.toString();
-    }
-
-    /**
-     * Service interface for opening URLs in a browser.
-     */
-    public interface BrowserService {
-        /**
-         * Opens the specified URL in a browser.
-         *
-         * @param url The URL to open.
-         * @throws IOException        If there is an error opening the URL.
-         * @throws URISyntaxException If the URL is malformed.
-         */
-        void openUrl(String url) throws IOException, URISyntaxException;
-    }
-
-    /**
-     * Default implementation of BrowserService that uses Desktop.browse().
-     */
-    public static class DesktopBrowserService implements BrowserService {
-        @Override
-        public void openUrl(String url) throws IOException, URISyntaxException {
-            // First validate the URL by creating a URI object
-            URI uri = new URI(url);
-
-            // Check if Desktop is supported
-            if (!Desktop.isDesktopSupported()) {
-                throw new IOException("Desktop is not supported on this platform");
-            }
-
-            Desktop desktop = Desktop.getDesktop();
-            // Check if browsing is supported
-            if (!desktop.isSupported(Desktop.Action.BROWSE)) {
-                throw new IOException("Opening URLs is not supported on this platform");
-            }
-
-            desktop.browse(uri);
-        }
     }
 }

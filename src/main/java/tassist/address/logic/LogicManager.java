@@ -10,9 +10,12 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import tassist.address.commons.core.GuiSettings;
 import tassist.address.commons.core.LogsCenter;
+import tassist.address.logic.browser.BrowserService;
+import tassist.address.logic.browser.DesktopBrowserService;
 import tassist.address.logic.commands.Command;
 import tassist.address.logic.commands.CommandResult;
 import tassist.address.logic.commands.ConfirmableCommand;
+import tassist.address.logic.commands.ImportCommand;
 import tassist.address.logic.commands.OpenCommand;
 import tassist.address.logic.commands.exceptions.CommandException;
 import tassist.address.logic.parser.AddressBookParser;
@@ -36,24 +39,25 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final AddressBookParser addressBookParser;
-    private final OpenCommand.BrowserService browserService;
+    private final BrowserService browserService;
     private ConfirmableCommand pendingConfirmation = null;
 
     /**
      * Constructs a {@code LogicManager} with the given {@code Model} and {@code Storage}.
      */
     public LogicManager(Model model, Storage storage) {
-        this(model, storage, new OpenCommand.DesktopBrowserService());
+        this(model, storage, new DesktopBrowserService());
     }
 
     /**
      * Constructs a {@code LogicManager} with the given {@code Model}, {@code Storage}, and {@code BrowserService}.
      */
-    public LogicManager(Model model, Storage storage, OpenCommand.BrowserService browserService) {
+    public LogicManager(Model model, Storage storage, BrowserService browserService) {
         this.model = model;
         this.storage = storage;
         this.addressBookParser = new AddressBookParser();
         this.browserService = browserService;
+        ImportCommand.setStorage(storage);
     }
 
     @Override
@@ -83,7 +87,7 @@ public class LogicManager implements Logic {
             } else if (openCommand.getTargetIndex() != null) {
                 command = new OpenCommand(openCommand.getTargetIndex(), browserService);
             } else {
-                //won't reach here, throwing an exception just in case
+                // won't reach here, throwing an exception just in case
                 throw new CommandException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, OpenCommand.MESSAGE_USAGE));
             }
         }

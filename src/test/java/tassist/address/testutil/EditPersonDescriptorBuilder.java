@@ -13,6 +13,7 @@ import tassist.address.model.person.Person;
 import tassist.address.model.person.Phone;
 import tassist.address.model.person.Progress;
 import tassist.address.model.person.ProjectTeam;
+import tassist.address.model.person.Repository;
 import tassist.address.model.person.StudentId;
 import tassist.address.model.tag.Tag;
 
@@ -42,6 +43,7 @@ public class EditPersonDescriptorBuilder {
         descriptor.setStudentId(person.getStudentId());
         descriptor.setGithub(person.getGithub());
         descriptor.setProjectTeam(person.getProjectTeam());
+        descriptor.setRepository(person.getRepository());
         descriptor.setTags(person.getTags());
     }
 
@@ -94,12 +96,21 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Github} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code ProjectTeam} of the {@code EditPersonDescriptor} that we are building.
      */
     public EditPersonDescriptorBuilder withProjectTeam(String projectTeam) {
         descriptor.setProjectTeam(new ProjectTeam(projectTeam));
         return this;
     }
+
+    /**
+     * Sets the {@code Repository} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withRepository(String repository) {
+        descriptor.setRepository(new Repository(repository));
+        return this;
+    }
+
 
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor}

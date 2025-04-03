@@ -33,9 +33,9 @@ public class AssignCommand extends Command {
             + " or: " + COMMAND_WORD + " 1 T01";
 
     public static final String MESSAGE_ASSIGN_SUCCESS = "Assigned timed event to student: %1$s";
-    public static final String MESSAGE_ASSIGN_FAILURE = "Failed to assign timed event to student: %1$s";
     public static final String MESSAGE_DUPLICATE_ASSIGNMENT = "This assignment is already assigned to the student";
     public static final String MESSAGE_NO_STUDENTS_IN_CLASS = "No students found in class: %1$s";
+    public static final String MESSAGE_ASSIGN_FAILED_OVERDUE_ASSIGNMENT = "Cannot assign an overdue timed event: %1$s";
 
     private final Index timedEventIndex;
     private final Index studentIndex;
@@ -89,6 +89,10 @@ public class AssignCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_TIMED_EVENT_DISPLAYED_INDEX);
         }
         TimedEvent targetEvent = timedEvents.get(timedEventIndex.getZeroBased());
+
+        if (targetEvent.isOverdue()) {
+            throw new CommandException(String.format(MESSAGE_ASSIGN_FAILED_OVERDUE_ASSIGNMENT, targetEvent.getName()));
+        }
 
         StringBuilder resultMessage = new StringBuilder();
 

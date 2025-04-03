@@ -7,6 +7,7 @@ import static tassist.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static tassist.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static tassist.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static tassist.address.logic.commands.CommandTestUtil.INVALID_PROJECT_TEAM_DESC;
+import static tassist.address.logic.commands.CommandTestUtil.INVALID_REPOSITORY_DESC;
 import static tassist.address.logic.commands.CommandTestUtil.INVALID_STUDENTID_DESC;
 import static tassist.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static tassist.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
@@ -39,6 +40,7 @@ import tassist.address.model.person.Email;
 import tassist.address.model.person.Name;
 import tassist.address.model.person.Phone;
 import tassist.address.model.person.ProjectTeam;
+import tassist.address.model.person.Repository;
 import tassist.address.model.person.StudentId;
 import tassist.address.model.tag.Tag;
 import tassist.address.testutil.EditPersonDescriptorBuilder;
@@ -81,13 +83,24 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
-        assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
-        assertParseFailure(parser, "1" + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS); // invalid phone
-        assertParseFailure(parser, "1" + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS); // invalid email
-        assertParseFailure(parser,
-                "1" + INVALID_STUDENTID_DESC, StudentId.MESSAGE_CONSTRAINTS); // invalid studentId
-        assertParseFailure(parser,
-                "1" + INVALID_PROJECT_TEAM_DESC, ProjectTeam.MESSAGE_CONSTRAINTS); // invalid projectTeam
+        // invalid name
+        assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS);
+
+        // invalid phone
+        assertParseFailure(parser, "1" + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS);
+
+        // invalid email
+        assertParseFailure(parser, "1" + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS);
+
+        // invalid studentId
+        assertParseFailure(parser, "1" + INVALID_STUDENTID_DESC, StudentId.MESSAGE_CONSTRAINTS);
+
+        //invalid project team
+        assertParseFailure(parser, "1" + INVALID_PROJECT_TEAM_DESC, ProjectTeam.MESSAGE_CONSTRAINTS);
+
+        // invalid repository
+        assertParseFailure(parser, "1" + INVALID_REPOSITORY_DESC, Repository.MESSAGE_CONSTRAINTS);
+
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
 
         // invalid phone followed by valid email
