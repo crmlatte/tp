@@ -46,34 +46,40 @@ public class RepoCommandTest {
     }
 
     @Test
-    public void parser_invalidUsername_returnsNoRepository() {
-        Repository repo = RepoCommand.createRepo("invalid_user!", "valid-repo"); // underscore is invalid in username
-        assertEquals(Repository.NO_REPOSITORY, repo.toString());
+    public void parser_invalidUsername_throwsException() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            RepoCommand.createRepo("invalid_user!", "valid-repo");
+        });
     }
 
     @Test
-    public void parser_invalidRepositoryName_returnsNoRepository() {
-        Repository repo = RepoCommand.createRepo("ValidUser", "-invalidRepo"); // starts with a dash
-        assertEquals(Repository.NO_REPOSITORY, repo.toString());
+    public void parser_invalidRepositoryName_throwsException() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            RepoCommand.createRepo("ValidUser", "-invalidRepo");
+        });
     }
 
     @Test
-    public void parser_nullUsername_returnsNoRepository() {
-        Repository repo = RepoCommand.createRepo(null, "valid-repo");
-        assertEquals(Repository.NO_REPOSITORY, repo.toString());
+    public void parser_nullUsername_throwsException() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            RepoCommand.createRepo(null, "valid-repo");
+        });
     }
 
     @Test
-    public void parser_nullRepositoryName_returnsNoRepository() {
-        Repository repo = RepoCommand.createRepo("ValidUser", null);
-        assertEquals(Repository.NO_REPOSITORY, repo.toString());
+    public void parser_nullRepositoryName_throwsException() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            RepoCommand.createRepo("ValidUser", null);
+        });
     }
 
     @Test
-    public void parser_bothNull_returnsNoRepository() {
-        Repository repo = RepoCommand.createRepo(null, null);
-        assertEquals(Repository.NO_REPOSITORY, repo.toString());
+    public void parser_bothNull_throwsException() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            RepoCommand.createRepo(null, null);
+        });
     }
+
 
     @Test
     public void parser_edgeCase_validRepoWithUnderscoreAndDot() {
@@ -142,16 +148,14 @@ public class RepoCommandTest {
     }
 
     @Test
-    public void execute_invalidUsernameOrRepo_setsNoRepository() throws Exception {
+    public void execute_invalidUsernameOrRepo_throwsException() throws Exception {
         Person person = new PersonBuilder().withStudentId("A3333333Z").build();
         ModelStubWithPersonList modelStub = new ModelStubWithPersonList(person);
         String studentId = person.getStudentId().value;
 
         RepoCommand command = new RepoCommand(new StudentId(studentId), "bad_user!", "repo", null);
-        command.execute(modelStub);
 
-        Person updated = modelStub.getLastEditedPerson();
-        assertEquals(Repository.NO_REPOSITORY, updated.getRepository().toString());
+        assertThrows(IllegalArgumentException.class, () -> command.execute(modelStub));
     }
 
     @Test

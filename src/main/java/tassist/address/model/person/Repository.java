@@ -28,10 +28,11 @@ public class Repository {
             + "https://github.com/AY2425S2-CS2103T-W12-4/tp"; // team repo example
 
     public static final String GITHUB_URL_REGEX = "^https://github\\.com/";
-    public static final String USERNAME_REGEX = "[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*";
-    public static final String REPOSITORY_REGEX = "[a-zA-Z0-9](?:[a-zA-Z0-9._-]*[a-zA-Z0-9])?";
+    public static final String VALID_USERNAME_REGEX = "[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*";
+    public static final String VALID_REPOSITORY_REGEX = "[a-zA-Z0-9](?:[a-zA-Z0-9._-]*[a-zA-Z0-9])?";
 
-    public static final String VALIDATION_REGEX = GITHUB_URL_REGEX + USERNAME_REGEX + "/" + REPOSITORY_REGEX + "$";
+    public static final String VALIDATION_REGEX = GITHUB_URL_REGEX + VALID_USERNAME_REGEX
+            + "/" + VALID_REPOSITORY_REGEX + "$";
     public static final String NO_REPOSITORY = "No Repository";
 
     public final String value;
@@ -40,6 +41,7 @@ public class Repository {
      * @param repository link of the Student
      */
     public Repository(String repository) {
+
         requireNonNull(repository);
         checkArgument(isValidRepository(repository), MESSAGE_CONSTRAINTS);
         value = repository;

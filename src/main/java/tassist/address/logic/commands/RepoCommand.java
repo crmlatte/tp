@@ -5,6 +5,8 @@ import static tassist.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static tassist.address.model.person.Repository.MESSAGE_CONSTRAINTS;
 import static tassist.address.model.person.Repository.MESSAGE_REPOSITORY_NAME_VALIDITY;
 import static tassist.address.model.person.Repository.MESSAGE_USERNAME_VALIDITY;
+import static tassist.address.model.person.Repository.VALID_REPOSITORY_REGEX;
+import static tassist.address.model.person.Repository.VALID_USERNAME_REGEX;
 
 import java.util.List;
 import java.util.Objects;
@@ -35,9 +37,6 @@ public class RepoCommand extends Command {
             + " 2." + COMMAND_WORD + " AxxxxxxxN un/Tutorial-G08 rn/BestApp or\n"
             + " 3." + COMMAND_WORD + " 3 r/https://github.com/team4/new.repo\n"
             + " 4." + COMMAND_WORD + " AxxxxxxxN r/https://github.com/AY2425S2-CS2103T-W12-4/tp";
-
-    public static final String VALID_USERNAME_REGEX = "[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*";
-    public static final String VALID_REPOSITORY_REGEX = "[a-zA-Z0-9](?:[a-zA-Z0-9._-]*[a-zA-Z0-9])?";
 
     public static final String MESSAGE_ADD_REPOSITORY_SUCCESS = "Added Repository to Person: %1$s";
     public static final String MESSAGE_NO_INDEX_STUDENTID = "Please enter valid index or student Id!";
@@ -144,29 +143,18 @@ public class RepoCommand extends Command {
      * @return a valid {@link Repository}, or {@link Repository#NO_REPOSITORY} if invalid
      */
     public static Repository createRepo(String username, String repositoryName) {
-        String un;
-        String rn;
-
-        try {
-            if (username != null && username.matches(VALID_USERNAME_REGEX)) {
-                un = username;
-            } else {
-                throw new IllegalArgumentException(MESSAGE_INVALID_USERNAME);
-            }
-
-            if (repositoryName != null && repositoryName.matches(VALID_REPOSITORY_REGEX)) {
-                rn = repositoryName;
-            } else {
-                throw new IllegalArgumentException(MESSAGE_INVALID_REPOSITORY_NAME);
-            }
-
-            String fullRepository = "https://github.com/" + un + "/" + rn;
-            return new Repository(fullRepository);
-
-        } catch (IllegalArgumentException e) {
-            return new Repository(Repository.NO_REPOSITORY);
+        if (username == null || !username.matches(VALID_USERNAME_REGEX)) {
+            throw new IllegalArgumentException(MESSAGE_INVALID_USERNAME);
         }
+
+        if (repositoryName == null || !repositoryName.matches(VALID_REPOSITORY_REGEX)) {
+            throw new IllegalArgumentException(MESSAGE_INVALID_REPOSITORY_NAME);
+        }
+
+        String fullRepository = "https://github.com/" + username + "/" + repositoryName;
+        return new Repository(fullRepository);
     }
+
 
     @Override
     public boolean equals(Object other) {

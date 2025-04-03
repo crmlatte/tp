@@ -43,23 +43,25 @@ public class RepoCommandParser implements Parser<RepoCommand> {
         String repositoryName = argMultimap.getValue(PREFIX_REPOSITORY_NAME).orElse(null);
         String fullRepoUrl = argMultimap.getValue(PREFIX_REPOSITORY).orElse(null);
 
-        Repository repository = null;
+        Repository repository;
 
-        if (username != null || repositoryName != null) {
-            if (username == null || !username.matches(RepoCommand.VALID_USERNAME_REGEX)) {
+        // Build full repo from URL
+        if (fullRepoUrl != null) {
+            try {
+                repository = new Repository(fullRepoUrl);
+            } catch (IllegalArgumentException e) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        RepoCommand.MESSAGE_INVALID_USERNAME));
+                        RepoCommand.MESSAGE_INVALID_URL), e);
             }
-            if (repositoryName == null || !repositoryName.matches(RepoCommand.VALID_REPOSITORY_REGEX)) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        RepoCommand.MESSAGE_INVALID_REPOSITORY_NAME));
+
+            // Build repo from username + repo name
+        } else if (username != null && repositoryName != null) {
+            try {
+                repository = RepoCommand.createRepo(username, repositoryName);
+            } catch (IllegalArgumentException e) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, e.getMessage()), e);
             }
-        } else if (fullRepoUrl != null) {
-            if (!Repository.isValidRepository(fullRepoUrl)) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        RepoCommand.MESSAGE_INVALID_URL));
-            }
-            repository = new Repository(fullRepoUrl);
+
         } else {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_VALID_COMMAND));
         }
