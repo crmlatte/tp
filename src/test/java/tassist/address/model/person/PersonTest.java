@@ -40,6 +40,7 @@ public class PersonTest {
         expectedAttributes.add("studentId");
         expectedAttributes.add("github");
         expectedAttributes.add("projectTeam");
+        expectedAttributes.add("repository");
         expectedAttributes.add("tags");
         expectedAttributes.add("progress");
         expectedAttributes.add("timedEvents");
