@@ -148,4 +148,17 @@ public class GithubCommand extends Command {
                 && Objects.equals(github, e.github);
     }
 
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder()
+                .append("GithubCommand{");
+        if (index != null) {
+            builder.append("index=").append(index);
+        } else if (studentId != null) {
+            builder.append("studentId=").append(studentId);
+        }
+        builder.append(", github=").append(github)
+                .append("}");
+        return builder.toString();
+    }
 }

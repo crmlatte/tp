@@ -2,12 +2,16 @@ package tassist.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 import tassist.address.commons.core.index.Index;
 import tassist.address.commons.util.StringUtil;
+import tassist.address.logic.Messages;
 import tassist.address.logic.parser.exceptions.ParseException;
 import tassist.address.model.person.ClassNumber;
 import tassist.address.model.person.Email;
@@ -202,6 +206,24 @@ public class ParserUtil {
             throw new ParseException(Progress.MESSAGE_CONSTRAINTS);
         }
         return new Progress(trimmedProgress);
+    }
 
+    /**
+     * Parses a {@code String filePath} into a {@code Path}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static Path parseFilePath(String filePath) throws ParseException {
+        requireNonNull(filePath);
+        String trimmedFilePath = filePath.trim();
+
+        Path path = Paths.get(trimmedFilePath);
+
+        if (!path.isAbsolute()) {
+            throw new ParseException(Messages.MESSAGE_INVALID_FILE_PATH);
+        } else if (!Files.exists(path)) {
+            throw new ParseException(Messages.MESSAGE_INVALID_FILE_PATH);
+        }
+
+        return path;
     }
 }
