@@ -250,7 +250,7 @@ Format: `assignment n/NAME d/DATE`
 * Accepted date formats: `dd-MM-yyyy`, `dd-MM-yy`, or `dd-MM` (defaults to current year)
 * The date must be a valid future date.
 
-Example:
+Examples:
 * `assignment n/CS2103T Project d/30-01-2025` <br>
   Adds a timed event named "CS2103T Project" with deadline on January 30, 2025.
 * `assignment n/Quiz 1 d/10-04` <br>
@@ -262,6 +262,8 @@ Lists all timed events in the system.
 
 Format: `view`
 
+* Shows all timed events with their names and deadlines
+
 ### Assigning a timed event/assignment: `assign`
 
 Assigns a timed event using index in time event list to one or more students identified by their displayed index, student ID, or class number.
@@ -270,15 +272,17 @@ Format: `assign TIMED_EVENT_INDEX STUDENT_INDEX` or `assign TIMED_EVENT_INDEX ST
 
 * `TIMED_EVENT_INDEX`: The index of the timed event shown in the timed event list (must be a positive integer).
 * `STUDENT_INDEX`: The index of the student from the displayed student list (must be a positive integer).
+* `STUDENT_ID`: The student ID of the target student (e.g., A1234567B).
+* `CLASS_NUMBER`: The tutorial/recitation class number (e.g., T01, R05).
 
 Examples:
-* `assign 1 2`
+* `assign 1 2` <br>
   Assigns the first timed event to the 2nd student in the list.
 
-* `assign 2 A1234567B`
+* `assign 2 A1234567B` <br>
   Assigns the second timed event to the student with student ID A1234567B.
-
-* `assign 1 T01`
+  
+* `assign 1 T01` <br>
   Assigns the first timed event to all students in class T01.
 
 ### Unassigning and Removing a Timed Event: `unassign`
@@ -292,8 +296,20 @@ Format: `unassign TIMED_EVENT_INDEX`
 * Removes the timed event entirely from the list.
 
 Example:
-* `unassign 1`
+* `unassign 1` <br>
   Unassigns the first timed event from all students and deletes the event from the list.
+
+### Viewing Upcoming Events Calendar
+
+TAssist provides a calendar-style view to help you visualize upcoming assignments and timed events.
+
+* Press the `F3` key to open the calendar-style event viewer.
+* The calendar displays:
+  * Assignment names
+  * Event type (e.g., assignment)
+  * Assigned students
+  * Dates grouped chronologically
+* An empty calendar will be shown if there are no current assignments.
 
 ### Deleting a student : `delete`
 
