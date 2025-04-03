@@ -203,7 +203,7 @@ public class ParserUtil {
 
         // make sure it is an absolute path and also not the root directory of the file system
         if (!path.isAbsolute() || path.getNameCount() == 0) {
-            throw new ParseException(Messages.MESSAGE_INVALID_FILE_PATH);
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_FILE_PATH, path));
         }
 
         return path;

@@ -8,7 +8,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import tassist.address.commons.exceptions.IllegalValueException;
-import tassist.address.logic.Messages;
 import tassist.address.logic.commands.ImportCommand;
 import tassist.address.logic.parser.exceptions.ParseException;
 
@@ -35,13 +34,12 @@ public class ImportCommandParser implements Parser<ImportCommand> {
             Path filePath = ParserUtil.parseFilePath(trimmedArgs);
 
             if (!Files.exists(filePath)) {
-                throw new ParseException(Messages.MESSAGE_INVALID_FILE_PATH);
+                throw new ParseException(MESSAGE_INVALID_FILE_PATH);
             }
 
             return new ImportCommand(filePath);
         } catch (IllegalValueException ive) {
-            throw new ParseException(String.format(MESSAGE_INVALID_FILE_PATH,
-                    ImportCommand.MESSAGE_USAGE));
+            throw new ParseException(MESSAGE_INVALID_FILE_PATH);
         }
     }
 }

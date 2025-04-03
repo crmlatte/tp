@@ -31,8 +31,7 @@ public class ExportCommandParserTest {
     public void parse_relativePath_throwsParseException() {
         final String relativeFilePath = VALID_FILE_PATH_1;
 
-        assertParseFailure(parser, relativeFilePath,
-                String.format(MESSAGE_INVALID_FILE_PATH, ExportCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, relativeFilePath, MESSAGE_INVALID_FILE_PATH);
     }
 
     @Test
@@ -51,7 +50,6 @@ public class ExportCommandParserTest {
         // root directory
         final String rootDirectory = "/";
 
-        assertParseFailure(parser, rootDirectory,
-                String.format(MESSAGE_INVALID_FILE_PATH, ExportCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, rootDirectory, MESSAGE_INVALID_FILE_PATH);
     }
 }

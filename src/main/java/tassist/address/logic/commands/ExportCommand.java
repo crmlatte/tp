@@ -24,7 +24,8 @@ public class ExportCommand extends Command {
             + "or (Windows): " + COMMAND_WORD + " C:\\Users\\Name\\Downloads\\file.csv";
 
     public static final String MESSAGE_EXPORT_SUCCESS = "Successfully exported address book to: %1$s";
-    public static final String MESSAGE_EXPORT_FAILURE = "Failed to export address book to: %1$s";
+    public static final String MESSAGE_EXPORT_FAILURE = "Failed to export address book.";
+    public static final String MESSAGE_PARENT_FOLDER_DOES_NOT_EXIST = "Parent directory does not exist!";
 
     private final Path filePath;
 
@@ -55,8 +56,7 @@ public class ExportCommand extends Command {
 
             return new CommandResult(generateSuccessMessage());
         } catch (IOException e) {
-            // only reach here when file is corrupted
-            throw new CommandException(String.format(MESSAGE_EXPORT_FAILURE, filePath));
+            throw new CommandException(MESSAGE_EXPORT_FAILURE + "\n" + MESSAGE_PARENT_FOLDER_DOES_NOT_EXIST);
         }
     }
 

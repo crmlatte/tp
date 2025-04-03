@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static tassist.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tassist.address.logic.Messages.MESSAGE_INVALID_FILE_PATH;
 import static tassist.address.logic.commands.ExportCommand.MESSAGE_EXPORT_FAILURE;
+import static tassist.address.logic.commands.ExportCommand.MESSAGE_PARENT_FOLDER_DOES_NOT_EXIST;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -35,19 +36,15 @@ public class ExportCommandParser implements Parser<ExportCommand> {
         try {
             Path filePath = ParserUtil.parseFilePath(trimmedArgs);
 
-            Files.createDirectories(filePath.getParent());
             if (!Files.exists(filePath)) {
                 Files.createFile(filePath);
             }
 
             return new ExportCommand(filePath);
         } catch (IllegalValueException ive) {
-            throw new ParseException(String.format(MESSAGE_INVALID_FILE_PATH,
-                    ExportCommand.MESSAGE_USAGE));
+            throw new ParseException(MESSAGE_INVALID_FILE_PATH);
         } catch (IOException e) {
-            // should not reach, check is done above, throwing an exception just in case
-            throw new ParseException(String.format(MESSAGE_EXPORT_FAILURE,
-                    ExportCommand.MESSAGE_USAGE));
+            throw new ParseException(MESSAGE_EXPORT_FAILURE + "\n" + MESSAGE_PARENT_FOLDER_DOES_NOT_EXIST);
         }
     }
 }

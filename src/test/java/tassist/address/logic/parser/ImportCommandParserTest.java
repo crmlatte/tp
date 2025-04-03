@@ -54,8 +54,7 @@ public class ImportCommandParserTest {
     public void parse_relativePath_throwsParseException() {
         final String relativeFilePath = VALID_FILE_PATH_1;
 
-        assertParseFailure(parser, relativeFilePath,
-                String.format(MESSAGE_INVALID_FILE_PATH, ImportCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, relativeFilePath, MESSAGE_INVALID_FILE_PATH);
     }
 
     @Test
@@ -81,7 +80,6 @@ public class ImportCommandParserTest {
 
         // does not create the file so it "doesn't exist"
 
-        assertParseFailure(parser, absoluteFilePath.toString(),
-                String.format(MESSAGE_INVALID_FILE_PATH, ImportCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, absoluteFilePath.toString(), MESSAGE_INVALID_FILE_PATH);
     }
 }
