@@ -22,6 +22,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import tassist.address.logic.browser.BrowserService;
 import tassist.address.logic.commands.AddCommand;
 import tassist.address.logic.commands.CommandResult;
 import tassist.address.logic.commands.DeleteCommand;
@@ -258,7 +259,7 @@ public class LogicManagerTest {
     /**
      * Test implementation of BrowserService that records URLs instead of opening them.
      */
-    private static class TestBrowserService implements OpenCommand.BrowserService {
+    private static class TestBrowserService implements BrowserService {
         private List<String> urlsOpened = new ArrayList<>();
 
         @Override
