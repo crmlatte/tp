@@ -36,9 +36,8 @@ public class CommandTestUtil {
     public static final String VALID_CLASS_BOB = "T15";
     public static final String VALID_PHONE_AMY = "11111111";
     public static final String VALID_PHONE_BOB = "22222222";
-    public static final String VALID_EMAIL_AMY = "amy@example.com";
-    public static final String VALID_EMAIL_BOB = "bob@example.com";
-
+    public static final String VALID_EMAIL_AMY = "amy@u.nus.edu";
+    public static final String VALID_EMAIL_BOB = "bob@u.nus.edu";
     public static final String VALID_STUDENTID_AMY = "A1111111A";
     public static final String VALID_STUDENTID_BOB = "A2222222B";
     public static final String VALID_GITHUB_AMY = "https://github.com/amy123";
@@ -109,7 +108,7 @@ public class CommandTestUtil {
     public static final String INVALID_REPOSITORY_NAME = ".repo";
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
-    public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
+    public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob@yahoo"; // incorrect domain name
     public static final String INVALID_STUDENTID_DESC = " " + PREFIX_STUDENT_ID + "A0B"; // missing 6 other digits
     public static final String INVALID_PROJECT_TEAM_DESC = " " + PREFIX_PROJECT_TEAM + " "; // whitespace
     public static final String INVALID_REPOSITORY_DESC = " " + PREFIX_REPOSITORY + ".repo"; // starts with .

@@ -26,7 +26,7 @@ public class TypicalAssignments {
             LocalDateTime.now().plusDays(14));
 
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
-            .withEmail("alice@example.com")
+            .withEmail("alice@u.nus.edu")
             .withPhone("94351253")
             .withClassNumber("T01")
             .withStudentId("A1111111B")
@@ -35,7 +35,7 @@ public class TypicalAssignments {
             .build();
 
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
-            .withEmail("johnd@example.com")
+            .withEmail("johnd@u.nus.edu")
             .withPhone("98765432")
             .withStudentId("A0101011A")
             .withClassNumber("T01")
@@ -45,7 +45,7 @@ public class TypicalAssignments {
 
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz")
             .withPhone("95352563")
-            .withEmail("heinz@example.com")
+            .withEmail("heinz@u.nus.edu")
             .withStudentId("A0101010C")
             .withClassNumber("T02")
             .withProgress("50")

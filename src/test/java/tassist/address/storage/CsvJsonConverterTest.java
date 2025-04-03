@@ -121,7 +121,7 @@ public class CsvJsonConverterTest {
         String[] firstPerson = csvContent.get(1);
         assertEquals("Alex Yeoh", firstPerson[0]);
         assertEquals("87438807", firstPerson[1]);
-        assertEquals("alexyeoh@example.com", firstPerson[2]);
+        assertEquals("alexyeoh@u.nus.edu", firstPerson[2]);
         assertEquals("T01", firstPerson[3]);
         assertEquals("A0000001B", firstPerson[4]);
         assertEquals("No Github assigned", firstPerson[5]);
