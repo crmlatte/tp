@@ -96,6 +96,7 @@ public class ProgressCommand extends Command {
                 personToEdit.getStudentId(),
                 personToEdit.getGithub(),
                 personToEdit.getProjectTeam(),
+                personToEdit.getRepository(),
                 personToEdit.getTags(),
                 progress,
                 personToEdit.getTimedEventsList()

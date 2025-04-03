@@ -180,8 +180,9 @@ public class AddressBookParserTest {
         ProgressCommand command = (ProgressCommand) parser.parseCommand(ProgressCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_PROGRESS + "70");
         assertEquals(new ProgressCommand(INDEX_FIRST_PERSON, progress), command);
+    }
 
-    @Test  
+    @Test
     public void parseCommand_export() throws Exception {
         // mimic output path
         final Path outputCsvFilePath = testRoot.resolve("output.csv");
