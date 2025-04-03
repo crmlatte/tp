@@ -9,7 +9,6 @@ import static tassist.address.commons.util.AppUtil.checkArgument;
 public class Github {
 
     public static final String NO_GITHUB = "No Github assigned";
-<<<<<<< HEAD
 
     public static final String MESSAGE_CONSTRAINTS =
             "GitHub links should be in the format: https://github.com/USERNAME\n"
@@ -24,20 +23,6 @@ public class Github {
             + "    - Start and end with alphanumeric characters.\n"
             + "Example:\n"
             + "https://github.com/JohnnyDoe";
-
-=======
-    public static final String MESSAGE_CONSTRAINTS =
-            "GitHub links should be in the format: https://github.com/USERNAME\n "
-            + "Alternatively, you may leave the github field blank to remove the GitHub link from a student.\n\n "
-            + "The URL must follow these rules:\n"
-            + "1. The base GitHub url must be 'https://github.com'\n"
-            + "2. This is followed by a '/' and then a username.\n\n "
-            + "The username must:\n"
-            + "    - Be at least 2 characters long\n"
-            + "    - Made up of alphanumeric characters\n"
-            + "    - Separated only by dashes (-), if any\n"
-            + "    - Start and end with alphanumeric characters.";
->>>>>>> master
 
     // alphanumeric and special characters
     private static final String GITHUB_URL_REGEX = "^https://github\\.com/";
