@@ -2,8 +2,10 @@ package tassist.address.model.person;
 
 import static tassist.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -138,6 +140,21 @@ public class Person {
      */
     public UniqueTimedEventList getTimedEventsList() {
         return timedEvents;
+    }
+
+    public static List<String> getAttributes() {
+        List<String> attributes = new ArrayList<>();
+        attributes.add("name");
+        attributes.add("phone");
+        attributes.add("email");
+        attributes.add("classNumber");
+        attributes.add("studentId");
+        attributes.add("github");
+        attributes.add("projectTeam");
+        attributes.add("tags");
+        attributes.add("progress");
+        attributes.add("timedEvents");
+        return attributes;
     }
 
     /**

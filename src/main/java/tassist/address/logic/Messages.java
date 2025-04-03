@@ -21,7 +21,10 @@ public class Messages {
     public static final String MESSAGE_PERSON_NOT_FOUND = "Student not found with id: ";
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
-    public static final String MESSAGE_INVALID_FILE_PATH = "Invalid file path! \n%1$s";
+    public static final String CORRECT_FILE_FORMAT = "The correct file path should be of the form (Unix/mac): "
+            + "/Users/Name/Downloads/file.csv or (Windows): C:\\Users\\Name\\Downloads\\file.csv";
+    public static final String MESSAGE_INVALID_FILE_PATH = "Invalid file path!\n" + CORRECT_FILE_FORMAT;
+    public static final String MESSAGE_INVALID_FILE_FORMAT = "Invalid output file format!\n" + CORRECT_FILE_FORMAT;
 
     /**
      * Returns an error message indicating the duplicate prefixes.

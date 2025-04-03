@@ -2,7 +2,6 @@ package tassist.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collection;
@@ -218,10 +217,9 @@ public class ParserUtil {
 
         Path path = Paths.get(trimmedFilePath);
 
-        if (!path.isAbsolute()) {
-            throw new ParseException(Messages.MESSAGE_INVALID_FILE_PATH);
-        } else if (!Files.exists(path)) {
-            throw new ParseException(Messages.MESSAGE_INVALID_FILE_PATH);
+        // make sure it is an absolute path and also not the root directory of the file system
+        if (!path.isAbsolute() || path.getNameCount() == 0) {
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_FILE_PATH, path));
         }
 
         return path;

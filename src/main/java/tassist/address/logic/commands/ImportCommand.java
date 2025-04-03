@@ -30,7 +30,6 @@ public class ImportCommand extends Command {
             + "or (Windows): " + COMMAND_WORD + " C:\\Users\\Name\\Downloads\\file.csv";
 
     public static final String MESSAGE_IMPORT_SUCCESS = "Successfully imported CSV file: %1$s";
-    public static final String MESSAGE_IMPORT_FAILURE = "Failed to import CSV file: %1$s";
     public static final String MESSAGE_INVALID_VALUE_IN_FILE = "Error during file conversion: invalid value";
     public static final String MESSAGE_UNABLE_TO_ACCESS_FILE = "Unable to access file";
     public static final String MESSAGE_CORRUPTED_FILE = "File is corrupted";
@@ -90,8 +89,7 @@ public class ImportCommand extends Command {
      * the CSV file is imported
      */
     private String generateSuccessMessage() {
-        String message = filePath != null ? MESSAGE_IMPORT_SUCCESS : MESSAGE_IMPORT_FAILURE;
-        return String.format(message, filePath);
+        return String.format(MESSAGE_IMPORT_SUCCESS, filePath);
     }
 
     @Override

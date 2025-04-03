@@ -94,7 +94,7 @@ public class ImportCommandTest {
     }
 
     @Test
-    public void execute_corruptedJsonFile_throwsCommandException() {
+    public void execute_modelAndUserPrefsDifferentAddressBookFilePath_throwsCommandException() {
         Model testModel = new ModelManager(getTypicalAddressBook(),
                 new TestUserPrefs(temporaryFolder.resolve("random.csv")));
         Path testCsvFilePath = Paths.get("src", "test", "data",
