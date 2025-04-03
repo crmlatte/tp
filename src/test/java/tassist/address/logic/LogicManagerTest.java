@@ -6,6 +6,7 @@ import static tassist.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static tassist.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static tassist.address.logic.commands.CommandTestUtil.PROGRESS_DESC_AMY;
 import static tassist.address.logic.commands.CommandTestUtil.PROJECT_TEAM_DESC_AMY;
+import static tassist.address.logic.commands.CommandTestUtil.REPOSITORY_DESC_AMY;
 import static tassist.address.logic.commands.CommandTestUtil.STUDENTID_DESC_AMY;
 import static tassist.address.testutil.Assert.assertThrows;
 import static tassist.address.testutil.TypicalPersons.AMY;
@@ -247,8 +248,8 @@ public class LogicManagerTest {
 
         logic = new LogicManager(model, storage);
 
-        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
-                + EMAIL_DESC_AMY + STUDENTID_DESC_AMY + PROJECT_TEAM_DESC_AMY + PROGRESS_DESC_AMY;
+        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
+                + STUDENTID_DESC_AMY + PROJECT_TEAM_DESC_AMY + REPOSITORY_DESC_AMY + PROGRESS_DESC_AMY;
 
         Person expectedPerson = new PersonBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();
