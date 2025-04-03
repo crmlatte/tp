@@ -26,9 +26,8 @@ public class ListCommand extends Command {
     public static final String COMMAND_WORD = "list";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists students with optional sorting and filtering.\n"
-            + "Parameters:\n"
-            + "  [Optional] " + PREFIX_FILTER + "FILTER_TYPE " + PREFIX_FILTER_VALUE + "FILTER_VALUE\n"
-            + "  [Optional] " + PREFIX_SORT + "SORT_TYPE " + PREFIX_ORDER + "SORT_ORDER\n"
+            + "Parameters: " + PREFIX_FILTER + "FILTER_TYPE " + PREFIX_FILTER_VALUE + "FILTER_VALUE or\n"
+            + "Parameters: " + PREFIX_SORT + "SORT_TYPE " + PREFIX_ORDER + "SORT_ORDER\n"
             + "Supported SORT_TYPE: name, progress, github\n"
             + "Supported SORT_ORDER: asc (ascending), des (descending)\n"
             + "Supported FILTER_TYPE: class, team, progress\n"

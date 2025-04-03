@@ -1,6 +1,9 @@
 package tassist.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static tassist.address.logic.parser.CliSyntax.PREFIX_REPOSITORY;
+import static tassist.address.logic.parser.CliSyntax.PREFIX_REPOSITORY_NAME;
+import static tassist.address.logic.parser.CliSyntax.PREFIX_USERNAME;
 import static tassist.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static tassist.address.model.person.Repository.MESSAGE_CONSTRAINTS;
 import static tassist.address.model.person.Repository.MESSAGE_REPOSITORY_NAME_VALIDITY;
@@ -28,8 +31,9 @@ public class RepoCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits the repository of the person identified by the STUDENTID or INDEX. "
             + "Existing URL will be overwritten by the input.\n"
-            + "Parameters: STUDENTID or INDEX, un/[USERNAME] rn/[REPOSITORY_NAME] or\n"
-            + "Parameters: STUDENTID or INDEX, r/[REPOSITORY_URL]\n"
+            + "Parameters: STUDENTID or INDEX, "
+            + PREFIX_USERNAME + "USERNAME" + PREFIX_REPOSITORY_NAME + "REPOSITORY_NAME or\n"
+            + "Parameters: STUDENTID or INDEX, " + PREFIX_REPOSITORY + "REPOSITORY_URL\n"
             + "Example:\n"
             + COMMAND_WORD + " 2 un/Group-4 rn/WealthVault\n"
             + COMMAND_WORD + " AxxxxxxxN un/Tutorial-G08 rn/BestApp or\n"
