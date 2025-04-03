@@ -2,6 +2,8 @@ package tassist.address.model.person;
 
 import static java.util.Objects.requireNonNull;
 import static tassist.address.commons.util.AppUtil.checkArgument;
+import static tassist.address.logic.commands.RepoCommand.MESSAGE_INVALID_REPOSITORY_NAME;
+import static tassist.address.logic.commands.RepoCommand.MESSAGE_INVALID_USERNAME;
 
 /**
  * Represents a student's Repository in TAssist.
@@ -38,27 +40,48 @@ public class Repository {
     public final String value;
 
     /**
-     * @param repository link of the Student
+     * Constructs an {@code Repository}.
+     *
+     * @param repository A valid repository.
      */
     public Repository(String repository) {
-
         requireNonNull(repository);
         checkArgument(isValidRepository(repository), MESSAGE_CONSTRAINTS);
         value = repository;
     }
 
+    /**
+     * Constructs an {@code Repository}.
+     *
+     * @param username A valid username.
+     * @param repositoryName A valid username.
+     */
+    public Repository(String username, String repositoryName) {
+        requireNonNull(repositoryName);
+        requireNonNull(username);
+        checkArgument(isValidUsername(username), MESSAGE_INVALID_USERNAME);
+        checkArgument(isValidRepositoryName(repositoryName), MESSAGE_INVALID_REPOSITORY_NAME);
+        value = "https://github.com/" + username + "/" + repositoryName;
+    }
+
 
     /**
-     * Returns if a given string is a valid repository link.
+     * Returns true if a given string is a valid repository link.
      */
     public static boolean isValidRepository(String test) {
         return test.matches(VALIDATION_REGEX) || test.matches(NO_REPOSITORY);
     }
 
+    /**
+     * Returns true if a given string is a valid username.
+     */
     public static boolean isValidUsername(String test) {
         return test.matches(VALID_USERNAME_REGEX);
     }
 
+    /**
+     * Returns true if a given string is a valid repository name.
+     */
     public static boolean isValidRepositoryName(String test) {
         return test.matches(VALID_REPOSITORY_REGEX);
     }

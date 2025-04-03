@@ -20,9 +20,9 @@ public class StudentId {
     public final String value;
 
     /**
-     * Constructs an {@code Address}.
+     * Constructs an {@code StudentId}.
      *
-     * @param studentId A valid address.
+     * @param studentId A valid studentId.
      */
     public StudentId(String studentId) {
         requireNonNull(studentId);
