@@ -8,6 +8,7 @@
     "studentId" : "A0000000B",
     "github": "https://github.com/default",
     "projectTeam" : "WealthAssist",
+    "repository" : "https://github.com/example/WealthAssist",
     "tags": [ "friends" ],
     "progress": "60"
   }, {
@@ -19,6 +20,7 @@
     "studentId" : "A0000000B",
     "projectTeam" : "WealthAssist",
     "github": "https://github.com/default",
+    "repository" : "https://github.com/example/WealthAssist",
     "progress": "60"
   } ]
 }

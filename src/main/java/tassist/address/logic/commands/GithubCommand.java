@@ -89,9 +89,16 @@ public class GithubCommand extends Command {
         checkDuplicates(model, personToEdit);
 
         Person editedPerson = new Person(
-                personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
-                personToEdit.getClassNumber(), personToEdit.getStudentId(),
-                github, personToEdit.getProjectTeam(), personToEdit.getTags(), personToEdit.getProgress(),
+                personToEdit.getName(),
+                personToEdit.getPhone(),
+                personToEdit.getEmail(),
+                personToEdit.getClassNumber(),
+                personToEdit.getStudentId(),
+                github,
+                personToEdit.getProjectTeam(),
+                personToEdit.getRepository(),
+                personToEdit.getTags(),
+                personToEdit.getProgress(),
                 personToEdit.getTimedEventsList());
 
         model.setPerson(personToEdit, editedPerson);

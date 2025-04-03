@@ -116,13 +116,13 @@ All parameters are optional. Filters and sorting can be used together or indepen
 
 #### Filter Options
 `FILTER_TYPE:`<br>
-* progress: Filters students whose progress is less than or equal to the provided value. 
+* progress: Filters students whose progress is less than or equal to the provided value.
 * team: Filters by existing team names.
 * course: (Not yet implemented) Will filter by existing course codes.
 
 `FILTER_VALUE:`<br>
 * PROGRESS: an integer between 0 and 100.
-* TEAM: must match an existing team name. 
+* TEAM: must match an existing team name.
 * COURSE: (Not yet implemented) must match an existing course value.
 
 #### Sort Options
