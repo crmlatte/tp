@@ -8,6 +8,7 @@ import static tassist.address.logic.commands.CommandTestUtil.VALID_STUDENTID_BOB
 import static tassist.address.logic.parser.CliSyntax.PREFIX_GITHUB;
 import static tassist.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static tassist.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static tassist.address.logic.parser.GithubCommandParser.MESSAGE_MISSING_GITHUB_PREFIX;
 import static tassist.address.logic.parser.GithubCommandParser.MESSAGE_REMOVE_GITHUB;
 import static tassist.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
@@ -78,6 +79,15 @@ public class GithubCommandParserTest {
         GithubCommand resultCommand = parser.parse(input);
 
         assertEquals(expectedCommand, resultCommand);
+    }
+
+    @Test
+    public void parse_missingGithubPrefix_throwsParseException() {
+        String input = "1";
+        String expectedOutput = MESSAGE_MISSING_GITHUB_PREFIX;
+
+        ParseException thrown = assertThrows(ParseException.class, () ->parser.parse(input));
+        assertEquals(expectedOutput, thrown.getMessage());
     }
 
     @Test

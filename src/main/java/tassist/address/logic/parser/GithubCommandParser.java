@@ -2,6 +2,7 @@ package tassist.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static tassist.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static tassist.address.logic.commands.GithubCommand.MESSAGE_USAGE;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_GITHUB;
 import static tassist.address.model.person.Github.MESSAGE_CONSTRAINTS;
 import static tassist.address.model.person.Github.NO_GITHUB;
@@ -19,7 +20,9 @@ import tassist.address.model.person.StudentId;
  */
 public class GithubCommandParser implements Parser<GithubCommand> {
 
-    public static final String MESSAGE_REMOVE_GITHUB = "Please use `g/` to remove a GitHub link. e.g., github 1 g/";
+    public static final String MESSAGE_REMOVE_GITHUB = "Please use g/ to remove a GitHub link. e.g., github 1 g/";
+    public static final String MESSAGE_MISSING_GITHUB_PREFIX = "Missing github prefix. Please use g/ to specify "
+            + "the GitHub link. Refer to the command usage details below:\n" + MESSAGE_USAGE;
 
     /**
      * Parses the given {@code String} of arguments in the context of the {@code GithubCommand}
@@ -34,12 +37,16 @@ public class GithubCommandParser implements Parser<GithubCommand> {
 
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    GithubCommand.MESSAGE_USAGE));
+                    MESSAGE_USAGE));
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_GITHUB);
 
-        String github = argMultimap.getValue(PREFIX_GITHUB).orElse("");
+        if (!argMultimap.getValue(PREFIX_GITHUB).isPresent()) {
+            throw new ParseException(MESSAGE_MISSING_GITHUB_PREFIX);
+        }
+
+        String github = argMultimap.getValue(PREFIX_GITHUB).get();
 
         if ("No Github assigned".equalsIgnoreCase(github)) {
             throw new ParseException(MESSAGE_REMOVE_GITHUB);
@@ -61,7 +68,7 @@ public class GithubCommandParser implements Parser<GithubCommand> {
                 return new GithubCommand(studentId, new Github(github));
             } catch (IllegalValueException ive) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        GithubCommand.MESSAGE_USAGE), ive);
+                        MESSAGE_USAGE), ive);
             }
         }
 
@@ -70,7 +77,7 @@ public class GithubCommandParser implements Parser<GithubCommand> {
             return new GithubCommand(index, new Github(github));
         } catch (IllegalValueException ive) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    GithubCommand.MESSAGE_USAGE), ive);
+                    MESSAGE_USAGE), ive);
         }
     }
 }
