@@ -7,6 +7,7 @@ import static tassist.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_STUDENTID_AMY;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_CLASS;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_GITHUB;
+import static tassist.address.logic.parser.CliSyntax.PREFIX_PROGRESS;
 import static tassist.address.testutil.Assert.assertThrows;
 import static tassist.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
@@ -33,11 +34,13 @@ import tassist.address.logic.commands.HelpCommand;
 import tassist.address.logic.commands.ImportCommand;
 import tassist.address.logic.commands.ListCommand;
 import tassist.address.logic.commands.OpenCommand;
+import tassist.address.logic.commands.ProgressCommand;
 import tassist.address.logic.parser.exceptions.ParseException;
 import tassist.address.model.person.ClassNumber;
 import tassist.address.model.person.Github;
 import tassist.address.model.person.NameContainsKeywordsPredicate;
 import tassist.address.model.person.Person;
+import tassist.address.model.person.Progress;
 import tassist.address.model.person.StudentId;
 import tassist.address.testutil.EditPersonDescriptorBuilder;
 import tassist.address.testutil.PersonBuilder;
@@ -169,6 +172,14 @@ public class AddressBookParserTest {
 
         assertTrue(parser.parseCommand(ImportCommand.COMMAND_WORD
                 + " " + absoluteFilePath.toString()) instanceof ImportCommand);
+    }
+
+    @Test
+    public void parseCommand_progress() throws Exception {
+        final Progress progress = new Progress("70");
+        ProgressCommand command = (ProgressCommand) parser.parseCommand(ProgressCommand.COMMAND_WORD + " "
+                + INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_PROGRESS + "70");
+        assertEquals(new ProgressCommand(INDEX_FIRST_PERSON, progress), command);
     }
 
     @Test
