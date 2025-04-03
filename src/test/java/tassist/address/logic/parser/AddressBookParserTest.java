@@ -10,11 +10,14 @@ import static tassist.address.logic.parser.CliSyntax.PREFIX_GITHUB;
 import static tassist.address.testutil.Assert.assertThrows;
 import static tassist.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 import tassist.address.logic.commands.AddCommand;
 import tassist.address.logic.commands.ClassCommand;
@@ -26,6 +29,7 @@ import tassist.address.logic.commands.ExitCommand;
 import tassist.address.logic.commands.FindCommand;
 import tassist.address.logic.commands.GithubCommand;
 import tassist.address.logic.commands.HelpCommand;
+import tassist.address.logic.commands.ImportCommand;
 import tassist.address.logic.commands.ListCommand;
 import tassist.address.logic.commands.OpenCommand;
 import tassist.address.logic.parser.exceptions.ParseException;
@@ -39,6 +43,9 @@ import tassist.address.testutil.PersonBuilder;
 import tassist.address.testutil.PersonUtil;
 
 public class AddressBookParserTest {
+
+    @TempDir
+    public Path testRoot;
 
     private final AddressBookParser parser = new AddressBookParser();
 
@@ -147,6 +154,20 @@ public class AddressBookParserTest {
         OpenCommand command = (OpenCommand) parser.parseCommand(
                 OpenCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
         assertEquals(new OpenCommand(INDEX_FIRST_PERSON), command);
+    }
+
+    @Test
+    public void parseCommand_import() throws Exception {
+        // mimics absolute path
+        final Path absoluteFilePath = testRoot.resolve("sample.csv");
+
+        // creates the file so it "exists"
+        if (!Files.exists(absoluteFilePath)) {
+            Files.createFile(absoluteFilePath);
+        }
+
+        assertTrue(parser.parseCommand(ImportCommand.COMMAND_WORD
+                + " " + absoluteFilePath.toString()) instanceof ImportCommand);
     }
 
     @Test

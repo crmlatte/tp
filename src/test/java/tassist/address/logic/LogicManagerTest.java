@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.AccessDeniedException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +36,7 @@ import tassist.address.model.UserPrefs;
 import tassist.address.model.person.Person;
 import tassist.address.storage.JsonAddressBookStorage;
 import tassist.address.storage.JsonUserPrefsStorage;
+import tassist.address.storage.Storage;
 import tassist.address.storage.StorageManager;
 import tassist.address.testutil.PersonBuilder;
 
@@ -44,20 +46,25 @@ import tassist.address.testutil.PersonBuilder;
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy IO exception");
     private static final IOException DUMMY_AD_EXCEPTION = new AccessDeniedException("dummy access denied exception");
+    private static final Path TEST_CSV_PATH = Paths.get("src", "test", "data",
+            "CsvJsonConverterTest", "valid.csv");
 
     @TempDir
     public Path temporaryFolder;
 
     private final Model model = new ModelManager();
+    private Storage storage;
     private LogicManager logic;
     private TestBrowserService browserService;
+    private JsonAddressBookStorage addressBookStorage;
+    private JsonUserPrefsStorage userPrefsStorage;
 
     @BeforeEach
-    public void setUp() {
-        JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
-        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+    public void setUp() throws IOException {
+        Path addressBookFilePath = temporaryFolder.resolve("addressBook.json");
+        addressBookStorage = new JsonAddressBookStorage(addressBookFilePath);
+        userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
+        storage = new StorageManager(addressBookStorage, userPrefsStorage);
         browserService = new TestBrowserService();
         logic = new LogicManager(model, storage, browserService);
     }
@@ -196,7 +203,7 @@ public class LogicManagerTest {
     }
 
     private void assertCommandSuccess(String inputCommand, String expectedMessage,
-            Model expectedModel) throws CommandException, ParseException {
+                                      Model expectedModel) throws CommandException, ParseException {
         CommandResult result = logic.execute(inputCommand);
         assertEquals(expectedMessage, result.getFeedbackToUser());
         assertEquals(expectedModel, model);
@@ -211,13 +218,13 @@ public class LogicManagerTest {
     }
 
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
-            String expectedMessage) {
+                                      String expectedMessage) {
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
-            String expectedMessage, Model expectedModel) {
+                                      String expectedMessage, Model expectedModel) {
         assertThrows(expectedException, expectedMessage, () -> logic.execute(inputCommand));
         assertEquals(expectedModel, model);
     }
