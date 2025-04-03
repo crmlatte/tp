@@ -115,7 +115,7 @@ public abstract class TimedEvent {
         }
 
         return otherTimedEvent != null
-                && otherTimedEvent.getName().equals(getName())
+                && otherTimedEvent.getName().equalsIgnoreCase(getName())
                 && otherTimedEvent.getTime().equals(getTime());
     }
 

@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 
 import tassist.address.logic.commands.FindCommand;
 import tassist.address.logic.parser.exceptions.ParseException;
+import tassist.address.model.person.ClassNumber;
 import tassist.address.model.person.NameContainsKeywordsPredicate;
 import tassist.address.model.person.Person;
 import tassist.address.model.person.StudentId;
@@ -32,6 +33,12 @@ public class FindCommandParser implements Parser<FindCommand> {
         if (trimmedArgs.matches(StudentId.VALIDATION_REGEX)) {
             Predicate<Person> studentIdPredicate = person -> person.getStudentId().value.equals(trimmedArgs);
             return new FindCommand(studentIdPredicate);
+        }
+
+        // Check if the input matches a class number format
+        if (trimmedArgs.matches(ClassNumber.VALIDATION_REGEX) || trimmedArgs.equals(ClassNumber.DEFAULT_CLASS)) {
+            Predicate<Person> classNumberPredicate = person -> person.getClassNumber().value.equals(trimmedArgs);
+            return new FindCommand(classNumberPredicate, true);
         }
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
