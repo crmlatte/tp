@@ -29,12 +29,12 @@ public class GithubTest {
         assertFalse(Github.isValidGithub("github.com")); // missing local part
         assertFalse(Github.isValidGithub("github.com/john")); // missing https
         assertFalse(Github.isValidGithub("john")); // missing domain name
-
         assertFalse(Github.isValidGithub("https://github.com/$$hi")); // invalid user name
         assertFalse(Github.isValidGithub("https://github.com/ur_l")); // underscore in user name
         assertFalse(Github.isValidGithub("https://github.com/weewoo-")); // ending with dash
-        assertTrue(Github.isValidGithub("https://github.com/jOhn-12")); // one dash
+
         assertTrue(Github.isValidGithub("https://github.com/a-1-2-3-d")); // multiple dash
+        assertTrue(Github.isValidGithub("https://github.com/john-12")); // one dash
         assertTrue((Github.isValidGithub("No Github assigned")));
     }
     @Test
