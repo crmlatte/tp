@@ -28,8 +28,8 @@ public class RepoCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits the repository of the person identified by the STUDENTID or INDEX. "
             + "Existing URL will be overwritten by the input.\n"
-            + "Parameters: STUDENTID or INDEX, un/{username}, rn/{repository name} or\n"
-            + "Parameters: STUDENTID or INDEX, r/{repository_URL}\n"
+            + "Parameters: STUDENTID or INDEX, un/[USERNAME] rn/[REPOSITORY_NAME] or\n"
+            + "Parameters: STUDENTID or INDEX, r/[REPOSITORY_URL]\n"
             + "Example:\n"
             + COMMAND_WORD + " 2 un/Group-4 rn/WealthVault\n"
             + COMMAND_WORD + " AxxxxxxxN un/Tutorial-G08 rn/BestApp or\n"
