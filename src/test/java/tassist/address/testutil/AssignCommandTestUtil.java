@@ -26,7 +26,7 @@ public class AssignCommandTestUtil {
             LocalDateTime.of(2027, 4, 15, 23, 59));
 
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
-            .withEmail("alice@example.com")
+            .withEmail("alice@u.nus.edu")
             .withPhone("94351253")
             .withClassNumber("T01")
             .withStudentId("A1111111B")
@@ -35,7 +35,7 @@ public class AssignCommandTestUtil {
             .build();
 
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
-            .withEmail("johnd@example.com")
+            .withEmail("johnd@u.nus.edu")
             .withPhone("98765432")
             .withStudentId("A0101011A")
             .withClassNumber("T01")
@@ -44,7 +44,7 @@ public class AssignCommandTestUtil {
             .build();
 
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz")
-            .withEmail("heinz@example.com")
+            .withEmail("heinz@u.nus.edu")
             .withPhone("95352563")
             .withStudentId("A1234567A")
             .withClassNumber("T02")

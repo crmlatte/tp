@@ -2,7 +2,7 @@
   "persons": [ {
     "name": "Alice Pauline",
     "phone": "94351253",
-    "email": "alice@example.com",
+    "email": "alice@u.nus.edu",
     "address": "123, Jurong West Ave 6, #08-111",
     "classNumber": "T01",
     "studentId" : "A0000000B",
@@ -13,7 +13,7 @@
   }, {
     "name": "Alice Pauline",
     "phone": "94351253",
-    "email": "pauline@example.com",
+    "email": "pauline@u.nus.edu",
     "address": "4th street",
     "classNumber": "T15",
     "studentId" : "A0000000B",
