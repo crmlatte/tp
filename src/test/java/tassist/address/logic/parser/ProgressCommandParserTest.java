@@ -70,4 +70,15 @@ public class ProgressCommandParserTest {
         assertEquals(expectedMessage, thrown.getMessage());
         assertParseFailure(parser, COMMAND_WORD + input, expectedMessage);
     }
+
+    @Test
+    public void parse_nullProgressInput_throwsParseException() {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ProgressCommand.MESSAGE_USAGE);
+
+        // null progress input
+        String input = " 1 pr/";
+        ParseException thrown = assertThrows(ParseException.class, () -> parser.parse(input));
+        assertEquals(expectedMessage, thrown.getMessage());
+        assertParseFailure(parser, COMMAND_WORD + input, expectedMessage);
+    }
 }
