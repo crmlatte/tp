@@ -5,14 +5,15 @@
     "email" : "alexyeoh@example.com",
     "classNumber" : "T01",
     "studentId" : "A0000001B",
-    "github" : "https://github.com/default",
+    "github" : "No Github assigned",
     "projectTeam" : "WealthVault",
+    "repository" : "https://github.com/alex/new.repo",
     "tags" : [ "friends" ],
-    "progress" : "20%",
+    "progress" : "20",
     "timedEvents" : [ {
-      "name" : "cs2103t",
+      "name" : "CS2103T tp",
       "description" : "",
-      "time" : "2025-04-30T23:59",
+      "time" : "2030-01-01T23:59",
       "type" : "Assignment"
     } ]
   }, {
@@ -21,8 +22,9 @@
     "email" : "berniceyu@example.com",
     "classNumber" : "T04",
     "studentId" : "A0000002B",
-    "github" : "https://github.com/default",
+    "github" : "No Github assigned",
     "projectTeam" : "Rawrness",
+    "repository" : "No Repository",
     "tags" : [ "colleagues", "friends" ],
     "progress" : "35",
     "timedEvents" : [ ]
@@ -32,16 +34,17 @@
     "email" : "charlotte@example.com",
     "classNumber" : "R01",
     "studentId" : "A0000003B",
-    "github" : "https://github.com/default",
+    "github" : "No Github assigned",
     "projectTeam" : "Rawrness",
+    "repository" : "No Repository",
     "tags" : [ "neighbours" ],
     "progress" : "80",
     "timedEvents" : [ ]
   } ],
   "timedEvents" : [ {
-    "name" : "new",
+    "name" : "CS2103T tp",
     "description" : "",
-    "time" : "2066-01-30T23:59",
+    "time" : "2030-01-01T23:59",
     "type" : "Assignment"
   } ]
 }
