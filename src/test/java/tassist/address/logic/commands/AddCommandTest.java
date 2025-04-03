@@ -57,6 +57,65 @@ public class AddCommandTest {
     }
 
     @Test
+    public void execute_existingEmail_throwsCommandException() {
+        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+        Person validPerson = new PersonBuilder()
+                .withStudentId("A1112222B")
+                .withEmail("john@u.nus.edu")
+                .build();
+        modelStub.personsAdded.add(validPerson);
+
+        Person personWithSameEmail = new PersonBuilder()
+                .withStudentId("A3332222B")
+                .withEmail("john@u.nus.edu").build();
+        AddCommand addCommand = new AddCommand(personWithSameEmail);
+
+        assertThrows(CommandException.class, AddCommand.MESSAGE_EXISTING_EMAIL, () -> addCommand.execute(modelStub));
+    }
+
+    @Test
+    public void execute_existingPhone_throwsCommandException() {
+        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+        Person validPerson = new PersonBuilder()
+                .withStudentId("A1112222B")
+                .withEmail("john@u.nus.edu")
+                .withPhone("92929292")
+                .build();
+        modelStub.personsAdded.add(validPerson);
+
+        Person personWithSamePhone = new PersonBuilder()
+                .withStudentId("A3332222B")
+                .withEmail("sarah@u.nus.edu")
+                .withPhone("92929292")
+                .build();
+        AddCommand addCommand = new AddCommand(personWithSamePhone);
+
+        assertThrows(CommandException.class, AddCommand.MESSAGE_EXISTING_PHONE, () -> addCommand.execute(modelStub));
+    }
+
+    @Test
+    public void execute_existingGithub_throwsCommandException() {
+        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+        Person validPerson = new PersonBuilder()
+                .withStudentId("A1112222B")
+                .withEmail("john@u.nus.edu")
+                .withPhone("92929292")
+                .withGithub("https://github.com/john")
+                .build();
+        modelStub.personsAdded.add(validPerson);
+
+        Person personWithSameGithub = new PersonBuilder()
+                .withStudentId("A3332222B")
+                .withPhone("88883333")
+                .withEmail("sarah@u.nus.edu")
+                .withGithub("https://github.com/john")
+                .build();
+        AddCommand addCommand = new AddCommand(personWithSameGithub);
+
+        assertThrows(CommandException.class, AddCommand.MESSAGE_EXISTING_GITHUB, () -> addCommand.execute(modelStub));
+    }
+
+    @Test
     public void equals() {
         Person alice = new PersonBuilder().withStudentId("A1111111A").build();
         Person bob = new PersonBuilder().withStudentId("A2222222B").build();
@@ -261,6 +320,11 @@ public class AddCommandTest {
         @Override
         public void updateSortedTimedEventList(Comparator<TimedEvent> comparator) {
             // No-op for testing
+        }
+
+        @Override
+        public ObservableList<Person> getFilteredPersonList() {
+            return FXCollections.observableList(personsAdded);
         }
     }
 

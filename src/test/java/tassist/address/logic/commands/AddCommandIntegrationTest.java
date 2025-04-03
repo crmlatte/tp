@@ -28,7 +28,13 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_newPerson_success() {
-        Person validPerson = new PersonBuilder().build();
+        Person validPerson = new PersonBuilder()
+                .withName("Unique Name")
+                .withPhone("99999999")
+                .withEmail("unique@u.nus.edu")
+                .withGithub("https://github.com/uniquestudent")
+                .withStudentId("A9999999Z")
+                .build();
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.addPerson(validPerson);
