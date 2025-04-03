@@ -168,22 +168,24 @@ Examples:
 
 ### Locating students by name: `find`
 
-Finds students whose names contain any of the given keywords, or whose student ID matches exactly.
+Finds students whose names contain any of the given keywords, whose student ID matches exactly, or whose class number matches exactly.
 
-Format: `find NAME [MORE_NAMES]` or `find STUDENT_ID`
+Format: `find NAME [MORE_NAMES]` or `find STUDENT_ID` or `find CLASS_NUMBER`
 
-* The search is case-insensitive. e.g `hans` will match `Hans`
+* The search is case-insensitive. e.g. `hans` will match `Hans`
 * The order of the names does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only full words will be matched e.g. `Han` will not match `Hans`
+* Partial words will be matched e.g. `Han` will match `Hans`
 * Students matching at least one name will be returned (i.e. `OR` search).
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 * If a valid student ID is entered (e.g. `A1234567B`), it will return the student with an exact match on that ID.
+* If a valid class number is entered (e.g. `T01`), it will return all students in that class.
 
 Examples:
 * `find John` returns `john` and `John Doe`
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find john alice'](images/UserGuideFindCommand1.png)
 * `find A1234567B` returns the student with that exact student ID
+* `find T01` returns all students in tutorial class T01
 
 ### Assigning or Removing a tutorial class: `class`
 
@@ -366,7 +368,7 @@ Action | Format, Examples
 **Clear** | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [s/STUDENTID] [g/GITHUB_URL] [pt/TEAM] [c/CLASS_NUMBER] [t/TAG]…​ [pr/PROGRESS]`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find** | `find KEYWORD [MORE_KEYWORDS]` or `find STUDENT_ID` <br> e.g., `find James Jake`, `find A1234567B`
+**Find** | `find KEYWORD [MORE_KEYWORDS]` or `find STUDENT_ID` or `find CLASS_NUMBER` <br> e.g., `find James Jake`, `find A1234567B`
 **List** | `list [f/FILTER_TYPE fv/FILTER_VALUE] [s/SORT_TYPE o/SORT_ORDER]`<br> e.g.,`list f/progress fv/50 s/name o/des`
 **Class** | `class INDEX c/CLASS_NUMBER` or `class STUDENT_ID c/CLASS_NUMBER` <br> e.g.,`class 1 c/T01`, `class A7654321B c/T02`
 **Github** | `github INDEX g/GITHUB_URL` or `github STUDENT_ID g/GITHUB_URL` <br> e.g.,`github 2 g/https://github.com/alice`, `github A1234567B g/https://github.com/alice`
