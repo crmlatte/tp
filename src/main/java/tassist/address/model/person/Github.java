@@ -9,24 +9,17 @@ import static tassist.address.commons.util.AppUtil.checkArgument;
 public class Github {
 
     public static final String NO_GITHUB = "No Github assigned";
-    private static final String SPECIAL_CHARACTERS = "/:.";
     public static final String MESSAGE_CONSTRAINTS =
-            "Githubs links should be of the format https://github.com/{username} "
-            + "in the form [github url]/username "
-            + "or 'No Github assigned' "
-            + "and adhere to the following constraints:\n"
-            + "1. The github url part should only contain alphanumeric characters "
-            + "and these special characters, excluding "
-            + "the parentheses, (" + SPECIAL_CHARACTERS + "). "
-            + "The github url part may not start or end with any special "
-            + "characters, particularly in the format ' https://github.com ' .\n"
-            + "2. This is followed by a '/' and then a username."
-            + " The username is made up of alphanumeric characters "
-            + "separated by dashes (-).\n"
+            "GitHub links should be in the format: https://github.com/USERNAME\n "
+            + "Alternatively, you may leave the github field blank to remove the GitHub link from a student.\n\n "
+            + "The URL must follow these rules:\n"
+            + "1. The base GitHub url must be 'https://github.com'\n"
+            + "2. This is followed by a '/' and then a username.\n\n "
             + "The username must:\n"
-            + "    - be at least 2 characters long\n"
-            + "    - start and end with alphanumeric characters\n"
-            + "    - consist of alphanumeric characters, separated only by dashes, if any.";
+            + "    - Be at least 2 characters long\n"
+            + "    - Made up of alphanumeric characters\n"
+            + "    - Separated only by dashes (-), if any\n"
+            + "    - Start and end with alphanumeric characters.";
 
     // alphanumeric and special characters
     private static final String GITHUB_URL_REGEX = "^https://github\\.com/";
