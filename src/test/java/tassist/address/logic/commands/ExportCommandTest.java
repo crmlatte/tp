@@ -23,7 +23,8 @@ public class ExportCommandTest {
     @TempDir
     public static Path temporaryFolder;
 
-    private final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "CsvJsonConverterTest");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "CsvJsonConverterTest");
+
     private Model model;
 
     @BeforeEach
@@ -33,7 +34,7 @@ public class ExportCommandTest {
 
     @Test
     public void execute_validAbsolutePath_success() throws CommandException {
-        Path testOutputCsvFilePath =  TEST_DATA_FOLDER.resolve("valid.csv");
+        Path testOutputCsvFilePath = TEST_DATA_FOLDER.resolve("valid.csv");
         ExportCommand exportCommand = new ExportCommand(testOutputCsvFilePath);
 
         CommandResult result = exportCommand.execute(model);
