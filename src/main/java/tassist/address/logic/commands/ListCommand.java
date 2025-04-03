@@ -32,8 +32,8 @@ public class ListCommand extends Command {
             + "Supported SORT_ORDER: asc (ascending), des (descending)\n"
             + "Supported FILTER_TYPE: class, team, progress\n"
             + "Example: \n"
-            + "1. list s/name o/asc"
-            + "2. list f/class fv/T01"
+            + "1. list s/name o/asc\n"
+            + "2. list f/class fv/T01\n"
             + "3. list f/class fv/T01 s/name o/asc";
 
     public static final String MESSAGE_SUCCESS = "Listed all students";
