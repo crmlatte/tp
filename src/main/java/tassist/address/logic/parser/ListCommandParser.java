@@ -1,5 +1,6 @@
 package tassist.address.logic.parser;
 
+import static tassist.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tassist.address.logic.commands.ListCommand.MESSAGE_USAGE;
 import static tassist.address.logic.commands.ListCommand.VALID_FILTER_TYPES;
 import static tassist.address.logic.commands.ListCommand.VALID_SORT_ORDERS;
@@ -24,7 +25,7 @@ public class ListCommandParser implements Parser<ListCommand> {
                 PREFIX_FILTER_VALUE);
 
         if (!argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException("Invalid command format. Please use: \n" + MESSAGE_USAGE);
+            throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT + "Please use: \n" + MESSAGE_USAGE);
         }
 
         String sortType = argMultimap.getValue(PREFIX_SORT).orElse(null);
