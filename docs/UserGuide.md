@@ -340,7 +340,7 @@ Format: `clear`
 
 ### Importing data : `import`
 
-Imports a CSV file containing student and active timed event data into the system. The file should follow the correct CSV format for students and timed events.
+Imports a CSV file containing both student data and active timed event data into the system. The file should follow the correct CSV format for both students and timed events.
 
 Format: `import INPUT_CSV_FILE_PATH`
 
