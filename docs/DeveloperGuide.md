@@ -301,9 +301,9 @@ This product is for university CS Teaching Assistants who need to track and mana
 * Needs quick access to student GitHub accounts and repositories.
 * Often forgets which students require follow-ups.
 * Tutors multiple classes across different courses.
-* Prefer desktop apps over other types
-* Can type fast
-* Is reasonably comfortable using CLI apps
+* Prefer desktop apps over other types.
+* Can type fast.
+* Is reasonably comfortable using CLI apps.
 
 **Value proposition**:\
 Provides an easy way for CS Teaching Assistants to track and manage student details, including contact information, GitHub accounts, course progress, and project teams. Enables efficient organization and reduces administrative workload.
@@ -328,6 +328,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | CS TA             | assign multiple students to a project team at once | organise teams quickly                        |
 | `* *`    | CS TA             | add progress level to each student                 | easily monitor a student's progress and skill |
 | `* *`    | CS TA             | filter students by progress level                  | tailor my guidance to each student            |
+| `* *`    | CS TA             | filter students by project team                    | find a group members of team easily           |
 | `*`      | forgetful CS TA   | set a reminder for a student tasks                 | remember to follow up                         |
 | `*`      | forgetful CS TA   | schedule notification for assignment deadline      | remember to check submissions                 |
 | `*`      | forgetful CS TA   | add notes to a student                             | take down important information               |
@@ -350,9 +351,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  User requests to list students
-2.  System shows a list of students
-3.  User requests to delete a specific student in the list
+1.  User requests to list students.
+2.  System shows a list of students.
+3.  User requests to delete a specific student in the list.
 4.  System shows confirmation message.
 5.  User confirms.
 6.  System deletes the student from the list.
