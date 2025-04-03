@@ -32,8 +32,9 @@ public class GithubTest {
 
         assertFalse(Github.isValidGithub("https://github.com/$$hi")); // invalid user name
         assertFalse(Github.isValidGithub("https://github.com/ur_l")); // underscore in user name
-        assertTrue(Github.isValidGithub("https://github.com/jOhn-12"));
-        assertTrue(Github.isValidGithub("https://github.com/a-1-2-3-d"));
+        assertFalse(Github.isValidGithub("https://github.com/weewoo-")); // ending with dash
+        assertTrue(Github.isValidGithub("https://github.com/jOhn-12")); // one dash
+        assertTrue(Github.isValidGithub("https://github.com/a-1-2-3-d")); // multiple dash
         assertTrue((Github.isValidGithub("No Github assigned")));
     }
     @Test
