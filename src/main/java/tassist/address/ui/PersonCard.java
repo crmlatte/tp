@@ -65,7 +65,7 @@ public class PersonCard extends UiPart<Region> {
         this.person = person;
         cardPane.getStyleClass().add("person-card");
         id.setText(displayedIndex + ". ");
-        name.setText(person.getName().fullName);
+        name.setText(person.getName().value);
         classNumber.setText("Class Number: " + person.getClassNumber().value);
         phone.setText("Phone: " + person.getPhone().value);
         github.setText("GitHub: " + person.getGithub().value);

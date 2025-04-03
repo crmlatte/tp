@@ -172,7 +172,7 @@ public class ListCommand extends Command {
 
     private Comparator<Person> getComparator(String sortType, String sortOrder) throws CommandException {
         Comparator<Person> comparator = switch (sortType) {
-        case "name" -> Comparator.comparing(p -> p.getName().fullName.toLowerCase());
+        case "name" -> Comparator.comparing(p -> p.getName().value.toLowerCase());
         case "progress"-> Comparator.comparing(p -> p.getProgress().value);
         case "github" -> Comparator.comparing(p -> p.getGithub().value.toLowerCase());
         default -> throw new CommandException(MESSAGE_INVALID_SORT);

@@ -53,7 +53,7 @@ public class ListCommandTest {
         ListCommand command = new ListCommand("name", "asc", null, null);
         expectedModel.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         List<Person> sortedExpectedList = new ArrayList<>(expectedModel.getFilteredPersonList());
-        sortedExpectedList.sort(Comparator.comparing(p -> p.getName().fullName));
+        sortedExpectedList.sort(Comparator.comparing(p -> p.getName().value));
 
         assertCommandSuccess(command, model, ListCommand.MESSAGE_LIST_SORTED, expectedModel);
 
@@ -126,7 +126,7 @@ public class ListCommandTest {
         ListCommand command = new ListCommand("name", "des", "progress", "30");
         Predicate<Person> expectedPredicate = person -> person.getProgress().value <= 30;
         expectedModel.updateFilteredPersonList(expectedPredicate);
-        expectedModel.updateSortedPersonList(Comparator.comparing(p -> p.getName().fullName,
+        expectedModel.updateSortedPersonList(Comparator.comparing(p -> p.getName().value,
                 Comparator.reverseOrder()));
 
         assertCommandSuccess(command, model, ListCommand.MESSAGE_LIST_FILTERED_SORTED, expectedModel);
