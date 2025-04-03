@@ -4,9 +4,13 @@ import static tassist.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tassist.address.logic.Messages.MESSAGE_INVALID_FILE_PATH;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_FILE_PATH_1;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_FILE_PATH_2;
+import static tassist.address.logic.commands.ExportCommand.MESSAGE_EXPORT_FAILURE;
+import static tassist.address.logic.commands.ExportCommand.MESSAGE_PARENT_FOLDER_DOES_NOT_EXIST;
 import static tassist.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static tassist.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -48,8 +52,18 @@ public class ExportCommandParserTest {
     @Test
     public void parse_rootDirectory_throwsParseException() {
         // root directory
-        final String rootDirectory = "/";
+        FileSystem fileSystem = FileSystems.getDefault();
+        Path rootDirectory = fileSystem.getRootDirectories().iterator().next();
 
-        assertParseFailure(parser, rootDirectory, MESSAGE_INVALID_FILE_PATH);
+        assertParseFailure(parser, rootDirectory.toString(), MESSAGE_INVALID_FILE_PATH);
+    }
+
+    @Test
+    public void execute_nonExistentParentFolder_throwsCommandException() {
+        // creates a path, but does not create any missing directories or files
+        Path nonExistentParentFolderPath =
+                testRoot.resolve("nonExistentParentFolder").resolve("sample.csv");
+        assertParseFailure(parser, nonExistentParentFolderPath.toString(),
+                MESSAGE_EXPORT_FAILURE + "\n" + MESSAGE_PARENT_FOLDER_DOES_NOT_EXIST);
     }
 }

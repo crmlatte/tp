@@ -56,6 +56,7 @@ public class ExportCommand extends Command {
 
             return new CommandResult(generateSuccessMessage());
         } catch (IOException e) {
+            // should only reach here if file is corrupted
             throw new CommandException(MESSAGE_EXPORT_FAILURE + "\n" + MESSAGE_PARENT_FOLDER_DOES_NOT_EXIST);
         }
     }
