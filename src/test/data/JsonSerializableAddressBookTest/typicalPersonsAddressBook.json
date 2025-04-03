@@ -3,7 +3,7 @@
   "persons" : [ {
     "name" : "Alice Pauline",
     "phone" : "94351253",
-    "email" : "alice@example.com",
+    "email" : "alice@u.nus.edu",
     "classNumber": "T01",
     "studentId" : "A1111111B",
     "github": "No Github assigned",
@@ -14,7 +14,7 @@
   }, {
     "name" : "Benson Meier",
     "phone" : "98765432",
-    "email" : "johnd@example.com",
+    "email" : "johnd@u.nus.edu",
     "classNumber": "T01",
     "studentId" : "A0101011A",
     "github": "No Github assigned",
@@ -25,7 +25,7 @@
   }, {
     "name" : "Carl Kurz",
     "phone" : "95352563",
-    "email" : "heinz@example.com",
+    "email" : "heinz@u.nus.edu",
     "address" : "wall street",
     "classNumber": "No tutorial assigned",
     "studentId" : "A0101010C",
@@ -37,7 +37,7 @@
   }, {
     "name" : "Daniel Meier",
     "phone" : "87652533",
-    "email" : "cornelia@example.com",
+    "email" : "cornelia@u.nus.edu",
     "classNumber": "T04",
     "studentId" : "A0001234X",
     "github": "No Github assigned",
@@ -48,7 +48,7 @@
   }, {
     "name" : "Elle Meyer",
     "phone" : "9482224",
-    "email" : "werner@example.com",
+    "email" : "werner@u.nus.edu",
     "classNumber": "No tutorial assigned",
     "studentId" : "A1928374M",
     "github": "No Github assigned",
@@ -59,7 +59,7 @@
   }, {
     "name" : "Fiona Kunz",
     "phone" : "9482427",
-    "email" : "lydia@example.com",
+    "email" : "lydia@u.nus.edu",
     "classNumber": "No tutorial assigned",
     "studentId" : "A7654321J",
     "github": "No Github assigned",
@@ -70,7 +70,7 @@
   }, {
     "name" : "George Best",
     "phone" : "9482442",
-    "email" : "anna@example.com",
+    "email" : "anna@u.nus.edu",
     "classNumber": "No tutorial assigned",
     "studentId" : "A9182736L",
     "github": "No Github assigned",
