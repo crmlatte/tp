@@ -209,6 +209,23 @@ Examples:
 * `class A1234567B c/R05`<br>
    Assigns class R05 to the student with student ID `A1234567B`.
 
+### Updating a student's progress value: `progress`
+
+Updates the progress value of a student.
+
+Format: `progress INDEX pr/PROGRESS` or `progress STUDENT_ID pr/PROGRESS`
+
+* The progress shows the percentage of the student's completion status for the module or assigned tasks.
+* The PROGRESS must be an integer between 0 and 100, inclusive.
+* The index refers to the index number shown in the displayed student list.
+* The index **must be a positive integer** 1, 2, 3, …​
+
+Examples:
+* `progress 1 pr/75`<br>
+  Sets the progress of the first student in the list to 75%.
+* `progress A1234567B pr/50`<br>
+  Sets the progress of the student with Student ID A1234567B to 50%.
+
 ### Editing a student GitHub Link: `github`
 
 Updates the GitHub URL of a student, identified by either their displayed index or student ID.
@@ -236,7 +253,7 @@ Format: `open INDEX` or `open STUDENT_ID`
 * The index refers to the index number shown in the displayed student list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
-Example:
+Examples:
 * `list` followed by `open 1` opens the GitHub page of the first student shown in the list.
 * `open A1234567B`
   Opens the GitHub page of the student with student ID `A1234567B`.
@@ -419,6 +436,7 @@ Action | Format, Examples
 **Find** | `find KEYWORD [MORE_KEYWORDS]` or `find STUDENT_ID` or `find CLASS_NUMBER` <br> e.g., `find James Jake`, `find A1234567B`
 **List** | `list [f/FILTER_TYPE fv/FILTER_VALUE] [s/SORT_TYPE o/SORT_ORDER]`<br> e.g.,`list f/progress fv/50 s/name o/des`
 **Class** | `class INDEX c/CLASS_NUMBER` or `class STUDENT_ID c/CLASS_NUMBER` <br> e.g.,`class 1 c/T01`, `class A7654321B c/T02`
+**Progress** | `progress INDEX pr/PROGRESS` or `progress STUDENT_ID pr/PROGRESS` <br> e.g., `progress 1 pr/75`, `progress A1234567B pr/50`
 **Github** | `github INDEX g/GITHUB_URL` or `github STUDENT_ID g/GITHUB_URL` <br> e.g.,`github 2 g/https://github.com/alice`, `github A1234567B g/https://github.com/alice`
 **Open** | `open INDEX` or `open STUDENT_ID` <br> e.g., `open 3`, `open A7654321B`
 **Assignment** | `assignment n/NAME d/DATE` <br> e.g.,`assignment n/CS2103T Project d/30-01-2025`
