@@ -141,11 +141,11 @@ public class RepoCommand extends Command {
      * @return a valid {@link Repository}, or {@link Repository#NO_REPOSITORY} if invalid
      */
     public static Repository createRepo(String username, String repositoryName) {
-        if (username == null || Repository.isValidUsername(username)) {
+        if (username == null || !Repository.isValidUsername(username)) {
             throw new IllegalArgumentException(MESSAGE_INVALID_USERNAME);
         }
 
-        if (repositoryName == null || Repository.isValidRepositoryName(repositoryName)) {
+        if (repositoryName == null || !Repository.isValidRepositoryName(repositoryName)) {
             throw new IllegalArgumentException(MESSAGE_INVALID_REPOSITORY_NAME);
         }
 
