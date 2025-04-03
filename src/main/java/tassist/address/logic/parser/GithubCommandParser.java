@@ -2,6 +2,7 @@ package tassist.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static tassist.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static tassist.address.logic.commands.GithubCommand.MESSAGE_USAGE;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_GITHUB;
 import static tassist.address.model.person.Github.MESSAGE_CONSTRAINTS;
 import static tassist.address.model.person.Github.NO_GITHUB;
@@ -34,12 +35,17 @@ public class GithubCommandParser implements Parser<GithubCommand> {
 
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    GithubCommand.MESSAGE_USAGE));
+                    MESSAGE_USAGE));
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_GITHUB);
 
-        String github = argMultimap.getValue(PREFIX_GITHUB).orElse("");
+        if (!argMultimap.getValue(PREFIX_GITHUB).isPresent()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    MESSAGE_USAGE));
+        }
+
+        String github = argMultimap.getValue(PREFIX_GITHUB).get();
 
         if ("No Github assigned".equalsIgnoreCase(github)) {
             throw new ParseException(MESSAGE_REMOVE_GITHUB);
@@ -61,7 +67,7 @@ public class GithubCommandParser implements Parser<GithubCommand> {
                 return new GithubCommand(studentId, new Github(github));
             } catch (IllegalValueException ive) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        GithubCommand.MESSAGE_USAGE), ive);
+                        MESSAGE_USAGE), ive);
             }
         }
 
@@ -70,7 +76,7 @@ public class GithubCommandParser implements Parser<GithubCommand> {
             return new GithubCommand(index, new Github(github));
         } catch (IllegalValueException ive) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    GithubCommand.MESSAGE_USAGE), ive);
+                    MESSAGE_USAGE), ive);
         }
     }
 }

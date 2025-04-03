@@ -50,7 +50,7 @@ public class HelpCommand extends Command {
             return new CommandResult(MESSAGE_OPEN_HELP_FAILURE, true, false);
         }
 
-        return new CommandResult(SHOWING_HELP_MESSAGE, true, false);
+        return new CommandResult(SHOWING_HELP_MESSAGE, false, false);
     }
 
     @Override
