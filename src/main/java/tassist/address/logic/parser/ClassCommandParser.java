@@ -39,7 +39,11 @@ public class ClassCommandParser implements Parser<ClassCommand> {
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CLASS);
 
-        String classNumberString = argMultimap.getValue(PREFIX_CLASS).orElse("");
+        if (!argMultimap.getValue(PREFIX_CLASS).isPresent()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClassCommand.MESSAGE_USAGE));
+        }
+
+        String classNumberString = argMultimap.getValue(PREFIX_CLASS).get();
 
         if ("No tutorial assigned".equalsIgnoreCase(classNumberString)) {
             throw new ParseException(MESSAGE_REMOVE_CLASS);
