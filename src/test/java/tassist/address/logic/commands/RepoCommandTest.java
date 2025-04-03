@@ -41,49 +41,49 @@ public class RepoCommandTest {
 
     @Test
     public void parser_validInputs_constructsValidRepository() {
-        Repository repo = RepoCommand.createRepo("ValidUser", "valid-repo");
+        Repository repo = new Repository("ValidUser", "valid-repo");
         assertEquals("https://github.com/ValidUser/valid-repo", repo.value);
     }
 
     @Test
     public void parser_invalidUsername_throwsException() {
         assertThrows(IllegalArgumentException.class, () -> {
-            RepoCommand.createRepo("invalid_user!", "valid-repo");
+            new Repository("invalid_user!", "valid-repo");
         });
     }
 
     @Test
     public void parser_invalidRepositoryName_throwsException() {
         assertThrows(IllegalArgumentException.class, () -> {
-            RepoCommand.createRepo("ValidUser", "-invalidRepo");
+            new Repository("ValidUser", "-invalidRepo");
         });
     }
 
     @Test
     public void parser_nullUsername_throwsException() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            RepoCommand.createRepo(null, "valid-repo");
+        assertThrows(NullPointerException.class, () -> {
+            new Repository(null, "valid-repo");
         });
     }
 
     @Test
     public void parser_nullRepositoryName_throwsException() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            RepoCommand.createRepo("ValidUser", null);
+        assertThrows(NullPointerException.class, () -> {
+            new Repository("ValidUser", null);
         });
     }
 
     @Test
     public void parser_bothNull_throwsException() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            RepoCommand.createRepo(null, null);
+        assertThrows(NullPointerException.class, () -> {
+            new Repository(null, null);
         });
     }
 
 
     @Test
     public void parser_edgeCase_validRepoWithUnderscoreAndDot() {
-        Repository repo = RepoCommand.createRepo("Group-4", "Wealth_Vault.v2");
+        Repository repo = new Repository("Group-4", "Wealth_Vault.v2");
         assertEquals("https://github.com/Group-4/Wealth_Vault.v2", repo.toString());
     }
 

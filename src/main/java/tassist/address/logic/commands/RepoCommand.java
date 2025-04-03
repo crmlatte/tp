@@ -40,9 +40,9 @@ public class RepoCommand extends Command {
     public static final String MESSAGE_NO_INDEX_STUDENTID = "Please enter valid index or student Id!";
 
     //allow multiple people to have the same repository (team repo)
-    public static final String MESSAGE_INVALID_USERNAME = "Please enter a valid Username!"
+    public static final String MESSAGE_INVALID_USERNAME = "Please enter a valid Username!\n"
             + MESSAGE_USERNAME_VALIDITY;
-    public static final String MESSAGE_INVALID_REPOSITORY_NAME = "Please enter a valid Repository Name!"
+    public static final String MESSAGE_INVALID_REPOSITORY_NAME = "Please enter a valid Repository Name!\n"
             + MESSAGE_REPOSITORY_NAME_VALIDITY;
 
     public static final String MESSAGE_INVALID_URL = "Please enter a valid URL!"
@@ -113,7 +113,7 @@ public class RepoCommand extends Command {
             throw new CommandException(MESSAGE_VALID_COMMAND);
         }
 
-        Repository repo = repositoryUrl != null ? repositoryUrl : createRepo(username, repositoryName);
+        Repository repo = repositoryUrl != null ? repositoryUrl : new Repository(username, repositoryName);
 
         Person editedPerson = new Person(
                 personToEdit.getName(),
@@ -131,26 +131,6 @@ public class RepoCommand extends Command {
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
         return new CommandResult(String.format(MESSAGE_ADD_REPOSITORY_SUCCESS, Messages.format(editedPerson)));
-    }
-
-    /**
-     * Creates a {@link Repository} from the given GitHub username and repository name.
-     *
-     * @param username GitHub username
-     * @param repositoryName Repository name
-     * @return a valid {@link Repository}, or {@link Repository#NO_REPOSITORY} if invalid
-     */
-    public static Repository createRepo(String username, String repositoryName) {
-        if (username == null || !Repository.isValidUsername(username)) {
-            throw new IllegalArgumentException(MESSAGE_INVALID_USERNAME);
-        }
-
-        if (repositoryName == null || !Repository.isValidRepositoryName(repositoryName)) {
-            throw new IllegalArgumentException(MESSAGE_INVALID_REPOSITORY_NAME);
-        }
-
-        String fullRepository = "https://github.com/" + username + "/" + repositoryName;
-        return new Repository(fullRepository);
     }
 
 

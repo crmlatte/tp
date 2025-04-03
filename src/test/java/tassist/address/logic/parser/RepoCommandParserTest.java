@@ -35,7 +35,7 @@ public class RepoCommandParserTest {
     @Test
     public void parse_indexSpecified_success() {
         String userInput = INDEX_FIRST_PERSON.getOneBased() + usernamePrefix + repoPrefix;
-        Repository expectedRepo = RepoCommand.createRepo(VALID_USERNAME, VALID_REPOSITORY_NAME);
+        Repository expectedRepo = new Repository(VALID_USERNAME, VALID_REPOSITORY_NAME);
         RepoCommand expectedCommand = new RepoCommand(INDEX_FIRST_PERSON, VALID_USERNAME, VALID_REPOSITORY_NAME,
                 expectedRepo);
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -44,7 +44,7 @@ public class RepoCommandParserTest {
     @Test
     public void parse_studentIdSpecified_success() {
         String userInput = VALID_STUDENTID_BOB + usernamePrefix + repoPrefix;
-        Repository expectedRepo = RepoCommand.createRepo(VALID_USERNAME, VALID_REPOSITORY_NAME);
+        Repository expectedRepo = new Repository(VALID_USERNAME, VALID_REPOSITORY_NAME);
         RepoCommand expectedCommand = new RepoCommand(new StudentId(VALID_STUDENTID_BOB), VALID_USERNAME,
                 VALID_REPOSITORY_NAME, expectedRepo);
         assertParseSuccess(parser, userInput, expectedCommand);
