@@ -107,10 +107,10 @@ public class AddressBookParser {
 
         case OpenCommand.COMMAND_WORD:
             return new OpenCommandParser().parse(arguments);
-            
+
         case ProgressCommand.COMMAND_WORD:
             return new ProgressCommandParser().parse(arguments);
-            
+
         case ImportCommand.COMMAND_WORD:
             return new ImportCommandParser().parse(arguments);
 
