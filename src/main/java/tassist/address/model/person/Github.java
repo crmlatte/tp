@@ -19,7 +19,9 @@ public class Github {
             + "The username must:\n"
             + "    - be 1 to 39 characters long\n"
             + "    - consist of alphanumeric characters, separated only by dashes (-), if any.\n"
-            + "    - start and end with alphanumeric characters.";
+            + "    - start and end with alphanumeric characters.\n"
+            + "Example:\n"
+            + "https://github.com/JohnnyDoe";
 
 
     // alphanumeric and special characters
