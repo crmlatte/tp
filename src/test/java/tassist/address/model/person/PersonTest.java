@@ -14,6 +14,9 @@ import static tassist.address.testutil.Assert.assertThrows;
 import static tassist.address.testutil.TypicalPersons.ALICE;
 import static tassist.address.testutil.TypicalPersons.BOB;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 import tassist.address.testutil.PersonBuilder;
@@ -24,6 +27,23 @@ public class PersonTest {
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
         Person person = new PersonBuilder().build();
         assertThrows(UnsupportedOperationException.class, () -> person.getTags().remove(0));
+    }
+
+    @Test
+    public void getAttributeTest() {
+        List<String> attributes = Person.getAttributes();
+        List<String> expectedAttributes = new ArrayList<>();
+        expectedAttributes.add("name");
+        expectedAttributes.add("phone");
+        expectedAttributes.add("email");
+        expectedAttributes.add("classNumber");
+        expectedAttributes.add("studentId");
+        expectedAttributes.add("github");
+        expectedAttributes.add("projectTeam");
+        expectedAttributes.add("tags");
+        expectedAttributes.add("progress");
+        expectedAttributes.add("timedEvents");
+        assertEquals(attributes, expectedAttributes);
     }
 
     @Test

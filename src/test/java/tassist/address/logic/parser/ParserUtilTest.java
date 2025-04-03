@@ -306,18 +306,14 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseFilePath_nonExistentAbsolutePath_throwsParseException() {
-        // mimics absolute path
-        final Path nonExistentAbsoluteFilePath = testRoot.resolve(FILE_PATH_3);
-
-        // does not create the file so it "doesn't exist"
-
-        assertThrows(ParseException.class, () -> ParserUtil.parseFilePath(nonExistentAbsoluteFilePath.toString()));
-    }
-
-    @Test
     public void parseFilePath_relativePath_throwsParseException() {
         // VALID_FILE_PATH is relative
         assertThrows(ParseException.class, () -> ParserUtil.parseFilePath(FILE_PATH_1));
+    }
+
+    @Test
+    public void parseFilePath_rootDirectory_throwsParseException() {
+        // cannot be root directory
+        assertThrows(ParseException.class, () -> ParserUtil.parseFilePath("/"));
     }
 }
