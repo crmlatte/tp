@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Test;
 
 import tassist.address.commons.core.index.Index;
 import tassist.address.logic.Messages;
+import tassist.address.logic.browser.BrowserService;
 import tassist.address.logic.commands.exceptions.CommandException;
 import tassist.address.model.Model;
 import tassist.address.model.ModelManager;
@@ -198,7 +199,7 @@ public class OpenCommandTest {
     /**
      * Test implementation of BrowserService that records URLs instead of opening them.
      */
-    private static class TestBrowserService implements OpenCommand.BrowserService {
+    private static class TestBrowserService implements BrowserService {
         private List<String> urlsOpened = new ArrayList<>();
 
         @Override
@@ -231,7 +232,7 @@ public class OpenCommandTest {
     /**
      * Test implementation of BrowserService that always throws an exception.
      */
-    private static class FailingBrowserService implements OpenCommand.BrowserService {
+    private static class FailingBrowserService implements BrowserService {
         @Override
         public void openUrl(String url) throws IOException, URISyntaxException {
             throw new IOException("Test exception");

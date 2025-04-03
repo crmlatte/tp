@@ -7,6 +7,7 @@ import static tassist.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_PROGRESS;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_PROJECT_TEAM;
+import static tassist.address.logic.parser.CliSyntax.PREFIX_REPOSITORY;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_STUDENT_ID;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -41,6 +42,7 @@ public class PersonUtil {
         sb.append(PREFIX_STUDENT_ID + person.getStudentId().value + " ");
         sb.append(PREFIX_GITHUB + person.getGithub().value + " ");
         sb.append(PREFIX_PROJECT_TEAM + person.getProjectTeam().value + " ");
+        sb.append(PREFIX_REPOSITORY + person.getRepository().value + " ");
         person.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
@@ -62,6 +64,8 @@ public class PersonUtil {
                 .append(" "));
         descriptor.getGithub().ifPresent(github -> sb.append(PREFIX_GITHUB).append(github.value).append(" "));
         descriptor.getProjectTeam().ifPresent(projectTeam -> sb.append(PREFIX_PROJECT_TEAM).append(projectTeam.value)
+                .append(" "));
+        descriptor.getRepository().ifPresent(repository -> sb.append(PREFIX_REPOSITORY).append(repository.value)
                 .append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();

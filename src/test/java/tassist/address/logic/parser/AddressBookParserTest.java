@@ -26,6 +26,7 @@ import tassist.address.logic.commands.DeleteCommand;
 import tassist.address.logic.commands.EditCommand;
 import tassist.address.logic.commands.EditCommand.EditPersonDescriptor;
 import tassist.address.logic.commands.ExitCommand;
+import tassist.address.logic.commands.ExportCommand;
 import tassist.address.logic.commands.FindCommand;
 import tassist.address.logic.commands.GithubCommand;
 import tassist.address.logic.commands.HelpCommand;
@@ -132,8 +133,21 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_list() throws Exception {
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+        // Simple list command
+        ListCommand expectedCommand = new ListCommand(null, null, null, null);
+        assertEquals(expectedCommand, parser.parseCommand("list"));
+
+        // List with sort only
+        expectedCommand = new ListCommand("name", "asc", null, null);
+        assertEquals(expectedCommand, parser.parseCommand("list s/name o/asc"));
+
+        // List with filter only
+        expectedCommand = new ListCommand(null, null, "class", "T01");
+        assertEquals(expectedCommand, parser.parseCommand("list f/class fv/T01"));
+
+        // List with sort and filter
+        expectedCommand = new ListCommand("progress", "des", "progress", "50");
+        assertEquals(expectedCommand, parser.parseCommand("list s/progress o/des f/progress fv/50"));
     }
 
     @Test
@@ -155,6 +169,20 @@ public class AddressBookParserTest {
 
         assertTrue(parser.parseCommand(ImportCommand.COMMAND_WORD
                 + " " + absoluteFilePath.toString()) instanceof ImportCommand);
+    }
+
+    @Test
+    public void parseCommand_export() throws Exception {
+        // mimic output path
+        final Path outputCsvFilePath = testRoot.resolve("output.csv");
+
+        // creates the file so it "exists"
+        if (!Files.exists(outputCsvFilePath)) {
+            Files.createFile(outputCsvFilePath);
+        }
+
+        assertTrue(parser.parseCommand(ExportCommand.COMMAND_WORD
+                + " " + outputCsvFilePath.toString()) instanceof ExportCommand);
     }
 
     @Test

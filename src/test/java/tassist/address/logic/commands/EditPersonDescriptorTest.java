@@ -10,6 +10,7 @@ import static tassist.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_PROGRESS_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_PROJECT_TEAM_BOB;
+import static tassist.address.logic.commands.CommandTestUtil.VALID_REPOSITORY_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_STUDENTID_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
@@ -58,6 +59,10 @@ public class EditPersonDescriptorTest {
         editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withProjectTeam(VALID_PROJECT_TEAM_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
+        // different repositories -> return false
+        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withRepository(VALID_REPOSITORY_BOB).build();
+        assertFalse(DESC_AMY.equals(editedAmy));
+
         // different tags -> returns false
         editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withTags(VALID_TAG_HUSBAND).build();
         assertFalse(DESC_AMY.equals(editedAmy));
@@ -71,16 +76,17 @@ public class EditPersonDescriptorTest {
     @Test
     public void toStringMethod() {
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
-        String expected = EditPersonDescriptor.class.getCanonicalName() + "{name="
-                + editPersonDescriptor.getName().orElse(null) + ", phone="
-                + editPersonDescriptor.getPhone().orElse(null) + ", email="
-                + editPersonDescriptor.getEmail().orElse(null) + ", classNumber="
-                + editPersonDescriptor.getClassNumber().orElse(null) + ", studentId="
-                + editPersonDescriptor.getStudentId().orElse(null) + ", github="
-                + editPersonDescriptor.getGithub().orElse(null) + ", project_team="
-                + editPersonDescriptor.getProjectTeam().orElse(null) + ", tags="
-                + editPersonDescriptor.getTags().orElse(null) + ", progress="
-                + editPersonDescriptor.getProgress().orElse(null) + "}";
+        String expected = EditPersonDescriptor.class.getCanonicalName()
+                + "{name=" + editPersonDescriptor.getName().orElse(null)
+                + ", phone=" + editPersonDescriptor.getPhone().orElse(null)
+                + ", email=" + editPersonDescriptor.getEmail().orElse(null)
+                + ", classNumber=" + editPersonDescriptor.getClassNumber().orElse(null)
+                + ", studentId=" + editPersonDescriptor.getStudentId().orElse(null)
+                + ", github=" + editPersonDescriptor.getGithub().orElse(null)
+                + ", project_team=" + editPersonDescriptor.getProjectTeam().orElse(null)
+                + ", repository=" + editPersonDescriptor.getRepository().orElse(null)
+                + ", tags=" + editPersonDescriptor.getTags().orElse(null)
+                + ", progress=" + editPersonDescriptor.getProgress().orElse(null) + "}";
         assertEquals(expected, editPersonDescriptor.toString());
     }
 }

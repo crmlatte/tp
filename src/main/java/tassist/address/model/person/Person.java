@@ -2,8 +2,10 @@ package tassist.address.model.person;
 
 import static tassist.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -30,13 +32,15 @@ public class Person {
     private final Github github;
     private final UniqueTimedEventList timedEvents;
     private final ProjectTeam projectTeam;
+    private final Repository repository;
 
     /**
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, ClassNumber classNumber,
-            StudentId studentId, Github github, ProjectTeam projectTeam, Set<Tag> tags, Progress progress) {
-        requireAllNonNull(name, phone, email, classNumber, studentId, github, projectTeam, tags, progress);
+            StudentId studentId, Github github, ProjectTeam projectTeam, Repository repository,
+                  Set<Tag> tags, Progress progress) {
+        requireAllNonNull(name, phone, email, classNumber, studentId, github, projectTeam, repository, tags, progress);
 
         this.name = name;
         this.phone = phone;
@@ -45,6 +49,7 @@ public class Person {
         this.studentId = studentId;
         this.github = github;
         this.projectTeam = projectTeam;
+        this.repository = repository;
         this.tags.addAll(tags);
         this.progress = progress;
         this.timedEvents = new UniqueTimedEventList();
@@ -54,9 +59,10 @@ public class Person {
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, ClassNumber classNumber,
-            StudentId studentId, Github github, ProjectTeam projectTeam, Set<Tag> tags, Progress progress,
-            UniqueTimedEventList timedEvents) {
-        requireAllNonNull(name, phone, email, classNumber, studentId, github, tags, progress, timedEvents);
+            StudentId studentId, Github github, ProjectTeam projectTeam, Repository repository, Set<Tag> tags,
+            Progress progress, UniqueTimedEventList timedEvents) {
+        requireAllNonNull(name, phone, email, classNumber, studentId, github, projectTeam, repository,
+                tags, progress, timedEvents);
 
         this.name = name;
         this.phone = phone;
@@ -66,6 +72,7 @@ public class Person {
         this.github = github;
         this.tags.addAll(tags);
         this.progress = progress;
+        this.repository = repository;
         this.timedEvents = timedEvents;
         this.projectTeam = projectTeam;
     }
@@ -102,6 +109,9 @@ public class Person {
     public ProjectTeam getProjectTeam() {
         return projectTeam;
     }
+    public Repository getRepository() {
+        return repository;
+    }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
@@ -124,6 +134,21 @@ public class Person {
      */
     public UniqueTimedEventList getTimedEventsList() {
         return timedEvents;
+    }
+
+    public static List<String> getAttributes() {
+        List<String> attributes = new ArrayList<>();
+        attributes.add("name");
+        attributes.add("phone");
+        attributes.add("email");
+        attributes.add("classNumber");
+        attributes.add("studentId");
+        attributes.add("github");
+        attributes.add("projectTeam");
+        attributes.add("tags");
+        attributes.add("progress");
+        attributes.add("timedEvents");
+        return attributes;
     }
 
     /**
@@ -183,7 +208,8 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, classNumber, studentId, github, projectTeam, tags, progress);
+        return Objects.hash(name, phone, email, classNumber, studentId, github, projectTeam, repository,
+                tags, progress);
 
     }
 
@@ -197,6 +223,7 @@ public class Person {
                 .add("studentId", studentId)
                 .add("github", github)
                 .add("project team", projectTeam)
+                .add("repository", repository)
                 .add("tags", tags)
                 .add("progress", progress)
                 .add("timedEvents", timedEvents)

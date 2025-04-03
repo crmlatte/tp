@@ -2,6 +2,7 @@ package tassist.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static tassist.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static tassist.address.model.person.Github.NO_GITHUB;
 
 import java.util.List;
 import java.util.Objects;
@@ -33,8 +34,7 @@ public class GithubCommand extends Command {
     public static final String MESSAGE_ADD_GITHUB_SUCCESS = "Added github to Person: %1$s";
     public static final String MESSAGE_DELETE_GITHUB_SUCCESS = "Removed github from Person: %1$s";
     public static final String MESSAGE_DUPLICATE_GITHUB = "Error! This Github belongs to another person";
-    public static final String MESSAGE_INVALID_GITHUB =
-            "Invalid GitHub URL! The correct format is: https://github.com/{username}";
+    public static final String MESSAGE_INVALID_GITHUB = "Invalid GitHub URL!";
 
     private final Index index;
     private final StudentId studentId;
@@ -89,9 +89,16 @@ public class GithubCommand extends Command {
         checkDuplicates(model, personToEdit);
 
         Person editedPerson = new Person(
-                personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
-                personToEdit.getClassNumber(), personToEdit.getStudentId(),
-                github, personToEdit.getProjectTeam(), personToEdit.getTags(), personToEdit.getProgress(),
+                personToEdit.getName(),
+                personToEdit.getPhone(),
+                personToEdit.getEmail(),
+                personToEdit.getClassNumber(),
+                personToEdit.getStudentId(),
+                github,
+                personToEdit.getProjectTeam(),
+                personToEdit.getRepository(),
+                personToEdit.getTags(),
+                personToEdit.getProgress(),
                 personToEdit.getTimedEventsList());
 
         model.setPerson(personToEdit, editedPerson);
@@ -108,8 +115,10 @@ public class GithubCommand extends Command {
     private void checkDuplicates(Model model, Person personToEdit) throws CommandException {
         List<Github> githubList = model.getFilteredPersonList().stream()
                 .filter(person -> !person.equals(personToEdit))
-                .map(person -> person.getGithub()).toList();
-        if (githubList.contains(github)) {
+                .map(person -> person.getGithub())
+                .filter(g -> !g.value.equals(NO_GITHUB))
+                .toList();
+        if (!github.value.equals(Github.NO_GITHUB) && githubList.contains(github)) {
             throw new CommandException(MESSAGE_DUPLICATE_GITHUB);
         }
     }
@@ -120,7 +129,7 @@ public class GithubCommand extends Command {
      * {@code personToEdit}.
      */
     private String generateSuccessMessage(Person personToEdit) {
-        String message = !github.value.isEmpty() ? MESSAGE_ADD_GITHUB_SUCCESS : MESSAGE_DELETE_GITHUB_SUCCESS;
+        String message = !github.value.equals(NO_GITHUB) ? MESSAGE_ADD_GITHUB_SUCCESS : MESSAGE_DELETE_GITHUB_SUCCESS;
         return String.format(message, Messages.format(personToEdit));
     }
 

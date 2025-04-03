@@ -76,12 +76,26 @@ The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `Re
 
 The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/tassist/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
 
+Specifically, it follows a component-based architecture:
+
+* Key UI components:
+  * `MainWindow` - The root container that orchestrates all UI components
+  * `CommandBox` - Handles user command input
+  * `PersonListPanel` - Displays the list of students
+  * `TimeEventListPanel` - Shows timed events
+  * `CalendarView` - Provides calendar visualization
+  * `PersonCard` - Renders individual student information
+  * `TimeEventCard` - Renders individual event information
+  * `ResultDisplay` - Shows command execution results
+  * `StatusBarFooter` - Displays application status
+  * `HelpWindow` - Provides help information
+
 The `UI` component,
 
 * executes user commands using the `Logic` component.
 * listens for changes to `Model` data so that the UI can be updated with the modified data.
 * keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
-* depends on some classes in the `Model` component, as it displays `Person` object residing in the `Model`.
+* depends on some classes in the `Model` component, as it displays `Person` and `TimedEvent` objects residing in the `Model`.
 
 ### Logic component
 
@@ -117,22 +131,41 @@ How the parsing works:
 ### Model component
 **API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/tassist/address/model/Model.java)
 
-<img src="images/ModelClassDiagram.png" width="450" />
-
+<img src="images/ModelClassDiagram.png" width="450" /><br>
+Note that ***filtered** should be next to the arrow from `ModelManager` to `Person`.\
+It is displayed incorrectly due to limitations of puml.
 
 The `Model` component,
 
-* stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
+* manages the application's data through the `AddressBook` class, which contains:
+  * A `UniquePersonList` for storing `Person` objects
+  * A `UniqueTimedEventList` for storing `TimedEvent` objects
 * stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
+* stores a `UserPref` object that represents the user's preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
+* provides data manipulation operations:
+  * CRUD operations for `Person` objects
+  * CRUD operations for `TimedEvent` objects
+  * Sorting operations using `Comparator<Person>` and `Comparator<TimedEvent>`
+  * Filtering operations using `Predicate<Person>` and `Predicate<TimedEvent>`
+* manages user preferences through:
+  * `UserPrefs` for storing application settings
+  * `GuiSettings` for UI-specific preferences
+  * File path management for data persistence
+
+The component follows the Observer pattern through JavaFX's `ObservableList` interface, allowing the UI to automatically update when the underlying data changes.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
 
 <img src="images/BetterModelClassDiagram.png" width="450" />
 
-</div>
+While the current implementation does not use this alternative model for `Tag`, it does use this approach for `TimedEvent`.\
+\
+The `AddressBook` maintains a `UniqueTimedEventList` which enforces uniqueness between timed events using `TimedEvent#isSameTimedEvent(TimedEvent)`.\
+\
+This allows the `AddressBook` to only require one `TimedEvent` object per unique event (based on name and time), rather than each `Person` needing their own copy of the same event.
 
+</div>
 
 ### Storage component
 
@@ -274,7 +307,6 @@ This product is for university CS Teaching Assistants who need to track and mana
 
 **Value proposition**:\
 Provides an easy way for CS Teaching Assistants to track and manage student details, including contact information, GitHub accounts, course progress, and project teams. Enables efficient organization and reduces administrative workload.
-
 
 ### User stories
 
@@ -447,10 +479,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 ### Non-Functional Requirements
 
 1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2.  Should be able to hold up to 300 persons without a noticeable sluggishness in performance for typical usage.
+2.  Should be able to hold up to 300 students without a noticeable sluggishness in performance for typical usage.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 4.  Should retrieve and display a student's details within 2 seconds.
-5.  Should store student data locally.
+5.  Should store student data locally in JSON format.
 6.  System should have a simple UI that requires no more than 5 minutes of onboarding for a new TA.
 7.  Should allow future expansion to handle more student attributes (e.g. assignment scores, additional contact details).
 8.  Must not crash when handling unexpected input.

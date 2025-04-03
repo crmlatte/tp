@@ -17,12 +17,14 @@ import tassist.address.logic.commands.Command;
 import tassist.address.logic.commands.DeleteCommand;
 import tassist.address.logic.commands.EditCommand;
 import tassist.address.logic.commands.ExitCommand;
+import tassist.address.logic.commands.ExportCommand;
 import tassist.address.logic.commands.FindCommand;
 import tassist.address.logic.commands.GithubCommand;
 import tassist.address.logic.commands.HelpCommand;
 import tassist.address.logic.commands.ImportCommand;
 import tassist.address.logic.commands.ListCommand;
 import tassist.address.logic.commands.OpenCommand;
+import tassist.address.logic.commands.RepoCommand;
 import tassist.address.logic.commands.UnassignCommand;
 import tassist.address.logic.commands.ViewCommand;
 import tassist.address.logic.parser.exceptions.ParseException;
@@ -92,6 +94,9 @@ public class AddressBookParser {
         case GithubCommand.COMMAND_WORD:
             return new GithubCommandParser().parse(arguments);
 
+        case RepoCommand.COMMAND_WORD:
+            return new RepoCommandParser().parse(arguments);
+
         case AssignmentCommand.COMMAND_WORD:
             return new AssignmentCommandParser().parse(arguments);
 
@@ -109,6 +114,9 @@ public class AddressBookParser {
 
         case ImportCommand.COMMAND_WORD:
             return new ImportCommandParser().parse(arguments);
+
+        case ExportCommand.COMMAND_WORD:
+            return new ExportCommandParser().parse(arguments);
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);
