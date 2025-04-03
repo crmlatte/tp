@@ -9,28 +9,22 @@ import static tassist.address.commons.util.AppUtil.checkArgument;
 public class Github {
 
     public static final String NO_GITHUB = "No Github assigned";
-    private static final String SPECIAL_CHARACTERS = "/:.";
+
     public static final String MESSAGE_CONSTRAINTS =
-            "Githubs links should be of the format https://github.com/{username} "
-            + "in the form [github url]/username "
+            "Githubs links should be of the format https://github.com/{username} in the form [github URL]/username"
             + "or 'No Github assigned' "
             + "and adhere to the following constraints:\n"
-            + "1. The github url part should only contain alphanumeric characters "
-            + "and these special characters, excluding "
-            + "the parentheses, (" + SPECIAL_CHARACTERS + "). "
-            + "The github url part may not start or end with any special "
-            + "characters, particularly in the format ' https://github.com ' .\n"
+            + "1. The github url should be in the format ' https://github.com '.\n"
             + "2. This is followed by a '/' and then a username."
-            + " The username is made up of alphanumeric characters "
-            + "separated by dashes (-).\n"
             + "The username must:\n"
-            + "    - be at least 2 characters long\n"
-            + "    - start and end with alphanumeric characters\n"
-            + "    - consist of alphanumeric characters, separated only by dashes, if any.";
+            + "    - be 1 to 39 characters long\n"
+            + "    - consist of alphanumeric characters, separated only by dashes (-), if any.\n"
+            + "    - start and end with alphanumeric characters.";
+
 
     // alphanumeric and special characters
     private static final String GITHUB_URL_REGEX = "^https://github\\.com/";
-    private static final String USERNAME_REGEX = "[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*$";
+    private static final String USERNAME_REGEX = "(?=.{1,39}$)[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*";
     public static final String VALIDATION_REGEX = GITHUB_URL_REGEX + USERNAME_REGEX + "$";
     public final String value;
 
