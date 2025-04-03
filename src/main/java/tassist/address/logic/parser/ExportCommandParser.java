@@ -35,6 +35,7 @@ public class ExportCommandParser implements Parser<ExportCommand> {
         try {
             Path filePath = ParserUtil.parseFilePath(trimmedArgs);
 
+            Files.createDirectories(filePath.getParent());
             if (!Files.exists(filePath)) {
                 Files.createFile(filePath);
             }

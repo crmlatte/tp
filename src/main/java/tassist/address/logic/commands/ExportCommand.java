@@ -55,8 +55,8 @@ public class ExportCommand extends Command {
 
             return new CommandResult(generateSuccessMessage());
         } catch (IOException e) {
-            // should not reach here, throwing an exception just in case
-            throw new CommandException("Invalid File Path", e);
+            // only reach here when file is corrupted
+            throw new CommandException(String.format(MESSAGE_EXPORT_FAILURE, filePath));
         }
     }
 
@@ -69,8 +69,7 @@ public class ExportCommand extends Command {
      * the address book is exported
      */
     private String generateSuccessMessage() {
-        String message = filePath != null ? MESSAGE_EXPORT_SUCCESS : MESSAGE_EXPORT_FAILURE;
-        return String.format(message, filePath);
+        return String.format(MESSAGE_EXPORT_SUCCESS, filePath);
     }
 
     @Override

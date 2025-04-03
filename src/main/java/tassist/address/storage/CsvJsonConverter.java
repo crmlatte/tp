@@ -42,48 +42,46 @@ public class CsvJsonConverter {
      * @throws CsvException if there is an error during CSV parsing
      */
     public void convertCsvToJson(Path csvFilePath, Path jsonFilePath) throws IOException, CsvException {
-        FileReader fileReader = new FileReader(csvFilePath.toString());
-        CSVReader csvReader = new CSVReader(fileReader);
+        try (FileReader fileReader = new FileReader(csvFilePath.toString());
+             CSVReader csvReader = new CSVReader(fileReader)) {
 
-        List<String[]> rows = csvReader.readAll();
+            List<String[]> rows = csvReader.readAll();
 
-        if (rows.isEmpty()) {
-            throw new CsvException("No data");
-        }
+            if (rows.isEmpty()) {
+                throw new CsvException("No data");
+            }
 
-        List<String[]> personRows = new ArrayList<>();
-        List<String[]> timedEventRows = new ArrayList<>();
+            List<String[]> personRows = new ArrayList<>();
+            List<String[]> timedEventRows = new ArrayList<>();
 
-        boolean isTimedEventSection = false;
+            boolean isTimedEventSection = false;
 
-        for (String[] row : rows) {
-            if (row.length > 0 && row[0].equalsIgnoreCase("timedEvents")) {
-                isTimedEventSection = true; // We reached the timedEvents section
-            } else {
-                if (isTimedEventSection) {
-                    timedEventRows.add(row);
+            for (String[] row : rows) {
+                if (row.length > 0 && row[0].equalsIgnoreCase("timedEvents")) {
+                    isTimedEventSection = true; // We reached the timedEvents section
                 } else {
-                    personRows.add(row);
+                    if (isTimedEventSection) {
+                        timedEventRows.add(row);
+                    } else {
+                        personRows.add(row);
+                    }
                 }
             }
+
+            String[] personHeaders = Person.getAttributes().toArray(new String[0]);
+            List<Map<String, Object>> personsData = retrieveData(personHeaders, personRows);
+
+            String[] timedEventHeaders = TimedEvent.getAttributes().toArray(new String[0]);
+            List<Map<String, Object>> timedEventsData = retrieveData(timedEventHeaders, timedEventRows);
+
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+
+            Map<String, List<Map<String, Object>>> wrappedData = new LinkedHashMap<>();
+            wrappedData.put("persons", personsData);
+            wrappedData.put("timedEvents", timedEventsData);
+            objectMapper.writeValue(new File(jsonFilePath.toString()), wrappedData);
         }
-
-        String[] personHeaders = Person.getAttributes().toArray(new String[0]);
-        List<Map<String, Object>> personsData = retrieveData(personHeaders, personRows);
-
-        String[] timedEventHeaders = TimedEvent.getAttributes().toArray(new String[0]);
-        List<Map<String, Object>> timedEventsData = retrieveData(timedEventHeaders, timedEventRows);
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-
-        Map<String, List<Map<String, Object>>> wrappedData = new LinkedHashMap<>();
-        wrappedData.put("persons", personsData);
-        wrappedData.put("timedEvents", timedEventsData);
-        objectMapper.writeValue(new File(jsonFilePath.toString()), wrappedData);
-
-        csvReader.close();
-        fileReader.close();
     }
 
     private List<Map<String, Object>> retrieveData(String[] headers, List<String[]> rows) {
@@ -162,20 +160,18 @@ public class CsvJsonConverter {
      * @throws IOException If an error occurs during file writing, such as file access issues or invalid paths.
      */
     public void convertJsonToCsv(Path csvFilePath, ReadOnlyAddressBook addressBook) throws IOException {
-        FileWriter fileWriter = new FileWriter(csvFilePath.toString());
-        CSVWriter csvWriter = new CSVWriter(fileWriter);
+        try (FileWriter fileWriter = new FileWriter(csvFilePath.toString());
+             CSVWriter csvWriter = new CSVWriter(fileWriter)) {
 
-        ObservableList<Person> persons = addressBook.getPersonList();
-        ObservableList<TimedEvent> timedEvents = addressBook.getTimedEventList();
+            ObservableList<Person> persons = addressBook.getPersonList();
+            ObservableList<TimedEvent> timedEvents = addressBook.getTimedEventList();
 
-        writePersons(csvWriter, persons);
+            writePersons(csvWriter, persons);
 
-        csvWriter.writeNext(new String[]{"timedEvents"});
+            csvWriter.writeNext(new String[]{"timedEvents"});
 
-        writeTimedEvents(csvWriter, timedEvents);
-
-        csvWriter.close();
-        fileWriter.close();
+            writeTimedEvents(csvWriter, timedEvents);
+        }
     }
 
     private void writePersons(CSVWriter csvWriter, ObservableList<Person> persons) {
