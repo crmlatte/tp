@@ -40,8 +40,10 @@ public class ProgressCommand extends Command {
     private final Progress progress;
 
     /**
-     * @param index of person in list
-     * @param setProgress of person to be updated to
+     * Constructs an ProgressCommand with a student ID.
+     *
+     * @param index The index of the student in the currently displayed student list.
+     * @param setProgress The progress value to be set for the student.
      */
     public ProgressCommand(Index index, Progress setProgress) {
         this.index = index;
@@ -50,8 +52,10 @@ public class ProgressCommand extends Command {
     }
 
     /**
-     * @param studentId of person
-     * @param setProgress of the person to be updated to
+     * Constructs an ProgressCommand with a student ID.
+     *
+     * @param studentId The student ID of the student whose progress value will be updated.
+     * @param setProgress The progress value to be set for the student.
      */
     public ProgressCommand(StudentId studentId, Progress setProgress) {
         this.index = null;
@@ -105,8 +109,7 @@ public class ProgressCommand extends Command {
 
     /**
      * Generates a command execution success message based on whether
-     * the github is added to or removed from
-     * {@code personToEdit}.
+     * the progress is set
      */
     private String generateSuccessMessage(Person personToEdit) {
         return String.format(MESSAGE_SET_PROGRESS_SUCCESS, Messages.format(personToEdit));
