@@ -25,7 +25,8 @@ public class DeleteCommand extends Command implements ConfirmableCommand {
             + ": Deletes the person identified by the index number "
             + "used in the displayed person list, or studentId.\n"
             + "Parameters: INDEX (must be a positive integer) or STUDENTID\n"
-            + "Example: " + COMMAND_WORD + " 1"
+            + "Example:\n"
+            + COMMAND_WORD + " 1"
             + " or: " + COMMAND_WORD + " A1234567B";
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";

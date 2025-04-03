@@ -20,8 +20,9 @@ public class ExportCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Exports the current address book data to a CSV file.\n"
             + "Parameters: FILE_PATH (must be a valid absolute path to the CSV file)\n"
-            + "Example (absolute path on Unix/mac): " + COMMAND_WORD + " /Users/Name/Downloads/file.csv "
-            + "or (Windows): " + COMMAND_WORD + " C:\\Users\\Name\\Downloads\\file.csv";
+            + "Example:\n"
+            + "(Unix/mac): " + COMMAND_WORD + " /Users/Name/Downloads/file.csv\n"
+            + "(Windows): " + COMMAND_WORD + " C:\\Users\\Name\\Downloads\\file.csv";
 
     public static final String MESSAGE_EXPORT_SUCCESS = "Successfully exported address book to: %1$s";
     public static final String MESSAGE_EXPORT_FAILURE = "Failed to export address book.";

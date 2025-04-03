@@ -25,8 +25,7 @@ public class ClassCommand extends Command {
 
     public static final String COMMAND_WORD = "class";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Assign a tutorial class to the student identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Assign a tutorial class to the student identified "
             + "by the index in the displayed list or student ID.\n"
             + "Existing tutorial class will be overwritten by the input.\n"
             + "Parameters: INDEX (must be a positive integer) or STUDENTID\n"

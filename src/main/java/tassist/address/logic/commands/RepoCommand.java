@@ -26,31 +26,30 @@ public class RepoCommand extends Command {
     public static final String COMMAND_WORD = "repo";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Edits the Repository of the person identified by the STUDENTID or INDEX. "
+            + ": Edits the repository of the person identified by the STUDENTID or INDEX. "
             + "Existing URL will be overwritten by the input.\n"
             + "Parameters: STUDENTID or INDEX, un/{username}, rn/{repository name} or\n"
             + "Parameters: STUDENTID or INDEX, r/{repository_URL}\n"
             + "Example:\n"
-            + " 1." + COMMAND_WORD + " 2 un/Group-4 rn/WealthVault\n"
-            + " 2." + COMMAND_WORD + " AxxxxxxxN un/Tutorial-G08 rn/BestApp or\n"
-            + " 3." + COMMAND_WORD + " 3 r/https://github.com/team4/new.repo\n"
-            + " 4." + COMMAND_WORD + " AxxxxxxxN r/https://github.com/AY2425S2-CS2103T-W12-4/tp";
+            + COMMAND_WORD + " 2 un/Group-4 rn/WealthVault\n"
+            + COMMAND_WORD + " AxxxxxxxN un/Tutorial-G08 rn/BestApp or\n"
+            + COMMAND_WORD + " 3 r/https://github.com/team4/new.repo\n"
+            + COMMAND_WORD + " AxxxxxxxN r/https://github.com/AY2425S2-CS2103T-W12-4/tp";
 
-    public static final String MESSAGE_ADD_REPOSITORY_SUCCESS = "Added Repository to Person: %1$s";
+    public static final String MESSAGE_ADD_REPOSITORY_SUCCESS = "Set repository to student: %1$s";
     public static final String MESSAGE_NO_INDEX_STUDENTID = "Please enter valid index or student Id!";
 
     //allow multiple people to have the same repository (team repo)
-    public static final String MESSAGE_INVALID_USERNAME = "Please enter a valid Username!\n"
+    public static final String MESSAGE_INVALID_USERNAME = "Invalid username!\n"
             + MESSAGE_USERNAME_VALIDITY;
-    public static final String MESSAGE_INVALID_REPOSITORY_NAME = "Please enter a valid Repository Name!\n"
+    public static final String MESSAGE_INVALID_REPOSITORY_NAME = "Invalid repository name!\n"
             + MESSAGE_REPOSITORY_NAME_VALIDITY;
 
-    public static final String MESSAGE_INVALID_URL = "Please enter a valid URL!"
+    public static final String MESSAGE_INVALID_URL = "Invalid URL!\n"
             + MESSAGE_CONSTRAINTS;
 
     public static final String MESSAGE_VALID_COMMAND = "Either provide a full repository URL (r/) "
-            + "or both username (un/) and repository name (rn/).\n"
-            + MESSAGE_USAGE;
+            + "or both username (un/) and repository name (rn/).\n";
     public final String username;
     public final String repositoryName;
 

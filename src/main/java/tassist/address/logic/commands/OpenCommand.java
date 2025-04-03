@@ -31,7 +31,8 @@ public class OpenCommand extends Command {
             + ": Opens the GitHub link of the person identified by student ID or "
             + "the index number used in the displayed person list.\n"
             + "Parameters: INDEX (must be a positive integer) or STUDENTID\n"
-            + "Example: " + COMMAND_WORD + " 1" + " or " + COMMAND_WORD + " A1234567B";
+            + "Example:\n"
+            + COMMAND_WORD + " 1" + " or " + COMMAND_WORD + " A1234567B";
 
     public static final String MESSAGE_OPEN_GITHUB_SUCCESS = "Opening GitHub link for: %1$s";
     public static final String MESSAGE_OPEN_GITHUB_FAILURE = "Failed to open GitHub link for: %1$s";
