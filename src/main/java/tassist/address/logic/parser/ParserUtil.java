@@ -2,7 +2,6 @@ package tassist.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collection;
@@ -20,6 +19,7 @@ import tassist.address.model.person.Name;
 import tassist.address.model.person.Phone;
 import tassist.address.model.person.Progress;
 import tassist.address.model.person.ProjectTeam;
+import tassist.address.model.person.Repository;
 import tassist.address.model.person.StudentId;
 import tassist.address.model.tag.Tag;
 
@@ -177,6 +177,21 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String repository} into an {@code Repository}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code Repository Team} is invalid.
+     */
+    public static Repository parseRepository(String repository) throws ParseException {
+        requireNonNull(repository);
+        String trimmedRepository = repository.trim();
+        if (!Repository.isValidRepository(trimmedRepository)) {
+            throw new ParseException(Repository.MESSAGE_CONSTRAINTS);
+        }
+        return new Repository(trimmedRepository);
+    }
+
+    /**
      * Parses a {@code String progress} into a {@code Progress}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -202,10 +217,9 @@ public class ParserUtil {
 
         Path path = Paths.get(trimmedFilePath);
 
-        if (!path.isAbsolute()) {
-            throw new ParseException(Messages.MESSAGE_INVALID_FILE_PATH);
-        } else if (!Files.exists(path)) {
-            throw new ParseException(Messages.MESSAGE_INVALID_FILE_PATH);
+        // make sure it is an absolute path and also not the root directory of the file system
+        if (!path.isAbsolute() || path.getNameCount() == 0) {
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_FILE_PATH, path));
         }
 
         return path;

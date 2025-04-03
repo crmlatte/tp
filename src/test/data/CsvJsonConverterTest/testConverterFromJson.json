@@ -1,0 +1,47 @@
+{
+  "persons" : [ {
+    "name" : "Alex Yeoh",
+    "phone" : "87438807",
+    "email" : "alexyeoh@example.com",
+    "classNumber" : "T01",
+    "studentId" : "A0000001B",
+    "github" : "https://github.com/default",
+    "projectTeam" : "WealthVault",
+    "tags" : [ "friends" ],
+    "progress" : "20%",
+    "timedEvents" : [ {
+      "name" : "cs2103t",
+      "description" : "",
+      "time" : "2025-04-30T23:59",
+      "type" : "Assignment"
+    } ]
+  }, {
+    "name" : "Bernice Yu",
+    "phone" : "99272758",
+    "email" : "berniceyu@example.com",
+    "classNumber" : "T04",
+    "studentId" : "A0000002B",
+    "github" : "https://github.com/default",
+    "projectTeam" : "Rawrness",
+    "tags" : [ "colleagues", "friends" ],
+    "progress" : "35",
+    "timedEvents" : [ ]
+  }, {
+    "name" : "Charlotte Oliveiro",
+    "phone" : "93210283",
+    "email" : "charlotte@example.com",
+    "classNumber" : "R01",
+    "studentId" : "A0000003B",
+    "github" : "https://github.com/default",
+    "projectTeam" : "Rawrness",
+    "tags" : [ "neighbours" ],
+    "progress" : "80",
+    "timedEvents" : [ ]
+  } ],
+  "timedEvents" : [ {
+    "name" : "new",
+    "description" : "",
+    "time" : "2066-01-30T23:59",
+    "type" : "Assignment"
+  } ]
+}

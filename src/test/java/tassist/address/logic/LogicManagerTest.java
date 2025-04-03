@@ -6,6 +6,7 @@ import static tassist.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static tassist.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static tassist.address.logic.commands.CommandTestUtil.PROGRESS_DESC_AMY;
 import static tassist.address.logic.commands.CommandTestUtil.PROJECT_TEAM_DESC_AMY;
+import static tassist.address.logic.commands.CommandTestUtil.REPOSITORY_DESC_AMY;
 import static tassist.address.logic.commands.CommandTestUtil.STUDENTID_DESC_AMY;
 import static tassist.address.testutil.Assert.assertThrows;
 import static tassist.address.testutil.TypicalPersons.AMY;
@@ -22,6 +23,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import tassist.address.logic.browser.BrowserService;
 import tassist.address.logic.commands.AddCommand;
 import tassist.address.logic.commands.CommandResult;
 import tassist.address.logic.commands.DeleteCommand;
@@ -246,8 +248,8 @@ public class LogicManagerTest {
 
         logic = new LogicManager(model, storage);
 
-        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
-                + EMAIL_DESC_AMY + STUDENTID_DESC_AMY + PROJECT_TEAM_DESC_AMY + PROGRESS_DESC_AMY;
+        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
+                + STUDENTID_DESC_AMY + PROJECT_TEAM_DESC_AMY + REPOSITORY_DESC_AMY + PROGRESS_DESC_AMY;
 
         Person expectedPerson = new PersonBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();
@@ -258,7 +260,7 @@ public class LogicManagerTest {
     /**
      * Test implementation of BrowserService that records URLs instead of opening them.
      */
-    private static class TestBrowserService implements OpenCommand.BrowserService {
+    private static class TestBrowserService implements BrowserService {
         private List<String> urlsOpened = new ArrayList<>();
 
         @Override

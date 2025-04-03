@@ -110,6 +110,7 @@ public class ClassCommand extends Command {
                 personToEdit.getStudentId(),
                 personToEdit.getGithub(),
                 personToEdit.getProjectTeam(),
+                personToEdit.getRepository(),
                 personToEdit.getTags(),
                 personToEdit.getProgress(),
                 personToEdit.getTimedEventsList()

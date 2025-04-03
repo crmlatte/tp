@@ -27,6 +27,7 @@ import tassist.address.logic.commands.DeleteCommand;
 import tassist.address.logic.commands.EditCommand;
 import tassist.address.logic.commands.EditCommand.EditPersonDescriptor;
 import tassist.address.logic.commands.ExitCommand;
+import tassist.address.logic.commands.ExportCommand;
 import tassist.address.logic.commands.FindCommand;
 import tassist.address.logic.commands.GithubCommand;
 import tassist.address.logic.commands.HelpCommand;
@@ -179,6 +180,19 @@ public class AddressBookParserTest {
         ProgressCommand command = (ProgressCommand) parser.parseCommand(ProgressCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_PROGRESS + "70");
         assertEquals(new ProgressCommand(INDEX_FIRST_PERSON, progress), command);
+
+    @Test  
+    public void parseCommand_export() throws Exception {
+        // mimic output path
+        final Path outputCsvFilePath = testRoot.resolve("output.csv");
+
+        // creates the file so it "exists"
+        if (!Files.exists(outputCsvFilePath)) {
+            Files.createFile(outputCsvFilePath);
+        }
+
+        assertTrue(parser.parseCommand(ExportCommand.COMMAND_WORD
+                + " " + outputCsvFilePath.toString()) instanceof ExportCommand);
     }
 
     @Test
