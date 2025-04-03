@@ -338,6 +338,41 @@ Clears all entries from the student list.
 
 Format: `clear`
 
+### Importing data : `import`
+
+Imports a CSV file containing student and active timed event data into the system. The file should follow the correct CSV format for students and timed events.
+
+Format: `import INPUT_CSV_FILE_PATH`
+
+* `ABSOLUTE_FILE_PATH`: The absolute path to the CSV file to be imported.
+* The absolute path format is dependent on the operating system.
+* Relative paths are not supported.
+
+Examples:
+* `import /Users/Alice/Documents/T01.csv` (Unix/mac) <br>
+  Imports the CSV file located at `/Users/Alice/Documents/T01.csv` containing students and timed events.
+
+* `import C:\Users\Alice\Documents\T01.csv` (Windows) <br>
+  Imports the CSV file located at `C:\Users\Alice\Documents\T01.csv` containing students and timed events.
+
+### Exporting data : `export`
+
+Exports the current student and active timed event data to a CSV file. The data is written in a structured format where students' details are saved along with active timed events.
+
+Format: `export OUTPUT_CSV_FILE_PATH`
+
+* `ABSOLUTE_FILE_PATH`: The absolute path where the CSV will be saved.
+* The absolute path format is dependent on the operating system.
+* Relative paths are not supported.
+* If the parent directory of the CSV file does not exist, an error will occur, and the file will not be created.
+
+Examples:
+* `export /Users/Alice/Documents/T01.csv` (Unix/mac) <br>
+  Exports the current data containing students and timed events to `/Users/Alice/Documents/T01.csv`.
+
+* `export C:\Users\Alice\Documents\T01.csv` (Windows) <br>
+  Exports the current data containing students and timed events to `C:\Users\Alice\Documents\T01.csv`.
+
 ### Exiting the program : `exit`
 
 Exits the program.
@@ -356,10 +391,6 @@ TAssist data are saved automatically as a JSON file `[JAR file location]/data/ad
 If your changes to the data file makes its format invalid, TAssist will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
 Furthermore, certain edits can cause TAssist to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
-
-### Archiving data files `[coming in v1.5]`
-
-_Details coming soon ..._
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -394,4 +425,6 @@ Action | Format, Examples
 **View** | `view`
 **Assign** | `assign TIMED_EVENT_INDEX STUDENT_INDEX` or `assign TIMED_EVENT_INDEX STUDENT_ID` or `assign TIMED_EVENT_INDEX CLASS_NUMBER` <br> e.g., `assign 1 2`, `assign 2 A1234567B`,`assign 2 T03`
 **Unassign** | `unassign TIMED_EVENT_INDEX` <br> e.g., `unassign 1`
+**Import** | `import ABSOLUTE_FILE_PATH` <br> e.g., `import /Users/Alice/Documents/T01.csv`, `import C:\Users\Alice\Documents\T01.csv`
+**Export** | `export ABSOLUTE_FILE_PATH` <br> e.g., `export /Users/Alice/Documents/T01.csv`, `export C:\Users\Alice\Documents\T01.csv`
 **Help** | `help`
