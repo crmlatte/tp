@@ -328,7 +328,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | CS TA             | assign multiple students to a project team at once | organise teams quickly                        |
 | `* *`    | CS TA             | add progress level to each student                 | easily monitor a student's progress and skill |
 | `* *`    | CS TA             | filter students by progress level                  | tailor my guidance to each student            |
-| `* *`    | CS TA             | filter students by project team                    | find a group members of team easily           |
+| `* *`    | CS TA             | filter students by project team                    | find group members of a team easily           |
 | `*`      | forgetful CS TA   | set a reminder for a student tasks                 | remember to follow up                         |
 | `*`      | forgetful CS TA   | schedule notification for assignment deadline      | remember to check submissions                 |
 | `*`      | forgetful CS TA   | add notes to a student                             | take down important information               |
