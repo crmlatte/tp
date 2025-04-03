@@ -24,6 +24,7 @@ import tassist.address.logic.commands.HelpCommand;
 import tassist.address.logic.commands.ImportCommand;
 import tassist.address.logic.commands.ListCommand;
 import tassist.address.logic.commands.OpenCommand;
+import tassist.address.logic.commands.ProgressCommand;
 import tassist.address.logic.commands.RepoCommand;
 import tassist.address.logic.commands.UnassignCommand;
 import tassist.address.logic.commands.ViewCommand;
@@ -111,6 +112,9 @@ public class AddressBookParser {
 
         case OpenCommand.COMMAND_WORD:
             return new OpenCommandParser().parse(arguments);
+
+        case ProgressCommand.COMMAND_WORD:
+            return new ProgressCommandParser().parse(arguments);
 
         case ImportCommand.COMMAND_WORD:
             return new ImportCommandParser().parse(arguments);

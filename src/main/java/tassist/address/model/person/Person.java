@@ -20,8 +20,6 @@ import tassist.address.model.timedevents.UniqueTimedEventList;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Person {
-    public static final String PLACEHOLDER_COURSE = "placeholder";
-
     // Identity fields
     private final Name name;
     private final Phone phone;
@@ -108,10 +106,6 @@ public class Person {
         return github;
     }
 
-    public String getCourse() {
-        return PLACEHOLDER_COURSE;
-    }
-
     public ProjectTeam getProjectTeam() {
         return projectTeam;
     }
@@ -151,6 +145,7 @@ public class Person {
         attributes.add("studentId");
         attributes.add("github");
         attributes.add("projectTeam");
+        attributes.add("repository");
         attributes.add("tags");
         attributes.add("progress");
         attributes.add("timedEvents");
