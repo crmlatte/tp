@@ -25,9 +25,9 @@ public class ListCommandParserTest {
         ListCommand expectedCommand3 = new ListCommand("progress", "des", null, null);
         assertEquals(expectedCommand3, parser.parse(" s/progress o/des"));
 
-        // Filter by course CS2103
-        ListCommand expectedCommand4 = new ListCommand(null, null, "course", "CS2103");
-        assertEquals(expectedCommand4, parser.parse(" f/course fv/CS2103"));
+        // Filter by class T01
+        ListCommand expectedCommand4 = new ListCommand(null, null, "class", "T01");
+        assertEquals(expectedCommand4, parser.parse(" f/class fv/T01"));
 
         // Sort by GitHub ascending, filter by team Alpha
         ListCommand expectedCommand5 = new ListCommand("github", "asc", "team", "Alpha");
@@ -36,6 +36,8 @@ public class ListCommandParserTest {
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
+        // Invalid argument
+        assertThrows(ParseException.class, () -> parser.parse(" abcdefg"));
         // Invalid sort type
         assertThrows(ParseException.class, () -> parser.parse(" s/invalid o/asc"));
 
