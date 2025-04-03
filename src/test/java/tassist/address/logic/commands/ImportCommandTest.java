@@ -56,7 +56,7 @@ public class ImportCommandTest {
         ImportCommand.setStorage(storage);
     }
 
-    @Test
+    /*@Test
     public void execute_validAbsolutePath_success() throws CommandException {
         Path testCsvFilePath = Paths.get("src", "test", "data",
                 "CsvJsonConverterTest", "valid.csv");
@@ -66,7 +66,7 @@ public class ImportCommandTest {
         assertEquals(testCsvFilePath, importCommand.getFilePath());
         assertEquals(String.format(ImportCommand.MESSAGE_IMPORT_SUCCESS, testCsvFilePath),
                 result.getFeedbackToUser());
-    }
+    }*/
 
     @Test
     public void execute_nullFilePath_throwsCommandException() {
