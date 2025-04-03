@@ -29,6 +29,7 @@ import tassist.address.model.ReadOnlyAddressBook;
 */
 
 public class CsvJsonConverterTest {
+}
 
     /*private static final Path TEST_DATA_FOLDER =
             Paths.get("src", "test", "data", "CsvJsonConverterTest");
@@ -145,4 +146,3 @@ public class CsvJsonConverterTest {
         csvReader.close();
         fileReader.close();
     }*/
-}
