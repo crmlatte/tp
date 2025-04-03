@@ -49,4 +49,74 @@ public class FindCommandParserTest {
         assertEquals(1, model.getFilteredPersonList().size());
         assertEquals(matchingPerson, model.getFilteredPersonList().get(0));
     }
+
+    @Test
+    public void parse_validClassNumberArgs_returnsFindCommand() throws Exception {
+        // Test tutorial class number
+        FindCommand command = parser.parse("T01");
+        Person matchingPerson = new PersonBuilder().withClassNumber("T01").build();
+
+        Model model = new ModelManager();
+        model.addPerson(matchingPerson);
+        command.execute(model);
+
+        assertEquals(1, model.getFilteredPersonList().size());
+        assertEquals(matchingPerson, model.getFilteredPersonList().get(0));
+
+        // Test recitation class number
+        command = parser.parse("R01");
+        matchingPerson = new PersonBuilder().withClassNumber("R01").build();
+        model = new ModelManager();
+        model.addPerson(matchingPerson);
+        command.execute(model);
+
+        assertEquals(1, model.getFilteredPersonList().size());
+        assertEquals(matchingPerson, model.getFilteredPersonList().get(0));
+
+        // Test default class
+        command = parser.parse("No tutorial assigned");
+        matchingPerson = new PersonBuilder().withClassNumber("No tutorial assigned").build();
+        model = new ModelManager();
+        model.addPerson(matchingPerson);
+        command.execute(model);
+
+        assertEquals(1, model.getFilteredPersonList().size());
+        assertEquals(matchingPerson, model.getFilteredPersonList().get(0));
+    }
+
+    @Test
+    public void parse_invalidClassNumberArgs_treatedAsNameSearch() throws Exception {
+        // These should be treated as name searches rather than throwing exceptions
+        FindCommand command = parser.parse("T0");
+        Person matchingPerson = new PersonBuilder().withName("T0").build();
+        Model model = new ModelManager();
+        model.addPerson(matchingPerson);
+        command.execute(model);
+        assertEquals(1, model.getFilteredPersonList().size());
+        assertEquals(matchingPerson, model.getFilteredPersonList().get(0));
+
+        command = parser.parse("T100");
+        matchingPerson = new PersonBuilder().withName("T100").build();
+        model = new ModelManager();
+        model.addPerson(matchingPerson);
+        command.execute(model);
+        assertEquals(1, model.getFilteredPersonList().size());
+        assertEquals(matchingPerson, model.getFilteredPersonList().get(0));
+
+        command = parser.parse("t01");
+        matchingPerson = new PersonBuilder().withName("t01").build();
+        model = new ModelManager();
+        model.addPerson(matchingPerson);
+        command.execute(model);
+        assertEquals(1, model.getFilteredPersonList().size());
+        assertEquals(matchingPerson, model.getFilteredPersonList().get(0));
+
+        command = parser.parse("r01");
+        matchingPerson = new PersonBuilder().withName("r01").build();
+        model = new ModelManager();
+        model.addPerson(matchingPerson);
+        command.execute(model);
+        assertEquals(1, model.getFilteredPersonList().size());
+        assertEquals(matchingPerson, model.getFilteredPersonList().get(0));
+    }
 }

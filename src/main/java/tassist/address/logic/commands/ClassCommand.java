@@ -26,20 +26,17 @@ public class ClassCommand extends Command {
     public static final String COMMAND_WORD = "class";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Assign a tutorial class to the student identified"
+            + ": Assign a tutorial class to the student identified "
             + "by the index in the displayed list or student ID.\n"
             + "Existing tutorial class will be overwritten by the input.\n"
             + "Parameters: INDEX (must be a positive integer) or STUDENTID\n"
-            + " + " + PREFIX_CLASS + " T or R + [Tutorial Class Number xx (xx = 01-99)]\n"
-            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_CLASS + "T01\n"
+            + " + " + PREFIX_CLASS + " + T or R + [Tutorial Class Number xx (xx = 01-99)]\n"
+            + "Example:\n"
+            + COMMAND_WORD + " 1 " + PREFIX_CLASS + "T01 "
             + "or " + COMMAND_WORD + " A0123456B " + PREFIX_CLASS + "T01";
 
     public static final String MESSAGE_ADD_CLASS_SUCCESS = "Assigned tutorial class to student: %1$s";
     public static final String MESSAGE_REMOVE_CLASS_SUCCESS = "Removed tutorial class from student: %1$s";
-    public static final String MESSAGE_INVALID_CLASS =
-            "Class numbers should be either 'No tutorial assigned'\n"
-                    + "+ or of the format 'Txx/Rxx' (where xx is 01-99).\n"
-                    + "'T/R' must be capitalized.";
 
     private static final Logger logger = Logger.getLogger(ClassCommand.class.getName());
 
@@ -110,6 +107,7 @@ public class ClassCommand extends Command {
                 personToEdit.getStudentId(),
                 personToEdit.getGithub(),
                 personToEdit.getProjectTeam(),
+                personToEdit.getRepository(),
                 personToEdit.getTags(),
                 personToEdit.getProgress(),
                 personToEdit.getTimedEventsList()
@@ -148,5 +146,19 @@ public class ClassCommand extends Command {
         return Objects.equals(index, otherClassCommand.index)
                 && Objects.equals(studentId, otherClassCommand.studentId)
                 && Objects.equals(classNumber, otherClassCommand.classNumber);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder()
+                .append("ClassCommand{");
+        if (index != null) {
+            builder.append("index=").append(index);
+        } else if (studentId != null) {
+            builder.append("studentId=").append(studentId);
+        }
+        builder.append(", classNumber=").append(classNumber)
+                .append("}");
+        return builder.toString();
     }
 }

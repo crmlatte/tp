@@ -1,0 +1,7 @@
+"name","phone","email","classNumber","studentId","github","projectTeam","repository","tags","progress","timedEvents"
+"Alex Yeoh","87438807","alexyeoh@u.nus.edu","T01","A0000001B","No Github assigned","WealthVault","https://github.com/alex/new.repo","friends","20%","CS2103T tp,,2030-01-01T23:59,Assignment"
+"Bernice Yu","99272758","berniceyu@u.nus.edu","T04","A0000002B","No Github assigned","Rawrness","No Repository","colleagues,friends","35%",""
+"Charlotte Oliveiro","93210283","charlotte@u.nus.edu","R01","A0000003B","No Github assigned","Rawrness","No Repository","neighbours","80%",""
+"timedEvents"
+"name","description","time","type"
+"CS2103T tp","","2030-01-01T23:59","Assignment"

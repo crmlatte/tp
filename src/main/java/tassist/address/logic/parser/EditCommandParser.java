@@ -9,6 +9,7 @@ import static tassist.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_PROGRESS;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_PROJECT_TEAM;
+import static tassist.address.logic.parser.CliSyntax.PREFIX_REPOSITORY;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_STUDENT_ID;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -37,7 +38,8 @@ public class EditCommandParser implements Parser<EditCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_CLASS,
-                        PREFIX_STUDENT_ID, PREFIX_GITHUB, PREFIX_PROJECT_TEAM, PREFIX_TAG, PREFIX_PROGRESS);
+                        PREFIX_STUDENT_ID, PREFIX_GITHUB, PREFIX_PROJECT_TEAM, PREFIX_REPOSITORY,
+                        PREFIX_TAG, PREFIX_PROGRESS);
 
         Index index;
 
@@ -48,7 +50,8 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
-                PREFIX_CLASS, PREFIX_GITHUB, PREFIX_PROJECT_TEAM, PREFIX_STUDENT_ID, PREFIX_PROGRESS);
+                PREFIX_CLASS, PREFIX_GITHUB, PREFIX_PROJECT_TEAM, PREFIX_REPOSITORY,
+                PREFIX_STUDENT_ID, PREFIX_PROGRESS);
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
 
@@ -74,6 +77,10 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_PROJECT_TEAM).isPresent()) {
             editPersonDescriptor
                     .setProjectTeam(ParserUtil.parseProjectTeam(argMultimap.getValue(PREFIX_PROJECT_TEAM).get()));
+        }
+        if (argMultimap.getValue(PREFIX_REPOSITORY).isPresent()) {
+            editPersonDescriptor
+                    .setRepository(ParserUtil.parseRepository(argMultimap.getValue(PREFIX_REPOSITORY).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
         if (argMultimap.getValue(PREFIX_PROGRESS).isPresent()) {
