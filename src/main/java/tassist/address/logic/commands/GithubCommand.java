@@ -41,6 +41,8 @@ public class GithubCommand extends Command {
     private final Github github;
 
     /**
+     * Constructs a {@code GithubCommand} that assigns a Github URL to a student identified by their student ID.
+     *
      * @param studentId of person
      * @param github of the person to be updated to
      */
@@ -54,6 +56,8 @@ public class GithubCommand extends Command {
     }
 
     /**
+     * Constructs a {@code GithubCommand} that assigns a Github URL to a student identified by their index.
+     *
      * @param index of person in list
      * @param github of person to be updated to
      */

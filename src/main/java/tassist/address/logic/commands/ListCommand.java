@@ -65,7 +65,12 @@ public class ListCommand extends Command {
     public final String filterValue;
 
     /**
-     * Constructor for ListCommand with sorting and filtering.
+     * Constructs a {@code ListCommand} with sorting and filtering.
+     *
+     * @param sortType Type of field to sort by.
+     * @param sortOrder Order to sort in (ascending or descending).
+     * @param filterType Type of field to filter by.
+     * @param filterValue Value to filter the field by.
      */
     public ListCommand(String sortType, String sortOrder, String filterType, String filterValue) {
         this.sortType = sortType != null ? sortType.toLowerCase() : null;
@@ -75,7 +80,7 @@ public class ListCommand extends Command {
     }
 
     /**
-     * Constructor for ListCommand without sorting and filtering.
+     * Constructs a {@code ListCommand} without sorting and filtering.
      */
     public ListCommand() {
         this.sortType = null;

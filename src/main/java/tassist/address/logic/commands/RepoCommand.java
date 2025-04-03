@@ -59,6 +59,8 @@ public class RepoCommand extends Command {
     public final Repository repositoryUrl;
 
     /**
+     * Constructs a {@code RepoCommand} that assigns a repository URL to a student identified by their student ID.
+     *
      * @param studentId of the person in the list to edit the repository of
      * @param username used to update username
      * @param repositoryName used to update repositoryName
@@ -73,6 +75,8 @@ public class RepoCommand extends Command {
     }
 
     /**
+     * Constructs a {@code RepoCommand} that assigns a repository URL to a student identified by their index.
+     *
      * @param index of the person in the list to edit the repository of
      * @param username used to update username
      * @param repositoryName used to update repositoryName
