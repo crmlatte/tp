@@ -20,4 +20,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_FILTER_VALUE = new Prefix("fv/");
     public static final Prefix PREFIX_DATE = new Prefix("d/");
     public static final Prefix PREFIX_PROJECT_TEAM = new Prefix("pt/");
+    public static final Prefix PREFIX_REPOSITORY = new Prefix("r/");
+    public static final Prefix PREFIX_USERNAME = new Prefix("un/");
+    public static final Prefix PREFIX_REPOSITORY_NAME = new Prefix("rn/");
 }

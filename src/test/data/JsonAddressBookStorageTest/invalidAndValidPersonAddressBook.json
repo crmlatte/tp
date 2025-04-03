@@ -7,6 +7,7 @@
     "studentId" : "A0000000B",
     "github": "https://github.com/default",
     "projectTeam" : "WealthAssist",
+    "repository" : "https://github.com/tammzz/WealthAssist",
     "progress": "20"
   }, {
     "name": "Person With Invalid Phone Field",
@@ -16,6 +17,7 @@
     "studentId" : "A1111111B",
     "github": "https://github.com/default",
     "projectTeam" : "UWU",
+    "repository" : "https://github.com/default/UWU",
     "progress": "30"
   } ]
 }
