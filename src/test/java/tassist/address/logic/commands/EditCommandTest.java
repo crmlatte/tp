@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tassist.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static tassist.address.logic.commands.CommandTestUtil.DESC_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static tassist.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_PROGRESS_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static tassist.address.logic.commands.CommandTestUtil.assertCommandFailure;
