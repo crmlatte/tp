@@ -66,6 +66,10 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_EXISTING_PHONE = "Error! This phone number belongs to another student.";
+    public static final String MESSAGE_EXISTING_EMAIL = "Error! This email belongs to another student.";
+    public static final String MESSAGE_EXISTING_GITHUB = "Error! This GitHub belongs to another student.";
+
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -93,9 +97,22 @@ public class EditCommand extends Command {
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
-
         if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        }
+        for (Person p : model.getFilteredPersonList()) {
+            if (p.equals(personToEdit)) {
+                continue;
+            }
+            if (p.getPhone().equals(editedPerson.getPhone())) {
+                throw new CommandException(MESSAGE_EXISTING_PHONE);
+            }
+            if (p.getEmail().equals(editedPerson.getEmail())) {
+                throw new CommandException(MESSAGE_EXISTING_EMAIL);
+            }
+            if (p.getGithub().equals(editedPerson.getGithub())) {
+                throw new CommandException(MESSAGE_EXISTING_GITHUB);
+            }
         }
 
         model.setPerson(personToEdit, editedPerson);

@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tassist.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static tassist.address.logic.commands.CommandTestUtil.DESC_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static tassist.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_PROGRESS_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static tassist.address.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -38,7 +37,10 @@ public class EditCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        Person editedPerson = new PersonBuilder().withClassNumber("T01").build();
+        Person editedPerson = new PersonBuilder()
+                .withGithub("https://github.com/testlink")
+                .withClassNumber("T01")
+                .build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
 
@@ -56,11 +58,21 @@ public class EditCommandTest {
         Person lastPerson = model.getFilteredPersonList().get(indexLastPerson.getZeroBased());
 
         PersonBuilder personInList = new PersonBuilder(lastPerson);
-        Person editedPerson = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-                .withTags(VALID_TAG_HUSBAND).withProgress(VALID_PROGRESS_BOB).build();
+        Person editedPerson = personInList.withName(VALID_NAME_BOB)
+                .withPhone("12345678")
+                .withGithub("https://github.com/testlink1")
+                .withEmail("edit@u.nus.edu")
+                .withTags(VALID_TAG_HUSBAND)
+                .withProgress(VALID_PROGRESS_BOB)
+                .build();
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).withProgress(VALID_PROGRESS_BOB).build();
+                .withPhone("22345678")
+                .withGithub("https://github.com/testlink2")
+                .withEmail("edit2@u.nus.edu")
+                .withTags(VALID_TAG_HUSBAND)
+                .withProgress(VALID_PROGRESS_BOB)
+                .build();
         EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
@@ -107,6 +119,42 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON, descriptor);
 
         assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PERSON);
+    }
+
+    @Test
+    public void execute_existingEmail_failure() {
+        Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        String email = firstPerson.getEmail().toString();
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
+                .withEmail(email)
+                .build();
+        EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON, descriptor);
+
+        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_EXISTING_EMAIL);
+    }
+
+    @Test
+    public void execute_existingGithub_failure() {
+        Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        String github = firstPerson.getGithub().toString();
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
+                .withGithub(github)
+                .build();
+        EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON, descriptor);
+
+        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_EXISTING_GITHUB);
+    }
+
+    @Test
+    public void execute_existingPhone_failure() {
+        Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        String phone = firstPerson.getPhone().toString();
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
+                .withPhone(phone)
+                .build();
+        EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON, descriptor);
+
+        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_EXISTING_PHONE);
     }
 
     @Test
