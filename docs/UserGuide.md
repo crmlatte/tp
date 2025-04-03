@@ -425,6 +425,6 @@ Action | Format, Examples
 **View** | `view`
 **Assign** | `assign TIMED_EVENT_INDEX STUDENT_INDEX` or `assign TIMED_EVENT_INDEX STUDENT_ID` or `assign TIMED_EVENT_INDEX CLASS_NUMBER` <br> e.g., `assign 1 2`, `assign 2 A1234567B`,`assign 2 T03`
 **Unassign** | `unassign TIMED_EVENT_INDEX` <br> e.g., `unassign 1`
-**Import** | `import ABSOLUTE_FILE_PATH` <br> e.g. `import /Users/Alice/Documents/T01.csv`, `import C:\Users\Alice\Documents\T01.csv`
-**Export** | `export ABSOLUTE_FILE_PATH` <br> e.g. `export /Users/Alice/Documents/T01.csv`, `export C:\Users\Alice\Documents\T01.csv`
+**Import** | `import ABSOLUTE_FILE_PATH` <br> e.g., `import /Users/Alice/Documents/T01.csv`, `import C:\Users\Alice\Documents\T01.csv`
+**Export** | `export ABSOLUTE_FILE_PATH` <br> e.g., `export /Users/Alice/Documents/T01.csv`, `export C:\Users\Alice\Documents\T01.csv`
 **Help** | `help`
