@@ -1,6 +1,6 @@
 package tassist.address.storage;
 
-/*import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tassist.address.testutil.Assert.assertThrows;
@@ -26,12 +26,10 @@ import tassist.address.logic.commands.ImportCommandTest;
 import tassist.address.model.Model;
 import tassist.address.model.ModelManager;
 import tassist.address.model.ReadOnlyAddressBook;
-*/
 
 public class CsvJsonConverterTest {
-}
 
-    /*private static final Path TEST_DATA_FOLDER =
+    private static final Path TEST_DATA_FOLDER =
             Paths.get("src", "test", "data", "CsvJsonConverterTest");
 
     @TempDir
@@ -114,22 +112,24 @@ public class CsvJsonConverterTest {
         assertEquals("studentId", personHeader[4]);
         assertEquals("github", personHeader[5]);
         assertEquals("projectTeam", personHeader[6]);
-        assertEquals("tags", personHeader[7]);
-        assertEquals("progress", personHeader[8]);
-        assertEquals("timedEvents", personHeader[9]);
+        assertEquals("repository", personHeader[7]);
+        assertEquals("tags", personHeader[8]);
+        assertEquals("progress", personHeader[9]);
+        assertEquals("timedEvents", personHeader[10]);
 
         // Verify that data is written correctly
         String[] firstPerson = csvContent.get(1);
         assertEquals("Alex Yeoh", firstPerson[0]);
         assertEquals("87438807", firstPerson[1]);
-        assertEquals("alexyeoh@example.com", firstPerson[2]);
+        assertEquals("alexyeoh@u.nus.edu", firstPerson[2]);
         assertEquals("T01", firstPerson[3]);
         assertEquals("A0000001B", firstPerson[4]);
-        assertEquals("https://github.com/default", firstPerson[5]);
+        assertEquals("No Github assigned", firstPerson[5]);
         assertEquals("WealthVault", firstPerson[6]);
-        assertEquals("friends", firstPerson[7]);
-        assertEquals("20%", firstPerson[8]);
-        assertEquals("cs2103t,,2025-04-30T23:59,Assignment", firstPerson[9]);
+        assertEquals("https://github.com/alex/new.repo", firstPerson[7]);
+        assertEquals("friends", firstPerson[8]);
+        assertEquals("20%", firstPerson[9]);
+        assertEquals("CS2103T tp,,2030-01-01T23:59,Assignment", firstPerson[10]);
 
         String[] timedEventsHeader = csvContent.get(5);
         assertEquals("name", timedEventsHeader[0]);
@@ -138,11 +138,12 @@ public class CsvJsonConverterTest {
         assertEquals("type", timedEventsHeader[3]);
 
         String[] firstTimedEvent = csvContent.get(6);
-        assertEquals("new", firstTimedEvent[0]);
+        assertEquals("CS2103T tp", firstTimedEvent[0]);
         assertEquals("", firstTimedEvent[1]);
-        assertEquals("2066-01-30T23:59", firstTimedEvent[2]);
+        assertEquals("2030-01-01T23:59", firstTimedEvent[2]);
         assertEquals("Assignment", firstTimedEvent[3]);
 
         csvReader.close();
         fileReader.close();
-    }*/
+    }
+}

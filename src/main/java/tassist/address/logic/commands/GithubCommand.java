@@ -27,9 +27,9 @@ public class GithubCommand extends Command {
             + "by the STUDENTID or INDEX. "
             + "Existing github will be overwritten by the input.\n"
             + "Parameters: STUDENTID or INDEX , g/[GITHUB_URL]\n"
-            + "Example: " + COMMAND_WORD + " 2 "
-            + "g/https://github.com/tammzz\n"
-            + "or: " + COMMAND_WORD + " AxxxxxxxB g/https://github.com/tammzz";
+            + "Example:\n"
+            + "1. " + COMMAND_WORD + " 2 g/https://github.com/tammzz\n"
+            + "2. " + COMMAND_WORD + " A1234567B g/https://github.com/tammzz";
 
     public static final String MESSAGE_ADD_GITHUB_SUCCESS = "Added github to Person: %1$s";
     public static final String MESSAGE_DELETE_GITHUB_SUCCESS = "Removed github from Person: %1$s";

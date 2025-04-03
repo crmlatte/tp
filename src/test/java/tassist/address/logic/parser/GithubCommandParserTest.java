@@ -41,12 +41,15 @@ public class GithubCommandParserTest {
     }
 
     @Test
-    public void parse_missingCompulsoryField_failure() {
+    public void parse_allField_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, GithubCommand.MESSAGE_USAGE);
-
         // no parameters
         assertParseFailure(parser, GithubCommand.COMMAND_WORD, expectedMessage);
+    }
 
+    @Test
+    public void parse_missingPreamble_failure() {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, GithubCommand.MESSAGE_USAGE);
         // no index/studentid
         assertParseFailure(parser, GithubCommand.COMMAND_WORD + " " + nonEmptyGithub, expectedMessage);
     }
@@ -78,6 +81,15 @@ public class GithubCommandParserTest {
         GithubCommand resultCommand = parser.parse(input);
 
         assertEquals(expectedCommand, resultCommand);
+    }
+
+    @Test
+    public void parse_missingGithubPrefix_throwsParseException() {
+        String input = "1";
+        String expectedOutput = String.format(MESSAGE_INVALID_COMMAND_FORMAT, GithubCommand.MESSAGE_USAGE);
+
+        ParseException thrown = assertThrows(ParseException.class, () ->parser.parse(input));
+        assertEquals(expectedOutput, thrown.getMessage());
     }
 
     @Test
