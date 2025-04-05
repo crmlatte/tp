@@ -38,7 +38,8 @@ public class AddCommand extends Command {
             + "[" + PREFIX_CLASS + "CLASS_NUMBER] "
             + "[" + PREFIX_TAG + "TAG]... "
             + PREFIX_PROGRESS + "PROGRESS\n"
-            + "Example: " + COMMAND_WORD + " "
+            + "Example:\n"
+            + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "
             + PREFIX_EMAIL + "johnd@u.nus.edu "
@@ -46,7 +47,7 @@ public class AddCommand extends Command {
             + PREFIX_PROJECT_TEAM + "TAssist "
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney "
-            + PREFIX_PROGRESS + "50\n"
+            + PREFIX_PROGRESS + "50\n\n"
             + "To add a student, minimally NAME, EMAIL, PHONE, STUDENTID must be present.\n"
             + "GITHUB, TEAM, REPOSITORY, CLASS_NUMBER, TAG and PROGRESS are optional fields and can be omitted out";
 

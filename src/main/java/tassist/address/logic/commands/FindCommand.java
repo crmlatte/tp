@@ -24,7 +24,8 @@ public class FindCommand extends Command {
             + "the specified keywords (case-insensitive), whose student ID matches exactly, "
             + "or whose class number matches exactly, and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]... or STUDENTID or CLASS\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie" + " or "
+            + "Example:\n"
+            + COMMAND_WORD + " alice bob charlie\n"
             + COMMAND_WORD + " A1234567B" + " or " + COMMAND_WORD + " T01";
 
     private final NameContainsKeywordsPredicate namePredicate;

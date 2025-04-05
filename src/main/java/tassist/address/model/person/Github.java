@@ -31,7 +31,9 @@ public class Github {
     public final String value;
 
     /**
-     * @param github link of the Student
+     * Constructs an {@code Github}.
+     *
+     * @param github A valid Github.
      */
     public Github(String github) {
         requireNonNull(github);
@@ -41,7 +43,7 @@ public class Github {
 
 
     /**
-     * Returns if a given string is a valid github link.
+     * Returns true if a given string is a valid Github link.
      */
     public static boolean isValidGithub(String test) {
         return test.matches(VALIDATION_REGEX) || test.matches(NO_GITHUB);

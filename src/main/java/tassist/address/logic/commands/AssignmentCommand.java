@@ -15,17 +15,17 @@ public class AssignmentCommand extends Command {
 
     public static final String COMMAND_WORD = "assignment";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an assignment to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an assignment to the address book.\n"
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_DATE + "DATE\n"
-            + "Example: " + COMMAND_WORD + " "
+            + "Example:\n"
+            + COMMAND_WORD + " "
             + PREFIX_NAME + "CS2103T Project "
             + PREFIX_DATE + "30-01-2025";
 
     public static final String MESSAGE_SUCCESS = "New assignment added: %1$s";
     public static final String MESSAGE_DUPLICATE_ASSIGNMENT = "This assignment already exists in the address book";
-    public static final String MESSAGE_INVALID_DATE_FORMAT = "Invalid date format. Please use DD-MM-YY or DD-MM-YYYY";
 
     private final Assignment toAdd;
 

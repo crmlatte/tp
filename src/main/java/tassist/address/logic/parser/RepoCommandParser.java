@@ -54,7 +54,7 @@ public class RepoCommandParser implements Parser<RepoCommand> {
             }
         } else if (username != null && repositoryName != null) {
             try {
-                repository = RepoCommand.createRepo(username, repositoryName);
+                repository = new Repository(username, repositoryName);
             } catch (IllegalArgumentException e) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, e.getMessage()), e);
             }

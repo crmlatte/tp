@@ -18,7 +18,8 @@ public class HelpCommand extends Command {
     public static final String HELP_URL = "https://ay2425s2-cs2103t-w12-4.github.io/tp/UserGuide.html";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows program usage instructions.\n"
-            + "Example: " + COMMAND_WORD;
+            + "Example:\n"
+            + COMMAND_WORD;
 
     public static final String SHOWING_HELP_MESSAGE = "Opened help window in browser.";
     public static final String MESSAGE_OPEN_HELP_FAILURE = "Failed to open help window in browser.";

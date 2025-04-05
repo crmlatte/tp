@@ -18,7 +18,7 @@ import tassist.address.model.person.Progress;
 import tassist.address.model.person.StudentId;
 
 /**
- * Edits the progress value of an existing student.
+ * Updates the progress value of an existing student.
  */
 public class ProgressCommand extends Command {
     public static final String COMMAND_WORD = "progress";
@@ -28,10 +28,10 @@ public class ProgressCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) or STUDENTID"
             + " + " + PREFIX_PROGRESS + "PROGRESS\n"
             + "Examples:\n"
-            + "1. progress 1 pr/80\n"
-            + "2. progress A1234567C pr/30\n";
+            + COMMAND_WORD + " 1 pr/80\n"
+            + COMMAND_WORD + " A1234567C pr/30\n";
 
-    public static final String MESSAGE_SET_PROGRESS_SUCCESS = "Set progress for student: %1$s";
+    public static final String MESSAGE_SET_PROGRESS_SUCCESS = "Set progress to student: %1$s";
 
     private static final Logger logger = Logger.getLogger(ProgressCommand.class.getName());
 
