@@ -107,8 +107,8 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL s/STUDENT_ID [g/GITHUB_URL] [r/REPOSI
 </div>
 
 Examples:
-* `add n/John Doe p/98765432 e/johnd@u.nus.edu.com s/A0000000B pt/ProjectTeam1 c/T01 t/ExchangeStudent pr/50`
-* `add n/Betsy Crowe t/friend e/betsycrowe@u.nus.edu.com s/A0123456U g/https://github.com/betsy p/1234567 t/LifeScienceMajor`
+* `add n/John Doe p/98765432 e/johnd@u.nus.edu s/A0000000B pt/ProjectTeam1 c/T01 t/ExchangeStudent pr/50`
+* `add n/Betsy Crowe t/friend e/betsycrowe@u.nus.edu s/A0123456U g/https://github.com/betsy p/1234567 t/LifeScienceMajor`
 
 ### Listing, Filtering and Sorting students : `list`
 
@@ -165,7 +165,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [c/_NUMBER] [s/STUDENTID] [g/GI
     specifying any tags after it.
 
 Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com`<br>
+*  `edit 1 p/91234567 e/johndoe@u.nus.edu`<br>
     Edits the phone number and email address of the 1st student to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` <br>
     Edits the name of the 2nd student to be `Betsy Crower` and clears all existing tags.
