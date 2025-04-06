@@ -19,6 +19,11 @@ import tassist.address.model.person.Progress;
  */
 public class ListCommandParser implements Parser<ListCommand> {
 
+    public static final String MESSAGE_MISSING_SORT_TYPE = "Please specify a sort type to sort the list! "
+            + "Refer to the usage below for how to use the `list` command:\n" + MESSAGE_USAGE;
+    public static final String MESSAGE_MISSING_FILTER_TYPE = "Please specify a filter type to filter the list! "
+            + "Refer to the usage below for how to use the `list` command:\n" + MESSAGE_USAGE;
+
     @Override
     public ListCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_SORT, PREFIX_ORDER, PREFIX_FILTER,
@@ -55,6 +60,9 @@ public class ListCommandParser implements Parser<ListCommand> {
     }
 
     private static void validateFilterType(String filterType, String filterValue) throws ParseException {
+        if (filterType == null && filterValue != null) {
+            throw new ParseException(MESSAGE_MISSING_FILTER_TYPE);
+        }
         if (filterType != null) {
             if (!VALID_FILTER_TYPES.contains(filterType.toLowerCase())) {
                 throw new ParseException(ListCommand.MESSAGE_INVALID_FILTER);
@@ -72,12 +80,15 @@ public class ListCommandParser implements Parser<ListCommand> {
     }
 
     private static void validateSortType(String sortType, String sortOrder) throws ParseException {
+        if (sortType == null && sortOrder != null) {
+            throw new ParseException(MESSAGE_MISSING_SORT_TYPE);
+        }
         if (sortType != null) {
             if (!VALID_SORT_TYPES.contains(sortType.toLowerCase())) {
                 throw new ParseException(ListCommand.MESSAGE_INVALID_SORT);
             }
             if (sortOrder == null) {
-                throw new ParseException(ListCommand.MESSAGE_MISSING_SORT_ORDER); // You can define this message
+                throw new ParseException(ListCommand.MESSAGE_MISSING_SORT_ORDER);
             }
         }
     }
