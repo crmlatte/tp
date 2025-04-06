@@ -20,14 +20,12 @@ TAssist is a **desktop application** for Teaching Assistants (TAs) from School o
 
 4. Open the Command Prompt (Windows) or Terminal (Mac/Linux)
 
-5. Navigate to the folder where you saved the `.jar` file using `cd` command<br>
+5. Navigate to the folder where you saved the `[CS2103T-W12-4][TAssist].jar` file using `cd` command<br>
    Example (Windows): `cd C:\Users\YourName\Downloads`. <br>
    Example (Mac/Linux): `cd /Users/YourName/Downloads`.
 
 6. Type the following command and press Enter to run the application.<br>
-    ```java -jar NAME_OF_JAR_FILE``` <br>
-   For example, if your `.jar` file is named `TAssist.jar`, type:<br>
-   `java -jar TAssist.jar`
+    ```java -jar [CS2103T-W12-4][TAssist].jar```
 
 7. A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
