@@ -17,6 +17,7 @@ import tassist.address.commons.util.ToStringBuilder;
 import tassist.address.logic.Messages;
 import tassist.address.logic.commands.exceptions.CommandException;
 import tassist.address.model.Model;
+import tassist.address.model.person.Github;
 import tassist.address.model.person.Person;
 
 /**
@@ -38,15 +39,16 @@ public class AddCommand extends Command {
             + "[" + PREFIX_CLASS + "CLASS_NUMBER] "
             + "[" + PREFIX_TAG + "TAG]... "
             + PREFIX_PROGRESS + "PROGRESS\n"
-            + "Example: " + COMMAND_WORD + " "
+            + "Example:\n"
+            + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "
-            + PREFIX_EMAIL + "johnd@example.com "
+            + PREFIX_EMAIL + "johnd@u.nus.edu "
             + PREFIX_STUDENT_ID + "A0000000B "
             + PREFIX_PROJECT_TEAM + "TAssist "
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney "
-            + PREFIX_PROGRESS + "50\n"
+            + PREFIX_PROGRESS + "50\n\n"
             + "To add a student, minimally NAME, EMAIL, PHONE, STUDENTID must be present.\n"
             + "GITHUB, TEAM, REPOSITORY, CLASS_NUMBER, TAG and PROGRESS are optional fields and can be omitted out";
 
@@ -54,6 +56,9 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.\n"
             + "Error : Duplicate StudentId.\n"
             + "Please check if you have typed the StudentId correctly.";
+    public static final String MESSAGE_EXISTING_PHONE = "Error! This phone number belongs to another student.";
+    public static final String MESSAGE_EXISTING_EMAIL = "Error! This email belongs to another student.";
+    public static final String MESSAGE_EXISTING_GITHUB = "Error! This GitHub belongs to another student.";
 
     private final Person toAdd;
 
@@ -63,7 +68,7 @@ public class AddCommand extends Command {
     public AddCommand(Person person) {
         requireNonNull(person);
         toAdd = person;
-        assert(!isNull(person));
+        assert (!isNull(person));
     }
 
     @Override
@@ -72,6 +77,23 @@ public class AddCommand extends Command {
 
         if (model.hasPerson(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        }
+
+        boolean emailExists = model.getFilteredPersonList().stream()
+                .anyMatch(person -> person.getEmail().equals(toAdd.getEmail()));
+        boolean phoneExists = model.getFilteredPersonList().stream()
+                .anyMatch(person -> person.getPhone().equals(toAdd.getPhone()));
+        boolean githubExists = !toAdd.getGithub().value.equals(Github.NO_GITHUB)
+                && model.getFilteredPersonList().stream()
+                .anyMatch(person -> person.getGithub().equals(toAdd.getGithub()));
+        if (emailExists) {
+            throw new CommandException(MESSAGE_EXISTING_EMAIL);
+        }
+        if (phoneExists) {
+            throw new CommandException(MESSAGE_EXISTING_PHONE);
+        }
+        if (githubExists) {
+            throw new CommandException(MESSAGE_EXISTING_GITHUB);
         }
 
         model.addPerson(toAdd);

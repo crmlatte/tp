@@ -85,6 +85,8 @@ TAssist is a **desktop application** for Teaching Assistants (TAs) from School o
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
 
+* All parameters follow the rules as specified at [Parameters](#Parameters)
+
 ### Viewing help : `help`
 
 Opens the User Guide in your default browser and displays a message containing the link. <br>
@@ -97,7 +99,7 @@ Format: `help`
 
 Adds a student to the student list.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL s/STUDENT_ID [g/GITHUB_URL] [pt/TEAM] [c/CLASS_NUMBER] [t/TAG]…​ [pr/PROGRESS]`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL s/STUDENT_ID [g/GITHUB_URL] [r/REPOSITORY] [pt/TEAM] [c/CLASS_NUMBER] [t/TAG]…​ [pr/PROGRESS]`
 * The parameters NAME, PHONE_NUMBER, EMAIL, and STUDENT_ID must be present. The rest are optional.
 
 <div markdown="span" class="alert alert-primary">
@@ -105,10 +107,10 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL s/STUDENT_ID [g/GITHUB_URL] [pt/TEAM]
 </div>
 
 Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com s/A0000000B pt/ProjectTeam1 c/T01 t/friends t/owesMoney pr/50`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com s/A0123456U g/https://github.com/betsy p/1234567 t/LifeScienceMajor`
+* `add n/John Doe p/98765432 e/johnd@u.nus.edu s/A0000000B pt/ProjectTeam1 c/T01 t/ExchangeStudent pr/50`
+* `add n/Betsy Crowe t/friend e/betsycrowe@u.nus.edu s/A0123456U g/https://github.com/betsy p/1234567 t/LifeScienceMajor`
 
-### Listing all students : `list`
+### Listing, Filtering and Sorting students : `list`
 
 Shows a list of all students in the student list.
 
@@ -154,7 +156,8 @@ Edits an existing student in the student list.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [c/_NUMBER] [s/STUDENTID] [g/GITHUB_URL] [pt/TEAM] [c/CLASS_NUMBER] [t/TAG]…​ [pr/PROGRESS]`
 
-* Edits the student at the specified `INDEX`. The index refers to the index number shown in the displayed student list. The index **must be a positive integer** 1, 2, 3, …​
+* Edits the student at the specified `INDEX`. The index refers to the index number shown in the displayed student list. 
+* The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the valid input values.
 * When editing tags, the existing tags of the student will be removed i.e adding of tags is not cumulative.
@@ -162,14 +165,14 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [c/_NUMBER] [s/STUDENTID] [g/GI
     specifying any tags after it.
 
 Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com`<br>
+*  `edit 1 p/91234567 e/johndoe@u.nus.edu`<br>
     Edits the phone number and email address of the 1st student to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` <br>
     Edits the name of the 2nd student to be `Betsy Crower` and clears all existing tags.
 
-### Locating students by name: `find`
+### Locating student(s) by Name, StudentID, or Class: `find`
 
-Finds students whose names contain any of the given keywords, whose student ID matches exactly, or whose class number matches exactly.
+Finds students whose names contain any of the given inputs, whose student ID matches exactly, or whose class number matches exactly.
 
 Format: `find NAME [MORE_NAMES]` or `find STUDENT_ID` or `find CLASS_NUMBER`
 
@@ -194,7 +197,7 @@ Assigns or removes a **tutorial/recitation class** for a student identified by e
 
 Format: `class INDEX c/CLASS_NUMBER` or `class STUDENT_ID c/CLASS_NUMBER`
 
-* Must be either `Txx`or `Rxx` where xx is integer from 01 to 99 (e.g. T01, T15, R05, R99)
+* `CLASS NUMBER` must be either `Txx`or `Rxx` where xx is integer from 01 to 99 (e.g. T01, T15, R05, R99)
     * Note: 'T' and 'R' must be uppercase.
     * 'T' and 'R' represent Tutorial and Recitation respectively.
 * Assigns or updates the class of the student at the specified `INDEX` or matching `STUDENT_ID`
@@ -210,9 +213,53 @@ Examples:
 * `class A1234567B c/R05`<br>
    Assigns class R05 to the student with student ID `A1234567B`.
 
+### Updating a student's repository link: `repo`
+
+Updates the **GitHub repository URL** of a student, identified by either their displayed index or student ID.
+
+**Format:**  
+`repo INDEX un/GITHUB_USERNAME rn/REPOSITORY_NAME`  
+or `repo STUDENT_ID un/GITHUB_USERNAME rn/REPOSITORY_NAME`  
+or `repo INDEX r/REPOSITORY_URL`  
+or `repo STUDENT_ID r/REPOSITORY_URL`
+
+- The repository URL will be overwritten by the new input.
+- Either `INDEX` (a positive integer) or `STUDENT_ID` must be provided.
+- You may specify the repository using either:
+    - `un/` and `rn/` (GitHub username and repository name), or
+    - `r/` with a full GitHub repository URL.
+
+#### Username (`un/`)
+- Must be 1 to 39 characters long.
+- Made up of alphanumeric characters.
+- Separated by dashes (-) between segments.
+- Cannot start or end with a dash.
+
+#### Repository Name (`rn/`)
+
+- Made up of alphanumeric characters.
+- Can contain dashes (-), underscores (_), and dots (.).
+- Cannot be empty.
+- Must start and end with an alphanumeric character.
+
+#### Repository URL (`r/`)
+
+- Must be in the format: `https://github.com/[USERNAME]/[REPOSITORY_NAME]`
+- `[USERNAME]` follows the same rules as above
+
+**Examples:**
+- `repo 2 un/Group-4 rn/WealthVault`<br>
+  Updates the repository for the 2nd student to `https://github.com/Group-4/WealthVault`
+- `repo A0891334N un/Tutorial-G08 rn/BestApp`<br>
+  Updates the repository for student ID `A0891334N` to `https://github.com/Tutorial-G08/BestApp`
+- `repo 3 r/https://github.com/team4/new.repo`<br>
+  Updates the repository for the 3rd student to the specified Repository URL.
+- `repo A0789435N r/https://github.com/AY2425S2-CS2103T-W12-4/tp`<br>
+  Updates the repository for student ID `A0789435N` to the specified Repository URL.
+
 ### Updating a student's progress value: `progress`
 
-Updates the progress value of a student.
+Updates the **progress value** of a student.
 
 Format: `progress INDEX pr/PROGRESS` or `progress STUDENT_ID pr/PROGRESS`
 
@@ -227,7 +274,7 @@ Examples:
 * `progress A1234567B pr/50`<br>
   Sets the progress of the student with Student ID A1234567B to 50%.
 
-### Editing a student GitHub Link: `github`
+### Updating a student's GitHub Link: `github`
 
 Updates the **GitHub URL** of a student, identified by either their displayed index or student ID.
 
@@ -238,6 +285,12 @@ Format: `github INDEX g/GITHUB_URL` or `github STUDENT_ID g/GITHUB_URL`
 * The index **must be a positive integer** 1, 2, 3, …​
 * The GitHub URL must be a valid URL (e.g. starts with `https://github.com/`)
 * To remove a GitHub assignment, leave `g/` empty (i.e. `g/` with no value)
+
+`GITHUB_URL`:
+- Must be in the format`https://github.com/USERNAME`
+- Username must be 1 to 39 characters long.
+- Username must consist of alphanumeric characters that are separated only by dashes (-), if any.
+- Username must start and end with an alphanumeric character.
 
 Examples:
 * `github 2 g/https://github.com/alice` <br>
@@ -412,6 +465,125 @@ If your changes to the data file makes its format invalid, TAssist will discard 
 Furthermore, certain edits can cause TAssist to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
 
+---------------------------------------------------------------------------------------------------------------------
+## Parameters
+
+### `NAME`
+
+- Must consist of alphanumeric characters and spaces.
+- Must not be blank.
+- The first character must not be a whitespace.
+
+Examples of valid names:
+- Alice Gales
+- Bob Smith the 3rd
+- Deshaka Son Of Perera
+
+### `STUDENT_ID`
+
+- Must follow the format `AXXXXXXXN`.
+- Must start with the uppercase letter `A`.
+- Followed by exactly 7 digits (0–9).
+- Must end with an uppercase letter from A to Z.
+- Both `A` and `N` must be capitalized.
+
+Examples of valid student IDs:
+- A1234567B
+- A7654321Z
+- A0000000X
+
+### `PHONE`
+
+- Must only contain numeric digits.
+- Must be at least 3 digits long.
+
+Examples of valid phone numbers:
+- 123
+- 98765432
+- 81234567
+
+### `EMAIL`
+
+- Must follow the format `local-part@u.nus.edu`.
+- The local-part should contain only alphanumeric characters and periods (.).
+- The local-part cannot start or end with a period, and cannot contain consecutive periods.
+
+Examples of valid emails:
+- alice123@u.nus.edu
+- john.doe@u.nus.edu
+
+### `GITHUB_URL`
+
+- Must follow the format `https://github.com/USERNAME`.
+- The base URL must be exactly `https://github.com/`.
+- Must be followed by a `/` and a valid GitHub username.
+
+`USERNAME`: 
+- Be 1 to 39 characters long.
+- Consist of alphanumeric characters.
+- Be separated only by dashes (-), if any.
+- Start and end with an alphanumeric character.
+
+You may also leave this field blank to remove the GitHub link from a student.
+
+Examples of valid GitHub links:
+- https://github.com/JohnnyDoe
+- https://github.com/alice-smith
+- https://github.com/x1
+
+### `REPOSITORY_URL`
+
+- Must follow the format `https://github.com/USERNAME/REPOSITORY_NAME`.
+
+`USERNAME`:
+- Must be 1 to 39 characters long.
+- Made up of alphanumeric characters.
+- Separated by dashes (-) between segments.
+- Cannot start or end with a dash.
+
+`REPOSITORY_NAME`:
+- Made up of alphanumeric characters.
+- Can contain dashes (-), underscores (_), and dots (.).
+- Cannot be empty.
+- Must start and end with an alphanumeric character.
+
+Examples of valid repository links:
+- https://github.com/johnny-fargo/new_repo
+- https://github.com/AY2425S2-CS2103T-W12-4/tp
+
+### `CLASS_NUMBER`
+
+- Must be in the format `Txx` or `Rxx`, where `xx` is a two-digit number from 01 to 99.
+- The first letter must be either `T` or `R` (uppercase).
+- The numeric part must be a valid number between 01 and 99.
+- Alternatively, this field can be left blank to indicate no class assigned.
+
+Examples of valid class numbers:
+- T01
+- R23
+- T99
+
+### `PROGRESS`
+
+- Must be an integer between 0 and 100, inclusive.
+- A trailing percent sign (`%`) is allowed but will be ignored during parsing.
+
+Examples of valid progress values:
+- 0
+- 75
+- 100
+- 45% (trailing percent sign is accepted)
+
+### `PROJECT_TEAM`
+
+- Can take any value, but must not be blank.
+- The first character must not be a whitespace.
+
+Examples of valid project team values:
+- Alpha Squad
+- Team42
+- dev-x
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
@@ -440,7 +612,8 @@ Action | Format, Examples
 **List** | `list [f/FILTER_TYPE fv/FILTER_VALUE] [s/SORT_TYPE o/SORT_ORDER]`<br> e.g.,`list f/progress fv/50 s/name o/des`
 **Class** | `class INDEX c/CLASS_NUMBER` or `class STUDENT_ID c/CLASS_NUMBER` <br> e.g.,`class 1 c/T01`, `class A7654321B c/T02`
 **Progress** | `progress INDEX pr/PROGRESS` or `progress STUDENT_ID pr/PROGRESS` <br> e.g., `progress 1 pr/75`, `progress A1234567B pr/50`
-**Github** | `github INDEX g/GITHUB_URL` or `github STUDENT_ID g/GITHUB_URL` <br> e.g.,`github 2 g/https://github.com/alice`, `github A1234567B g/https://github.com/alice`
+**Github** | `github INDEX g/GITHUB_URL` or `github STUDENT_ID g/GITHUB_URL`<br> e.g.,`github 2 g/https://github.com/alice`, `github A1234567B g/https://github.com/alice`
+**Repository** | `repo INDEX un/USERNAME rn/REPOSITORY_NAME` or `repo INDEX r/REPOSITORY_URL` or `repo STUDENT_ID un/USERNAME rn/REPOSITORY_NAME` or `repo STUDENT_ID r/REPOSITORY_URL` <br> e.g.,`repo 2 r/https://github.com/alice/repo`, `github A1234567B un/barb rn/new`
 **Open** | `open INDEX` or `open STUDENT_ID` <br> e.g., `open 3`, `open A7654321B`
 **Assignment** | `assignment n/NAME d/DATE` <br> e.g.,`assignment n/CS2103T Project d/30-01-2025`
 **View** | `view`

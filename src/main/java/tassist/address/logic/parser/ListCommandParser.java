@@ -25,7 +25,7 @@ public class ListCommandParser implements Parser<ListCommand> {
                 PREFIX_FILTER_VALUE);
 
         if (!argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT + "Please use: \n" + MESSAGE_USAGE);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, "Please use: \n" + MESSAGE_USAGE));
         }
 
         String sortType = argMultimap.getValue(PREFIX_SORT).orElse(null);

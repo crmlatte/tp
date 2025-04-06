@@ -19,12 +19,12 @@ public class UnassignCommand extends Command implements ConfirmableCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Unassigns a timed event from all students and deletes it from the event list.\n"
             + "Parameters: INDEX\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Example:\n"
+            + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_UNASSIGN_EVENT_SUCCESS = "Unassigned timed event: %1$s";
     public static final String MESSAGE_CONFIRM = "Are you sure you want to "
             + "unassign the timed event '%1$s' from all students? (Y/N)";
-    public static final String MESSAGE_UNASSIGN_CANCELLED = "Action cancelled.";
 
     private final Index targetIndex;
     private Model model;

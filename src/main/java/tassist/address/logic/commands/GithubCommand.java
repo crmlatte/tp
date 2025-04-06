@@ -17,7 +17,7 @@ import tassist.address.model.person.Person;
 import tassist.address.model.person.StudentId;
 
 /**
- * Changes the github of an existing person in the address book.
+ * Updates the github of an existing person in the address book.
  */
 public class GithubCommand extends Command {
 
@@ -28,19 +28,21 @@ public class GithubCommand extends Command {
             + "Existing github will be overwritten by the input.\n"
             + "Parameters: STUDENTID or INDEX , g/[GITHUB_URL]\n"
             + "Example:\n"
-            + "1. " + COMMAND_WORD + " 2 g/https://github.com/tammzz\n"
-            + "2. " + COMMAND_WORD + " A1234567B g/https://github.com/tammzz";
+            + COMMAND_WORD + " 2 g/https://github.com/tammzz\n"
+            + COMMAND_WORD + " A1234567B g/https://github.com/tammzz";
 
-    public static final String MESSAGE_ADD_GITHUB_SUCCESS = "Added github to Person: %1$s";
+    public static final String MESSAGE_ADD_GITHUB_SUCCESS = "Set github to student: %1$s";
     public static final String MESSAGE_DELETE_GITHUB_SUCCESS = "Removed github from Person: %1$s";
-    public static final String MESSAGE_DUPLICATE_GITHUB = "Error! This Github belongs to another person";
-    public static final String MESSAGE_INVALID_GITHUB = "Invalid GitHub URL!";
+    public static final String MESSAGE_DUPLICATE_GITHUB = "Error! This github belongs to another person";
+    public static final String MESSAGE_INVALID_GITHUB = "Invalid gitHub URL!";
 
     private final Index index;
     private final StudentId studentId;
     private final Github github;
 
     /**
+     * Constructs a {@code GithubCommand} that assigns a Github URL to a student identified by their student ID.
+     *
      * @param studentId of person
      * @param github of the person to be updated to
      */
@@ -54,6 +56,8 @@ public class GithubCommand extends Command {
     }
 
     /**
+     * Constructs a {@code GithubCommand} that assigns a Github URL to a student identified by their index.
+     *
      * @param index of person in list
      * @param github of person to be updated to
      */

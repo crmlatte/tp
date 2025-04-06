@@ -1,0 +1,98 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":ClassCommandParser" as ClassCommandParser LOGIC_COLOR
+participant "cn:ClassNumber" as ClassNumber LOGIC_COLOR
+participant "i:Index" as Index LOGIC_COLOR
+participant "c:ClassCommand" as ClassCommand LOGIC_COLOR
+participant "r:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "m:Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("class 1 c/ T01")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("class 1 c/ T01")
+activate AddressBookParser
+
+create ClassCommandParser
+AddressBookParser -> ClassCommandParser
+activate ClassCommandParser
+
+ClassCommandParser --> AddressBookParser
+deactivate ClassCommandParser
+
+AddressBookParser -> ClassCommandParser : parse("1 c/ T01")
+activate ClassCommandParser
+
+create ClassNumber
+ClassCommandParser -> ClassNumber : ClassNumber("T01")
+activate ClassNumber
+
+ClassNumber --> ClassCommandParser
+deactivate ClassNumber
+
+create Index
+ClassCommandParser -> Index : Index("1")
+activate Index
+
+Index --> ClassCommandParser
+deactivate Index
+
+create ClassCommand
+ClassCommandParser -> ClassCommand : ClassCommand(i, cn)
+activate ClassCommand
+
+ClassCommand --> ClassCommandParser :
+deactivate ClassCommand
+
+ClassCommandParser --> AddressBookParser : c
+deactivate ClassCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ClassCommandParser -[hidden]-> AddressBookParser
+destroy ClassCommandParser
+
+AddressBookParser --> LogicManager : c
+deactivate AddressBookParser
+
+LogicManager -> ClassCommand : execute(m)
+activate ClassCommand
+
+ClassCommand -> Model : getFilteredPersonList()
+activate Model
+
+Model --> ClassCommand
+deactivate Model
+
+ClassCommand -> Model : setPerson(personToEdit, editedPerson)
+activate Model
+
+Model --> ClassCommand
+deactivate Model
+
+ClassCommand -> Model : updateFilteredPersonlist(PREDICATE_SHOW_ALL_PERSONS)
+activate Model
+
+Model --> ClassCommand
+deactivate Model
+
+create CommandResult
+ClassCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ClassCommand
+deactivate CommandResult
+
+ClassCommand --> LogicManager : r
+deactivate ClassCommand
+
+[<-- LogicManager
+deactivate LogicManager
+@enduml

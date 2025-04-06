@@ -18,7 +18,7 @@ public class Email {
             + "Example: tommy@u.nus.edu";
     // alphanumeric and special characters
     private static final String LOCAL_PART_REGEX = "[a-zA-Z0-9]+(\\.[a-zA-Z0-9]+)*";
-    private static final String DOMAIN_REGEX = "u\\.nus\\.edu*$";
+    private static final String DOMAIN_REGEX = "u\\.nus\\.edu$";
     public static final String VALIDATION_REGEX = LOCAL_PART_REGEX + "@" + DOMAIN_REGEX;
 
     public final String value;
