@@ -24,6 +24,7 @@ import tassist.address.model.AddressBook;
 import tassist.address.model.Model;
 import tassist.address.model.ReadOnlyAddressBook;
 import tassist.address.model.ReadOnlyUserPrefs;
+import tassist.address.model.person.Github;
 import tassist.address.model.person.Person;
 import tassist.address.model.timedevents.TimedEvent;
 import tassist.address.testutil.PersonBuilder;
@@ -122,7 +123,7 @@ public class AddCommandTest {
                 .withStudentId("A1112222B")
                 .withEmail("john@u.nus.edu")
                 .withPhone("92929292")
-                .withGithub("https://github.com/john")
+                .withGithub(Github.NO_GITHUB)
                 .build();
         modelStub.personsAdded.add(validPerson);
 
@@ -130,11 +131,11 @@ public class AddCommandTest {
                 .withStudentId("A3332222B")
                 .withPhone("88883333")
                 .withEmail("sarah@u.nus.edu")
-                .withGithub("No Github assigned")
+                .withGithub(Github.NO_GITHUB)
                 .build();
         AddCommand addCommand = new AddCommand(personWithDefaultGithub);
 
-        // Should not throw exception
+        // Should not throw exception even though both have NO_GITHUB
         addCommand.execute(modelStub);
         assertTrue(modelStub.personsAdded.contains(personWithDefaultGithub));
     }
