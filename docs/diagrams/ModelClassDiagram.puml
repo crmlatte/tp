@@ -24,6 +24,7 @@ Class Github
 Class ProjectTeam
 Class Tag
 Class Progress
+Class Repository
 
 Class UniqueTimedEventList
 Class "{abstract}\nTimedEvent" as TimedEvent
