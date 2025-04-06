@@ -39,7 +39,7 @@ public class ListCommandParser implements Parser<ListCommand> {
         String filterValue = argMultimap.getValue(PREFIX_FILTER_VALUE).orElse(null);
 
         validateSortType(sortType, sortOrder);
-        validateSortOrder(sortType, sortOrder);
+        validateSortOrder(sortOrder);
         validateFilterType(filterType, filterValue);
         validateFilterValue(filterValue, filterType);
 
