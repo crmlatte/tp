@@ -73,7 +73,7 @@ public class ListCommandParser implements Parser<ListCommand> {
         }
     }
 
-    private static void validateSortOrder(String sortType, String sortOrder) throws ParseException {
+    private static void validateSortOrder(String sortOrder) throws ParseException {
         if (sortOrder != null && !VALID_SORT_ORDERS.contains(sortOrder.toLowerCase())) {
             throw new ParseException(ListCommand.MESSAGE_INVALID_SORT_ORDER);
         }
