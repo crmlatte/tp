@@ -24,6 +24,7 @@ import tassist.address.model.AddressBook;
 import tassist.address.model.Model;
 import tassist.address.model.ReadOnlyAddressBook;
 import tassist.address.model.ReadOnlyUserPrefs;
+import tassist.address.model.person.Github;
 import tassist.address.model.person.Person;
 import tassist.address.model.timedevents.TimedEvent;
 import tassist.address.testutil.PersonBuilder;
@@ -113,6 +114,30 @@ public class AddCommandTest {
         AddCommand addCommand = new AddCommand(personWithSameGithub);
 
         assertThrows(CommandException.class, AddCommand.MESSAGE_EXISTING_GITHUB, () -> addCommand.execute(modelStub));
+    }
+
+    @Test
+    public void execute_defaultGithub_noDuplicationCheck() throws Exception {
+        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+        Person validPerson = new PersonBuilder()
+                .withStudentId("A1112222B")
+                .withEmail("john@u.nus.edu")
+                .withPhone("92929292")
+                .withGithub(Github.NO_GITHUB)
+                .build();
+        modelStub.personsAdded.add(validPerson);
+
+        Person personWithDefaultGithub = new PersonBuilder()
+                .withStudentId("A3332222B")
+                .withPhone("88883333")
+                .withEmail("sarah@u.nus.edu")
+                .withGithub(Github.NO_GITHUB)
+                .build();
+        AddCommand addCommand = new AddCommand(personWithDefaultGithub);
+
+        // Should not throw exception even though both have NO_GITHUB
+        addCommand.execute(modelStub);
+        assertTrue(modelStub.personsAdded.contains(personWithDefaultGithub));
     }
 
     @Test

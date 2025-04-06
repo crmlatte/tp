@@ -24,6 +24,7 @@ import tassist.address.model.AddressBook;
 import tassist.address.model.Model;
 import tassist.address.model.ModelManager;
 import tassist.address.model.UserPrefs;
+import tassist.address.model.person.Github;
 import tassist.address.model.person.Person;
 import tassist.address.testutil.EditPersonDescriptorBuilder;
 import tassist.address.testutil.PersonBuilder;
@@ -143,6 +144,30 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON, descriptor);
 
         assertCommandFailure(editCommand, model, EditCommand.MESSAGE_EXISTING_GITHUB);
+    }
+
+    @Test
+    public void execute_defaultGithub_noDuplicationCheck() {
+        // First, add a person with NO_GITHUB
+        Person personWithDefaultGithub = new PersonBuilder()
+                .withStudentId("A3332222B")
+                .withPhone("88883333")
+                .withEmail("sarah@u.nus.edu")
+                .withGithub(Github.NO_GITHUB)
+                .build();
+        model.addPerson(personWithDefaultGithub);
+
+        // Try to edit another person to have NO_GITHUB
+        Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
+                .withGithub(Github.NO_GITHUB)
+                .build();
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
+
+        // Should not throw exception even though both have NO_GITHUB
+        Person expectedPerson = new PersonBuilder(personToEdit).withGithub(Github.NO_GITHUB).build();
+        assertCommandSuccess(editCommand, model, String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS,
+                Messages.format(expectedPerson)), model);
     }
 
     @Test

@@ -17,6 +17,7 @@ import tassist.address.commons.util.ToStringBuilder;
 import tassist.address.logic.Messages;
 import tassist.address.logic.commands.exceptions.CommandException;
 import tassist.address.model.Model;
+import tassist.address.model.person.Github;
 import tassist.address.model.person.Person;
 
 /**
@@ -67,7 +68,7 @@ public class AddCommand extends Command {
     public AddCommand(Person person) {
         requireNonNull(person);
         toAdd = person;
-        assert(!isNull(person));
+        assert (!isNull(person));
     }
 
     @Override
@@ -82,7 +83,8 @@ public class AddCommand extends Command {
                 .anyMatch(person -> person.getEmail().equals(toAdd.getEmail()));
         boolean phoneExists = model.getFilteredPersonList().stream()
                 .anyMatch(person -> person.getPhone().equals(toAdd.getPhone()));
-        boolean githubExists = model.getFilteredPersonList().stream()
+        boolean githubExists = !toAdd.getGithub().value.equals(Github.NO_GITHUB)
+                && model.getFilteredPersonList().stream()
                 .anyMatch(person -> person.getGithub().equals(toAdd.getGithub()));
         if (emailExists) {
             throw new CommandException(MESSAGE_EXISTING_EMAIL);
