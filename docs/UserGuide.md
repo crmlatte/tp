@@ -119,9 +119,8 @@ Shows a list of all students in the student list.
 Format: `list [f/FILTER_TYPE fv/FILTER_VALUE] [s/SORT_TYPE o/SORT_ORDER]` <br>
 
 * All parameters are optional. Filters and sorting can be used together or independently.
-* Note: Once a sort is applied using the list command, the list remains sorted in that order throughout the session. 
-  This means any subsequent changes to student data, such as adding, editing, or updating, may cause students to appear in different positions depending on the active sorting.
-  To reset to the default view, use list without any parameters.
+* Note: Once a sort is applied using the list command, the list will remain sorted in that order throughout the session.
+  To apply a different sort, use list again with a new sort type and order.
 
 #### Filter Options
 `FILTER_TYPE:`<br>
