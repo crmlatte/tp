@@ -111,7 +111,8 @@ public class EditCommand extends Command {
             if (p.getEmail().equals(editedPerson.getEmail())) {
                 throw new CommandException(MESSAGE_EXISTING_EMAIL);
             }
-            if (p.getGithub().equals(editedPerson.getGithub())) {
+            if (!editedPerson.getGithub().value.equals("no github assigned")
+                    && p.getGithub().equals(editedPerson.getGithub())) {
                 throw new CommandException(MESSAGE_EXISTING_GITHUB);
             }
         }

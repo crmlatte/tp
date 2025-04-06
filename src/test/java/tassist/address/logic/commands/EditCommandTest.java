@@ -146,6 +146,20 @@ public class EditCommandTest {
     }
 
     @Test
+    public void execute_defaultGithub_noDuplicationCheck() {
+        Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
+                .withGithub("No Github assigned")
+                .build();
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
+
+        // Should not throw exception
+        Person expectedPerson = new PersonBuilder(firstPerson).withGithub("No Github assigned").build();
+        assertCommandSuccess(editCommand, model, String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS,
+                Messages.format(expectedPerson)), model);
+    }
+
+    @Test
     public void execute_existingPhone_failure() {
         Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         String phone = firstPerson.getPhone().toString();

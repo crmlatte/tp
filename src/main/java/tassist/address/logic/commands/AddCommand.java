@@ -82,7 +82,8 @@ public class AddCommand extends Command {
                 .anyMatch(person -> person.getEmail().equals(toAdd.getEmail()));
         boolean phoneExists = model.getFilteredPersonList().stream()
                 .anyMatch(person -> person.getPhone().equals(toAdd.getPhone()));
-        boolean githubExists = model.getFilteredPersonList().stream()
+        boolean githubExists = !toAdd.getGithub().value.equals("No Github assigned")
+                && model.getFilteredPersonList().stream()
                 .anyMatch(person -> person.getGithub().equals(toAdd.getGithub()));
         if (emailExists) {
             throw new CommandException(MESSAGE_EXISTING_EMAIL);

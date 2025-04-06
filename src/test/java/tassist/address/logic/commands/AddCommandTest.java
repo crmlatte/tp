@@ -116,6 +116,30 @@ public class AddCommandTest {
     }
 
     @Test
+    public void execute_defaultGithub_noDuplicationCheck() throws Exception {
+        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+        Person validPerson = new PersonBuilder()
+                .withStudentId("A1112222B")
+                .withEmail("john@u.nus.edu")
+                .withPhone("92929292")
+                .withGithub("https://github.com/john")
+                .build();
+        modelStub.personsAdded.add(validPerson);
+
+        Person personWithDefaultGithub = new PersonBuilder()
+                .withStudentId("A3332222B")
+                .withPhone("88883333")
+                .withEmail("sarah@u.nus.edu")
+                .withGithub("No Github assigned")
+                .build();
+        AddCommand addCommand = new AddCommand(personWithDefaultGithub);
+
+        // Should not throw exception
+        addCommand.execute(modelStub);
+        assertTrue(modelStub.personsAdded.contains(personWithDefaultGithub));
+    }
+
+    @Test
     public void equals() {
         Person alice = new PersonBuilder().withStudentId("A1111111A").build();
         Person bob = new PersonBuilder().withStudentId("A2222222B").build();
