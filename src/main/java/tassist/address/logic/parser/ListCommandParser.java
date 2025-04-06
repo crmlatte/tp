@@ -19,6 +19,11 @@ import tassist.address.model.person.Progress;
  */
 public class ListCommandParser implements Parser<ListCommand> {
 
+    public static final String MESSAGE_MISSING_SORT_TYPE = "Please specify a sort type to sort the list! "
+            + "Refer to the usage below for how to use the `list` command:\n" + MESSAGE_USAGE;
+    public static final String MESSAGE_MISSING_FILTER_TYPE = "Please specify a filter type to filter the list! "
+            + "Refer to the usage below for how to use the `list` command:\n" + MESSAGE_USAGE;
+
     @Override
     public ListCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_SORT, PREFIX_ORDER, PREFIX_FILTER,
@@ -34,14 +39,14 @@ public class ListCommandParser implements Parser<ListCommand> {
         String filterValue = argMultimap.getValue(PREFIX_FILTER_VALUE).orElse(null);
 
         validateSortType(sortType, sortOrder);
-        validateSortOrder(sortOrder);
+        validateSortOrder(sortType, sortOrder);
         validateFilterType(filterType, filterValue);
         validateFilterValue(filterValue, filterType);
 
         return new ListCommand(sortType, sortOrder, filterType, filterValue);
     }
 
-    private static void validateFilterValue(String filterValue, String filterType) throws ParseException {
+    private void validateFilterValue(String filterValue, String filterType) throws ParseException {
         if (filterValue != null && filterType != null && filterType.equalsIgnoreCase("progress")) {
             try {
                 int value = Integer.parseInt(filterValue.trim());
@@ -55,6 +60,9 @@ public class ListCommandParser implements Parser<ListCommand> {
     }
 
     private static void validateFilterType(String filterType, String filterValue) throws ParseException {
+        if (filterType == null && filterValue != null) {
+            throw new ParseException(MESSAGE_MISSING_FILTER_TYPE);
+        }
         if (filterType != null) {
             if (!VALID_FILTER_TYPES.contains(filterType.toLowerCase())) {
                 throw new ParseException(ListCommand.MESSAGE_INVALID_FILTER);
@@ -65,19 +73,22 @@ public class ListCommandParser implements Parser<ListCommand> {
         }
     }
 
-    private static void validateSortOrder(String sortOrder) throws ParseException {
+    private static void validateSortOrder(String sortType, String sortOrder) throws ParseException {
         if (sortOrder != null && !VALID_SORT_ORDERS.contains(sortOrder.toLowerCase())) {
             throw new ParseException(ListCommand.MESSAGE_INVALID_SORT_ORDER);
         }
     }
 
     private static void validateSortType(String sortType, String sortOrder) throws ParseException {
+        if (sortType == null && sortOrder != null) {
+            throw new ParseException(MESSAGE_MISSING_SORT_TYPE);
+        }
         if (sortType != null) {
             if (!VALID_SORT_TYPES.contains(sortType.toLowerCase())) {
                 throw new ParseException(ListCommand.MESSAGE_INVALID_SORT);
             }
             if (sortOrder == null) {
-                throw new ParseException(ListCommand.MESSAGE_MISSING_SORT_ORDER); // You can define this message
+                throw new ParseException(ListCommand.MESSAGE_MISSING_SORT_ORDER);
             }
         }
     }
