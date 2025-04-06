@@ -170,7 +170,7 @@ Examples:
 *  `edit 2 n/Betsy Crower t/` <br>
     Edits the name of the 2nd student to be `Betsy Crower` and clears all existing tags.
 
-### Locating student(s) : `find`
+### Locating student(s) by Name, StudentID, or Class: `find`
 
 Finds students whose names contain any of the given inputs, whose student ID matches exactly, or whose class number matches exactly.
 
@@ -224,32 +224,13 @@ or `repo INDEX r/REPOSITORY_URL`
 or `repo STUDENT_ID r/REPOSITORY_URL`
 
 - The repository URL will be overwritten by the new input.
+- Repository URL is made up of Username and Repository name un the format `https://github.com/[USERNAME]/[REPOSITORY_NAME]`
 - Either `INDEX` (a positive integer) or `STUDENT_ID` must be provided.
 - You may specify the repository using either:
     - `un/` and `rn/` (GitHub username and repository name), or
     - `r/` with a full GitHub repository URL.
+- `USERNAME` and `REPOSITORY_NAME` follows the format as outlined at [Parameters](#Parameters)
 
-#### Username (`un/`)
-
-A valid GitHub username must follow these rules:
-- Made up of alphanumeric characters
-- Segments can be separated by dashes (-) only
-- Cannot be empty
-- Cannot start or end with a dash
-
-#### Repository Name (`rn/`)
-
-A valid GitHub repository name must follow these rules:
-- Made up of alphanumeric characters
-- Can contain dashes (-), underscores (_), and dots (.)
-- Cannot be empty
-- Must start and end with an alphanumeric character
-
-### Repository URL (`r/`)
-
-- Must be in the format: `https://github.com/[USERNAME]/[REPOSITORY_NAME]`
-- `[USERNAME}` follows the same rules as above
-- `[REPOSITORY_NAME]` follows the same rules as above
 
 **Examples:**
 - `repo 2 un/Group-4 rn/WealthVault`  
@@ -511,7 +492,7 @@ Examples of valid emails:
 - alice123@u.nus.edu
 - john.doe@u.nus.edu
 
-### `GITHUB`
+### `GITHUB_URL`
 
 - Must follow the format `https://github.com/USERNAME`.
 - The base URL must be exactly `https://github.com/`.
@@ -530,7 +511,7 @@ Examples of valid GitHub links:
 - https://github.com/alice-smith
 - https://github.com/x1
 
-### `REPOSITORY_LINK`
+### `REPOSITORY_URL`
 
 - Must follow the format `https://github.com/USERNAME/REPOSITORY_NAME`.
 
