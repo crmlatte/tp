@@ -10,19 +10,20 @@ import static tassist.address.logic.commands.RepoCommand.MESSAGE_INVALID_USERNAM
  */
 public class Repository {
 
-    public static final String MESSAGE_USERNAME_VALIDITY = "{username}:\n"
+    public static final String MESSAGE_USERNAME_VALIDITY = "[USERNAME]:\n"
+            + " - Must be 1 to 39 characters long.\n"
             + " - Made up of alphanumeric characters\n"
             + " - Separated by only dashes (-) between segments\n"
             + " - Cannot start and end with a dash\n";
 
-    public static final String MESSAGE_REPOSITORY_NAME_VALIDITY = "{repository_name}:\n"
+    public static final String MESSAGE_REPOSITORY_NAME_VALIDITY = "[REPOSITORY_NAME]:\n"
             + " - Made up of alphanumeric characters\n"
             + " - Can contain but cannot start with dashes (-), underscores (_), and dots (.)\n"
             + " - Cannot be empty\n"
             + " - Must start and end with an alphanumeric character\n";
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Repositories should be written in the format of https://github.com/{username}/{repository_name}\n"
+            "Repositories should be written in the format of https://github.com/[USERNAME]/[REPOSITORY_NAME]\n"
             + MESSAGE_USERNAME_VALIDITY
             + MESSAGE_REPOSITORY_NAME_VALIDITY
             + "Example:\n"
@@ -30,7 +31,7 @@ public class Repository {
             + "https://github.com/AY2425S2-CS2103T-W12-4/tp"; // team repo example
 
     public static final String GITHUB_URL_REGEX = "^https://github\\.com/";
-    public static final String VALID_USERNAME_REGEX = "[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*";
+    public static final String VALID_USERNAME_REGEX = "(?=.{1,39}$)[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*";
     public static final String VALID_REPOSITORY_REGEX = "[a-zA-Z0-9](?:[a-zA-Z0-9._-]*[a-zA-Z0-9])?";
 
     public static final String VALIDATION_REGEX = GITHUB_URL_REGEX + VALID_USERNAME_REGEX
