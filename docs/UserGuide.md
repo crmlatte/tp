@@ -224,24 +224,38 @@ or `repo INDEX r/REPOSITORY_URL`
 or `repo STUDENT_ID r/REPOSITORY_URL`
 
 - The repository URL will be overwritten by the new input.
-- Repository URL is made up of Username and Repository name un the format `https://github.com/[USERNAME]/[REPOSITORY_NAME]`
 - Either `INDEX` (a positive integer) or `STUDENT_ID` must be provided.
 - You may specify the repository using either:
     - `un/` and `rn/` (GitHub username and repository name), or
     - `r/` with a full GitHub repository URL.
-- `USERNAME` and `REPOSITORY_NAME` follows the format as outlined at [Parameters](#Parameters)
 
+#### Username (`un/`)
+- Must be 1 to 39 characters long.
+- Made up of alphanumeric characters.
+- Separated by dashes (-) between segments.
+- Cannot start or end with a dash.
+
+#### Repository Name (`rn/`)
+
+- Made up of alphanumeric characters.
+- Can contain dashes (-), underscores (_), and dots (.).
+- Cannot be empty.
+- Must start and end with an alphanumeric character.
+
+#### Repository URL (`r/`)
+
+- Must be in the format: `https://github.com/[USERNAME]/[REPOSITORY_NAME]`
+- `[USERNAME]` follows the same rules as above
 
 **Examples:**
-- `repo 2 un/Group-4 rn/WealthVault`  
+- `repo 2 un/Group-4 rn/WealthVault`<br>
   Updates the repository for the 2nd student to `https://github.com/Group-4/WealthVault`
-- `repo AxxxxxxxN un/Tutorial-G08 rn/BestApp`  
-  Updates the repository for student ID `AxxxxxxxN` to `https://github.com/Tutorial-G08/BestApp`
-- `repo 3 r/https://github.com/team4/new.repo`  
-  Updates the repository for the 3rd student to the specified URL.
-- `repo AxxxxxxxN r/https://github.com/AY2425S2-CS2103T-W12-4/tp`  
-  Updates the repository for student ID `AxxxxxxxN` to the specified URL.
-
+- `repo A0891334N un/Tutorial-G08 rn/BestApp`<br>
+  Updates the repository for student ID `A0891334N` to `https://github.com/Tutorial-G08/BestApp`
+- `repo 3 r/https://github.com/team4/new.repo`<br>
+  Updates the repository for the 3rd student to the specified Repository URL.
+- `repo A0789435N r/https://github.com/AY2425S2-CS2103T-W12-4/tp`<br>
+  Updates the repository for student ID `A0789435N` to the specified Repository URL.
 
 ### Updating a student's progress value: `progress`
 
@@ -271,6 +285,12 @@ Format: `github INDEX g/GITHUB_URL` or `github STUDENT_ID g/GITHUB_URL`
 * The index **must be a positive integer** 1, 2, 3, …​
 * The GitHub URL must be a valid URL (e.g. starts with `https://github.com/`)
 * To remove a GitHub assignment, leave `g/` empty (i.e. `g/` with no value)
+
+`GITHUB_URL`:
+- Must be in the format`https://github.com/USERNAME`
+- Username must be 1 to 39 characters long.
+- Username must consist of alphanumeric characters that are separated only by dashes (-), if any.
+- Username must start and end with an alphanumeric character.
 
 Examples:
 * `github 2 g/https://github.com/alice` <br>
@@ -526,7 +546,6 @@ Examples of valid GitHub links:
 - Can contain dashes (-), underscores (_), and dots (.).
 - Cannot be empty.
 - Must start and end with an alphanumeric character.
-- Cannot start with a dash, underscore, or dot.
 
 Examples of valid repository links:
 - https://github.com/johnny-fargo/new_repo
