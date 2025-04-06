@@ -46,7 +46,7 @@ public class ListCommandParser implements Parser<ListCommand> {
         return new ListCommand(sortType, sortOrder, filterType, filterValue);
     }
 
-    private void validateFilterValue(String filterValue, String filterType) throws ParseException {
+    private static void validateFilterValue(String filterValue, String filterType) throws ParseException {
         if (filterValue != null && filterType != null && filterType.equalsIgnoreCase("progress")) {
             try {
                 int value = Integer.parseInt(filterValue.trim());
