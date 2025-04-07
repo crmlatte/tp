@@ -269,7 +269,7 @@ Updates the **progress value** of a student.
 
 Format: `progress INDEX pr/PROGRESS` or `progress STUDENT_ID pr/PROGRESS`
 
-* The progress shows the percentage of the student's completion status for the module or assigned tasks.
+* The `PROGRESS` shows the percentage of the student's completion status for the module or assigned tasks.
 * The `PROGRESS` must be an **integer** between 0 and 100, inclusive.
 * The index refers to the index number shown in the displayed student list.
 * The index **must be a positive integer** 1, 2, 3, …​
@@ -540,7 +540,7 @@ Examples of valid emails:
 - Consist of alphanumeric characters.
 - Be separated only by dashes (-), if any.
 - Start and end with an alphanumeric character. 
-- Alternatively, this field can be left blank to remove the GitHub link from a student.
+- Alternatively, this field can be left blank to remove the GitHub link from a student, using [Github Command](#updating-a-students-github-link-github)
 
 Examples of valid GitHub links:
 - https://github.com/JohnnyDoe
@@ -572,7 +572,7 @@ Examples of valid repository links:
 - Must be in the format `Txx` or `Rxx`, where `xx` is a two-digit number from 01 to 99.
 - The first letter must be either `T` or `R` (uppercase).
 - The numeric part must be a valid number between 01 and 99.
-- Alternatively, this field can be left blank to indicate no class assigned.
+- Alternatively, this field can be left blank to indicate no class assigned, using [Class Command](#assigning-or-removing-a-tutorial-class-class)
 
 Examples of valid class numbers:
 - T01
