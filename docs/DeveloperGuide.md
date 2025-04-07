@@ -533,7 +533,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * System displays a message indicating no matches.
     * Use case ends.
 
-**Use case: UC11 - List students with sorting and filtering**
+**Use case: UC12 - List students with sorting and filtering**
 
 **MSS**
 
