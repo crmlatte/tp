@@ -351,7 +351,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User requests add a student.
-2. User adds student's respective information. 
+2. User adds student's respective information.
 3. System adds the student and the information to the list of students.
 4. Use case ends.
 
