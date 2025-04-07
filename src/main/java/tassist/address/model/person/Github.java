@@ -12,7 +12,6 @@ public class Github {
 
     public static final String MESSAGE_CONSTRAINTS =
             "GitHub links should be in the format: https://github.com/USERNAME\n"
-            + "Alternatively, you may leave the Github field blank to remove the GitHub link from a student.\n\n"
             + "The URL must follow these rules:\n"
             + "1. The base Github url should be in the format 'https://github.com'.\n"
             + "2. This is followed by a '/' and then a username."
@@ -22,7 +21,8 @@ public class Github {
             + "    - Separated only by dashes (-), if any.\n"
             + "    - Start and end with alphanumeric characters.\n"
             + "Example:\n"
-            + "https://github.com/JohnnyDoe";
+            + "https://github.com/JohnnyDoe\n"
+            + "Alternatively, use the command 'github INDEX/STUDENT_ID g/' to remove a student's Github.\n";
 
     // alphanumeric and special characters
     private static final String GITHUB_URL_REGEX = "^https://github\\.com/";

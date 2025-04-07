@@ -29,7 +29,8 @@ public class GithubCommand extends Command {
             + "Parameters: STUDENTID or INDEX , g/[GITHUB_URL]\n"
             + "Example:\n"
             + COMMAND_WORD + " 2 g/https://github.com/tammzz\n"
-            + COMMAND_WORD + " A1234567B g/https://github.com/tammzz";
+            + COMMAND_WORD + " A1234567B g/https://github.com/tammzz\n"
+            + "Alternatively, use the command 'github INDEX/STUDENT_ID g/' to remove a student's Github.";
 
     public static final String MESSAGE_ADD_GITHUB_SUCCESS = "Set github to student: %1$s";
     public static final String MESSAGE_DELETE_GITHUB_SUCCESS = "Removed github from Person: %1$s";
