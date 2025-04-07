@@ -338,6 +338,7 @@ Format: `assignment n/NAME d/DATE`
 * `d/DATE`: The deadline for the assignment/event.
 * Accepted date formats: `dd-MM-yyyy`, `dd-MM-yy`, or `dd-MM` (defaults to current year)
 * The date must be a valid **future date**.
+* **Note:** Assignments due on the current day cannot be added. 
 
 Examples:
 * `assignment n/CS2103T Project d/30-10-2025` <br>
