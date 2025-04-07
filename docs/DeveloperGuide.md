@@ -161,7 +161,6 @@ The component follows the Observer pattern through JavaFX's `ObservableList` int
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
 
-<img src="images/BetterModelClassDiagram.png" width="450" />
 The rest of the Person's attributes has been abstracted out in the image above.
 
 While the current implementation does not use this alternative model for `Tag`, it does use this approach for `TimedEvent`.\
