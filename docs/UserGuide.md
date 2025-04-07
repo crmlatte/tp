@@ -420,7 +420,7 @@ Imports a CSV file containing both student data and active timed event data into
 
 Format: `import INPUT_CSV_FILE_PATH`
 
-* `ABSOLUTE_FILE_PATH`: The absolute path to the CSV file to be imported.
+* `INPUT_CSV_FILE_PATH`: The absolute path to the CSV file to be imported.
 * The absolute path format is dependent on the operating system.
 * Relative paths are not supported.
 
