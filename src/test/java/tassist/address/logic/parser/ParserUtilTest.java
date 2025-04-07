@@ -221,7 +221,7 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseClassNumber_validValueL_withSuffix_returnsClassNumber() throws Exception {
+    public void parseClassNumber_validValueStartingWithLWithSuffix_returnsClassNumber() throws Exception {
         ClassNumber expectedClassNumber = new ClassNumber(VALID_CLASS_4);
         assertEquals(expectedClassNumber, ParserUtil.parseClassNumber(VALID_CLASS_4));
     }
