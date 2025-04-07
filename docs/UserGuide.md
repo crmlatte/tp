@@ -119,6 +119,7 @@ Format: `list [f/FILTER_TYPE fv/FILTER_VALUE] [s/SORT_TYPE o/SORT_ORDER]` <br>
 * All parameters are optional. Filters and sorting can be used together or independently.
 * Note: Once a sort is applied using the list command, the list will remain sorted in that order throughout the session.
   To apply a different sort, use list again with a new sort type and order.
+  If a sort is applied on a field where multiple students share the same value, their positions may change randomly after add/edit/update operations due to tie-breaking by the system.
 
 #### Filter Options
 `FILTER_TYPE:`<br>
