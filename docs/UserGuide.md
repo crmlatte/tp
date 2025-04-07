@@ -486,16 +486,17 @@ Furthermore, certain edits can cause TAssist to behave in unexpected ways (e.g.,
 
 ### `NAME`
 
-- Must consist of alphanumeric characters and spaces.
+- Must consist only of alphabets.
 - Must not be blank.
 - The first character must not be a whitespace.
 
 Examples of valid names:
 - Alice Gales
-- Bob Smith the 3rd
+- Bob Smith III
 - Deshaka Son Of Perera<br>
 
 **Tip:** Names with special characters should be entered in alphaneumeric characters only, as shown above.
+
 
 ### `STUDENT_ID`
 

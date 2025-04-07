@@ -5,12 +5,14 @@ import static tassist.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_STUDENTID_AMY;
 import static tassist.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static tassist.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static tassist.address.testutil.Assert.assertThrows;
 
 import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
 import tassist.address.logic.commands.FindCommand;
+import tassist.address.logic.parser.exceptions.ParseException;
 import tassist.address.model.Model;
 import tassist.address.model.ModelManager;
 import tassist.address.model.person.NameContainsKeywordsPredicate;
@@ -85,38 +87,10 @@ public class FindCommandParserTest {
     }
 
     @Test
-    public void parse_invalidClassNumberArgs_treatedAsNameSearch() throws Exception {
-        // These should be treated as name searches rather than throwing exceptions
-        FindCommand command = parser.parse("T0");
-        Person matchingPerson = new PersonBuilder().withName("T0").build();
-        Model model = new ModelManager();
-        model.addPerson(matchingPerson);
-        command.execute(model);
-        assertEquals(1, model.getFilteredPersonList().size());
-        assertEquals(matchingPerson, model.getFilteredPersonList().get(0));
-
-        command = parser.parse("T100");
-        matchingPerson = new PersonBuilder().withName("T100").build();
-        model = new ModelManager();
-        model.addPerson(matchingPerson);
-        command.execute(model);
-        assertEquals(1, model.getFilteredPersonList().size());
-        assertEquals(matchingPerson, model.getFilteredPersonList().get(0));
-
-        command = parser.parse("t01");
-        matchingPerson = new PersonBuilder().withName("t01").build();
-        model = new ModelManager();
-        model.addPerson(matchingPerson);
-        command.execute(model);
-        assertEquals(1, model.getFilteredPersonList().size());
-        assertEquals(matchingPerson, model.getFilteredPersonList().get(0));
-
-        command = parser.parse("r01");
-        matchingPerson = new PersonBuilder().withName("r01").build();
-        model = new ModelManager();
-        model.addPerson(matchingPerson);
-        command.execute(model);
-        assertEquals(1, model.getFilteredPersonList().size());
-        assertEquals(matchingPerson, model.getFilteredPersonList().get(0));
+    public void parse_invalidClassNumberArgs_throwsParseException() {
+        assertThrows(ParseException.class, () -> parser.parse("T0"));
+        assertThrows(ParseException.class, () -> parser.parse("T100"));
+        assertThrows(ParseException.class, () -> parser.parse("t01"));
+        assertThrows(ParseException.class, () -> parser.parse("r01"));
     }
 }
