@@ -47,7 +47,7 @@ public class AddCommand extends Command {
             + PREFIX_STUDENT_ID + "A0000000B "
             + PREFIX_PROJECT_TEAM + "TAssist "
             + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney "
+            + PREFIX_TAG + "exchangeStudent "
             + PREFIX_PROGRESS + "50\n\n"
             + "To add a student, minimally NAME, EMAIL, PHONE, STUDENTID must be present.\n"
             + "GITHUB, TEAM, REPOSITORY, CLASS_NUMBER, TAG and PROGRESS are optional fields and can be omitted out";
