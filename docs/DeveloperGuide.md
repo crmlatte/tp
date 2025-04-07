@@ -332,7 +332,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | CS TA             | search for a student by name                       | find a student easily                         |
 | `* *`    | CS TA             | add Github repository links to a student           | navigate to the relevant repositories quickly |
 | `* *`    | CS TA             | add progress level to each student                 | easily monitor a student's progress and skill |
-| `* *`    | CS TA             | filter the student list                            | view students within a project/class/course   |
+| `* *`    | CS TA             | filter the student list                            | view students within a project/class          |
 | `* *`    | CS TA             | filter students by progress level                  | tailor my guidance to each student            |
 | `* *`    | CS TA             | filter students by project team                    | find group members of a team easily           |
 | `*`      | CS TA             | assign multiple students to a project team at once | organise teams quickly                        |
