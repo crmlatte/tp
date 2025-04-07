@@ -372,6 +372,11 @@ Format: `unassign TIMED_EVENT_INDEX`
 * `TIMED_EVENT_INDEX`: The index of the timed event shown in the timed event list (must be a positive integer).
 * Unassigns the specified timed event from all students who were previously assigned to it.
 * Deletes the timed event from the timed event list.
+* After entering the command, you will be prompted to confirm the action:
+  * Type `Y` to confirm the unassignment
+  * Type `N` to cancel the unassignment
+  * Any other input will prompt: `Invalid response. Please enter Y/N.`
+  * `Y/N` can be upper or lower case
 
 Example:
 * `unassign 1` <br>
@@ -402,6 +407,7 @@ Format: `delete INDEX` or `delete STUDENT_ID`
   * Type `Y` to confirm the deletion
   * Type `N` to cancel the deletion
   * Any other input will prompt: `Invalid response. Please enter Y/N.`
+  * `Y/N` can be upper or lower case
 
 Examples:
 * `list` followed by `delete 2` deletes the 2nd student from the list after confirmation.
