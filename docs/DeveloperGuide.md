@@ -161,6 +161,7 @@ The component follows the Observer pattern through JavaFX's `ObservableList` int
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
 
+<img src="images/BetterModelClassDiagram.png" width="450" />
 The rest of the Person's attributes has been abstracted out in the image above.
 
 While the current implementation does not use this alternative model for `Tag`, it does use this approach for `TimedEvent`.\
@@ -310,7 +311,7 @@ This product is for National University of Singapore's School of Computing Teach
 * Is reasonably comfortable using CLI apps.
 
 **Value proposition**:\
-Provides an easy way for School of Computing Teaching Assistants to track and manage student details, such as their contact information, GitHub accounts, course progress, and project teams while enabling efficient organization and reducing administrative workload.
+Provides an easy way for Teaching Assistants to track and manage student details, such as their contact information, GitHub accounts, course progress, and project teams while enabling efficient organization and reducing administrative workload.
 
 ### User stories
 
@@ -329,11 +330,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | CS TA             | assign a student to a project team                 | access students in each project team          |
 | `* *`    | CS TA             | edit a student's contact details                   | update their details to be accurate           |
 | `* *`    | CS TA             | search for a student by name                       | find a student easily                         |
-| `* *`    | CS TA             | assign multiple students to a project team at once | organise teams quickly                        |
 | `* *`    | CS TA             | add Github repository links to a student           | navigate to the relevant repositories quickly |
 | `* *`    | CS TA             | add progress level to each student                 | easily monitor a student's progress and skill |
 | `* *`    | CS TA             | filter students by progress level                  | tailor my guidance to each student            |
 | `* *`    | CS TA             | filter students by project team                    | find group members of a team easily           |
+| `*`      | CS TA             | assign multiple students to a project team at once | organise teams quickly                        |
 | `*`      | forgetful CS TA   | set a reminder for a student tasks                 | remember to follow up                         |
 | `*`      | forgetful CS TA   | schedule notification for assignment deadline      | remember to check submissions                 |
 | `*`      | forgetful CS TA   | add notes to a student                             | take down important information               |
@@ -354,14 +355,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User requests add a student.
+1. User requests to add a student.
 2. User adds student's respective information.
-3. System adds the student and the information to the list of students.
+3. System adds the student along with the information to the list of students.
 4. Use case ends.
 
 **Extensions**
 
-* 1a. Invalid value for a field.
+* 2a. Invalid value for the input data
     * 1a1. System shows an error message.
     * Use case resumes at step 2.
 
@@ -405,7 +406,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 2a. The list is empty.
   * Use case ends.
 
-**Use case: UC4 - Add student's GitHub account**
+**Use case: UC4 - Add a student's GitHub account**
 
 **MSS**
 
