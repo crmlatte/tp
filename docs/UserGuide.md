@@ -111,8 +111,7 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL s/STUDENT_ID [g/GITHUB_URL] [r/REPOSI
 Examples:
 * `add n/John Doe p/98765432 e/johnd@u.nus.edu s/A0000000B pt/ProjectTeam1 c/T01 t/ExchangeStudent pr/50`
 * `add n/Betsy Crowe t/friend e/betsycrowe@u.nus.edu s/A0123456U g/https://github.com/betsy p/1234567 t/LifeScienceMajor`
-
-![Screenshot 2025-04-08 at 3.00.23 AM.png](..%2F..%2F..%2F..%2Fvar%2Ffolders%2Fqv%2F8kppx5454m9750rpc2p6ydw00000gp%2FT%2FTemporaryItems%2FNSIRD_screencaptureui_XSS8D6%2FScreenshot%202025-04-08%20at%203.00.23%E2%80%AFAM.png)
+![add_command](images/AddCommand.png)
 ### Listing, Filtering and Sorting students : `list`
 
 Shows a **list of all students** in the student list.
@@ -157,7 +156,7 @@ Examples:
 * `list f/team fv/Bang Bang`<br>
   Displays students with the Team name 'Bang Bang', matched case-insensitively.
 
-![Screenshot 2025-04-08 at 3.02.08 AM.png](..%2F..%2F..%2F..%2Fvar%2Ffolders%2Fqv%2F8kppx5454m9750rpc2p6ydw00000gp%2FT%2FTemporaryItems%2FNSIRD_screencaptureui_2WXOwD%2FScreenshot%202025-04-08%20at%203.02.08%E2%80%AFAM.png)
+![list_command](images/ListCommand.png)
 ### Editing a student : `edit`
 
 Edits an existing student in the student list.
@@ -180,7 +179,7 @@ Examples:
 *  `edit 7 n/Betsy Crower t/` <br>
     Edits the name of the 2nd student to be `Betsy Crower` and clears all existing tags.
 
-![Screenshot 2025-04-08 at 3.03.13 AM.png](..%2F..%2F..%2F..%2Fvar%2Ffolders%2Fqv%2F8kppx5454m9750rpc2p6ydw00000gp%2FT%2FTemporaryItems%2FNSIRD_screencaptureui_0VMWsi%2FScreenshot%202025-04-08%20at%203.03.13%E2%80%AFAM.png)
+![edit_command](images/EditCommand.png)
 ### Locating student(s) by Name, StudentID, or Class: `find`
 
 Finds students whose names contain any of the given inputs, whose student ID matches exactly, or whose class number matches exactly.
@@ -224,7 +223,7 @@ Examples:
 * `class A1234567B c/R05`<br>
    Assigns class R05 to the student with student ID `A1234567B`.
 
-![Screenshot 2025-04-08 at 3.05.54 AM.png](..%2F..%2F..%2F..%2Fvar%2Ffolders%2Fqv%2F8kppx5454m9750rpc2p6ydw00000gp%2FT%2FTemporaryItems%2FNSIRD_screencaptureui_8SGUTL%2FScreenshot%202025-04-08%20at%203.05.54%E2%80%AFAM.png)
+![class_command](images/ClassCommand.png)
 ### Updating a student's repository link: `repo`
 
 Updates the **GitHub repository URL** of a student, identified by either their displayed index or student ID.
@@ -269,7 +268,7 @@ or `repo STUDENT_ID r/REPOSITORY_URL`
 - `repo A0789435N r/https://github.com/AY2425S2-CS2103T-W12-4/tp`<br>
   Updates the repository for student ID `A0789435N` to the specified Repository URL.
 
-![Screenshot 2025-04-08 at 3.07.12 AM.png](..%2F..%2F..%2F..%2Fvar%2Ffolders%2Fqv%2F8kppx5454m9750rpc2p6ydw00000gp%2FT%2FTemporaryItems%2FNSIRD_screencaptureui_OejZY6%2FScreenshot%202025-04-08%20at%203.07.12%E2%80%AFAM.png)
+![repo_command](images/RepoCommand.png)
 ### Updating a student's progress value: `progress`
 
 Updates the **progress value** of a student.
@@ -287,7 +286,7 @@ Examples:
 * `progress A1234567B pr/50`<br>
   Sets the progress of the student with Student ID A1234567B to 50%.
 
-![Screenshot 2025-04-08 at 3.08.18 AM.png](..%2F..%2F..%2F..%2Fvar%2Ffolders%2Fqv%2F8kppx5454m9750rpc2p6ydw00000gp%2FT%2FTemporaryItems%2FNSIRD_screencaptureui_QswCdd%2FScreenshot%202025-04-08%20at%203.08.18%E2%80%AFAM.png)
+![progress_command](images/ProgressCommand.png)
 ### Updating a student's GitHub Link: `github`
 
 Updates the **GitHub URL** of a student, identified by either their displayed index or student ID.
@@ -313,7 +312,7 @@ Examples:
   Updates the GitHub link for the student with student ID `A1234567B`.
 * `github 3 g/` removes the 3rd student's GitHub link.
 
-![Screenshot 2025-04-08 at 3.08.51 AM.png](..%2F..%2F..%2F..%2Fvar%2Ffolders%2Fqv%2F8kppx5454m9750rpc2p6ydw00000gp%2FT%2FTemporaryItems%2FNSIRD_screencaptureui_qmyeKS%2FScreenshot%202025-04-08%20at%203.08.51%E2%80%AFAM.png)
+![github_command](images/GithubCommand.png)
 ### Opening a student's GitHub page: `open`
 
 Opens the GitHub page of a student, identified by either their displayed **index** or **student ID**, in your default web browser.
@@ -346,7 +345,7 @@ Examples:
 * `assignment n/Quiz 1 d/10-05` <br>
   Adds an event named "Quiz 1" with the deadline on April 10 of the current year.
 
-![Screenshot 2025-04-08 at 3.10.06 AM.png](..%2F..%2F..%2F..%2Fvar%2Ffolders%2Fqv%2F8kppx5454m9750rpc2p6ydw00000gp%2FT%2FTemporaryItems%2FNSIRD_screencaptureui_LqCjSu%2FScreenshot%202025-04-08%20at%203.10.06%E2%80%AFAM.png)
+![assignment_command](images/AssignmentCommand.png)
 ### Viewing the timed event list: `view`
 
 **Lists all timed events** in the system.
@@ -358,7 +357,7 @@ Format: `view`
 Example:<br>
   `view` followed by `assign 3 T01`
 
-![Screenshot 2025-04-08 at 3.11.07 AM.png](..%2F..%2F..%2F..%2Fvar%2Ffolders%2Fqv%2F8kppx5454m9750rpc2p6ydw00000gp%2FT%2FTemporaryItems%2FNSIRD_screencaptureui_BvrMV6%2FScreenshot%202025-04-08%20at%203.11.07%E2%80%AFAM.png)
+![view_command](images/ViewCommand.png)
 ### Assigning a timed event/assignment: `assign`
 
 **Assigns a timed event** using index in time event list to one or more students identified by their displayed index, student ID, or class number.
@@ -380,7 +379,7 @@ Examples:
 * `assign 1 T01` <br>
   Assigns the first timed event to all students in class T01.
 
-![Screenshot 2025-04-08 at 3.12.04 AM.png](..%2F..%2F..%2F..%2Fvar%2Ffolders%2Fqv%2F8kppx5454m9750rpc2p6ydw00000gp%2FT%2FTemporaryItems%2FNSIRD_screencaptureui_JQL13f%2FScreenshot%202025-04-08%20at%203.12.04%E2%80%AFAM.png)
+![assign_command](images/AssignCommand.png)
 ### Unassigning and Removing a Timed Event: `unassign`
 
 **Removes a timed event** from all assigned students and **deletes** the event from the timed event list.
@@ -400,7 +399,7 @@ Example:
 * `unassign 1` <br>
   Unassigns the first timed event from all students and deletes the event from the list.
 
-![Screenshot 2025-04-08 at 3.12.26 AM.png](..%2F..%2F..%2F..%2Fvar%2Ffolders%2Fqv%2F8kppx5454m9750rpc2p6ydw00000gp%2FT%2FTemporaryItems%2FNSIRD_screencaptureui_MowUzW%2FScreenshot%202025-04-08%20at%203.12.26%E2%80%AFAM.png)
+![unassign_command](images/UnassignCommand.png)
 ### Viewing Upcoming Events Calendar
 
 TAssist provides a **calendar-style view** to help you visualize upcoming assignments and timed events.
@@ -413,7 +412,7 @@ TAssist provides a **calendar-style view** to help you visualize upcoming assign
   * Dates grouped chronologically
 * An empty calendar will be shown if there are no current assignments.
 
-![Screenshot 2025-04-08 at 3.13.11 AM.png](..%2F..%2F..%2F..%2Fvar%2Ffolders%2Fqv%2F8kppx5454m9750rpc2p6ydw00000gp%2FT%2FTemporaryItems%2FNSIRD_screencaptureui_YiITqo%2FScreenshot%202025-04-08%20at%203.13.11%E2%80%AFAM.png)
+![calendar_view](images/CalendarView.png)
 ### Deleting a student : `delete`
 
 Deletes the specified student from the student list, identified by either their displayed index or student ID.
@@ -434,7 +433,7 @@ Examples:
 * `find Betsy` followed by `delete 1` deletes the 1st student in the search results after confirmation.
 * `delete A1234567B` deletes the student with student ID A1234567B after confirmation.
 
-![Screenshot 2025-04-08 at 3.14.42 AM.png](..%2F..%2F..%2F..%2Fvar%2Ffolders%2Fqv%2F8kppx5454m9750rpc2p6ydw00000gp%2FT%2FTemporaryItems%2FNSIRD_screencaptureui_DsEn0x%2FScreenshot%202025-04-08%20at%203.14.42%E2%80%AFAM.png)
+![delete_command](images/DeleteCommand.png)
 ### Clearing all entries : `clear`
 
 **Clears all entries** from the student list.
