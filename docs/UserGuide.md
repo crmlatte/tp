@@ -3,7 +3,7 @@ layout: page
 title: User Guide
 ---
 
-TAssist is a **desktop application** for Teaching Assistants (TAs) from School of Computing to easily track and manage student information. It is optimized for use via a **Command Line Interface** (CLI), complemented by a user-friendly Graphical User Interface (GUI). If you can type fast, TAssist helps you complete student management tasks more quickly than traditional GUI-based apps.
+TAssist is a **desktop application** for Teaching Assistants (TAs) from NUS School of Computing to easily track and manage student information. It is optimized for use via a **Command Line Interface** (CLI), complemented by a user-friendly Graphical User Interface (GUI). If you can type fast, TAssist helps you complete student management tasks more quickly than traditional GUI-based apps.
 
 * Table of Contents
 {:toc}
@@ -97,10 +97,11 @@ Format: `help`
 
 ### Adding a student: `add`
 
-Adds a student to the student list.
+**Adds** a student to the student list.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL s/STUDENT_ID [g/GITHUB_URL] [r/REPOSITORY] [pt/TEAM] [c/CLASS_NUMBER] [t/TAG]…​ [pr/PROGRESS]`
-* The parameters NAME, PHONE_NUMBER, EMAIL, and STUDENT_ID must be present. The rest are optional.
+* The parameters `NAME`, `PHONE_NUMBER`, `EMAIL`, and `STUDENT_ID` must be present. The rest are optional.
+* For more detailed information on each parameter, please read [Parameters](#parameters)
 
 <div markdown="span" class="alert alert-primary">
 :bulb: <strong>Tip:</strong> A student can have any number of tags (including 0)
@@ -112,7 +113,7 @@ Examples:
 
 ### Listing, Filtering and Sorting students : `list`
 
-Shows a list of all students in the student list.
+Shows a **list of all students** in the student list.
 
 Format: `list [f/FILTER_TYPE fv/FILTER_VALUE] [s/SORT_TYPE o/SORT_ORDER]` <br>
 
@@ -202,7 +203,7 @@ Assigns or removes a **tutorial/recitation class** for a student identified by e
 
 Format: `class INDEX c/CLASS_NUMBER` or `class STUDENT_ID c/CLASS_NUMBER`
 
-* `CLASS NUMBER` must be either `Txx`or `Rxx` where xx is integer from 01 to 99 (e.g. T01, T15, R05, R99)
+* `CLASS_NUMBER` must be either `Txx`or `Rxx` where xx is integer from 01 to 99 (e.g. T01, T15, R05, R99)
     * Note: 'T' and 'R' must be uppercase.
     * 'T' and 'R' represent Tutorial and Recitation respectively.
 * Assigns or updates the class of the student at the specified `INDEX` or matching `STUDENT_ID`
@@ -269,7 +270,7 @@ Updates the **progress value** of a student.
 Format: `progress INDEX pr/PROGRESS` or `progress STUDENT_ID pr/PROGRESS`
 
 * The progress shows the percentage of the student's completion status for the module or assigned tasks.
-* The PROGRESS must be an integer between 0 and 100, inclusive.
+* The `PROGRESS` must be an **integer** between 0 and 100, inclusive.
 * The index refers to the index number shown in the displayed student list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
@@ -337,15 +338,18 @@ Examples:
 
 ### Viewing the timed event list: `view`
 
-Lists all timed events in the system.
+**Lists all timed events** in the system.
 
 Format: `view`
-
 * Shows all timed events with their names and deadlines
+* **Tip:** enter `view` before [assigning](#assigning-a-timed-eventassignment-assign) an assignment to manage tasks easier.
+
+Example:<br>
+  `view` followed by `assign 3 T01`
 
 ### Assigning a timed event/assignment: `assign`
 
-Assigns a timed event using index in time event list to one or more students identified by their displayed index, student ID, or class number.
+**Assigns a timed event** using index in time event list to one or more students identified by their displayed index, student ID, or class number.
 
 Format: `assign TIMED_EVENT_INDEX STUDENT_INDEX` or `assign TIMED_EVENT_INDEX STUDENT_ID` or `assign TIMED_EVENT_INDEX CLASS_NUMBER`
 
@@ -385,9 +389,9 @@ Example:
 
 ### Viewing Upcoming Events Calendar
 
-TAssist provides a calendar-style view to help you visualize upcoming assignments and timed events.
+TAssist provides a **calendar-style view** to help you visualize upcoming assignments and timed events.
 
-* Press the `F3` key to open the calendar-style event viewer.
+* Press the `F3` key to open the calendar-style event viewer, or access it through the drop down `View --> Calendar`.
 * The calendar displays:
   * Assignment names
   * Event type (e.g., assignment)
@@ -417,13 +421,13 @@ Examples:
 
 ### Clearing all entries : `clear`
 
-Clears all entries from the student list.
+**Clears all entries** from the student list.
 
 Format: `clear`
 
 ### Importing data : `import`
 
-Imports a CSV file containing both student data and active timed event data into the system. The file should follow the correct CSV format for both students and timed events.
+**Imports a CSV file** containing both student data and active timed event data into the system. The file should follow the correct CSV format for both students and timed events.
 
 Format: `import INPUT_CSV_FILE_PATH`
 
@@ -440,11 +444,11 @@ Examples:
 
 ### Exporting data : `export`
 
-Exports the current student and active timed event data to a CSV file. The data is written in a structured format where students' details are saved along with active timed events.
+**Exports the current student and active timed event data** to a CSV file. The data is written in a structured format where students' details are saved along with active timed events.
 
 Format: `export OUTPUT_CSV_FILE_PATH`
 
-* `ABSOLUTE_FILE_PATH`: The absolute path where the CSV will be saved.
+* `OUTPUT_CSV_FILE_PATH`: The absolute path where the CSV will be saved.
 * The absolute path format is dependent on the operating system.
 * Relative paths are not supported.
 * If the parent directory of the CSV file does not exist, an error will occur, and the file will not be created.
@@ -458,7 +462,7 @@ Examples:
 
 ### Exiting the program : `exit`
 
-Exits the program.
+**Exits** the program.
 
 Format: `exit`
 
@@ -488,7 +492,9 @@ Furthermore, certain edits can cause TAssist to behave in unexpected ways (e.g.,
 Examples of valid names:
 - Alice Gales
 - Bob Smith the 3rd
-- Deshaka Son Of Perera
+- Deshaka Son Of Perera<br>
+
+**Tip:** Names with special characters should be entered in alphaneumeric characters only, as shown above.
 
 ### `STUDENT_ID`
 
@@ -533,9 +539,8 @@ Examples of valid emails:
 - Be 1 to 39 characters long.
 - Consist of alphanumeric characters.
 - Be separated only by dashes (-), if any.
-- Start and end with an alphanumeric character.
-
-You may also leave this field blank to remove the GitHub link from a student.
+- Start and end with an alphanumeric character. 
+- Alternatively, this field can be left blank to remove the GitHub link from a student.
 
 Examples of valid GitHub links:
 - https://github.com/JohnnyDoe
