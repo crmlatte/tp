@@ -509,6 +509,79 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 5a. User declines.
     * Use case ends.
 
+
+**Use case: UC11 - List all students**
+
+**MSS**
+
+1. User requests to list all students.
+2. System displays all students without any sorting or filtering.
+3. Use case ends.
+
+**Use case: UC12 - List students with sorting**
+
+**MSS**
+
+1. User requests to list students with a specific sort type and order.
+2. System verifies the sort type and order.
+3. System displays the students sorted accordingly.
+4. Use case ends.
+
+**Extensions**
+
+* 2a. The sort type or order is invalid.
+    * System outputs an invalid sort message.
+    * Use case ends.
+
+* 2b. Sort type is not provided but sort order is.
+    * System outputs a missing sort type message.
+    * Use case ends.
+
+* 2c. Sort order is not provided but sort type is.
+    * System outputs a missing sort type message.
+    * Use case ends.
+
+**Use case: UC13 - List students with filtering**
+
+**MSS**
+
+1. User requests to list students based on a specific filter type and filter value.
+2. System verifies the filter type and filter value.
+3. System displays only the students matching the filter.
+4. Use case ends.
+
+**Extensions**
+
+* 2a. The filter type or filter value is invalid.
+    * System outputs an invalid filter message.
+    * Use case ends.
+
+* 2b. Filter type is not provided but filter value is.
+    * System outputs a missing filter type message.
+    * Use case ends.
+
+* 2c. Filter value is not provided but filter type is.
+    * System outputs a missing filter type message.
+    * Use case ends.
+
+* 2d. No students match the filter value.
+    * System displays a message indicating no matches.
+    * Use case ends.
+
+**Use case: UC14 - List students with sorting and filtering**
+
+**MSS**
+
+1. User requests to list students using both sorting and filtering.
+2. System verifies the sort and filter parameters.
+3. System filters and sorts the student list accordingly.
+4. System displays the updated list.
+4. Use case ends.
+
+**Extensions**
+
+* All the extensions from UC11 and UC12.
+
 *{More to be added}*
 
 ### Non-Functional Requirements

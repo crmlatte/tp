@@ -48,8 +48,8 @@ public class ListCommand extends Command {
             + "Allowed sort order: asc,des.";
     public static final String MESSAGE_INVALID_FILTER = "Invalid filter type! Allowed filter type: class, team, "
             + "progress";
-    public static final String MESSAGE_INVALID_FILTER_VALUE = "This filter value does not exist.";
-    public static final String MESSAGE_NONEXISTENT_FILTER_VALUE = "The '%s' filter value does not exist.";
+    public static final String MESSAGE_INVALID_FILTER_VALUE = "This filter value is invalid.";
+    public static final String MESSAGE_NONEXISTENT_FILTER_VALUE = "No students found matching the given filter value.";
     public static final String MESSAGE_MISSING_FILTER_VALUE = "Please enter filter value. list f/[FILTER TYPE] "
             + "fv/[FILTER VALUE]";
 
