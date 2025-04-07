@@ -20,12 +20,12 @@ TAssist is a **desktop application** for Teaching Assistants (TAs) from School o
 
 4. Open the Command Prompt (Windows) or Terminal (Mac/Linux)
 
-5. Navigate to the folder where you saved the TAssist1.5.jar file using `cd` command<br>
+5. Navigate to the folder where you saved the `[CS2103T-W12-4][TAssist].jar` file using `cd` command<br>
    Example (Windows): `cd C:\Users\YourName\Downloads`. <br>
    Example (Mac/Linux): `cd /Users/YourName/Downloads`.
 
-6. Type this command and press enter to run the application.<br>
-    ```java -jar TAssist1.5jar```
+6. Type the following command and press Enter to run the application.<br>
+    ```java -jar [CS2103T-W12-4][TAssist].jar```
 
 7. A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
@@ -35,7 +35,7 @@ TAssist is a **desktop application** for Teaching Assistants (TAs) from School o
 
    * `list` : Lists all contacts.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com s/A0135246R` : Adds a contact named `John Doe` to the student list.
+   * `add n/John Doe p/98765432 e/johnd@u.nus.edu s/A0135246R` : Adds a contact named `John Doe` to the student list.
 
    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
@@ -115,18 +115,22 @@ Examples:
 Shows a list of all students in the student list.
 
 Format: `list [f/FILTER_TYPE fv/FILTER_VALUE] [s/SORT_TYPE o/SORT_ORDER]` <br>
+
 * All parameters are optional. Filters and sorting can be used together or independently.
+* Note: Once a sort is applied using the list command, the list will remain sorted in that order throughout the session.
+  To apply a different sort, use list again with a new sort type and order.
+  If a sort is applied on a field where multiple students share the same value, their positions may change randomly after add/edit/update operations due to tie-breaking by the system.
 
 #### Filter Options
 `FILTER_TYPE:`<br>
 * progress: Filters students whose progress is less than or equal to the provided value.
 * team: Filters by existing team names.
-* course: (Not yet implemented) Will filter by existing course codes.
+* class: Filters by existing class number.
 
 `FILTER_VALUE:`<br>
-* PROGRESS: an integer between 0 and 100.
-* TEAM: must match an existing team name.
-* COURSE: (Not yet implemented) must match an existing course value.
+* PROGRESS: An integer between 0 and 100.
+* TEAM: Must match an existing team name.
+* CLASS: Must match an existing class number.
 
 #### Sort Options
 `SORT_TYPE:`<br>
@@ -166,7 +170,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [c/_NUMBER] [s/STUDENTID] [g/GI
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@u.nus.edu`<br>
-    Edits the phone number and email address of the 1st student to be `91234567` and `johndoe@example.com` respectively.
+    Edits the phone number and email address of the 1st student to be `91234567` and `johndoe@u.nus.edu` respectively.
 *  `edit 2 n/Betsy Crower t/` <br>
     Edits the name of the 2nd student to be `Betsy Crower` and clears all existing tags.
 
@@ -604,10 +608,10 @@ Examples of valid project team values:
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL s/STUDENT_ID [g/GITHUB_URL] [pt/TEAM] [c/CLASS_NUMBER] [t/TAG]…​ [pr/PROGRESS]` <br> e.g. `add n/John Doe p/98765432 e/johnd@example.com s/A0000000B g/https://github.com/username c/T02 t/friends t/owesMoney pr/50`
+**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL s/STUDENT_ID [g/GITHUB_URL] [pt/TEAM] [c/CLASS_NUMBER] [t/TAG]…​ [pr/PROGRESS]` <br> e.g. `add n/John Doe p/98765432 e/johnd@eu.nus.edu s/A0000000B g/https://github.com/username c/T02 t/friends t/owesMoney pr/50`
 **Clear** | `clear`
 **Delete** | `delete INDEX` or `delete STUDENT_ID`<br> e.g., `delete 3`, `delete A1234567B`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [s/STUDENTID] [g/GITHUB_URL] [pt/TEAM] [c/CLASS_NUMBER] [t/TAG]…​ [pr/PROGRESS]`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
+**Edit** | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [s/STUDENTID] [g/GITHUB_URL] [pt/TEAM] [c/CLASS_NUMBER] [t/TAG]…​ [pr/PROGRESS]`<br> e.g.,`edit 2 n/James Lee e/jameslee@u.nus.edu`
 **Find** | `find KEYWORD [MORE_KEYWORDS]` or `find STUDENT_ID` or `find CLASS_NUMBER` <br> e.g., `find James Jake`, `find A1234567B`
 **List** | `list [f/FILTER_TYPE fv/FILTER_VALUE] [s/SORT_TYPE o/SORT_ORDER]`<br> e.g.,`list f/progress fv/50 s/name o/des`
 **Class** | `class INDEX c/CLASS_NUMBER` or `class STUDENT_ID c/CLASS_NUMBER` <br> e.g.,`class 1 c/T01`, `class A7654321B c/T02`
