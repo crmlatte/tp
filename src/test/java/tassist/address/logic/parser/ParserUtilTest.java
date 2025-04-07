@@ -42,6 +42,8 @@ public class ParserUtilTest {
     private static final String VALID_TAG_2 = "neighbour";
     private static final String VALID_CLASS_1 = "T01";
     private static final String VALID_CLASS_2 = "R03";
+    private static final String VALID_CLASS_3 = "L04";
+    private static final String VALID_CLASS_4 = "L15C";
     private static final String VALID_STUDENTID = "A0000000M";
     private static final String VALID_PROGRESS_1 = "80";
     private static final String VALID_PROGRESS_2 = "20%";
@@ -210,6 +212,18 @@ public class ParserUtilTest {
     public void parseClassNumber_validValueStartingWithR_returnsClassNumber() throws Exception {
         ClassNumber expectedClassNumber = new ClassNumber(VALID_CLASS_2);
         assertEquals(expectedClassNumber, ParserUtil.parseClassNumber(VALID_CLASS_2));
+    }
+
+    @Test
+    public void parseClassNumber_validValueStartingWithL_returnsClassNumber() throws Exception {
+        ClassNumber expectedClassNumber = new ClassNumber(VALID_CLASS_3);
+        assertEquals(expectedClassNumber, ParserUtil.parseClassNumber(VALID_CLASS_3));
+    }
+
+    @Test
+    public void parseClassNumber_validValueStartingWithL_withSuffix_returnsClassNumber() throws Exception {
+        ClassNumber expectedClassNumber = new ClassNumber(VALID_CLASS_4);
+        assertEquals(expectedClassNumber, ParserUtil.parseClassNumber(VALID_CLASS_4));
     }
 
     @Test

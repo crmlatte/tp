@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tassist.address.logic.commands.CommandTestUtil.NONEXISTENT_STUDENTID;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_CLASS_AMY;
-import static tassist.address.logic.commands.CommandTestUtil.VALID_CLASS_BOB;
+import static tassist.address.logic.commands.CommandTestUtil.VALID_CLASS_BOB_1;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_STUDENTID_AMY;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_STUDENTID_BOB;
 import static tassist.address.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -81,7 +81,7 @@ public class ClassCommandTest {
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-        ClassCommand remarkCommand = new ClassCommand(outOfBoundIndex, new ClassNumber(VALID_CLASS_BOB));
+        ClassCommand remarkCommand = new ClassCommand(outOfBoundIndex, new ClassNumber(VALID_CLASS_BOB_1));
 
         assertCommandFailure(remarkCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
@@ -97,7 +97,7 @@ public class ClassCommandTest {
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
 
-        ClassCommand remarkCommand = new ClassCommand(outOfBoundIndex, new ClassNumber(VALID_CLASS_BOB));
+        ClassCommand remarkCommand = new ClassCommand(outOfBoundIndex, new ClassNumber(VALID_CLASS_BOB_1));
 
         assertCommandFailure(remarkCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
@@ -127,7 +127,7 @@ public class ClassCommandTest {
 
         // different remark -> returns false
         assertFalse(standardCommand.equals(new ClassCommand(INDEX_FIRST_PERSON,
-                new ClassNumber(VALID_CLASS_BOB))));
+                new ClassNumber(VALID_CLASS_BOB_1))));
 
 
     }
@@ -137,7 +137,7 @@ public class ClassCommandTest {
         final StudentId studentIdAmy = new StudentId(VALID_STUDENTID_AMY);
         final StudentId studentIdBob = new StudentId(VALID_STUDENTID_BOB);
         final ClassNumber classAmy = new ClassNumber(VALID_CLASS_AMY);
-        final ClassNumber classBob = new ClassNumber(VALID_CLASS_BOB);
+        final ClassNumber classBob = new ClassNumber(VALID_CLASS_BOB_1);
 
         final ClassCommand standardCommand = new ClassCommand(studentIdAmy, classAmy);
 
