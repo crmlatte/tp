@@ -378,4 +378,10 @@ public class ParserUtilTest {
             assertThrows(ParseException.class, () -> ParserUtil.parseFilePath(rootPath));
         }
     }
+
+    @Test
+    public void parseFilePath_nullCharacterInPath_throwsParseException() {
+        String pathWithNullChar = "C:/test\0file.csv"; // null character in path
+        assertThrows(ParseException.class, () -> ParserUtil.parseFilePath(pathWithNullChar));
+    }
 }
