@@ -31,10 +31,11 @@ public class ClassCommand extends Command {
             + "Existing class will be overwritten by the input.\n"
             + "Parameters: INDEX (must be a positive integer) or STUDENTID\n"
             + " + " + PREFIX_CLASS + " + T, R or L + [Tutorial Class Number xx (xx = 01-99)]\n"
+            + "Alternatively, use the command 'class INDEX/STUDENT_ID c/' to remove a student's class.\n"
             + "If assigning 'Lxx', an optional capital letter suffix can be added.\n"
             + "Example:\n"
             + COMMAND_WORD + " 1 " + PREFIX_CLASS + "T01 "
-            + "or " + COMMAND_WORD + " A0123456B " + PREFIX_CLASS + "L01A";
+            + "or " + COMMAND_WORD + " A0123456B " + PREFIX_CLASS + "L01A. ";
 
     public static final String MESSAGE_ADD_CLASS_SUCCESS = "Assigned class to student: %1$s";
     public static final String MESSAGE_REMOVE_CLASS_SUCCESS = "Removed class from student: %1$s";
