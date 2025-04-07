@@ -25,17 +25,19 @@ public class ClassCommand extends Command {
 
     public static final String COMMAND_WORD = "class";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Assign a tutorial class to the student identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Assign a tutorial/recitation/lab class to the student identified "
             + "by the index in the displayed list or student ID.\n"
-            + "Existing tutorial class will be overwritten by the input.\n"
+            + "Existing class will be overwritten by the input.\n"
             + "Parameters: INDEX (must be a positive integer) or STUDENTID\n"
-            + " + " + PREFIX_CLASS + " + T or R + [Tutorial Class Number xx (xx = 01-99)]\n"
+            + " + " + PREFIX_CLASS + " + T, R or L + [Tutorial Class Number xx (xx = 01-99)]\n"
+            + "If assigning 'Lxx', an optional capital letter suffix can be added.\n"
             + "Example:\n"
             + COMMAND_WORD + " 1 " + PREFIX_CLASS + "T01 "
-            + "or " + COMMAND_WORD + " A0123456B " + PREFIX_CLASS + "T01";
+            + "or " + COMMAND_WORD + " A0123456B " + PREFIX_CLASS + "L01A";
 
-    public static final String MESSAGE_ADD_CLASS_SUCCESS = "Assigned tutorial class to student: %1$s";
-    public static final String MESSAGE_REMOVE_CLASS_SUCCESS = "Removed tutorial class from student: %1$s";
+    public static final String MESSAGE_ADD_CLASS_SUCCESS = "Assigned class to student: %1$s";
+    public static final String MESSAGE_REMOVE_CLASS_SUCCESS = "Removed class from student: %1$s";
 
     private static final Logger logger = Logger.getLogger(ClassCommand.class.getName());
 
@@ -75,9 +77,6 @@ public class ClassCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        logger.info("Executing ClassCommand with " + (index != null ? "Index: " + index : "Student ID: "
-                + studentId));
-
         Person personToEdit;
 
         if (index != null) {
