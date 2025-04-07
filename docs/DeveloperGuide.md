@@ -9,7 +9,11 @@ title: Developer Guide
 
 ## **Acknowledgements**
 
-* {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+* This project is based on the [SE-EDU AddressBook-Level3](https://github.com/se-edu/addressbook-level3) project. Some diagrams, utility classes, and design conventions were adapted from it.
+* PlantUML styling and layout tips adapted from [se-education/guides](https://se-education.org/guides/tutorials/plantUml.html).
+* JavaFX components and UI structure were inspired by SE-EDU’s JavaFX tutorials.
+* The GitHub repo parsing logic was inspired by open-source regex patterns from [gist.github.com](https://gist.github.com/).
+* JSON storage mechanism concept inspired by SE-EDU’s Storage guide in AddressBook-Level3.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -158,6 +162,7 @@ The component follows the Observer pattern through JavaFX's `ObservableList` int
 <div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
 
 <img src="images/BetterModelClassDiagram.png" width="450" />
+The rest of the Person's attributes has been abstracted out in the image above.
 
 While the current implementation does not use this alternative model for `Tag`, it does use this approach for `TimedEvent`.\
 \
@@ -295,7 +300,7 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-This product is for university CS Teaching Assistants who need to track and manage student details efficiently, the TA also:
+This product is for National University of Singapore's School of Computing Teaching Assistants (TA) who need to track and manage student details efficiently, the TA also:
 * Prefers fast keyboard-driven interactions over mouse usage.
 * Manages small groups of students.
 * Needs quick access to student GitHub accounts and repositories.
@@ -306,7 +311,7 @@ This product is for university CS Teaching Assistants who need to track and mana
 * Is reasonably comfortable using CLI apps.
 
 **Value proposition**:\
-Provides an easy way for CS Teaching Assistants to track and manage student details, including contact information, GitHub accounts, course progress, and project teams. Enables efficient organization and reduces administrative workload.
+Provides an easy way for Teaching Assistants to track and manage student details, such as their contact information, GitHub accounts, course progress, and project teams while enabling efficient organization and reducing administrative workload.
 
 ### User stories
 
@@ -318,17 +323,19 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | CS TA             | add a student's contact details                    | store and retrieve their details              |
 | `* * *`  | CS TA             | delete a student's contact entry                   | remove students I no longer teach             |
 | `* * *`  | CS TA             | record my student's Github accounts                | access their project repositories             |
+| `* *`    | CS TA             | open my student's Github accounts                  | browse through their repositories quickly     |
 | `* *`    | CS TA             | bulk edit project team assignments                 | reorganise teams quickly                      |
 | `* *`    | CS TA             | add assignment deadline                            | keep track of their submission dates          |
-| `* *`    | CS TA             | filter the student list                            | view students within a project/class/course   |
 | `* *`    | CS TA             | assign a student to a class                        | filter students by class                      |
 | `* *`    | CS TA             | assign a student to a project team                 | access students in each project team          |
 | `* *`    | CS TA             | edit a student's contact details                   | update their details to be accurate           |
 | `* *`    | CS TA             | search for a student by name                       | find a student easily                         |
-| `* *`    | CS TA             | assign multiple students to a project team at once | organise teams quickly                        |
+| `* *`    | CS TA             | add Github repository links to a student           | navigate to the relevant repositories quickly |
 | `* *`    | CS TA             | add progress level to each student                 | easily monitor a student's progress and skill |
+| `* *`    | CS TA             | filter the students by class                       | view students within a class                  |
 | `* *`    | CS TA             | filter students by progress level                  | tailor my guidance to each student            |
 | `* *`    | CS TA             | filter students by project team                    | find group members of a team easily           |
+| `*`      | CS TA             | assign multiple students to a project team at once | organise teams quickly                        |
 | `*`      | forgetful CS TA   | set a reminder for a student tasks                 | remember to follow up                         |
 | `*`      | forgetful CS TA   | schedule notification for assignment deadline      | remember to check submissions                 |
 | `*`      | forgetful CS TA   | add notes to a student                             | take down important information               |
@@ -341,42 +348,38 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `*`      | CS TA             | pin a student's contact details                    | find frequently contacted students easily     |
 | `*`      | CS TA             | store multiple Github repositories per student     | access all of a student's work at once        |
 
-*{More to be added}*
-
 ### Use cases
 
 (For all use cases below, the **System** is `TAssist` and the **Actor** is the `user (tutor)`, unless specified otherwise)
 
-**Use case: UC1 - Delete a student's contact details**
+**Use case: UC1 - Add a student's contact details**
 
 **MSS**
 
-1.  User requests to list students.
-2.  System shows a list of students.
-3.  User requests to delete a specific student in the list.
-4.  System asks for confirmation.
-5.  User confirms.
-6.  System deletes the student from the list.
-7.  Use case ends.
+1. User requests to add a student.
+2. User adds student's respective information.
+3. System adds the student along with the information to the list of students.
+4. Use case ends.
 
 **Extensions**
 
-* 2a. The list is empty.
-  * Use case ends.
+* 2a. Invalid value for the input data
+    * 1a1. System shows an error message.
+    * Use case resumes at step 2.
 
-* 5a. User declines.
-  * Use case ends.
+* 2a. The prefix does not exist.
+    * 2a1. System shows an error message.
+    * Use case resumes at step 2.
 
 **Use case: UC2 - Edit a student's contact details**
 
 **MSS**
 
-1.  User requests to edit some details of an entry.
-2.  System shows a list of students.
-3.  User specifies who and what to edit.
-4.  User enters new value.
-5.  System updates the information.
-6.  Use case ends.
+1. User requests to edit some details of an entry.
+2. User specifies who and what to edit.
+3. User enters a field and a new value to change the field to.
+4. System updates the information.
+5. Use case ends.
 
 **Extensions**
 
@@ -386,9 +389,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 3a. The prefix does not exist.
   * 3a1. System shows an error message.
   * Use case resumes at step 3.
-
-* 3a. User requests to cancel.
-  * Use case ends.
 
 **Use case: UC3 - Add an assignment deadline**
 
@@ -407,13 +407,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 2a. The list is empty.
   * Use case ends.
 
-**Use case: UC4 - Record student's GitHub account**
+**Use case: UC4 - Add a student's GitHub account**
 
 **MSS**
 
-1.  User requests to record a student's GitHub account.
+1.  User requests to add GitHub account to a student.
 2.  User specifies which student to add to.
-3.  System records the GitHub account down.
+3.  System adds the GitHub account to the student.
 4.  Use case ends.
 
 **Extensions**
@@ -475,7 +475,42 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * System outputs an error message.
     * Use case ends.
 
-**Use case: UC9 - List all students**
+**Use case: UC9 - Add a Repository link to a Student**
+
+**MSS**
+
+1.  User requests to add Repository Link to a student.
+2.  User specifies which student to add to.
+3.  System adds the Repository Link to the student.
+4.  Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+    * Use case ends.
+
+**Use case: UC10 - Delete a student's contact details**
+
+**MSS**
+
+1.  User requests to list students.
+2.  System shows a list of students.
+3.  User requests to delete a specific student in the list.
+4.  System shows confirmation message.
+5.  User confirms.
+6.  System deletes the student from the list.
+7.  Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+    * Use case ends.
+
+* 5a. User declines.
+    * Use case ends.
+
+
+**Use case: UC11 - List all students**
 
 **MSS**
 
@@ -483,7 +518,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 2. System displays all students without any sorting or filtering.
 3. Use case ends.
 
-**Use case: UC10 - List students with sorting**
+**Use case: UC12 - List students with sorting**
 
 **MSS**
 
@@ -506,7 +541,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * System outputs a missing sort type message.
     * Use case ends.
 
-**Use case: UC11 - List students with filtering**
+**Use case: UC13 - List students with filtering**
 
 **MSS**
 
@@ -533,7 +568,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * System displays a message indicating no matches.
     * Use case ends.
 
-**Use case: UC12 - List students with sorting and filtering**
+**Use case: UC14 - List students with sorting and filtering**
 
 **MSS**
 
@@ -545,7 +580,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* All the extensions from UC10 and UC11.
+* All the extensions from UC11 and UC12.
 
 *{More to be added}*
 
