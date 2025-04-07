@@ -4,18 +4,30 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-AddressBook *-right-> "1" UniquePersonList
-AddressBook *-right-> "1" UniqueTagList
-UniqueTagList -[hidden]down- UniquePersonList
-UniqueTagList -[hidden]down- UniquePersonList
+AddressBook --> UniquePersonList
+AddressBook --> UniqueTagList
+AddressBook --> UniqueTimedEventList
 
-UniqueTagList -right-> "*" Tag
-UniquePersonList -right-> Person
+UniqueTagList --> "*" Tag
+UniquePersonList --> "*" Person
+UniqueTimedEventList --> "*" TimedEvent
 
-Person -up-> "*" Tag
+Person --> "*" Tag
 
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
+' Person attributes
+Person --> Name
+Person --> Phone
+Person --> Email
+Person --> StudentId
+Person --> ClassNumber
+Person --> Github
+Person --> ProjectTeam
+Person --> Progress
+Person --> Repository
+
+' TimedEvent design
+abstract class TimedEvent
+class Assignment
+Assignment --|> TimedEvent
+TimedEvent *--> Name
 @enduml
