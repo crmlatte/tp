@@ -160,13 +160,12 @@ Edits an existing student in the student list.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [c/_NUMBER] [s/STUDENTID] [g/GITHUB_URL] [pt/TEAM] [c/CLASS_NUMBER] [t/TAG]…​ [pr/PROGRESS]`
 
-* Edits the student at the specified `INDEX`. The index refers to the index number shown in the displayed student list. 
+* Edits the student at the specified `INDEX`. The index refers to the index number shown in the displayed student list.
 * The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the valid input values.
 * When editing tags, the existing tags of the student will be removed i.e adding of tags is not cumulative.
-* You can remove all the student's tags by typing `t/` without
-    specifying any tags after it.
+* You can remove all the student's tags by typing `t/` without specifying any tags after it.
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@u.nus.edu`<br>
@@ -222,9 +221,9 @@ Examples:
 Updates the **GitHub repository URL** of a student, identified by either their displayed index or student ID.
 
 **Format:**  
-`repo INDEX un/GITHUB_USERNAME rn/REPOSITORY_NAME`  
-or `repo STUDENT_ID un/GITHUB_USERNAME rn/REPOSITORY_NAME`  
-or `repo INDEX r/REPOSITORY_URL`  
+`repo INDEX un/GITHUB_USERNAME rn/REPOSITORY_NAME`<br>
+or `repo STUDENT_ID un/GITHUB_USERNAME rn/REPOSITORY_NAME`<br>
+or `repo INDEX r/REPOSITORY_URL`<br>
 or `repo STUDENT_ID r/REPOSITORY_URL`
 
 - The repository URL will be overwritten by the new input.
@@ -359,7 +358,7 @@ Examples:
 
 * `assign 2 A1234567B` <br>
   Assigns the second timed event to the student with student ID A1234567B.
-  
+
 * `assign 1 T01` <br>
   Assigns the first timed event to all students in class T01.
 
@@ -463,7 +462,7 @@ TAssist data are saved in the hard disk automatically after any command that cha
 
 TAssist data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
 
-<div markdown="span" class="alert alert-warning">:exclamation: 
+<div markdown="span" class="alert alert-warning">:exclamation:
 **Caution:**
 If your changes to the data file makes its format invalid, TAssist will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
 Furthermore, certain edits can cause TAssist to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
@@ -522,7 +521,7 @@ Examples of valid emails:
 - The base URL must be exactly `https://github.com/`.
 - Must be followed by a `/` and a valid GitHub username.
 
-`USERNAME`: 
+`USERNAME`:
 - Be 1 to 39 characters long.
 - Consist of alphanumeric characters.
 - Be separated only by dashes (-), if any.
