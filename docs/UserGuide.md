@@ -167,6 +167,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [c/_NUMBER] [s/STUDENTID] [g/GI
 * When editing tags, the existing tags of the student will be removed i.e adding of tags is not cumulative.
 * You can remove all the student's tags by typing `t/` without
     specifying any tags after it.
+* **Tip:** `edit` cannot be used to remove optional fields `Github` and `class`. To do so, refer to the respective sections [Class](#assigning-or-removing-a-tutorial-class-class) or [Github](#updating-a-students-github-link-github)
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@u.nus.edu`<br>
