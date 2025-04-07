@@ -3,7 +3,7 @@ layout: page
 title: User Guide
 ---
 
-TAssist is a **desktop application** for Teaching Assistants (TAs) from School of Computing to easily track and manage student information. It is optimized for use via a **Command Line Interface** (CLI), complemented by a user-friendly Graphical User Interface (GUI). If you can type fast, TAssist helps you complete student management tasks more quickly than traditional GUI-based apps.
+TAssist is a **desktop application** for Teaching Assistants (TAs) from NUS School of Computing to easily track and manage student information. It is optimized for use via a **Command Line Interface** (CLI), complemented by a user-friendly Graphical User Interface (GUI). If you can type fast, TAssist helps you complete student management tasks more quickly than traditional GUI-based apps.
 
 * Table of Contents
 {:toc}
@@ -76,7 +76,7 @@ TAssist is a **desktop application** for Teaching Assistants (TAs) from School o
 * Items with `…`​ after them can be used multiple times including zero times.<br>
   e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 
-* Parameters can be in any order.<br>
+* Parameters with prefix (p/, c/ etc.) can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `exit` and `clear`) will be ignored.<br>
@@ -97,10 +97,11 @@ Format: `help`
 
 ### Adding a student: `add`
 
-Adds a student to the student list.
+**Adds** a student to the student list.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL s/STUDENT_ID [g/GITHUB_URL] [r/REPOSITORY] [pt/TEAM] [c/CLASS_NUMBER] [t/TAG]…​ [pr/PROGRESS]`
-* The parameters NAME, PHONE_NUMBER, EMAIL, and STUDENT_ID must be present. The rest are optional.
+* The parameters `NAME`, `PHONE_NUMBER`, `EMAIL`, and `STUDENT_ID` must be present. The rest are optional.
+* For more detailed information on each parameter, please read [Parameters](#parameters)
 
 <div markdown="span" class="alert alert-primary">
 :bulb: <strong>Tip:</strong> A student can have any number of tags (including 0)
@@ -112,7 +113,7 @@ Examples:
 
 ### Listing, Filtering and Sorting students : `list`
 
-Shows a list of all students in the student list.
+Shows a **list of all students** in the student list.
 
 Format: `list [f/FILTER_TYPE fv/FILTER_VALUE] [s/SORT_TYPE o/SORT_ORDER]` <br>
 
@@ -164,8 +165,11 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [c/_NUMBER] [s/STUDENTID] [g/GI
 * The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the valid input values.
-* When editing tags, the existing tags of the student will be removed i.e adding of tags is not cumulative.
-* You can remove all the student's tags by typing `t/` without specifying any tags after it.
+* When editing tags, the existing tags of the student will be removed i.e. adding of tags is not cumulative.
+* You can remove all the student's tags by typing `t/` without
+    specifying any tags after it.
+* **Tip:** `edit` cannot be used to remove optional fields `Github` and `class`. To do so, refer to the respective sections [Class](#assigning-or-removing-a-tutorial-class-class) or [Github](#updating-a-students-github-link-github)
+
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@u.nus.edu`<br>
@@ -200,7 +204,7 @@ Assigns or removes a **tutorial/recitation class** for a student identified by e
 
 Format: `class INDEX c/CLASS_NUMBER` or `class STUDENT_ID c/CLASS_NUMBER`
 
-* `CLASS NUMBER` must be either `Txx`or `Rxx` where xx is integer from 01 to 99 (e.g. T01, T15, R05, R99)
+* `CLASS_NUMBER` must be either `Txx`or `Rxx` where xx is integer from 01 to 99 (e.g. T01, T15, R05, R99)
     * Note: 'T' and 'R' must be uppercase.
     * 'T' and 'R' represent Tutorial and Recitation respectively.
 * Assigns or updates the class of the student at the specified `INDEX` or matching `STUDENT_ID`
@@ -266,8 +270,8 @@ Updates the **progress value** of a student.
 
 Format: `progress INDEX pr/PROGRESS` or `progress STUDENT_ID pr/PROGRESS`
 
-* The progress shows the percentage of the student's completion status for the module or assigned tasks.
-* The PROGRESS must be an integer between 0 and 100, inclusive.
+* The `PROGRESS` shows the percentage of the student's completion status for the module or assigned tasks.
+* The `PROGRESS` must be an **integer** between 0 and 100, inclusive.
 * The index refers to the index number shown in the displayed student list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
@@ -335,15 +339,18 @@ Examples:
 
 ### Viewing the timed event list: `view`
 
-Lists all timed events in the system.
+**Lists all timed events** in the system.
 
 Format: `view`
-
 * Shows all timed events with their names and deadlines
+* **Tip:** enter `view` before [assigning](#assigning-a-timed-eventassignment-assign) an assignment to manage tasks easier.
+
+Example:<br>
+  `view` followed by `assign 3 T01`
 
 ### Assigning a timed event/assignment: `assign`
 
-Assigns a timed event using index in time event list to one or more students identified by their displayed index, student ID, or class number.
+**Assigns a timed event** using index in time event list to one or more students identified by their displayed index, student ID, or class number.
 
 Format: `assign TIMED_EVENT_INDEX STUDENT_INDEX` or `assign TIMED_EVENT_INDEX STUDENT_ID` or `assign TIMED_EVENT_INDEX CLASS_NUMBER`
 
@@ -371,6 +378,11 @@ Format: `unassign TIMED_EVENT_INDEX`
 * `TIMED_EVENT_INDEX`: The index of the timed event shown in the timed event list (must be a positive integer).
 * Unassigns the specified timed event from all students who were previously assigned to it.
 * Deletes the timed event from the timed event list.
+* After entering the command, you will be prompted to confirm the action:
+  * Type `Y` to confirm the unassignment
+  * Type `N` to cancel the unassignment
+  * Any other input will prompt: `Invalid response. Please enter Y/N.`
+  * `Y/N` can be upper or lower case
 
 Example:
 * `unassign 1` <br>
@@ -378,9 +390,9 @@ Example:
 
 ### Viewing Upcoming Events Calendar
 
-TAssist provides a calendar-style view to help you visualize upcoming assignments and timed events.
+TAssist provides a **calendar-style view** to help you visualize upcoming assignments and timed events.
 
-* Press the `F3` key to open the calendar-style event viewer.
+* Press the `F3` key to open the calendar-style event viewer, or access it through the drop down `View --> Calendar`.
 * The calendar displays:
   * Assignment names
   * Event type (e.g., assignment)
@@ -401,6 +413,7 @@ Format: `delete INDEX` or `delete STUDENT_ID`
   * Type `Y` to confirm the deletion
   * Type `N` to cancel the deletion
   * Any other input will prompt: `Invalid response. Please enter Y/N.`
+  * `Y/N` can be upper or lower case
 
 Examples:
 * `list` followed by `delete 2` deletes the 2nd student from the list after confirmation.
@@ -409,17 +422,17 @@ Examples:
 
 ### Clearing all entries : `clear`
 
-Clears all entries from the student list.
+**Clears all entries** from the student list.
 
 Format: `clear`
 
 ### Importing data : `import`
 
-Imports a CSV file containing both student data and active timed event data into the system. The file should follow the correct CSV format for both students and timed events.
+**Imports a CSV file** containing both student data and active timed event data into the system. The file should follow the correct CSV format for both students and timed events.
 
 Format: `import INPUT_CSV_FILE_PATH`
 
-* `ABSOLUTE_FILE_PATH`: The absolute path to the CSV file to be imported.
+* `INPUT_CSV_FILE_PATH`: The absolute path to the CSV file to be imported.
 * The absolute path format is dependent on the operating system.
 * Relative paths are not supported.
 
@@ -432,11 +445,11 @@ Examples:
 
 ### Exporting data : `export`
 
-Exports the current student and active timed event data to a CSV file. The data is written in a structured format where students' details are saved along with active timed events.
+**Exports the current student and active timed event data** to a CSV file. The data is written in a structured format where students' details are saved along with active timed events.
 
 Format: `export OUTPUT_CSV_FILE_PATH`
 
-* `ABSOLUTE_FILE_PATH`: The absolute path where the CSV will be saved.
+* `OUTPUT_CSV_FILE_PATH`: The absolute path where the CSV will be saved.
 * The absolute path format is dependent on the operating system.
 * Relative paths are not supported.
 * If the parent directory of the CSV file does not exist, an error will occur, and the file will not be created.
@@ -450,7 +463,7 @@ Examples:
 
 ### Exiting the program : `exit`
 
-Exits the program.
+**Exits** the program.
 
 Format: `exit`
 
@@ -480,7 +493,10 @@ Furthermore, certain edits can cause TAssist to behave in unexpected ways (e.g.,
 Examples of valid names:
 - Alice Gales
 - Bob Smith III
-- Deshaka Son Of Perera
+- Deshaka Son Of Perera<br>
+
+**Tip:** Names with special characters should be entered in alphaneumeric characters only, as shown above.
+
 
 ### `STUDENT_ID`
 
@@ -498,12 +514,12 @@ Examples of valid student IDs:
 ### `PHONE`
 
 - Must only contain numeric digits.
-- Must be at least 3 digits long.
+- Must be between 3 to 15 digits long.
 
 Examples of valid phone numbers:
 - 123
 - 98765432
-- 81234567
+- 812345223789762
 
 ### `EMAIL`
 
@@ -525,9 +541,8 @@ Examples of valid emails:
 - Be 1 to 39 characters long.
 - Consist of alphanumeric characters.
 - Be separated only by dashes (-), if any.
-- Start and end with an alphanumeric character.
-
-You may also leave this field blank to remove the GitHub link from a student.
+- Start and end with an alphanumeric character. 
+- Alternatively, this field can be left blank to remove the GitHub link from a student, using [Github Command](#updating-a-students-github-link-github)
 
 Examples of valid GitHub links:
 - https://github.com/JohnnyDoe
@@ -559,7 +574,7 @@ Examples of valid repository links:
 - Must be in the format `Txx` or `Rxx`, where `xx` is a two-digit number from 01 to 99.
 - The first letter must be either `T` or `R` (uppercase).
 - The numeric part must be a valid number between 01 and 99.
-- Alternatively, this field can be left blank to indicate no class assigned.
+- Alternatively, this field can be left blank to indicate no class assigned, using [Class Command](#assigning-or-removing-a-tutorial-class-class)
 
 Examples of valid class numbers:
 - T01
