@@ -9,7 +9,11 @@ title: Developer Guide
 
 ## **Acknowledgements**
 
-* {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+* This project is based on the [SE-EDU AddressBook-Level3](https://github.com/se-edu/addressbook-level3) project. Some diagrams, utility classes, and design conventions were adapted from it.
+* PlantUML styling and layout tips adapted from [se-education/guides](https://se-education.org/guides/tutorials/plantUml.html).
+* JavaFX components and UI structure were inspired by SE-EDU’s JavaFX tutorials.
+* The GitHub repo parsing logic was inspired by open-source regex patterns from [gist.github.com](https://gist.github.com/).
+* JSON storage mechanism concept inspired by SE-EDU’s Storage guide in AddressBook-Level3.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -158,6 +162,7 @@ The component follows the Observer pattern through JavaFX's `ObservableList` int
 <div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
 
 <img src="images/BetterModelClassDiagram.png" width="450" />
+The rest of the Person's attributes has been abstracted out in the image above.
 
 While the current implementation does not use this alternative model for `Tag`, it does use this approach for `TimedEvent`.\
 \
