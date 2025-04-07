@@ -354,7 +354,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1.  User requests to list students.
 2.  System shows a list of students.
 3.  User requests to delete a specific student in the list.
-4.  System shows confirmation message.
+4.  System asks for confirmation.
 5.  User confirms.
 6.  System deletes the student from the list.
 7.  Use case ends.
