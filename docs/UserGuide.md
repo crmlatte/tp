@@ -499,12 +499,12 @@ Examples of valid student IDs:
 ### `PHONE`
 
 - Must only contain numeric digits.
-- Must be at least 3 digits long.
+- Must be between 3 to 15 digits long.
 
 Examples of valid phone numbers:
 - 123
 - 98765432
-- 81234567
+- 812345223789762
 
 ### `EMAIL`
 
