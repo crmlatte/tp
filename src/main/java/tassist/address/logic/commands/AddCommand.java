@@ -38,7 +38,7 @@ public class AddCommand extends Command {
             + "[" + PREFIX_REPOSITORY + "REPOSITORY] "
             + "[" + PREFIX_CLASS + "CLASS_NUMBER] "
             + "[" + PREFIX_TAG + "TAG]... "
-            + PREFIX_PROGRESS + "PROGRESS\n"
+            + "[" + PREFIX_PROGRESS + "PROGRESS]\n"
             + "Example:\n"
             + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "

@@ -2,6 +2,10 @@ package tassist.address.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static tassist.address.logic.commands.ListCommand.MESSAGE_MISSING_FILTER_VALUE;
+import static tassist.address.logic.commands.ListCommand.MESSAGE_MISSING_SORT_ORDER;
+import static tassist.address.logic.parser.ListCommandParser.MESSAGE_MISSING_FILTER_TYPE;
+import static tassist.address.logic.parser.ListCommandParser.MESSAGE_MISSING_SORT_TYPE;
 
 import org.junit.jupiter.api.Test;
 
@@ -46,12 +50,6 @@ public class ListCommandParserTest {
 
         // Invalid filter type
         assertThrows(ParseException.class, () -> parser.parse(" f/invalid fv/CS2103"));
-
-        // Missing sort order
-        assertThrows(ParseException.class, () -> parser.parse(" s/name"));
-
-        // Missing filter value
-        assertThrows(ParseException.class, () -> parser.parse(" f/course"));
     }
 
     @Test
@@ -63,4 +61,45 @@ public class ListCommandParserTest {
     public void parse_invalidProgressOutOfBounds_throwsParseException() {
         assertThrows(ParseException.class, () -> parser.parse(" f/progress fv/150"));
     }
+
+    @Test
+    public void parse_missingSortOrder_throwsParseException() {
+        // Missing sort order
+        Exception thrown = assertThrows(ParseException.class, () -> parser.parse(" s/name"));
+        assertEquals(MESSAGE_MISSING_SORT_ORDER, thrown.getMessage());
+
+        Exception thrown2 = assertThrows(ParseException.class, () -> parser.parse(" f/class fv/T01 s/name"));
+        assertEquals(MESSAGE_MISSING_SORT_ORDER, thrown2.getMessage());
+    }
+
+    @Test
+    public void parse_missingSortType_throwsParseException() {
+        //Missing sort type
+        Exception thrown = assertThrows(ParseException.class, () -> parser.parse(" o/asc"));
+        assertEquals(MESSAGE_MISSING_SORT_TYPE, thrown.getMessage());
+
+        Exception thrown2 = assertThrows(ParseException.class, () -> parser.parse(" f/class fv/T01 o/asc"));
+        assertEquals(MESSAGE_MISSING_SORT_TYPE, thrown2.getMessage());
+    }
+
+    @Test
+    public void parse_missingFilterValue_throwsParseException() {
+        // Missing filter value
+        Exception thrown = assertThrows(ParseException.class, () -> parser.parse(" f/class"));
+        assertEquals(MESSAGE_MISSING_FILTER_VALUE, thrown.getMessage());
+
+        Exception thrown2 = assertThrows(ParseException.class, () -> parser.parse(" f/class s/name o/asc"));
+        assertEquals(MESSAGE_MISSING_FILTER_VALUE, thrown2.getMessage());
+    }
+
+    @Test
+    public void parse_missingFilterType_throwsParseException() {
+        //Missing filter type
+        Exception thrown = assertThrows(ParseException.class, () -> parser.parse(" fv/60"));
+        assertEquals(MESSAGE_MISSING_FILTER_TYPE, thrown.getMessage());
+
+        Exception thrown2 = assertThrows(ParseException.class, () -> parser.parse(" fv/60 s/name o/des"));
+        assertEquals(MESSAGE_MISSING_FILTER_TYPE, thrown2.getMessage());
+    }
+
 }
