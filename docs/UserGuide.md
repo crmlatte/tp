@@ -48,15 +48,26 @@ TAssist is a **desktop application** for Teaching Assistants (TAs) from NUS Scho
 --------------------------------------------------------------------------------------------------------------------
 ## Tips
 
-1. TAssist allows users to personalize the appearance of the application by switching between different color themes.<br>
+1. If you are already familiar with TAssist, you can jump straight to our [Command Summary Table](#Command summary) to view all available commands.
+
+2. To access this User Guide quickly, simply press `F1` key at any time.
+
+3. TAssist allows users to personalize the appearance of the application by switching between different color themes.<br>
    Users can press the `F2` key to cycle through the available themes. <br>
    Available themes: Dark, Bright, Pink
 
-2. Viewing Upcoming Events Calendar: `F3`
+4. Viewing Upcoming Events Calendar: `F3`<br>
    TAssist provides a calendar-style view to help you visualize upcoming assignments and timed events. Events are grouped and displayed by their due dates, along with the list of students assigned to each.
     * Press the F3 key to open the calendar-style event viewer.
     * Display includes: Assignment names, Event type (e.g., assignment), Assigned students, Dates grouped chronologically
     * An empty calendar will be shown if there are no current Assignments.
+
+5. Use student ID and index interchangeably.<br>
+   Most commands support both student ID and list index. 
+   For example:<br>
+   `github 1 g/https://github.com/johndoe`<br>
+   or <br>
+   `github A1234567B g/https://github.com/johndoe`<br>
 
 --------------------------------------------------------------------------------------------------------------------
 
