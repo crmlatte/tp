@@ -13,15 +13,4 @@ UniqueTagList -right-> "*" Tag
 UniquePersonList -right-> Person
 
 Person -up-> "*" Tag
-
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> StudentId
-Person *--> ClassNumber
-Person *--> GitHub
-Person *--> ProjectTeam
-Person *--> Progress
-Person *--> Repository
 @enduml
