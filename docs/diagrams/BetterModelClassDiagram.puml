@@ -20,9 +20,8 @@ Person *--> Email
 Person *--> Address
 Person *--> StudentId
 Person *--> ClassNumber
-Person *--> Github
+Person *--> GitHub
 Person *--> ProjectTeam
 Person *--> Progress
 Person *--> Repository
-
 @enduml

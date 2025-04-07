@@ -217,9 +217,9 @@ Examples:
 Updates the **GitHub repository URL** of a student, identified by either their displayed index or student ID.
 
 **Format:**  
-`repo INDEX un/GITHUB_USERNAME rn/REPOSITORY_NAME`
-or `repo STUDENT_ID un/GITHUB_USERNAME rn/REPOSITORY_NAME`
-or `repo INDEX r/REPOSITORY_URL`
+`repo INDEX un/GITHUB_USERNAME rn/REPOSITORY_NAME`  
+or `repo STUDENT_ID un/GITHUB_USERNAME rn/REPOSITORY_NAME`  
+or `repo INDEX r/REPOSITORY_URL`  
 or `repo STUDENT_ID r/REPOSITORY_URL`
 
 - The repository URL will be overwritten by the new input.
