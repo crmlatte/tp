@@ -99,6 +99,10 @@ public class AssignmentCommandParser implements Parser<AssignmentCommand> {
                 // Minimal date format (dd-MM)
                 formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 date = LocalDate.parse(dateStr + "-" + currentYear, formatter);
+                // Compare only the day and month parts
+                if (!date.format(DateTimeFormatter.ofPattern("dd-MM")).equals(dateStr)) {
+                    throw new ParseException(MESSAGE_INVALID_DATE_VALUES);
+                }
                 // If the date would be in the past with current year, use next year
                 if (date.isBefore(LocalDate.now())) {
                     date = date.plusYears(1);

@@ -107,6 +107,36 @@ public class AssignmentCommandParserTest {
                 AssignmentCommandParser.MESSAGE_INVALID_DATE_VALUES);
         assertParseFailure(parser, ASSIGNMENT_DESC_2103 + " " + PREFIX_DATE + "31-11-3026",
                 AssignmentCommandParser.MESSAGE_INVALID_DATE_VALUES);
+
+        // Invalid dates in dd-MM format
+        assertParseFailure(parser, ASSIGNMENT_DESC_2103 + " " + PREFIX_DATE + "31-02",
+                AssignmentCommandParser.MESSAGE_INVALID_DATE_VALUES);
+        assertParseFailure(parser, ASSIGNMENT_DESC_2103 + " " + PREFIX_DATE + "31-04",
+                AssignmentCommandParser.MESSAGE_INVALID_DATE_VALUES);
+        assertParseFailure(parser, ASSIGNMENT_DESC_2103 + " " + PREFIX_DATE + "31-06",
+                AssignmentCommandParser.MESSAGE_INVALID_DATE_VALUES);
+    }
+
+    @Test
+    public void parse_ddmmBeforeCurrentMonth_success() {
+        // Get current date
+        LocalDateTime now = LocalDateTime.now();
+        // If current date is January 1st, the test should fail
+        if (now.getMonthValue() == 1 && now.getDayOfMonth() == 1) {
+            assertParseFailure(parser, ASSIGNMENT_DESC_2103 + " " + PREFIX_DATE + "01-01",
+                    AssignmentCommandParser.MESSAGE_DATE_IN_PAST);
+            return;
+        }
+
+        // For all other dates, January 1st should be set to next year
+        String dateStr = "01-01";
+        int year = now.getYear() + 1;
+
+        // Create expected assignment with next year's date
+        Assignment expectedAssignment = new Assignment(VALID_ASSIGNMENT_NAME, "",
+                LocalDateTime.of(year, 1, 1, 23, 59));
+        assertParseSuccess(parser, ASSIGNMENT_DESC_2103 + " " + PREFIX_DATE + dateStr,
+                new AssignmentCommand(expectedAssignment));
     }
 
     @Test
