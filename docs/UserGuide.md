@@ -48,15 +48,26 @@ TAssist is a **desktop application** for Teaching Assistants (TAs) from NUS Scho
 --------------------------------------------------------------------------------------------------------------------
 ## Tips
 
-1. TAssist allows users to personalize the appearance of the application by switching between different color themes.<br>
+1. If you are already familiar with TAssist, you can jump straight to our [Command Summary Table](#Command summary) to view all available commands.
+
+2. To access this User Guide quickly, simply press `F1` key at any time.
+
+3. TAssist allows users to personalize the appearance of the application by switching between different color themes.<br>
    Users can press the `F2` key to cycle through the available themes. <br>
    Available themes: Dark, Bright, Pink
 
-2. Viewing Upcoming Events Calendar: `F3`
+4. Viewing Upcoming Events Calendar: `F3`<br>
    TAssist provides a calendar-style view to help you visualize upcoming assignments and timed events. Events are grouped and displayed by their due dates, along with the list of students assigned to each.
     * Press the F3 key to open the calendar-style event viewer.
     * Display includes: Assignment names, Event type (e.g., assignment), Assigned students, Dates grouped chronologically
     * An empty calendar will be shown if there are no current Assignments.
+
+5. Use student ID and index interchangeably.<br>
+   Most commands support both student ID and list index. 
+   For example:<br>
+   `github 1 g/https://github.com/johndoe`<br>
+   or <br>
+   `github A1234567B g/https://github.com/johndoe`<br>
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -102,6 +113,7 @@ Format: `help`
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL s/STUDENT_ID [g/GITHUB_URL] [r/REPOSITORY] [pt/TEAM] [c/CLASS_NUMBER] [t/TAG]…​ [pr/PROGRESS]`
 * The parameters `NAME`, `PHONE_NUMBER`, `EMAIL`, and `STUDENT_ID` must be present. The rest are optional.
 * For more detailed information on each parameter, please read [Parameters](#parameters)
+* **Note:** Ensure that the `PHONE_NUMBER`, `EMAIL`, `STUDENT_ID`, and `GITHUB` entered are unique, to avoid a duplicate entry error.
 
 <div markdown="span" class="alert alert-primary">
 :bulb: <strong>Tip:</strong> A student can have any number of tags (including 0)
@@ -110,7 +122,7 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL s/STUDENT_ID [g/GITHUB_URL] [r/REPOSI
 Examples:
 * `add n/John Doe p/98765432 e/johnd@u.nus.edu s/A0000000B pt/ProjectTeam1 c/T01 t/ExchangeStudent pr/50`
 * `add n/Betsy Crowe t/friend e/betsycrowe@u.nus.edu s/A0123456U g/https://github.com/betsy p/1234567 t/LifeScienceMajor`
-
+![add_command](images/AddCommand.png)
 ### Listing, Filtering and Sorting students : `list`
 
 Shows a **list of all students** in the student list.
@@ -118,7 +130,7 @@ Shows a **list of all students** in the student list.
 Format: `list [f/FILTER_TYPE fv/FILTER_VALUE] [s/SORT_TYPE o/SORT_ORDER]` <br>
 
 * All parameters are optional. Filters and sorting can be used together or independently.
-* Note: Once a sort is applied using the list command, the list will remain sorted in that order throughout the session.
+* **Note:** Once a sort is applied using the list command, the list will remain sorted in that order throughout the session.
   To apply a different sort, use list again with a new sort type and order.
   If a sort is applied on a field where multiple students share the same value, their positions may change randomly after add/edit/update operations due to tie-breaking by the system.
 
@@ -155,6 +167,7 @@ Examples:
 * `list f/team fv/Bang Bang`<br>
   Displays students with the Team name 'Bang Bang', matched case-insensitively.
 
+![list_command](images/ListCommand.png)
 ### Editing a student : `edit`
 
 Edits an existing student in the student list.
@@ -174,9 +187,10 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [c/_NUMBER] [s/STUDENTID] [g/GI
 Examples:
 *  `edit 1 p/91234567 e/johndoe@u.nus.edu`<br>
     Edits the phone number and email address of the 1st student to be `91234567` and `johndoe@u.nus.edu` respectively.
-*  `edit 2 n/Betsy Crower t/` <br>
+*  `edit 7 n/Betsy Crower t/` <br>
     Edits the name of the 2nd student to be `Betsy Crower` and clears all existing tags.
 
+![edit_command](images/EditCommand.png)
 ### Locating student(s) by Name, StudentID, or Class: `find`
 
 Finds students whose names contain any of the given inputs, whose student ID matches exactly, or whose class number matches exactly.
@@ -221,6 +235,7 @@ Examples:
 * `class A1234567B c/R05`<br>
    Assigns class R05 to the student with student ID `A1234567B`.
 
+![class_command](images/ClassCommand.png)
 ### Updating a student's repository link: `repo`
 
 Updates the **GitHub repository URL** of a student, identified by either their displayed index or student ID.
@@ -265,6 +280,7 @@ or `repo STUDENT_ID r/REPOSITORY_URL`
 - `repo A0789435N r/https://github.com/AY2425S2-CS2103T-W12-4/tp`<br>
   Updates the repository for student ID `A0789435N` to the specified Repository URL.
 
+![repo_command](images/RepoCommand.png)
 ### Updating a student's progress value: `progress`
 
 Updates the **progress value** of a student.
@@ -282,6 +298,7 @@ Examples:
 * `progress A1234567B pr/50`<br>
   Sets the progress of the student with Student ID A1234567B to 50%.
 
+![progress_command](images/ProgressCommand.png)
 ### Updating a student's GitHub Link: `github`
 
 Updates the **GitHub URL** of a student, identified by either their displayed index or student ID.
@@ -307,6 +324,7 @@ Examples:
   Updates the GitHub link for the student with student ID `A1234567B`.
 * `github 3 g/` removes the 3rd student's GitHub link.
 
+![github_command](images/GithubCommand.png)
 ### Opening a student's GitHub page: `open`
 
 Opens the GitHub page of a student, identified by either their displayed **index** or **student ID**, in your default web browser.
@@ -331,13 +349,15 @@ Format: `assignment n/NAME d/DATE`
 * `d/DATE`: The deadline for the assignment/event.
 * Accepted date formats: `dd-MM-yyyy`, `dd-MM-yy`, or `dd-MM` (defaults to current year)
 * The date must be a valid **future date**.
+* **Note:** Assignments due on the current day cannot be added. 
 
 Examples:
-* `assignment n/CS2103T Project d/30-01-2025` <br>
+* `assignment n/CS2103T Project d/30-10-2025` <br>
   Adds a timed event named "CS2103T Project" with deadline on January 30, 2025.
-* `assignment n/Quiz 1 d/10-04` <br>
+* `assignment n/Quiz 1 d/10-05` <br>
   Adds an event named "Quiz 1" with the deadline on April 10 of the current year.
 
+![assignment_command](images/AssignmentCommand.png)
 ### Viewing the timed event list: `view`
 
 **Lists all timed events** in the system.
@@ -346,9 +366,13 @@ Format: `view`
 * Shows all timed events with their names and deadlines
 * **Tip:** enter `view` before [assigning](#assigning-a-timed-eventassignment-assign) an assignment to manage tasks easier.
 
-Example:<br>
-  `view` followed by `assign 3 T01`
+Examples:<br>
+* `view` <br>
+  Displays all timed events in the timed event list.
+* `view` followed by `assign 3 T01` <br>
+  Displayed the timed event list, and assigns the 3rd timed event to all students in class T01.
 
+![view_command](images/ViewCommand.png)
 ### Assigning a timed event/assignment: `assign`
 
 **Assigns a timed event** using index in time event list to one or more students identified by their displayed index, student ID, or class number.
@@ -370,6 +394,7 @@ Examples:
 * `assign 1 T01` <br>
   Assigns the first timed event to all students in class T01.
 
+![assign_command](images/AssignCommand.png)
 ### Unassigning and Removing a Timed Event: `unassign`
 
 **Removes a timed event** from all assigned students and **deletes** the event from the timed event list.
@@ -389,6 +414,7 @@ Example:
 * `unassign 1` <br>
   Unassigns the first timed event from all students and deletes the event from the list.
 
+![unassign_command](images/UnassignCommand.png)
 ### Viewing Upcoming Events Calendar
 
 TAssist provides a **calendar-style view** to help you visualize upcoming assignments and timed events.
@@ -401,6 +427,7 @@ TAssist provides a **calendar-style view** to help you visualize upcoming assign
   * Dates grouped chronologically
 * An empty calendar will be shown if there are no current assignments.
 
+![calendar_view](images/CalendarView.png)
 ### Deleting a student : `delete`
 
 Deletes the specified student from the student list, identified by either their displayed index or student ID.
@@ -421,6 +448,7 @@ Examples:
 * `find Betsy` followed by `delete 1` deletes the 1st student in the search results after confirmation.
 * `delete A1234567B` deletes the student with student ID A1234567B after confirmation.
 
+![delete_command](images/DeleteCommand.png)
 ### Clearing all entries : `clear`
 
 **Clears all entries** from the student list.
@@ -487,16 +515,17 @@ Furthermore, certain edits can cause TAssist to behave in unexpected ways (e.g.,
 
 ### `NAME`
 
-- Must consist of alphanumeric characters and spaces.
+- Must consist only of alphabets.
 - Must not be blank.
 - The first character must not be a whitespace.
 
 Examples of valid names:
 - Alice Gales
-- Bob Smith the 3rd
+- Bob Smith III
 - Deshaka Son Of Perera<br>
 
 **Tip:** Names with special characters should be entered in alphaneumeric characters only, as shown above.
+
 
 ### `STUDENT_ID`
 
@@ -575,7 +604,7 @@ Examples of valid repository links:
 - The first letter must be either `T` or `R` (uppercase).
 - The numeric part must be a valid number between 01 and 99.
 - If assigning 'Lxx', a capital letter suffix is optional (e.g. L01A).
-- Alternatively, this field can be left blank to indicate no class assigned, using [Class Command](#assigning-or-removing-a-tutorial-class-class)
+- Alternatively, this field can be left blank to remove a class assignment, using [Class Command](#assigning-or-removing-a-tutorial-class-class)
 
 Examples of valid class numbers:
 - T01
@@ -635,7 +664,7 @@ Action | Format, Examples
 **Github** | `github INDEX g/GITHUB_URL` or `github STUDENT_ID g/GITHUB_URL`<br> e.g.,`github 2 g/https://github.com/alice`, `github A1234567B g/https://github.com/alice`
 **Repository** | `repo INDEX un/USERNAME rn/REPOSITORY_NAME` or `repo INDEX r/REPOSITORY_URL` or `repo STUDENT_ID un/USERNAME rn/REPOSITORY_NAME` or `repo STUDENT_ID r/REPOSITORY_URL` <br> e.g.,`repo 2 r/https://github.com/alice/repo`, `github A1234567B un/barb rn/new`
 **Open** | `open INDEX` or `open STUDENT_ID` <br> e.g., `open 3`, `open A7654321B`
-**Assignment** | `assignment n/NAME d/DATE` <br> e.g.,`assignment n/CS2103T Project d/30-01-2025`
+**Assignment** | `assignment n/NAME d/DATE` <br> e.g.,`assignment n/CS2103T Project d/30-10-2025`
 **View** | `view`
 **Assign** | `assign TIMED_EVENT_INDEX STUDENT_INDEX` or `assign TIMED_EVENT_INDEX STUDENT_ID` or `assign TIMED_EVENT_INDEX CLASS_NUMBER` <br> e.g., `assign 1 2`, `assign 2 A1234567B`,`assign 2 T03`
 **Unassign** | `unassign TIMED_EVENT_INDEX` <br> e.g., `unassign 1`

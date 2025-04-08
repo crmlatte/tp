@@ -26,16 +26,18 @@ public class NameTest {
 
         // invalid name
         assertFalse(Name.isValidName("")); // empty string
-        assertFalse(Name.isValidName(" ")); // spaces only
+        assertFalse(Name.isValidName(" ")); // space only
+        assertFalse(Name.isValidName("  ")); // double spaces
         assertFalse(Name.isValidName("^")); // only non-alphanumeric characters
-        assertFalse(Name.isValidName("peter*")); // contains non-alphanumeric characters
+        assertFalse(Name.isValidName("peter s/o alice")); // contains non-alphanumeric characters
+        assertFalse(Name.isValidName("Peter the 2nd")); // contains numbers
 
         // valid name
         assertTrue(Name.isValidName("peter jack")); // alphabets only
-        assertTrue(Name.isValidName("12345")); // numbers only
-        assertTrue(Name.isValidName("peter the 2nd")); // alphanumeric characters
+        assertTrue(Name.isValidName("peter rose II")); // addition of II (for numerals)
         assertTrue(Name.isValidName("Capital Tan")); // with capital letters
-        assertTrue(Name.isValidName("David Roger Jackson Ray Jr 2nd")); // long names
+        assertTrue(Name.isValidName("David Roger Jackson Ray Jr II")); // long names
+        assertTrue(Name.isValidName("David Son Of Deshaka")); // addition of 'son of'
     }
 
     @Test

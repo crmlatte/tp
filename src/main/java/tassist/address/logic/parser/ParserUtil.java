@@ -2,6 +2,7 @@ package tassist.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collection;
@@ -210,18 +211,21 @@ public class ParserUtil {
     /**
      * Parses a {@code String filePath} into a {@code Path}.
      * Leading and trailing whitespaces will be trimmed.
+     * @throws ParseException if the given {@code filePath} is invalid.
      */
     public static Path parseFilePath(String filePath) throws ParseException {
         requireNonNull(filePath);
         String trimmedFilePath = filePath.trim();
-
-        Path path = Paths.get(trimmedFilePath);
-
-        // make sure it is an absolute path and also not the root directory of the file system
-        if (!path.isAbsolute() || path.getNameCount() == 0) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_FILE_PATH, path));
+        try {
+            Path path = Paths.get(trimmedFilePath);
+            // Validate path format
+            if (!path.isAbsolute() || path.getNameCount() == 0) {
+                throw new ParseException(String.format(Messages.MESSAGE_INVALID_FILE_PATH, path));
+            }
+            return path;
+        } catch (InvalidPathException e) {
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_FILE_PATH,
+                "Path contains invalid characters or format"));
         }
-
-        return path;
     }
 }

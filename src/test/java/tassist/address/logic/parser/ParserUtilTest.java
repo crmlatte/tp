@@ -330,4 +330,72 @@ public class ParserUtilTest {
         // cannot be root directory
         assertThrows(ParseException.class, () -> ParserUtil.parseFilePath("/"));
     }
+
+    @Test
+    public void parseFilePath_invalidCharacters_throwsParseException() {
+        // Test various invalid characters in file paths
+        String[] invalidPaths = {
+            "C:/test|file.csv", // pipe character
+            "C:/test?file.csv", // question mark
+            "C:/test*file.csv", // asterisk
+            "C:/test<file.csv", // less than
+            "C:/test>file.csv", // greater than
+            "C:/test\"file.csv", // double quote
+            "C:/test:file.csv" // colon
+        };
+
+        for (String invalidPath : invalidPaths) {
+            assertThrows(ParseException.class, () -> ParserUtil.parseFilePath(invalidPath));
+        }
+    }
+
+    @Test
+    public void parseFilePath_validPathSeparators_success() throws Exception {
+        // Test valid path separators
+        String[] validPaths = {
+            testRoot.resolve("test/file.csv").toString(), // Forward slash
+            testRoot.resolve("test\\file.csv").toString(), // Windows backslash
+            testRoot.resolve("test/sub/file.csv").toString(), // Multiple forward slashes
+            testRoot.resolve("test\\sub\\file.csv").toString() // Multiple backslashes
+        };
+
+        for (String validPath : validPaths) {
+            Path parsedPath = ParserUtil.parseFilePath(validPath);
+            assertTrue(parsedPath.isAbsolute());
+            assertTrue(parsedPath.toString().contains("test"));
+            assertTrue(parsedPath.toString().endsWith("file.csv"));
+        }
+    }
+
+    @Test
+    public void parseFilePath_invalidPathFormat_throwsParseException() {
+        // Test relative paths (not absolute)
+        String[] relativePaths = {
+            "test/file.csv", // Simple relative path
+            "./test/file.csv", // Current directory
+            "../test/file.csv", // Parent directory
+            "folder/sub/file.csv" // Multiple levels
+        };
+
+        for (String relativePath : relativePaths) {
+            assertThrows(ParseException.class, () -> ParserUtil.parseFilePath(relativePath));
+        }
+
+        // Test paths with zero name count (root paths)
+        String[] rootPaths = {
+            "/", // Unix root
+            "C:/", // Windows root
+            "D:\\" // Windows root alternative
+        };
+
+        for (String rootPath : rootPaths) {
+            assertThrows(ParseException.class, () -> ParserUtil.parseFilePath(rootPath));
+        }
+    }
+
+    @Test
+    public void parseFilePath_nullCharacterInPath_throwsParseException() {
+        String pathWithNullChar = "C:/test\0file.csv"; // null character in path
+        assertThrows(ParseException.class, () -> ParserUtil.parseFilePath(pathWithNullChar));
+    }
 }
