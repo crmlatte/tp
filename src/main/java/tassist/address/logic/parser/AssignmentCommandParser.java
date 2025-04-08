@@ -21,9 +21,8 @@ import tassist.address.model.timedevents.Assignment;
 public class AssignmentCommandParser implements Parser<AssignmentCommand> {
 
     public static final String MESSAGE_INVALID_DATE = "Invalid date format. Use: dd-MM-yyyy, dd-MM-yy, or dd-MM";
-    public static final String MESSAGE_DATE_IN_PAST = "Assignment date must be in the future";
-    public static final String MESSAGE_INVALID_NAME = "Name should only contain alphanumeric"
-            + " characters and spaces, and it should not be blank";
+    public static final String MESSAGE_DATE_IN_PAST = "Assignment date must start from after today";
+    public static final String MESSAGE_INVALID_NAME = "Name should not be blank";
 
     /**
      * Parses the given {@code String} of arguments in the context of the AssignmentCommand
@@ -46,8 +45,8 @@ public class AssignmentCommandParser implements Parser<AssignmentCommand> {
         String name = argMultimap.getValue(PREFIX_NAME).get();
         String dateStr = argMultimap.getValue(PREFIX_DATE).get();
 
-        // Validate name format
-        if (!name.matches("[\\p{Alnum}][\\p{Alnum} ]*")) {
+        // Validate name is not blank
+        if (name.trim().isEmpty()) {
             throw new ParseException(MESSAGE_INVALID_NAME);
         }
 

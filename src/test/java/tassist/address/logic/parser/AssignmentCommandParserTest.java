@@ -10,7 +10,6 @@ import static tassist.address.logic.commands.CommandTestUtil.EXTRA_ARGUMENTS;
 import static tassist.address.logic.commands.CommandTestUtil.EXTRA_PREFIX;
 import static tassist.address.logic.commands.CommandTestUtil.INVALID_ASSIGNMENT_NAME_EMPTY;
 import static tassist.address.logic.commands.CommandTestUtil.INVALID_ASSIGNMENT_NAME_SPACES;
-import static tassist.address.logic.commands.CommandTestUtil.INVALID_ASSIGNMENT_NAME_SPECIAL;
 import static tassist.address.logic.commands.CommandTestUtil.INVALID_DATE_FORMAT;
 import static tassist.address.logic.commands.CommandTestUtil.INVALID_DATE_PAST;
 import static tassist.address.logic.commands.CommandTestUtil.INVALID_DATE_VALUES;
@@ -18,6 +17,7 @@ import static tassist.address.logic.commands.CommandTestUtil.MULTIPLE_FIELDS_INP
 import static tassist.address.logic.commands.CommandTestUtil.MULTIPLE_INVALID_FIELDS_INPUT;
 import static tassist.address.logic.commands.CommandTestUtil.MULTIPLE_VALID_FIELDS_INPUT;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_ASSIGNMENT_NAME;
+import static tassist.address.logic.commands.CommandTestUtil.VALID_ASSIGNMENT_NAME_SPECIAL;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_DATE_SHORT;
 import static tassist.address.logic.parser.AssignmentCommandParser.MESSAGE_DATE_IN_PAST;
 import static tassist.address.logic.parser.AssignmentCommandParser.MESSAGE_INVALID_DATE;
@@ -98,14 +98,20 @@ public class AssignmentCommandParserTest {
     @Test
     public void parse_invalidName_failure() {
 
-        // Name starting with special character
-        assertParseFailure(parser, INVALID_ASSIGNMENT_NAME_SPECIAL, MESSAGE_INVALID_NAME);
-
         // Name with only spaces
         assertParseFailure(parser, INVALID_ASSIGNMENT_NAME_SPACES, MESSAGE_INVALID_NAME);
 
         // Empty name
         assertParseFailure(parser, INVALID_ASSIGNMENT_NAME_EMPTY, MESSAGE_INVALID_NAME);
+    }
+
+    @Test
+    public void parse_specialName_success() {
+        Assignment expectedAssignment = new Assignment("&CS2103T Project", "",
+                LocalDateTime.of(2025, 12, 20, 23, 59));
+        // Name starting with special character
+        assertParseSuccess(parser, VALID_ASSIGNMENT_NAME_SPECIAL + DATE_DESC_SHORT,
+                new AssignmentCommand(expectedAssignment));
     }
 
     @Test
