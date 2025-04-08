@@ -48,7 +48,7 @@ TAssist is a **desktop application** for Teaching Assistants (TAs) from NUS Scho
 --------------------------------------------------------------------------------------------------------------------
 ## Tips
 
-1. If you are already familiar with TAssist, you can jump straight to our [Command Summary Table](#Command summary) to view all available commands.
+1. If you are already familiar with TAssist, you can jump straight to our [Command Summary Table](#Command-summary) to view all available commands.
 
 2. To access this User Guide quickly, simply press `F1` key at any time.
 
