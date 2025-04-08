@@ -15,7 +15,7 @@ public class ClassNumber {
             + "Alternatively, use the command 'class INDEX/STUDENT_ID c/' to remove a student's class.\n"
             + "If you choose to assign 'Lxx' (where xx is 01-99), you can optionally add "
             + "a capital letter suffix (e.g. L01A).";
-    public static final String VALIDATION_REGEX = "^(T|R)(0[1-9]|[1-9][0-9])$|^(L)(0[1-9]|[1-9][0-9])([A-Z])?";
+    public static final String VALIDATION_REGEX = "^(?:(T|R)(0[1-9]|[1-9][0-9])|(L)(0[1-9]|[1-9][0-9])([A-Z])?)$";
     public static final String DEFAULT_CLASS = "No tutorial assigned";
     public final String value;
 
