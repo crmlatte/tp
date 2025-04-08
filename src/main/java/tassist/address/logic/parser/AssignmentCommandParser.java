@@ -23,6 +23,7 @@ public class AssignmentCommandParser implements Parser<AssignmentCommand> {
     public static final String MESSAGE_INVALID_DATE = "Invalid date format. Use: dd-MM-yyyy, dd-MM-yy, or dd-MM";
     public static final String MESSAGE_DATE_IN_PAST = "Assignment date must start from after today";
     public static final String MESSAGE_INVALID_NAME = "Name should not be blank";
+    public static final String MESSAGE_INVALID_DATE_VALUES = "Invalid date values. Please check the input is correct.";
 
     /**
      * Parses the given {@code String} of arguments in the context of the AssignmentCommand
@@ -54,7 +55,7 @@ public class AssignmentCommandParser implements Parser<AssignmentCommand> {
         try {
             dateTime = parseDateTime(dateStr);
         } catch (DateTimeParseException e) {
-            throw new ParseException(MESSAGE_INVALID_DATE);
+            throw new ParseException(MESSAGE_INVALID_DATE_VALUES);
         }
 
         // Check if the date is today or in the past
@@ -72,32 +73,44 @@ public class AssignmentCommandParser implements Parser<AssignmentCommand> {
      * Parses the date string into a LocalDateTime object.
      * Supports formats: dd-MM-yyyy, dd-MM-yy, dd-MM
      */
-    private LocalDateTime parseDateTime(String dateStr) {
+    private LocalDateTime parseDateTime(String dateStr) throws ParseException {
         DateTimeFormatter formatter;
         LocalDate date;
         int currentYear = LocalDate.now().getYear();
 
-        if (dateStr.matches("\\d{2}-\\d{2}-\\d{4}")) {
-            // Full date format (dd-MM-yyyy)
-            formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-            date = LocalDate.parse(dateStr, formatter);
-        } else if (dateStr.matches("\\d{2}-\\d{2}-\\d{2}")) {
-            // Short date format (dd-MM-yy)
-            formatter = DateTimeFormatter.ofPattern("dd-MM-yy");
-            date = LocalDate.parse(dateStr, formatter);
-        } else if (dateStr.matches("\\d{2}-\\d{2}")) {
-            // Minimal date format (dd-MM)
-            formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-            date = LocalDate.parse(dateStr + "-" + currentYear, formatter);
-            // If the date would be in the past with current year, use next year
-            if (date.isBefore(LocalDate.now())) {
-                date = date.plusYears(1);
+        try {
+            if (dateStr.matches("\\d{2}-\\d{2}-\\d{4}")) {
+                // Full date format (dd-MM-yyyy)
+                formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                date = LocalDate.parse(dateStr, formatter);
+                // Check if the parsed date matches the input date
+                if (!date.format(formatter).equals(dateStr)) {
+                    throw new ParseException(MESSAGE_INVALID_DATE_VALUES);
+                }
+            } else if (dateStr.matches("\\d{2}-\\d{2}-\\d{2}")) {
+                // Short date format (dd-MM-yy)
+                formatter = DateTimeFormatter.ofPattern("dd-MM-yy");
+                date = LocalDate.parse(dateStr, formatter);
+                // Check if the parsed date matches the input date
+                if (!date.format(formatter).equals(dateStr)) {
+                    throw new ParseException(MESSAGE_INVALID_DATE_VALUES);
+                }
+            } else if (dateStr.matches("\\d{2}-\\d{2}")) {
+                // Minimal date format (dd-MM)
+                formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                date = LocalDate.parse(dateStr + "-" + currentYear, formatter);
+                // If the date would be in the past with current year, use next year
+                if (date.isBefore(LocalDate.now())) {
+                    date = date.plusYears(1);
+                }
+            } else {
+                throw new ParseException(MESSAGE_INVALID_DATE);
             }
-        } else {
-            throw new DateTimeParseException("Invalid date format", dateStr, 0);
-        }
 
-        return date.atTime(LocalTime.of(23, 59));
+            return date.atTime(LocalTime.of(23, 59));
+        } catch (DateTimeParseException e) {
+            throw new ParseException(MESSAGE_INVALID_DATE);
+        }
     }
 
     /**

@@ -93,6 +93,20 @@ public class AssignmentCommandParserTest {
         // Today's date
         String today = LocalDateTime.now().format(java.time.format.DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         assertParseFailure(parser, ASSIGNMENT_DESC_2103 + " " + PREFIX_DATE + today, MESSAGE_DATE_IN_PAST);
+
+        // Invalid dates that should be caught
+        assertParseFailure(parser, ASSIGNMENT_DESC_2103 + " " + PREFIX_DATE + "31-02-3926",
+                AssignmentCommandParser.MESSAGE_INVALID_DATE_VALUES);
+        assertParseFailure(parser, ASSIGNMENT_DESC_2103 + " " + PREFIX_DATE + "29-02-3025",
+                AssignmentCommandParser.MESSAGE_INVALID_DATE_VALUES);
+        assertParseFailure(parser, ASSIGNMENT_DESC_2103 + " " + PREFIX_DATE + "31-04-3026",
+                AssignmentCommandParser.MESSAGE_INVALID_DATE_VALUES);
+        assertParseFailure(parser, ASSIGNMENT_DESC_2103 + " " + PREFIX_DATE + "31-06-3026",
+                AssignmentCommandParser.MESSAGE_INVALID_DATE_VALUES);
+        assertParseFailure(parser, ASSIGNMENT_DESC_2103 + " " + PREFIX_DATE + "31-09-3026",
+                AssignmentCommandParser.MESSAGE_INVALID_DATE_VALUES);
+        assertParseFailure(parser, ASSIGNMENT_DESC_2103 + " " + PREFIX_DATE + "31-11-3026",
+                AssignmentCommandParser.MESSAGE_INVALID_DATE_VALUES);
     }
 
     @Test
