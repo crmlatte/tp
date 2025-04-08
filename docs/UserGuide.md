@@ -48,7 +48,7 @@ TAssist is a **desktop application** for Teaching Assistants (TAs) from NUS Scho
 --------------------------------------------------------------------------------------------------------------------
 ## Tips
 
-1. If you are already familiar with TAssist, you can jump straight to our [Command Summary Table](#Command summary) to view all available commands.
+1. If you are already familiar with TAssist, you can jump straight to our [Command Summary Table](#Command-summary) to view all available commands.
 
 2. To access this User Guide quickly, simply press `F1` key at any time.
 
@@ -94,9 +94,9 @@ TAssist is a **desktop application** for Teaching Assistants (TAs) from NUS Scho
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
-</div>
 
-* All parameters follow the rules as specified at [Parameters](#Parameters)
+* Refer to [Parameters](#parameters) for more information.
+</div>
 
 ### Viewing help : `help`
 
@@ -105,6 +105,11 @@ If the browser does not open automatically, you can manually copy and paste the 
 ![help message](images/helpMessage.png)
 
 Format: `help`
+
+<div markdown="span" class="alert alert-primary">
+💡 <strong>Tip:</strong> You can open also do this by pressing <code>F1</code>
+</div>
+
 
 ### Adding a student: `add`
 
@@ -123,6 +128,7 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@u.nus.edu s/A0000000B pt/ProjectTeam1 c/T01 t/ExchangeStudent pr/50`
 * `add n/Betsy Crowe t/friend e/betsycrowe@u.nus.edu s/A0123456U g/https://github.com/betsy p/1234567 t/LifeScienceMajor`
 ![add_command](images/AddCommand.png)
+
 ### Listing, Filtering and Sorting students : `list`
 
 Shows a **list of all students** in the student list.
@@ -272,13 +278,13 @@ or `repo STUDENT_ID r/REPOSITORY_URL`
 
 **Examples:**
 - `repo 2 un/Group-4 rn/WealthVault`<br>
-  Updates the repository for the 2nd student to `https://github.com/Group-4/WealthVault`
+  Updates the repository of the 2nd student in the list to `https://github.com/Group-4/WealthVault`
 - `repo A0891334N un/Tutorial-G08 rn/BestApp`<br>
-  Updates the repository for student ID `A0891334N` to `https://github.com/Tutorial-G08/BestApp`
+  Updates the repository for student with student ID `A0891334N` to `https://github.com/Tutorial-G08/BestApp`
 - `repo 3 r/https://github.com/team4/new.repo`<br>
-  Updates the repository for the 3rd student to the specified Repository URL.
+  Updates the repository of the 3rd student in the list to the specified Repository URL.
 - `repo A0789435N r/https://github.com/AY2425S2-CS2103T-W12-4/tp`<br>
-  Updates the repository for student ID `A0789435N` to the specified Repository URL.
+  Updates the repository for student with student ID `A0789435N` to the specified Repository URL.
 
 ![repo_command](images/RepoCommand.png)
 ### Updating a student's progress value: `progress`
@@ -357,19 +363,22 @@ Examples:
 * `assignment n/Quiz 1 d/10-05` <br>
   Adds an event named "Quiz 1" with the deadline on April 10 of the current year.
 
+### Viewing the timed event list and their indices: `view`
 ![assignment_command](images/AssignmentCommand.png)
-### Viewing the timed event list: `view`
+### Viewing the timed event list and their indices: `view`
 
 **Lists all timed events** in the system.
 
 Format: `view`
-* Shows all timed events with their names and deadlines
+* Shows all timed events with their names and deadlines, as well as their indices.
 * **Tip:** enter `view` before [assigning](#assigning-a-timed-eventassignment-assign) an assignment to manage tasks easier.
+* Note that assignments that has past their deadlines are not deleted for track keeping purposes, refer to `unassign`\
+    to see how to remove them.
 
 Examples:<br>
 * `view` <br>
   Displays all timed events in the timed event list.
-* `view` followed by `assign 3 T01` <br>
+* `view` followed by `assign T01 3` <br>
   Displayed the timed event list, and assigns the 3rd timed event to all students in class T01.
 
 ![view_command](images/ViewCommand.png)
@@ -377,7 +386,7 @@ Examples:<br>
 
 **Assigns a timed event** using index in time event list to one or more students identified by their displayed index, student ID, or class number.
 
-Format: `assign TIMED_EVENT_INDEX STUDENT_INDEX` or `assign TIMED_EVENT_INDEX STUDENT_ID` or `assign TIMED_EVENT_INDEX CLASS_NUMBER`
+Format: `assign STUDENT_INDEX TIMED_EVENT_INDEX` or `assign STUDENT_ID TIMED_EVENT_INDEX` or `assign CLASS_NUMBER TIMED_EVENT_INDEX`
 
 * `TIMED_EVENT_INDEX`: The index of the timed event shown in the timed event list (must be a positive integer).
 * `STUDENT_INDEX`: The index of the student from the displayed student list (must be a positive integer).
@@ -385,13 +394,13 @@ Format: `assign TIMED_EVENT_INDEX STUDENT_INDEX` or `assign TIMED_EVENT_INDEX ST
 * `CLASS_NUMBER`: The tutorial/recitation/lab class number (e.g., T01, R05, L10, L20J).
 
 Examples:
-* `assign 1 2` <br>
+* `assign 2 1` <br>
   Assigns the first timed event to the 2nd student in the list.
 
-* `assign 2 A1234567B` <br>
+* `assign A1234567B 2` <br>
   Assigns the second timed event to the student with student ID A1234567B.
 
-* `assign 1 T01` <br>
+* `assign T01 1` <br>
   Assigns the first timed event to all students in class T01.
 
 ![assign_command](images/AssignCommand.png)
@@ -564,7 +573,7 @@ Examples of valid emails:
 
 - Must follow the format `https://github.com/USERNAME`.
 - The base URL must be exactly `https://github.com/`.
-- Must be followed by a `/` and a valid GitHub username.
+- Must be followed by a valid GitHub username.
 
 `USERNAME`:
 - Be 1 to 39 characters long.
@@ -646,6 +655,13 @@ Examples of valid project team values:
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
+3. Users must provide inputs according to the parameters specified in the User Guide. If an invalid or unrecognized parameter is used, TAssist will treat it as an error related to the previous valid parameter.<br>
+   For example: <br>
+   `assignment n/quiz pr/30 d/22-11-2027`<br>
+   `assignment n/quiz ab/xx d/22-11-2027`<br>
+   Both examples will result in an error message related to the `name` parameter:<br>
+   "Name should only contain alphanumeric characters and spaces, and it should not be blank."<br>
+   This is because pr/30 and ab/xx are not valid parameters for the assignment command.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -666,7 +682,7 @@ Action | Format, Examples
 **Open** | `open INDEX` or `open STUDENT_ID` <br> e.g., `open 3`, `open A7654321B`
 **Assignment** | `assignment n/NAME d/DATE` <br> e.g.,`assignment n/CS2103T Project d/30-10-2025`
 **View** | `view`
-**Assign** | `assign TIMED_EVENT_INDEX STUDENT_INDEX` or `assign TIMED_EVENT_INDEX STUDENT_ID` or `assign TIMED_EVENT_INDEX CLASS_NUMBER` <br> e.g., `assign 1 2`, `assign 2 A1234567B`,`assign 2 T03`
+**Assign** | `assign STUDENT_INDEX TIMED_EVENT_INDEX` or `assign STUDENT_ID TIMED_EVENT_INDEX` or `assign CLASS_NUMBER TIMED_EVENT_INDEX` <br> e.g., `assign 2 1`, `assign A1234567B 2`,`assign T03 2`
 **Unassign** | `unassign TIMED_EVENT_INDEX` <br> e.g., `unassign 1`
 **Import** | `import ABSOLUTE_FILE_PATH` <br> e.g., `import /Users/Alice/Documents/T01.csv` (Unix/mac), `import C:\Users\Alice\Documents\T01.csv` (Windows)
 **Export** | `export ABSOLUTE_FILE_PATH` <br> e.g., `export /Users/Alice/Documents/T01.csv` (Unix/mac), `export C:\Users\Alice\Documents\T01.csv` (Windows)

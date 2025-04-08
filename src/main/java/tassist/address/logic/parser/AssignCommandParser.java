@@ -36,16 +36,16 @@ public class AssignCommandParser implements Parser<AssignCommand> {
         // Parse timed event index
         Index timedEventIndex;
         try {
-            timedEventIndex = ParserUtil.parseIndex(argArray[0]);
+            timedEventIndex = ParserUtil.parseIndex(argArray[1]);
         } catch (IllegalValueException ive) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AssignCommand.MESSAGE_USAGE), ive);
         }
 
         // Try to parse as student ID first
-        if (argArray[1].matches(VALIDATION_REGEX)) {
+        if (argArray[0].matches(VALIDATION_REGEX)) {
             try {
-                StudentId studentId = ParserUtil.parseStudentId(argArray[1]);
+                StudentId studentId = ParserUtil.parseStudentId(argArray[0]);
                 return new AssignCommand(timedEventIndex, studentId);
             } catch (IllegalValueException ive) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
@@ -54,9 +54,9 @@ public class AssignCommandParser implements Parser<AssignCommand> {
         }
 
         // Try to parse as class number
-        if (ClassNumber.isValidClassNumber(argArray[1])) {
+        if (ClassNumber.isValidClassNumber(argArray[0])) {
             try {
-                ClassNumber classNumber = ParserUtil.parseClassNumber(argArray[1]);
+                ClassNumber classNumber = ParserUtil.parseClassNumber(argArray[0]);
                 return new AssignCommand(timedEventIndex, classNumber);
             } catch (IllegalValueException ive) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
@@ -66,7 +66,7 @@ public class AssignCommandParser implements Parser<AssignCommand> {
 
         // If not a valid student ID or class number, try to parse as index
         try {
-            Index studentIndex = ParserUtil.parseIndex(argArray[1]);
+            Index studentIndex = ParserUtil.parseIndex(argArray[0]);
             return new AssignCommand(timedEventIndex, studentIndex);
         } catch (IllegalValueException ive) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,

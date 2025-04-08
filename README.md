@@ -44,6 +44,10 @@ while maintaining usability.
 - **Switch between semester views** – View previous students without cluttering the current list.
 - **Perform actions via keyboard shortcuts** – Work faster without a mouse.
 
+## 📚 Documentation
+
+📖 [User Guide](docs/UserGuide.md) | 🛠 [Developer Guide](docs/DeveloperGuide.md)
+
 ## **Installation & Setup**
 
 ### **System Requirements**

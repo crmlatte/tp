@@ -14,8 +14,7 @@ import tassist.address.commons.util.ToStringBuilder;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public abstract class TimedEvent {
-    public static final String MESSAGE_NAME_CONSTRAINTS = "Name can only contain alphanumeric characters and spaces, "
-            + "and cannot start with a space";
+    public static final String MESSAGE_NAME_CONSTRAINTS = "Name should not be blank";
     public static final String MESSAGE_DESCRIPTION_CONSTRAINTS = "Description cannot be null";
 
     private final String name;
@@ -30,7 +29,7 @@ public abstract class TimedEvent {
         requireNonNull(description);
         requireNonNull(time);
 
-        if (!name.matches("[\\p{Alnum}][\\p{Alnum} ]*")) {
+        if (name.trim().isEmpty()) {
             throw new IllegalArgumentException(MESSAGE_NAME_CONSTRAINTS);
         }
 
