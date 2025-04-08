@@ -382,7 +382,7 @@ Format: `assign TIMED_EVENT_INDEX STUDENT_INDEX` or `assign TIMED_EVENT_INDEX ST
 * `TIMED_EVENT_INDEX`: The index of the timed event shown in the timed event list (must be a positive integer).
 * `STUDENT_INDEX`: The index of the student from the displayed student list (must be a positive integer).
 * `STUDENT_ID`: The student ID of the target student (e.g., A1234567B).
-* `CLASS_NUMBER`: The tutorial/recitation class number (e.g., T01, R05, L10, L20J).
+* `CLASS_NUMBER`: The tutorial/recitation/lab class number (e.g., T01, R05, L10, L20J).
 
 Examples:
 * `assign 1 2` <br>

@@ -30,7 +30,7 @@ public class ClassCommand extends Command {
             + "by the index in the displayed list or student ID.\n"
             + "Existing class will be overwritten by the input.\n"
             + "Parameters: INDEX (must be a positive integer) or STUDENTID\n"
-            + " + " + PREFIX_CLASS + " + T, R or L + [Tutorial Class Number xx (xx = 01-99)]\n"
+            + " + " + PREFIX_CLASS + " + T, R or L + [Class Number xx (xx = 01-99)]\n"
             + "Alternatively, use the command 'class INDEX/STUDENT_ID c/' to remove a student's class.\n"
             + "If assigning 'Lxx', an optional capital letter suffix can be added.\n"
             + "Example:\n"
