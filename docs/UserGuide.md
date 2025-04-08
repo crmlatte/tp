@@ -368,7 +368,7 @@ Format: `view`
 Examples:<br>
 * `view` <br>
   Displays all timed events in the timed event list.
-* `view` followed by `assign 3 T01` <br>
+* `view` followed by `assign T01 3` <br>
   Displayed the timed event list, and assigns the 3rd timed event to all students in class T01.
 
 ![view_command](images/ViewCommand.png)
@@ -376,7 +376,7 @@ Examples:<br>
 
 **Assigns a timed event** using index in time event list to one or more students identified by their displayed index, student ID, or class number.
 
-Format: `assign TIMED_EVENT_INDEX STUDENT_INDEX` or `assign TIMED_EVENT_INDEX STUDENT_ID` or `assign TIMED_EVENT_INDEX CLASS_NUMBER`
+Format: `assign STUDENT_INDEX TIMED_EVENT_INDEX` or `assign STUDENT_ID TIMED_EVENT_INDEX` or `assign CLASS_NUMBER TIMED_EVENT_INDEX`
 
 * `TIMED_EVENT_INDEX`: The index of the timed event shown in the timed event list (must be a positive integer).
 * `STUDENT_INDEX`: The index of the student from the displayed student list (must be a positive integer).
