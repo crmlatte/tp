@@ -329,7 +329,8 @@ Format: `assignment n/NAME d/DATE`
 * `n/NAME`: The title or description of the assignment/event.
 * `d/DATE`: The deadline for the assignment/event.
 * Accepted date formats: `dd-MM-yyyy`, `dd-MM-yy`, or `dd-MM` (defaults to current year)
-* The date must be a valid **future date**.
+* The date must be a valid **future date** starting from tomorrow.
+
 
 Examples:
 * `assignment n/CS2103T Project d/30-01-2025` <br>
@@ -337,13 +338,15 @@ Examples:
 * `assignment n/Quiz 1 d/10-04` <br>
   Adds an event named "Quiz 1" with the deadline on April 10 of the current year.
 
-### Viewing the timed event list: `view`
+### Viewing the timed event list and their indices: `view`
 
 **Lists all timed events** in the system.
 
 Format: `view`
-* Shows all timed events with their names and deadlines
+* Shows all timed events with their names and deadlines, as well as their indices
 * **Tip:** enter `view` before [assigning](#assigning-a-timed-eventassignment-assign) an assignment to manage tasks easier.
+* Note that assignments that has past their deadlines are not deleted for track keeping purposes, refer to `unassign`\
+    to see how to remove them
 
 Example:<br>
   `view` followed by `assign 3 T01`
