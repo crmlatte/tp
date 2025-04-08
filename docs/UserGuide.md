@@ -48,7 +48,7 @@ TAssist is a **desktop application** for Teaching Assistants (TAs) from NUS Scho
 --------------------------------------------------------------------------------------------------------------------
 ## Tips
 
-1. If you are already familiar with TAssist, you can jump straight to our [Command Summary Table](#Command summary) to view all available commands.
+1. If you are already familiar with TAssist, you can jump straight to our [Command Summary Table](#Command-summary) to view all available commands.
 
 2. To access this User Guide quickly, simply press `F1` key at any time.
 
@@ -94,9 +94,9 @@ TAssist is a **desktop application** for Teaching Assistants (TAs) from NUS Scho
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
-</div>
 
-* All parameters follow the rules as specified at [Parameters](#Parameters)
+* Refer to [Parameters](#parameters) for more information.
+</div>
 
 ### Viewing help : `help`
 
@@ -105,6 +105,11 @@ If the browser does not open automatically, you can manually copy and paste the 
 ![help message](images/helpMessage.png)
 
 Format: `help`
+
+<div markdown="span" class="alert alert-primary">
+💡 <strong>Tip:</strong> You can open also do this by pressing <code>F1</code>
+</div>
+
 
 ### Adding a student: `add`
 
@@ -123,6 +128,7 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@u.nus.edu s/A0000000B pt/ProjectTeam1 c/T01 t/ExchangeStudent pr/50`
 * `add n/Betsy Crowe t/friend e/betsycrowe@u.nus.edu s/A0123456U g/https://github.com/betsy p/1234567 t/LifeScienceMajor`
 ![add_command](images/AddCommand.png)
+
 ### Listing, Filtering and Sorting students : `list`
 
 Shows a **list of all students** in the student list.
@@ -272,13 +278,13 @@ or `repo STUDENT_ID r/REPOSITORY_URL`
 
 **Examples:**
 - `repo 2 un/Group-4 rn/WealthVault`<br>
-  Updates the repository for the 2nd student to `https://github.com/Group-4/WealthVault`
+  Updates the repository of the 2nd student in the list to `https://github.com/Group-4/WealthVault`
 - `repo A0891334N un/Tutorial-G08 rn/BestApp`<br>
-  Updates the repository for student ID `A0891334N` to `https://github.com/Tutorial-G08/BestApp`
+  Updates the repository for student with student ID `A0891334N` to `https://github.com/Tutorial-G08/BestApp`
 - `repo 3 r/https://github.com/team4/new.repo`<br>
-  Updates the repository for the 3rd student to the specified Repository URL.
+  Updates the repository of the 3rd student in the list to the specified Repository URL.
 - `repo A0789435N r/https://github.com/AY2425S2-CS2103T-W12-4/tp`<br>
-  Updates the repository for student ID `A0789435N` to the specified Repository URL.
+  Updates the repository for student with student ID `A0789435N` to the specified Repository URL.
 
 ![repo_command](images/RepoCommand.png)
 ### Updating a student's progress value: `progress`
@@ -567,7 +573,7 @@ Examples of valid emails:
 
 - Must follow the format `https://github.com/USERNAME`.
 - The base URL must be exactly `https://github.com/`.
-- Must be followed by a `/` and a valid GitHub username.
+- Must be followed by a valid GitHub username.
 
 `USERNAME`:
 - Be 1 to 39 characters long.
