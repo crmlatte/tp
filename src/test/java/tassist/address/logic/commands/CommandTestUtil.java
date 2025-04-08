@@ -80,7 +80,7 @@ public class CommandTestUtil {
     public static final String DATE_DESC_MID = " " + PREFIX_DATE + VALID_DATE_MID;
     public static final String DATE_DESC_SHORT = " " + PREFIX_DATE + VALID_DATE_SHORT;
     // Invalid assignment test strings
-    public static final String INVALID_ASSIGNMENT_NAME_SPECIAL = " " + PREFIX_NAME + "&" + DATE_DESC_LONG;
+    public static final String VALID_ASSIGNMENT_NAME_SPECIAL = " " + PREFIX_NAME + "&CS2103T Project";
     public static final String INVALID_ASSIGNMENT_NAME_EMPTY = " " + PREFIX_NAME + DATE_DESC_LONG;
     public static final String INVALID_ASSIGNMENT_NAME_SPACES = " " + PREFIX_NAME + "   " + DATE_DESC_LONG;
     public static final String INVALID_DATE_FORMAT = ASSIGNMENT_DESC_2103 + " " + PREFIX_DATE + "2030-01-30";

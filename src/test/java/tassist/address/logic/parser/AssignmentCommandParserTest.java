@@ -10,7 +10,6 @@ import static tassist.address.logic.commands.CommandTestUtil.EXTRA_ARGUMENTS;
 import static tassist.address.logic.commands.CommandTestUtil.EXTRA_PREFIX;
 import static tassist.address.logic.commands.CommandTestUtil.INVALID_ASSIGNMENT_NAME_EMPTY;
 import static tassist.address.logic.commands.CommandTestUtil.INVALID_ASSIGNMENT_NAME_SPACES;
-import static tassist.address.logic.commands.CommandTestUtil.INVALID_ASSIGNMENT_NAME_SPECIAL;
 import static tassist.address.logic.commands.CommandTestUtil.INVALID_DATE_FORMAT;
 import static tassist.address.logic.commands.CommandTestUtil.INVALID_DATE_PAST;
 import static tassist.address.logic.commands.CommandTestUtil.INVALID_DATE_VALUES;
@@ -18,6 +17,7 @@ import static tassist.address.logic.commands.CommandTestUtil.MULTIPLE_FIELDS_INP
 import static tassist.address.logic.commands.CommandTestUtil.MULTIPLE_INVALID_FIELDS_INPUT;
 import static tassist.address.logic.commands.CommandTestUtil.MULTIPLE_VALID_FIELDS_INPUT;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_ASSIGNMENT_NAME;
+import static tassist.address.logic.commands.CommandTestUtil.VALID_ASSIGNMENT_NAME_SPECIAL;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_DATE_SHORT;
 import static tassist.address.logic.parser.AssignmentCommandParser.MESSAGE_DATE_IN_PAST;
 import static tassist.address.logic.parser.AssignmentCommandParser.MESSAGE_INVALID_DATE;
@@ -93,19 +93,69 @@ public class AssignmentCommandParserTest {
         // Today's date
         String today = LocalDateTime.now().format(java.time.format.DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         assertParseFailure(parser, ASSIGNMENT_DESC_2103 + " " + PREFIX_DATE + today, MESSAGE_DATE_IN_PAST);
+
+        // Invalid dates that should be caught
+        assertParseFailure(parser, ASSIGNMENT_DESC_2103 + " " + PREFIX_DATE + "31-02-3926",
+                AssignmentCommandParser.MESSAGE_INVALID_DATE_VALUES);
+        assertParseFailure(parser, ASSIGNMENT_DESC_2103 + " " + PREFIX_DATE + "29-02-3025",
+                AssignmentCommandParser.MESSAGE_INVALID_DATE_VALUES);
+        assertParseFailure(parser, ASSIGNMENT_DESC_2103 + " " + PREFIX_DATE + "31-04-3026",
+                AssignmentCommandParser.MESSAGE_INVALID_DATE_VALUES);
+        assertParseFailure(parser, ASSIGNMENT_DESC_2103 + " " + PREFIX_DATE + "31-06-3026",
+                AssignmentCommandParser.MESSAGE_INVALID_DATE_VALUES);
+        assertParseFailure(parser, ASSIGNMENT_DESC_2103 + " " + PREFIX_DATE + "31-09-3026",
+                AssignmentCommandParser.MESSAGE_INVALID_DATE_VALUES);
+        assertParseFailure(parser, ASSIGNMENT_DESC_2103 + " " + PREFIX_DATE + "31-11-3026",
+                AssignmentCommandParser.MESSAGE_INVALID_DATE_VALUES);
+
+        // Invalid dates in dd-MM format
+        assertParseFailure(parser, ASSIGNMENT_DESC_2103 + " " + PREFIX_DATE + "31-02",
+                AssignmentCommandParser.MESSAGE_INVALID_DATE_VALUES);
+        assertParseFailure(parser, ASSIGNMENT_DESC_2103 + " " + PREFIX_DATE + "31-04",
+                AssignmentCommandParser.MESSAGE_INVALID_DATE_VALUES);
+        assertParseFailure(parser, ASSIGNMENT_DESC_2103 + " " + PREFIX_DATE + "31-06",
+                AssignmentCommandParser.MESSAGE_INVALID_DATE_VALUES);
+    }
+
+    @Test
+    public void parse_ddmmBeforeCurrentMonth_success() {
+        // Get current date
+        LocalDateTime now = LocalDateTime.now();
+        // If current date is January 1st, the test should fail
+        if (now.getMonthValue() == 1 && now.getDayOfMonth() == 1) {
+            assertParseFailure(parser, ASSIGNMENT_DESC_2103 + " " + PREFIX_DATE + "01-01",
+                    AssignmentCommandParser.MESSAGE_DATE_IN_PAST);
+            return;
+        }
+
+        // For all other dates, January 1st should be set to next year
+        String dateStr = "01-01";
+        int year = now.getYear() + 1;
+
+        // Create expected assignment with next year's date
+        Assignment expectedAssignment = new Assignment(VALID_ASSIGNMENT_NAME, "",
+                LocalDateTime.of(year, 1, 1, 23, 59));
+        assertParseSuccess(parser, ASSIGNMENT_DESC_2103 + " " + PREFIX_DATE + dateStr,
+                new AssignmentCommand(expectedAssignment));
     }
 
     @Test
     public void parse_invalidName_failure() {
-
-        // Name starting with special character
-        assertParseFailure(parser, INVALID_ASSIGNMENT_NAME_SPECIAL, MESSAGE_INVALID_NAME);
 
         // Name with only spaces
         assertParseFailure(parser, INVALID_ASSIGNMENT_NAME_SPACES, MESSAGE_INVALID_NAME);
 
         // Empty name
         assertParseFailure(parser, INVALID_ASSIGNMENT_NAME_EMPTY, MESSAGE_INVALID_NAME);
+    }
+
+    @Test
+    public void parse_specialName_success() {
+        Assignment expectedAssignment = new Assignment("&CS2103T Project", "",
+                LocalDateTime.of(2025, 12, 20, 23, 59));
+        // Name starting with special character
+        assertParseSuccess(parser, VALID_ASSIGNMENT_NAME_SPECIAL + DATE_DESC_SHORT,
+                new AssignmentCommand(expectedAssignment));
     }
 
     @Test

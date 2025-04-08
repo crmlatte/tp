@@ -357,14 +357,17 @@ Examples:
 * `assignment n/Quiz 1 d/10-05` <br>
   Adds an event named "Quiz 1" with the deadline on April 10 of the current year.
 
+### Viewing the timed event list and their indices: `view`
 ![assignment_command](images/AssignmentCommand.png)
-### Viewing the timed event list: `view`
+### Viewing the timed event list and their indices: `view`
 
 **Lists all timed events** in the system.
 
 Format: `view`
-* Shows all timed events with their names and deadlines
+* Shows all timed events with their names and deadlines, as well as their indices.
 * **Tip:** enter `view` before [assigning](#assigning-a-timed-eventassignment-assign) an assignment to manage tasks easier.
+* Note that assignments that has past their deadlines are not deleted for track keeping purposes, refer to `unassign`\
+    to see how to remove them.
 
 Examples:<br>
 * `view` <br>

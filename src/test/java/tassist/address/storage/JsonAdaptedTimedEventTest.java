@@ -10,8 +10,7 @@ import org.junit.jupiter.api.Test;
 import tassist.address.commons.exceptions.IllegalValueException;
 
 public class JsonAdaptedTimedEventTest {
-    private static final String INVALID_NAME = "R@chel";
-    private static final String INVALID_DESCRIPTION = " ";
+    private static final String INVALID_NAME = "";
     private static final String INVALID_TIME = "invalid-time";
     private static final String INVALID_TYPE = "InvalidType";
 
