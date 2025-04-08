@@ -5,7 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static tassist.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tassist.address.logic.Messages.getErrorMessageForDuplicatePrefixes;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_CLASS_AMY;
-import static tassist.address.logic.commands.CommandTestUtil.VALID_CLASS_BOB;
+import static tassist.address.logic.commands.CommandTestUtil.VALID_CLASS_BOB_1;
+import static tassist.address.logic.commands.CommandTestUtil.VALID_CLASS_BOB_2;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_STUDENTID_AMY;
 import static tassist.address.logic.parser.ClassCommandParser.MESSAGE_REMOVE_CLASS;
 import static tassist.address.logic.parser.CliSyntax.PREFIX_CLASS;
@@ -41,15 +42,20 @@ public class ClassCommandParserTest {
 
     @Test
     public void parse_validStudentId_success() throws Exception {
-        String userInput = VALID_STUDENTID_AMY + " " + PREFIX_CLASS + VALID_CLASS_BOB;
-        ClassCommand expectedCommand = new ClassCommand(new StudentId(VALID_STUDENTID_AMY),
-                new ClassNumber(VALID_CLASS_BOB));
-        assertEquals(expectedCommand, parser.parse(userInput));
+        String userInput1 = VALID_STUDENTID_AMY + " " + PREFIX_CLASS + VALID_CLASS_BOB_1;
+        ClassCommand expectedCommand1 = new ClassCommand(new StudentId(VALID_STUDENTID_AMY),
+                new ClassNumber(VALID_CLASS_BOB_1));
+        assertEquals(expectedCommand1, parser.parse(userInput1));
+
+        String userInput2 = VALID_STUDENTID_AMY + " " + PREFIX_CLASS + VALID_CLASS_BOB_2;
+        ClassCommand expectedCommand2 = new ClassCommand(new StudentId(VALID_STUDENTID_AMY),
+                new ClassNumber(VALID_CLASS_BOB_2));
+        assertEquals(expectedCommand2, parser.parse(userInput2));
     }
 
     @Test
     public void parse_invalidStudentIdFormat_throwsParseException() {
-        String userInput = "INVALID_ID " + PREFIX_CLASS + VALID_CLASS_BOB;
+        String userInput = "INVALID_ID " + PREFIX_CLASS + VALID_CLASS_BOB_1;
         assertThrows(ParseException.class, () -> parser.parse(userInput));
     }
 
@@ -83,7 +89,7 @@ public class ClassCommandParserTest {
 
     @Test
     public void parse_repeatedClassValue_failure() {
-        String validExpectedCommandString = VALID_STUDENTID_AMY + " " + PREFIX_CLASS + VALID_CLASS_BOB;
+        String validExpectedCommandString = VALID_STUDENTID_AMY + " " + PREFIX_CLASS + VALID_CLASS_BOB_1;
 
         // multiple class values
         assertParseFailure(parser, validExpectedCommandString + " " + PREFIX_CLASS + VALID_CLASS_AMY,
