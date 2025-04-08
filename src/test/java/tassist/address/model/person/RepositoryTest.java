@@ -40,6 +40,8 @@ public class RepositoryTest {
         assertTrue(Repository.isValidRepository("https://github.com/jOhn-12/tp.io")); // with dot
         assertTrue(Repository.isValidRepository("https://github.com/jOhn-12/tp_io")); // with underscore
         assertTrue((Repository.isValidRepository("No Repository"))); // no_repository
+        assertTrue(Repository.isValidRepository("https://github.com/abcdefghijklmnopqrstuvwxyzABCDE333FHJKy/tp"));
+        // long username
     }
     @Test
     public void equals() {
