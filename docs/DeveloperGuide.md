@@ -580,7 +580,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* All the extensions from UC12 and UC13.
+* All the extensions from use cases <ins>list students with sorting (UC12)</ins> and <ins>list students with filtering (UC13)</ins>.
 
 **Use case: UC15 - Importing data**
 
