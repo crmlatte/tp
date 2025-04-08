@@ -580,7 +580,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* All the extensions from UC12 and UC13.
+* All the extensions from use cases <ins>list students with sorting (UC12)</ins> and <ins>list students with filtering (UC13)</ins>.
 
 **Use case: UC15 - Importing data**
 
@@ -710,5 +710,6 @@ testers are expected to do more *exploratory* testing.
    Both examples will result in an error message related to the `name` parameter:<br>
    "Name should only contain alphanumeric characters and spaces, and it should not be blank."<br>
    This is because pr/30 and ab/xx are not valid parameters for the assignment command.
+   This behavior will be improved in future versions of TAssist to provide more specific error messages.
 
 2. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
