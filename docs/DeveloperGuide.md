@@ -582,6 +582,49 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * All the extensions from UC11 and UC12.
 
+**Use case: UC15 - Importing data**
+
+**Preconditions: 1. An external CSV file is present in the system.**
+
+**MSS**
+
+1. User requests to import student data.
+2. System imports the student data.
+3. System displays the imported data.
+4. Use case ends.
+
+**Extensions**
+
+* 2a. The file is missing.
+    * System outputs an invalid path message.
+    * Use case ends.
+
+* 3a. The file is empty.
+    * System outputs a conversion error message.
+    * Use case ends.
+
+* 3b. The data is in an incorrect format.
+    * System shows an empty list.
+    * Use case ends.
+
+**Use case: UC16 - Exporting data**
+
+**MSS**
+
+1. User requests to export student data.
+2. System exports the data.
+3. Use case ends.
+
+**Extensions**
+
+* 2a. The output file type is of invalid format.
+    * System outputs an invalid file format message.
+    * Use case ends.
+
+* 2b. The output file already has data.
+    * The file's data will be overwritten.
+    * Use case ends.
+
 *{More to be added}*
 
 ### Non-Functional Requirements
