@@ -94,9 +94,9 @@ TAssist is a **desktop application** for Teaching Assistants (TAs) from NUS Scho
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
-</div>
 
 * All parameters follow the rules as specified at [Parameters](#parameters)
+</div>
 
 ### Viewing help : `help`
 
