@@ -218,9 +218,10 @@ Assigns or removes a **tutorial/recitation class** for a student identified by e
 
 Format: `class INDEX c/CLASS_NUMBER` or `class STUDENT_ID c/CLASS_NUMBER`
 
-* `CLASS_NUMBER` must be either `Txx`or `Rxx` where xx is integer from 01 to 99 (e.g. T01, T15, R05, R99)
-    * Note: 'T' and 'R' must be uppercase.
-    * 'T' and 'R' represent Tutorial and Recitation respectively.
+* `CLASS NUMBER` must be either `Txx`, `Rxx` or `Lxx` where xx is integer from 01 to 99, (e.g. T15, R05, L99)
+    * Note: 'T', 'R' and 'L' must be uppercase.
+    * 'T', 'R' and 'L' represent Tutorial, Recitation and Lab respectively.
+    * If assigning 'Lxx', a capital letter suffix is optional (e.g. L01C).
 * Assigns or updates the class of the student at the specified `INDEX` or matching `STUDENT_ID`
 * The index refers to the index number shown in the displayed student list.
 * The index **must be a positive integer** 1, 2, 3, …​
@@ -381,7 +382,7 @@ Format: `assign TIMED_EVENT_INDEX STUDENT_INDEX` or `assign TIMED_EVENT_INDEX ST
 * `TIMED_EVENT_INDEX`: The index of the timed event shown in the timed event list (must be a positive integer).
 * `STUDENT_INDEX`: The index of the student from the displayed student list (must be a positive integer).
 * `STUDENT_ID`: The student ID of the target student (e.g., A1234567B).
-* `CLASS_NUMBER`: The tutorial/recitation class number (e.g., T01, R05).
+* `CLASS_NUMBER`: The tutorial/recitation/lab class number (e.g., T01, R05, L10, L20J).
 
 Examples:
 * `assign 1 2` <br>
@@ -599,15 +600,17 @@ Examples of valid repository links:
 
 ### `CLASS_NUMBER`
 
-- Must be in the format `Txx` or `Rxx`, where `xx` is a two-digit number from 01 to 99.
+- Must be in the format `Txx`, `Rxx` or `Lxx`, where `xx` is a two-digit number from 01 to 99.
 - The first letter must be either `T` or `R` (uppercase).
 - The numeric part must be a valid number between 01 and 99.
+- If assigning 'Lxx', a capital letter suffix is optional (e.g. L01A).
 - Alternatively, this field can be left blank to remove a class assignment, using [Class Command](#assigning-or-removing-a-tutorial-class-class)
 
 Examples of valid class numbers:
 - T01
 - R23
-- T99
+- L99
+- L20M
 
 ### `PROGRESS`
 
@@ -656,7 +659,7 @@ Action | Format, Examples
 **Edit** | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [s/STUDENTID] [g/GITHUB_URL] [pt/TEAM] [c/CLASS_NUMBER] [t/TAG]…​ [pr/PROGRESS]`<br> e.g.,`edit 2 n/James Lee e/jameslee@u.nus.edu`
 **Find** | `find KEYWORD [MORE_KEYWORDS]` or `find STUDENT_ID` or `find CLASS_NUMBER` <br> e.g., `find James Jake`, `find A1234567B`
 **List** | `list [f/FILTER_TYPE fv/FILTER_VALUE] [s/SORT_TYPE o/SORT_ORDER]`<br> e.g.,`list f/progress fv/50 s/name o/des`
-**Class** | `class INDEX c/CLASS_NUMBER` or `class STUDENT_ID c/CLASS_NUMBER` <br> e.g.,`class 1 c/T01`, `class A7654321B c/T02`
+**Class** | `class INDEX c/CLASS_NUMBER` or `class STUDENT_ID c/CLASS_NUMBER` <br> e.g.,`class 1 c/T01`, `class A7654321B c/T02`, `class 2 c/L05`, `class A1234567W c/L15C`
 **Progress** | `progress INDEX pr/PROGRESS` or `progress STUDENT_ID pr/PROGRESS` <br> e.g., `progress 1 pr/75`, `progress A1234567B pr/50`
 **Github** | `github INDEX g/GITHUB_URL` or `github STUDENT_ID g/GITHUB_URL`<br> e.g.,`github 2 g/https://github.com/alice`, `github A1234567B g/https://github.com/alice`
 **Repository** | `repo INDEX un/USERNAME rn/REPOSITORY_NAME` or `repo INDEX r/REPOSITORY_URL` or `repo STUDENT_ID un/USERNAME rn/REPOSITORY_NAME` or `repo STUDENT_ID r/REPOSITORY_URL` <br> e.g.,`repo 2 r/https://github.com/alice/repo`, `github A1234567B un/barb rn/new`
