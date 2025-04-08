@@ -44,8 +44,8 @@ public class ListCommand extends Command {
     public static final String MESSAGE_NO_STUDENTS = "No students found.";
     public static final String MESSAGE_INVALID_SORT = "Invalid sort type! Allowed sort type: name, progress, github.";
     public static final String MESSAGE_INVALID_SORT_ORDER = "Invalid sort order! Allowed sort order: asc, des.";
-    public static final String MESSAGE_MISSING_SORT_ORDER = "Please enter sort order. list s/[SORT TYPE] o/[SORT ORDER]"
-            + "Allowed sort order: asc,des.";
+    public static final String MESSAGE_MISSING_SORT_ORDER = "Please enter sort order. list s/[SORT TYPE] o/[SORT ORDER]\n"
+            + "Allowed sort order: asc, des.";
     public static final String MESSAGE_INVALID_FILTER = "Invalid filter type! Allowed filter type: class, team, "
             + "progress";
     public static final String MESSAGE_INVALID_FILTER_VALUE = "This filter value is invalid.";
