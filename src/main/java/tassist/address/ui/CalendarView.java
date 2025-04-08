@@ -90,7 +90,8 @@ public class CalendarView extends UiPart<Region> {
                 TextFlow nameFlow = new TextFlow();
                 Text nameText = new Text(event.getName());
                 nameText.getStyleClass().add("event-name");
-                Text typeText = new Text(" - " + event.getClass().getSimpleName().toLowerCase());
+                Text typeText = new Text(" - " + event.getClass().getSimpleName().toLowerCase()
+                        + " [" + (events.indexOf(event) + 1) + "]");
                 typeText.getStyleClass().add("event-type");
                 nameFlow.getChildren().addAll(nameText, typeText);
                 eventBox.getChildren().add(nameFlow);
