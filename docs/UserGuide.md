@@ -119,7 +119,7 @@ Shows a **list of all students** in the student list.
 Format: `list [f/FILTER_TYPE fv/FILTER_VALUE] [s/SORT_TYPE o/SORT_ORDER]` <br>
 
 * All parameters are optional. Filters and sorting can be used together or independently.
-* Note: Once a sort is applied using the list command, the list will remain sorted in that order throughout the session.
+* **Note:** Once a sort is applied using the list command, the list will remain sorted in that order throughout the session.
   To apply a different sort, use list again with a new sort type and order.
   If a sort is applied on a field where multiple students share the same value, their positions may change randomly after add/edit/update operations due to tie-breaking by the system.
 
@@ -354,8 +354,11 @@ Format: `view`
 * Shows all timed events with their names and deadlines
 * **Tip:** enter `view` before [assigning](#assigning-a-timed-eventassignment-assign) an assignment to manage tasks easier.
 
-Example:<br>
-  `view` followed by `assign 3 T01`
+Examples:<br>
+* `view` <br>
+  Displays all timed events in the timed event list.
+* `view` followed by `assign 3 T01` <br>
+  Displayed the timed event list, and assigns the 3rd timed event to all students in class T01.
 
 ![view_command](images/ViewCommand.png)
 ### Assigning a timed event/assignment: `assign`
@@ -587,7 +590,7 @@ Examples of valid repository links:
 - Must be in the format `Txx` or `Rxx`, where `xx` is a two-digit number from 01 to 99.
 - The first letter must be either `T` or `R` (uppercase).
 - The numeric part must be a valid number between 01 and 99.
-- Alternatively, this field can be left blank to indicate no class assigned, using [Class Command](#assigning-or-removing-a-tutorial-class-class)
+- Alternatively, this field can be left blank to remove a class assignment, using [Class Command](#assigning-or-removing-a-tutorial-class-class)
 
 Examples of valid class numbers:
 - T01
@@ -646,7 +649,7 @@ Action | Format, Examples
 **Github** | `github INDEX g/GITHUB_URL` or `github STUDENT_ID g/GITHUB_URL`<br> e.g.,`github 2 g/https://github.com/alice`, `github A1234567B g/https://github.com/alice`
 **Repository** | `repo INDEX un/USERNAME rn/REPOSITORY_NAME` or `repo INDEX r/REPOSITORY_URL` or `repo STUDENT_ID un/USERNAME rn/REPOSITORY_NAME` or `repo STUDENT_ID r/REPOSITORY_URL` <br> e.g.,`repo 2 r/https://github.com/alice/repo`, `github A1234567B un/barb rn/new`
 **Open** | `open INDEX` or `open STUDENT_ID` <br> e.g., `open 3`, `open A7654321B`
-**Assignment** | `assignment n/NAME d/DATE` <br> e.g.,`assignment n/CS2103T Project d/30-01-2025`
+**Assignment** | `assignment n/NAME d/DATE` <br> e.g.,`assignment n/CS2103T Project d/30-10-2025`
 **View** | `view`
 **Assign** | `assign TIMED_EVENT_INDEX STUDENT_INDEX` or `assign TIMED_EVENT_INDEX STUDENT_ID` or `assign TIMED_EVENT_INDEX CLASS_NUMBER` <br> e.g., `assign 1 2`, `assign 2 A1234567B`,`assign 2 T03`
 **Unassign** | `unassign TIMED_EVENT_INDEX` <br> e.g., `unassign 1`
