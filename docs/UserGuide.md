@@ -372,7 +372,7 @@ Format: `view`
 Examples:<br>
 * `view` <br>
   Displays all timed events in the timed event list.
-* `view` followed by `assign 3 T01` <br>
+* `view` followed by `assign T01 3` <br>
   Displayed the timed event list, and assigns the 3rd timed event to all students in class T01.
 
 ![view_command](images/ViewCommand.png)
@@ -380,7 +380,7 @@ Examples:<br>
 
 **Assigns a timed event** using index in time event list to one or more students identified by their displayed index, student ID, or class number.
 
-Format: `assign TIMED_EVENT_INDEX STUDENT_INDEX` or `assign TIMED_EVENT_INDEX STUDENT_ID` or `assign TIMED_EVENT_INDEX CLASS_NUMBER`
+Format: `assign STUDENT_INDEX TIMED_EVENT_INDEX` or `assign STUDENT_ID TIMED_EVENT_INDEX` or `assign CLASS_NUMBER TIMED_EVENT_INDEX`
 
 * `TIMED_EVENT_INDEX`: The index of the timed event shown in the timed event list (must be a positive integer).
 * `STUDENT_INDEX`: The index of the student from the displayed student list (must be a positive integer).
@@ -388,13 +388,13 @@ Format: `assign TIMED_EVENT_INDEX STUDENT_INDEX` or `assign TIMED_EVENT_INDEX ST
 * `CLASS_NUMBER`: The tutorial/recitation/lab class number (e.g., T01, R05, L10, L20J).
 
 Examples:
-* `assign 1 2` <br>
+* `assign 2 1` <br>
   Assigns the first timed event to the 2nd student in the list.
 
-* `assign 2 A1234567B` <br>
+* `assign A1234567B 2` <br>
   Assigns the second timed event to the student with student ID A1234567B.
 
-* `assign 1 T01` <br>
+* `assign T01 1` <br>
   Assigns the first timed event to all students in class T01.
 
 ![assign_command](images/AssignCommand.png)
@@ -669,7 +669,7 @@ Action | Format, Examples
 **Open** | `open INDEX` or `open STUDENT_ID` <br> e.g., `open 3`, `open A7654321B`
 **Assignment** | `assignment n/NAME d/DATE` <br> e.g.,`assignment n/CS2103T Project d/30-10-2025`
 **View** | `view`
-**Assign** | `assign TIMED_EVENT_INDEX STUDENT_INDEX` or `assign TIMED_EVENT_INDEX STUDENT_ID` or `assign TIMED_EVENT_INDEX CLASS_NUMBER` <br> e.g., `assign 1 2`, `assign 2 A1234567B`,`assign 2 T03`
+**Assign** | `assign STUDENT_INDEX TIMED_EVENT_INDEX` or `assign STUDENT_ID TIMED_EVENT_INDEX` or `assign CLASS_NUMBER TIMED_EVENT_INDEX` <br> e.g., `assign 2 1`, `assign A1234567B 2`,`assign T03 2`
 **Unassign** | `unassign TIMED_EVENT_INDEX` <br> e.g., `unassign 1`
 **Import** | `import ABSOLUTE_FILE_PATH` <br> e.g., `import /Users/Alice/Documents/T01.csv` (Unix/mac), `import C:\Users\Alice\Documents\T01.csv` (Windows)
 **Export** | `export ABSOLUTE_FILE_PATH` <br> e.g., `export /Users/Alice/Documents/T01.csv` (Unix/mac), `export C:\Users\Alice\Documents\T01.csv` (Windows)
