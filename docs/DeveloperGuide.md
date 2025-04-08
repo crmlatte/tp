@@ -713,3 +713,5 @@ testers are expected to do more *exploratory* testing.
    This behavior will be improved in future versions of TAssist to provide more specific error messages.
 
 2. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
+3. Enhance the `unassign` command to support unassigning TimedEvents from individual students
+4. Add more preferences to `preferences.json` such as the maintaining the theme and the ratio of student display and the command area.
