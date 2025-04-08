@@ -106,6 +106,11 @@ If the browser does not open automatically, you can manually copy and paste the 
 
 Format: `help`
 
+<div markdown="span" class="alert alert-primary">
+💡 <strong>Tip:</strong> You can open also do this by pressing <code>F1</code>
+</div>
+
+
 ### Adding a student: `add`
 
 **Adds** a student to the student list.
