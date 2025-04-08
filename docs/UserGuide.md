@@ -95,7 +95,7 @@ TAssist is a **desktop application** for Teaching Assistants (TAs) from NUS Scho
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 
-* All parameters follow the rules as specified at [Parameters](#parameters)
+* Refer to [Parameters](#parameters) for more information.
 </div>
 
 ### Viewing help : `help`
@@ -573,7 +573,7 @@ Examples of valid emails:
 
 - Must follow the format `https://github.com/USERNAME`.
 - The base URL must be exactly `https://github.com/`.
-- Must be followed by a `/` and a valid GitHub username.
+- Must be followed by a valid GitHub username.
 
 `USERNAME`:
 - Be 1 to 39 characters long.
