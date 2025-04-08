@@ -580,7 +580,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* All the extensions from UC11 and UC12.
+* All the extensions from UC12 and UC13.
 
 *{More to be added}*
 
