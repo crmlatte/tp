@@ -1,6 +1,7 @@
 package tassist.address.logic.parser;
 
 import static tassist.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static tassist.address.logic.commands.CommandTestUtil.INVALID_STUDENT_ID;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_CLASS_NUMBER;
 import static tassist.address.logic.commands.CommandTestUtil.VALID_STUDENT_ID;
 import static tassist.address.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -57,7 +58,7 @@ public class AssignCommandParserTest {
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AssignCommand.MESSAGE_USAGE));
 
         // invalid student ID
-        assertParseFailure(parser, "A1234567 " + INDEX_SECOND_PERSON.getOneBased(),
+        assertParseFailure(parser, INVALID_STUDENT_ID + INDEX_SECOND_PERSON.getOneBased(),
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AssignCommand.MESSAGE_USAGE));
 
         // invalid class number

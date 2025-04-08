@@ -26,11 +26,11 @@ public class AssignCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Assigns a timed event to one or more students identified by by the index number "
             + "used in the displayed person list., student ID, or class number\n"
-            + "Parameters: TIMED_EVENT_INDEX (must be a positive integer) "
-            + "STUDENT_INDEX (must be a positive integer) or STUDENT_ID or CLASS_NUMBER\n"
-            + "Example: " + COMMAND_WORD + " 1 2"
-            + " or: " + COMMAND_WORD + " 1 A1234567B"
-            + " or: " + COMMAND_WORD + " 1 T01";
+            + "Parameters: \nSTUDENT_INDEX (must be a positive integer) or STUDENT_ID or CLASS_NUMBER\n"
+            + "TIMED_EVENT_INDEX (must be a positive integer)\n"
+            + "Example: \n" + COMMAND_WORD + " 1 2\n"
+            + "or: " + COMMAND_WORD + " A1234567B 1\n"
+            + "or: " + COMMAND_WORD + " T01 1";
 
     public static final String MESSAGE_ASSIGN_SUCCESS = "Assigned timed event to student: %1$s";
     public static final String MESSAGE_DUPLICATE_ASSIGNMENT = "This assignment is already assigned to the student";
