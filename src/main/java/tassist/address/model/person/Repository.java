@@ -27,7 +27,7 @@ public class Repository {
             + MESSAGE_USERNAME_VALIDITY
             + MESSAGE_REPOSITORY_NAME_VALIDITY
             + "Example:\n"
-            + "https://github.com/johnny-fargo/new.repo" // individual repo example
+            + "https://github.com/johnny-fargo/new.repo\n" // individual repo example
             + "https://github.com/AY2425S2-CS2103T-W12-4/tp"; // team repo example
 
     public static final String GITHUB_URL_REGEX = "^https://github\\.com/";
