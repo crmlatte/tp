@@ -649,6 +649,13 @@ Examples of valid project team values:
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
+3. Users must provide inputs according to the parameters specified in the User Guide. If an invalid or unrecognized parameter is used, TAssist will treat it as an error related to the previous valid parameter.<br>
+   For example: <br>
+   `assignment n/quiz pr/30 d/22-11-2027`<br>
+   `assignment n/quiz ab/xx d/22-11-2027`<br>
+   Both examples will result in an error message related to the `name` parameter:<br>
+   "Name should only contain alphanumeric characters and spaces, and it should not be blank."<br>
+   This is because pr/30 and ab/xx are not valid parameters for the assignment command.
 
 --------------------------------------------------------------------------------------------------------------------
 

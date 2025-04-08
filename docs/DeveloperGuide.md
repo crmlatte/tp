@@ -580,7 +580,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* All the extensions from UC11 and UC12.
+* All the extensions from UC12 and UC13.
 
 *{More to be added}*
 
@@ -664,3 +664,16 @@ testers are expected to do more *exploratory* testing.
    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
 1. _{ more test cases …​ }_
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **Planned Enhancement**
+1. Users must provide inputs according to the parameters specified in the User Guide. If an invalid or unrecognized parameter is used, TAssist will treat it as an error related to the previous valid parameter.<br>
+   For example: <br>
+   `assignment n/quiz pr/30 d/22-11-2027`<br>
+   `assignment n/quiz ab/xx d/22-11-2027`<br>
+   Both examples will result in an error message related to the `name` parameter:<br>
+   "Name should only contain alphanumeric characters and spaces, and it should not be blank."<br>
+   This is because pr/30 and ab/xx are not valid parameters for the assignment command.
+
+2. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
